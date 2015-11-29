@@ -1,0 +1,25 @@
+uniform sampler2D texture;
+uniform sampler2D background;
+
+uniform vec2 offset;
+uniform vec2 offset_image;
+
+void main()
+{ 	
+	vec2 background_size = textureSize(background, 0);
+	
+	vec2 texture_size = textureSize(texture, 0);
+	vec2 coord_brosse = gl_TexCoord[0].xy*background_size - offset + offset_image;
+	vec2 pos = coord_brosse/texture_size;
+	pos.y = 1-pos.y;
+
+	vec2 pos_back = gl_TexCoord[0].xy;
+	//pos_back.y = 1-pos_back.y;
+	
+	vec4 pixel_back = texture2D(background, pos_back);
+	
+	if (texture2D(texture, pos).a > 0)
+	{gl_FragColor.a = 0;}
+	else
+	{gl_FragColor = pixel_back;}
+}

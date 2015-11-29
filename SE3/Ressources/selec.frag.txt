@@ -1,0 +1,63 @@
+uniform sampler2D texture;
+uniform sampler2D brosse;
+uniform sampler2D background;
+
+uniform vec2 offset;
+uniform vec2 pos_brosse;
+
+uniform float opacity;
+uniform float mode;
+
+void main()
+{ 
+	vec4 color = gl_Color;
+	color.a = color.a * (opacity/255);
+	float alpha = texture2D(brosse, gl_TexCoord[0].xy).a;
+	
+	vec2 brosse_size = textureSize(brosse, 0);
+
+	vec2 texture_size = textureSize(texture, 0);
+	vec2 coord_brosse = gl_TexCoord[0].xy*brosse_size - offset + pos_brosse;
+	vec2 pos = coord_brosse/texture_size;
+	pos.y = 1-pos.y;
+	
+	vec2 background_size = textureSize(background, 0);
+	vec2 coord_brosse_back = gl_TexCoord[0].xy*brosse_size + pos_brosse;
+	vec2 pos_back = coord_brosse_back/background_size;
+	pos_back.y = 1-pos_back.y;
+	
+	vec4 pixel_back = texture2D(background, pos_back);
+	
+	if (mode == 0) //BlendNone GOMME
+	{
+		if (alpha == 0 || texture2D(texture, pos).a > 0)
+			gl_FragColor = pixel_back;
+		else
+			gl_FragColor = pixel_back*(1-alpha*(opacity/255));
+	}
+	else if (mode == 0.5) //BlendNone GOMME clic droit
+	{
+		if (alpha == 0 || texture2D(texture, pos).a > 0)
+			gl_FragColor = pixel_back;
+		else
+			gl_FragColor.a = 0;
+	}
+	else if (mode == 1) //BlendNone CRAYON
+	{
+		if (alpha == 0 || texture2D(texture, pos).a > 0)
+			gl_FragColor = pixel_back;
+		else
+			gl_FragColor = color;
+	}
+	else //Aero
+	{	
+		if (alpha == 0 || texture2D(texture, pos).a > 0)
+			gl_FragColor = pixel_back;
+		else
+		{
+			color.a = color.a * alpha;	
+			gl_FragColor.a = color.a + pixel_back.a*(1-color.a);
+			gl_FragColor.rgb = (color.rgb*color.a + pixel_back.rgb*pixel_back.a*(1-color.a))/gl_FragColor.a;
+		}
+	}
+}

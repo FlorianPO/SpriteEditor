@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Fichiers sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="MAIN">
+      <UniqueIdentifier>{f7cba122-ce0a-49b5-b6c1-31a184357f9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{5d2aa4fd-1a95-4c67-a552-b1726c4d13ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Retour">
+      <UniqueIdentifier>{34815c99-a120-481e-b27f-feeb5adadf24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Menu">
+      <UniqueIdentifier>{578ed508-4f73-415f-b381-182ece749ba1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Outils">
+      <UniqueIdentifier>{6318c5cd-75cd-49bc-b0d7-7e1a5f98b90f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fonctionnalités">
+      <UniqueIdentifier>{5beb9fcf-ea12-4880-a5af-ab42c7e2cfd0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="0MAIN0.cpp">
+      <Filter>MAIN</Filter>
+    </ClCompile>
+    <ClCompile Include="EnteredInput.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Retourable.cpp">
+      <Filter>Retour</Filter>
+    </ClCompile>
+    <ClCompile Include="Retour.cpp">
+      <Filter>Retour</Filter>
+    </ClCompile>
+    <ClCompile Include="Fonction.cpp">
+      <Filter>MAIN</Filter>
+    </ClCompile>
+    <ClCompile Include="Calque.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Hud.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="BoutonSwitch.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Bouton.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Res.cpp">
+      <Filter>MAIN</Filter>
+    </ClCompile>
+    <ClCompile Include="Var.cpp">
+      <Filter>MAIN</Filter>
+    </ClCompile>
+    <ClCompile Include="Panneau.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Arg.cpp">
+      <Filter>MAIN</Filter>
+    </ClCompile>
+    <ClCompile Include="Writter.cpp">
+      <Filter>MAIN</Filter>
+    </ClCompile>
+    <ClCompile Include="Curseur.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="BoutonSegment.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Gui.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="BoutonView.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Copy.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Selec.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Aero.cpp">
+      <Filter>Outils</Filter>
+    </ClCompile>
+    <ClCompile Include="Outil.cpp">
+      <Filter>Outils</Filter>
+    </ClCompile>
+    <ClCompile Include="Crayon.cpp">
+      <Filter>Outils</Filter>
+    </ClCompile>
+    <ClCompile Include="Brosse.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Gomme.cpp">
+      <Filter>Outils</Filter>
+    </ClCompile>
+    <ClCompile Include="Pot.cpp">
+      <Filter>Outils</Filter>
+    </ClCompile>
+    <ClCompile Include="RectSelec.cpp">
+      <Filter>Outils</Filter>
+    </ClCompile>
+    <ClCompile Include="BoutonActive.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="BoutonDisplay.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>MAIN</Filter>
+    </ClCompile>
+    <ClCompile Include="App.cpp">
+      <Filter>MAIN</Filter>
+    </ClCompile>
+    <ClCompile Include="OptionColor.cpp">
+      <Filter>Fonctionnalités</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteAnim.cpp">
+      <Filter>Fonctionnalités</Filter>
+    </ClCompile>
+    <ClCompile Include="Baguette.cpp">
+      <Filter>Outils</Filter>
+    </ClCompile>
+    <ClCompile Include="Move.cpp">
+      <Filter>Outils</Filter>
+    </ClCompile>
+    <ClCompile Include="Flip.cpp">
+      <Filter>Outils</Filter>
+    </ClCompile>
+    <ClCompile Include="Grand.cpp">
+      <Filter>Outils</Filter>
+    </ClCompile>
+    <ClCompile Include="Rotation.cpp">
+      <Filter>Outils</Filter>
+    </ClCompile>
+    <ClCompile Include="SelecColor.cpp">
+      <Filter>Outils</Filter>
+    </ClCompile>
+    <ClCompile Include="Snap.cpp">
+      <Filter>Outils</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Fichiers sources</Filter>
+    </ClInclude>
+    <ClInclude Include="EnteredInput.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Retourable.h">
+      <Filter>Retour</Filter>
+    </ClInclude>
+    <ClInclude Include="Retour.h">
+      <Filter>Retour</Filter>
+    </ClInclude>
+    <ClInclude Include="Calque.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Hud.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Fonction.h">
+      <Filter>MAIN</Filter>
+    </ClInclude>
+    <ClInclude Include="BoutonSwitch.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Arg.h">
+      <Filter>MAIN</Filter>
+    </ClInclude>
+    <ClInclude Include="Var.h">
+      <Filter>MAIN</Filter>
+    </ClInclude>
+    <ClInclude Include="Res.h">
+      <Filter>MAIN</Filter>
+    </ClInclude>
+    <ClInclude Include="Panneau.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Writter.h">
+      <Filter>MAIN</Filter>
+    </ClInclude>
+    <ClInclude Include="Curseur.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="BoutonSegment.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Gui.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="BoutonView.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Copy.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Selec.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Aero.h">
+      <Filter>Outils</Filter>
+    </ClInclude>
+    <ClInclude Include="Outil.h">
+      <Filter>Outils</Filter>
+    </ClInclude>
+    <ClInclude Include="Brosse.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Crayon.h">
+      <Filter>Outils</Filter>
+    </ClInclude>
+    <ClInclude Include="Gomme.h">
+      <Filter>Outils</Filter>
+    </ClInclude>
+    <ClInclude Include="Pot.h">
+      <Filter>Outils</Filter>
+    </ClInclude>
+    <ClInclude Include="RectSelec.h">
+      <Filter>Outils</Filter>
+    </ClInclude>
+    <ClInclude Include="BoutonActive.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="BoutonDisplay.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>MAIN</Filter>
+    </ClInclude>
+    <ClInclude Include="App.h">
+      <Filter>MAIN</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionColor.h">
+      <Filter>Fonctionnalités</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteAnim.h">
+      <Filter>Fonctionnalités</Filter>
+    </ClInclude>
+    <ClInclude Include="Baguette.h">
+      <Filter>Outils</Filter>
+    </ClInclude>
+    <ClInclude Include="Grand.h">
+      <Filter>Outils</Filter>
+    </ClInclude>
+    <ClInclude Include="Move.h">
+      <Filter>Outils</Filter>
+    </ClInclude>
+    <ClInclude Include="Rotation.h">
+      <Filter>Outils</Filter>
+    </ClInclude>
+    <ClInclude Include="Flip.h">
+      <Filter>Outils</Filter>
+    </ClInclude>
+    <ClInclude Include="SelecColor.h">
+      <Filter>Outils</Filter>
+    </ClInclude>
+    <ClInclude Include="Snap.h">
+      <Filter>Outils</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
