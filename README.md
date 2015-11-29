@@ -12,7 +12,7 @@ a beginner in C++).
 Years past and I decided to redo it with my new skills.
 I started this in January 2014, and it's still not over.
 This has nothing to do with what it used to be, since I started
-explointing OpenGL.
+exploiting OpenGL.
 
 History:
 
