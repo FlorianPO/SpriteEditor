@@ -17,8 +17,11 @@ explointing OpenGL.
 History:
 
 SE 1: first version of Sprite Editor ("childish" programming)
+
 SE 2: new version, fully using C++ and using OpenGL
+
 SE 3: adding a complete panel framework
+
 SE 4: revised version with fast and stable architecture (current version)
 
 Sprite Editor is meant to be as powerful, intuitive and simple as possible.
