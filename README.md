@@ -14,6 +14,8 @@ I started this in January 2015, and it's still not over.
 This has nothing to do with what it used to be, since I started
 exploiting OpenGL.
 
+![Image](https://github.com/FlorianPO/SpriteEditor/blob/master/Preview.png)
+
 History:
 
 SE 1: first version of Sprite Editor ("childish" programming)
