@@ -5,12 +5,12 @@ Sprite Editor is an old project: back in time I needed to draw
 sprite sheets and could hardly find a software able to display
 in real-time the animation I was editing.
 
-I performed this software 2 years ago with SFML, it was quickly 
+I performed this software 3 years ago with SFML, it was quickly 
 operationnal (2 weeks) but the programming was terrible (as I was
 a beginner in C++).
 
 Years past and I decided to redo it with my new skills.
-I started this in January 2014, and it's still not over.
+I started this in January 2015, and it's still not over.
 This has nothing to do with what it used to be, since I started
 exploiting OpenGL.
 
