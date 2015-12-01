@@ -1,5 +1,5 @@
 # SpriteEditor
-A powerful bitmap manipulating software meant for developpers.
+A powerful bitmap manipulating software meant for developpers
 
 Sprite Editor is an old project: back in time I needed to draw 
 sprite sheets and could hardly find a software able to display
@@ -16,7 +16,20 @@ exploiting OpenGL.
 
 ![Image](https://github.com/FlorianPO/SpriteEditor/blob/master/Preview.png)
 
-History:
+# How to run
+
+You can retrieve the Visual Studio project
+
+- System requirement: Windows 7+
+- IDE: Visual Studio 2013 (Community + ReSharper plugin, optionnal)
+<p>
+- Open **SE4.sln** in SE4\ with Visual Studio
+- Run it (CTRL + F5)
+
+An executable file is created in SE4\Release\. You may have to configure your graphic card to run it (GTX 860m here). Intel Graphics cards and shaders don't mix well. 
+
+
+# History
 
 SE 1: first version of Sprite Editor ("childish" programming)
 
@@ -31,5 +44,5 @@ It will provide tons of easy features meant to speed up graphical programming.
 
 The current situation is promising, since Sprite Editor is - a bit too much - fast and modular.
 
-Tags:
+# Tags
 C++, SFML, OpenGL, Visual Studio
