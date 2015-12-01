@@ -1,0 +1,44 @@
+﻿  0MAIN0.cpp
+  Aero.cpp
+  App.cpp
+  Arg.cpp
+  Baguette.cpp
+  BoutonActive.cpp
+  BoutonDisplay.cpp
+  BoutonSegment.cpp
+  BoutonSwitch.cpp
+  BoutonView.cpp
+  Brosse.cpp
+  Calque.cpp
+  Bouton.cpp
+  Copy.cpp
+  Crayon.cpp
+  Curseur.cpp
+  EnteredInput.cpp
+  Flip.cpp
+  Fonction.cpp
+  Gomme.cpp
+  Grand.cpp
+  Gui.cpp
+  Hud.cpp
+  Input.cpp
+  Move.cpp
+  OptionColor.cpp
+  Outil.cpp
+  Panneau.cpp
+  Pot.cpp
+  RectSelec.cpp
+  Res.cpp
+  Retour.cpp
+  Retourable.cpp
+  Rotation.cpp
+  Selec.cpp
+  SelecColor.cpp
+  Snap.cpp
+  SpriteAnim.cpp
+  stdafx.cpp
+  Var.cpp
+  Writter.cpp
+  Génération de code en cours
+  Fin de la génération du code
+  SE4.vcxproj -> C:\Users\Florian\Desktop\SE4\SE4\Release\SE4.exe
