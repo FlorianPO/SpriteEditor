@@ -24,6 +24,7 @@ private:
 	sf::Vector2i interval = sf::Vector2i(0, 255);
 	int ex_arg = -1;
 
+	sf::String string;
 	sf::RenderTexture render;
 };
 

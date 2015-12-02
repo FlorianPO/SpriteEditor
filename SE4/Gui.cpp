@@ -125,10 +125,12 @@ CGui::CGui(void)
 
 	fonction1 = new std::function<void(fonction_type)>([](fonction_type l) {return GUI->bouton_4_color_1[4]->setColor(VAR->color1);});
 	fonction2 = new std::function<void(fonction_type)>([](fonction_type l) {return GUI->bouton_4_color_2[4]->setColor(VAR->color2);});
+
+	sf::String tab[] = {"R ", "G ", "B ", "A "};
 	for (int i = 0; i < 4; i++)
 	{
-		bouton_4_color_1[i] = new CBoutonSegment(RES->getTexture(CRes::TEXTURE::none), sf::IntRect(0, 0, 49, 14), sf::Vector2f(64, 1 + 15 * i));
-		bouton_4_color_2[i] = new CBoutonSegment(RES->getTexture(CRes::TEXTURE::none), sf::IntRect(0, 0, 49, 14), sf::Vector2f(16, 65 + 15 * i));
+		bouton_4_color_1[i] = new CBoutonSegment(RES->getTexture(CRes::TEXTURE::none), sf::IntRect(0, 0, 49, 14), sf::Vector2f(64, 1 + 15 * i), CArg(tab[i]));
+		bouton_4_color_2[i] = new CBoutonSegment(RES->getTexture(CRes::TEXTURE::none), sf::IntRect(0, 0, 49, 14), sf::Vector2f(16, 65 + 15 * i), CArg(tab[i]));
 
 		if (i == 0)
 		{

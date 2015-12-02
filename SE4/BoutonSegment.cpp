@@ -9,7 +9,9 @@ CBoutonSegment::CBoutonSegment(const sf::Texture* texture, sf::IntRect rect, sf:
 		if (arg.is(i) == CArg::VECTOR_I)
 			interval = *static_cast<sf::Vector2i*>(arg.get(i));
 		else if (arg.is(i) == CArg::FLOAT)
-			addUnrefArg(*static_cast<FLOAT*>(arg.get(i)));
+			addUnrefArg(*static_cast<float*>(arg.get(i)));
+		else if (arg.is(i) == CArg::STRING)
+			string = *static_cast<sf::String*>(arg.get(i));
 		else
 			std::cout << "Erreur d'arguments dans CBoutonSegment pour " << this << std::endl;
 	}
@@ -55,7 +57,7 @@ bool CBoutonSegment::update(bool forceTo, bool force_var)
 		if (ex_arg != *static_cast<sf::Uint8*>((*arguments)[0]))
 		{
 			ex_arg = *static_cast<sf::Uint8*>((*arguments)[0]);
-			WRITTER->ecrire(*static_cast<sf::Uint8*>((*arguments)[0]), &render);
+			WRITTER->ecrire(string + WRITTER->intToString(int(*static_cast<sf::Uint8*>((*arguments)[0]))), &render);
 			useFonction();
 			return true;
 		}
@@ -65,7 +67,7 @@ bool CBoutonSegment::update(bool forceTo, bool force_var)
 		if (ex_arg != *static_cast<int*>((*arguments)[0]))
 		{
 			ex_arg = *static_cast<int*>((*arguments)[0]);
-			WRITTER->ecrire(*static_cast<int*>((*arguments)[0]), &render);
+			WRITTER->ecrire(string + WRITTER->intToString(*static_cast<int*>((*arguments)[0])), &render);
 			useFonction();
 			return true;
 		}
@@ -98,7 +100,7 @@ void CBoutonSegment::increment(int incr)
 			*static_cast<sf::Uint8*>((*arguments)[0]) = interval.x;
 		else
 			*static_cast<sf::Uint8*>((*arguments)[0]) += incr;
-		WRITTER->ecrire(*static_cast<sf::Uint8*>((*arguments)[0]), &render);
+		//WRITTER->ecrire(*static_cast<sf::Uint8*>((*arguments)[0]), &render);
 	}
 	else
 	{
@@ -108,7 +110,7 @@ void CBoutonSegment::increment(int incr)
 			*static_cast<int*>((*arguments)[0]) = interval.x;
 		else
 			*static_cast<int*>((*arguments)[0]) += incr;
-		WRITTER->ecrire(*static_cast<int*>((*arguments)[0]), &render);
+		//WRITTER->ecrire(*static_cast<int*>((*arguments)[0]), &render);
 	}
 	if (groupe != ONE_ALL)
 		useFonction();

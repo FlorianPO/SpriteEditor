@@ -64,6 +64,15 @@ CArg::CArg(float f, CArg a)
 	types = types_buffer;
 }
 
+CArg::CArg(sf::String s, CArg a)
+{
+	buffer.push_front(new sf::String(s));
+	types_buffer.push_front(STRING);
+
+	arg = buffer;
+	types = types_buffer;
+}
+
 CArg::~CArg(void)
 {
 	if (del)

@@ -13,7 +13,8 @@ public:
 		VECTOR_I,
 		VECTOR_F,
 		INT,
-		FLOAT
+		FLOAT,
+		STRING
 	};
 
 	CArg(void);
@@ -25,6 +26,7 @@ public:
 	CArg(sf::Vector2f f, CArg a = CArg());
 	CArg(int i, CArg a = CArg());
 	CArg(float f, CArg a = CArg());
+	CArg(sf::String s, CArg a = CArg());
 
 	inline TYPE is(int i) { return types[i]; }
 	inline void* get(int i) { del = true; return arg[i]; }
