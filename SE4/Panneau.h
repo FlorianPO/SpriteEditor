@@ -101,6 +101,9 @@ public:
 	inline void setArguments(fonction_type* a) { arguments = a; }
 	inline void setFonction(std::function<void(fonction_type)>* f) { fonction = f; }
 
+	inline void setMoveGroup(CPanneau* panneau) { move_group = panneau->move_group; }
+	void affectMoveGroup();
+
 private:
 	void scrollMe();
 
@@ -120,6 +123,8 @@ private:
 	bool scrolledDown = true;
 	bool scrolling = false;
 	bool scrollgoal;
+
+	int move_group = 0;
 
 	fonction_type* arguments = NULL;
 

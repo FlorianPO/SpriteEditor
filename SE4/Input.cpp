@@ -210,13 +210,13 @@ bool CInput::gerer()
 	delta_p = pixel_prec - pixel;
 
 	center_prec = center;
-	center = BROSSE->centerOf(pos);
+	center = pos;
 	 
 	pixel_prec = pixel;
 	pixel = sf::Vector2i(floor(pos.x), floor(pos.y));
 
-	key_combinaison[0] = type_advio{t[Ctrl], t[Maj], t[Alt], t[Space], key_pressed[0], getPressMode(key_pressed[0])};
-	key_combinaison[1] = type_advio{t[Ctrl], t[Maj], t[Alt], t[Space], key_pressed[1], getPressMode(key_pressed[1])};
+	key_combinaison[0] = {t[Ctrl], t[Maj], t[Alt], t[Space], key_pressed[0], getPressMode(key_pressed[0])};
+	key_combinaison[1] = {t[Ctrl], t[Maj], t[Alt], t[Space], key_pressed[1], getPressMode(key_pressed[1])};
 
 	for (int i = 0; i < LASTKEY; i++)
 		if (t_double[i] > 0)
@@ -239,13 +239,13 @@ void CInput::creer_retour()
 void CInput::ctrl_z()
 {
 	i_retour_click--;
-	ex_click = BROSSE->centerOf(retour_click[i_retour_click]);
+	ex_click = retour_click[i_retour_click];
 }
 
 void CInput::ctrl_y()
 {
 	i_retour_click++;
-	ex_click = BROSSE->centerOf(retour_click[i_retour_click]);
+	ex_click = retour_click[i_retour_click];
 }
 
 void CInput::delete_retour()
@@ -253,17 +253,15 @@ void CInput::delete_retour()
 	retour_click.erase(retour_click.begin() + i_retour_click + 1, retour_click.end());
 }
 
-sf::Vector2f CInput::getPreviousCenterClick()
+void CInput::checkCenter(sf::Vector2f* ptr_vect)
 {
-	if (BROSSE->getSize().x % 2 == 0 && int(ex_click.x) != ex_click.x)
-		ex_click.x = int(ex_click.x);
-	else if (BROSSE->getSize().x % 2 != 0 && int(ex_click.x) == ex_click.x)
-		ex_click.x += 0.5f;
+	if (BROSSE->getSize().x % 2 == 0 && int(ptr_vect->x) != ptr_vect->x)
+		ptr_vect->x = int(ptr_vect->x);
+	else if (BROSSE->getSize().x % 2 != 0 && int(ptr_vect->x) == ptr_vect->x)
+		ptr_vect->x += 0.5f;
 
-	if (BROSSE->getSize().y % 2 == 0 && int(ex_click.y) != ex_click.y)
-		ex_click.y = int(ex_click.y);
-	else if (BROSSE->getSize().y % 2 != 0 && int(ex_click.y) == ex_click.y)
-		ex_click.y += 0.5f;
-
-	return ex_click;
+	if (BROSSE->getSize().y % 2 == 0 && int(ptr_vect->y) != ptr_vect->y)
+		ptr_vect->y = int(ptr_vect->y);
+	else if (BROSSE->getSize().y % 2 != 0 && int(ptr_vect->y) == ptr_vect->y)
+		ptr_vect->y += 0.5f;
 }

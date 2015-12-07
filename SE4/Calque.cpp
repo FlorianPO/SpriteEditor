@@ -53,8 +53,13 @@ CCalque::CCalque(sf::Texture* texture_var)
 
 	panneau->group(GUI->getPanneauAboveCalque());
 	if (nbrCalque() == 0)
+	{
 		GUI->getPanneauBelowCalque()->group(panneau);
-
+		panneau->affectMoveGroup();
+	}
+	else
+		panneau->setMoveGroup(calque_list[0]->panneau);
+		
 	//Création du ctrl-z / ctrl-y
 	i_retour_type = -1;
 	i_retour_image = -1;

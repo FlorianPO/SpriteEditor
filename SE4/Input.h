@@ -94,9 +94,11 @@ public:
 	inline sf::Vector2i getDeltaMouse() { return delta_m; }
 	inline sf::Vector2i getDeltaPixel() { return delta_p; }
 
-	inline sf::Vector2f getCenter() { return center; }
-	inline sf::Vector2f getPreviousCenter() { return center_prec; }
-	sf::Vector2f getPreviousCenterClick();
+	sf::Vector2f getCenter() { checkCenter(&center); return center; }
+	sf::Vector2f getPreviousCenter() { checkCenter(&center_prec); return center_prec; }
+	sf::Vector2f getPreviousCenterClick() { checkCenter(&ex_click); return ex_click; }
+	void checkCenter(sf::Vector2f* ptr_vect);
+	
 	inline void setExClick(sf::Vector2f position) { ex_click = position; }
 
 	bool isCMA();

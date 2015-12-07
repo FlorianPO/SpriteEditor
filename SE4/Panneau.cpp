@@ -293,6 +293,13 @@ void CPanneau::setPredicatScroll(std::function<int(fonction_type)>* p)
 	sprite.setTextureRect(sf::IntRect(0, 0, sprite.getTextureRect().width, offset));
 }
 
+void CPanneau::affectMoveGroup()
+{
+	static int move_group_count = 0;
+	move_group_count ++;
+	move_group = move_group_count;
+}
+
 void CPanneau::scrollMe()
 {
 	if (scrollgoal == true)
