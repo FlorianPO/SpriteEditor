@@ -228,7 +228,7 @@ void CApp::gerer()
 			}
 	}
 
-	if (!CHud::onHud())
+	if (!CHud::onHud() && !CHud::busy())
 	{
 		//Utiliser l'outil
 		if (OUTIL != NULL && COPY == NULL || COPY != NULL && COutil::isTransform())

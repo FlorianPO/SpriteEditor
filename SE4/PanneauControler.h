@@ -27,7 +27,6 @@ public:
 	public:		inline void addFunction(std::function<void(int, int)>* function) {function_list.push_back(function);}
 																	private:	std::vector<std::function<void(int, int)>*> function_list;	
 private:
-	void move();
 	void end_move();
 	int global_moving = 0;
 

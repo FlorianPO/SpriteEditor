@@ -15,6 +15,7 @@ public:
 	virtual bool test() {return false;}
 	virtual void position() {}
 
+	static bool busy();
 	static void killMe(CHud* ptr);
 	static void addMe(CHud* ptr) {hud_liste.push_back(ptr);}
 	static void afficherHud();

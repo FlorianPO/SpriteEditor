@@ -8,6 +8,11 @@ CHud::CHud(void) {force_scaling = true;}
 
 CHud::~CHud(void) {}
 
+bool CHud::busy()
+{
+	return !PANEL_CONTROLER->justAClick();
+}
+
 void CHud::killMe(CHud* ptr)
 {
 	for (int i=0; i < hud_liste.size(); i++)

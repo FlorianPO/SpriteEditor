@@ -56,11 +56,10 @@ void PanneauControler::gerer()
 
 					break;
 				}
-
+	}
+	if (global_moving > 0)
 		if (IO->released(CInput::MLeft))
 			end_move();
-	}
-	
 }
 
 void PanneauControler::end_move()
