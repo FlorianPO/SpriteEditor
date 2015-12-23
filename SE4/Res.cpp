@@ -18,6 +18,9 @@ CRes::CRes(void)
 	sprite[alpha_gimp] = sf::Sprite(texture[panneau]);
 	sprite[alpha_gimp].setTextureRect(sf::IntRect(220, 192, 200, 108));
 	
+	sprite[panel_separator] = sf::Sprite(texture[panneau]);
+	sprite[panel_separator].setTextureRect(sf::IntRect(1, 436, 129, 1));
+
 	sprite[sprite_white] = sf::Sprite(texture[none]);
 
 	//Shaders

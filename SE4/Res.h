@@ -27,6 +27,7 @@ public:
 	{
 		alpha_gimp = 0,
 		sprite_white,
+		panel_separator,
 		LAST_SPRITE
 	};
 

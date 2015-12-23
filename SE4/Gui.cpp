@@ -303,7 +303,7 @@ CGui::CGui(void)
 		GUI->panneau_8->afficher();
 		GUI->panneau_9->afficher();
 
-		for (int i = 0; i < CALQUE_LIST.size(); i++)
+		for (int i = CALQUE_LIST.size()-1; i >= 0; i--)
 			CALQUE_LIST[i]->getPanneau()->afficher();
 	});
 

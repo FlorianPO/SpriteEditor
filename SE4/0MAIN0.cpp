@@ -33,6 +33,7 @@ your static variables.
 */
 void init()
 {
+	PANEL_CONTROLER = new PanneauControler();
 	APP = new CApp();
 	VAR = new CVar();
 	RES = new CRes();
@@ -78,6 +79,7 @@ void free()
 	delete WRITTER;
 	delete IO;
 	delete ADVIO;
+	delete PANEL_CONTROLER;
 }
 
 /*

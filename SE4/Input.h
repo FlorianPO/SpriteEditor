@@ -70,6 +70,7 @@ public:
 
 	//Touche
 	bool pressed(Key key);
+	bool released(Key key);
 	bool log(Key key);
 	bool again(Key key);
 	bool double_tap(Key key);
@@ -85,6 +86,9 @@ public:
 
 	inline sf::Vector2f getPosition() { return pos; }
 	inline sf::Vector2f getPreviousPosition() { return pos_prec; }
+
+	inline sf::Vector2i getScreenPosition() { return pos_m; }
+	inline sf::Vector2i getPreviousScreenPosition() { return pos_prec_m; }
 
 	inline int* getRefPos_x() { return &pixel.x; }
 	inline int* getRefPos_y() { return &pixel.y; }
@@ -109,6 +113,7 @@ private:
 	sf::Event event;
 
 	int t[LASTMOUSE];
+	int t_release[LASTMOUSE];
 	int t_double[LASTMOUSE];
 	int t_double_start_frame[LASTMOUSE];
 

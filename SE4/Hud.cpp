@@ -1,4 +1,5 @@
 #include "Hud.h"
+#include "Panneau.h"
 
 std::vector<CHud*> CHud::hud_liste;
 bool CHud::force_scaling;
@@ -99,11 +100,11 @@ void CHud::gererHud(float factor_zoom, bool force)
 		else
 			(*hud_liste[i]->f_update)();
 		
-
 		if (hud_liste.size() < ex_size)
 		{
 			i -= ex_size - hud_liste.size();
 			ex_size = hud_liste.size();
 		}
-	}	
+	}
+	PANEL_CONTROLER->gerer();
 }

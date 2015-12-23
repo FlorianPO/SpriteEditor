@@ -2,6 +2,8 @@
 
 #include "stdafx.h"
 #include "Hud.h"
+#include "Retourable.h"
+#include "PanneauControler.h" 
 
 class CPanneau;
 
@@ -14,126 +16,136 @@ public:
 		ONE,
 		ONE_ALL
 	};
-	void updateGroup();
-
+	
 	CBouton(const sf::Texture* texture, sf::IntRect rect, sf::Vector2f pos);
 	virtual ~CBouton(void) = 0;
-
-	bool onSprite();
-	void group(CBouton* with, GROUP grp);
 
 	virtual bool gerer() {return false;}
 	virtual bool update(bool forceTo = false, bool force_var = true) {return false;}
 	virtual void draw(sf::RenderTexture* render) = 0;
+
+	//Group
+	public:		void group(CBouton* with, GROUP grp);	
+				void updateGroup();
+												protected:	GROUP groupe;
 	
-	void useFonction();
-	int usePredicat();
+	//Sprite
+	public:		bool onSprite();		
+				inline void setColor(sf::Color c) { sprite.setColor(c); }
+				
+												protected:	sf::Sprite sprite;
+															sf::Color color = sf::Color::White;
+															sf::IntRect rect;
 
-	inline void setParent(CPanneau* p) { parent = p; }
-	inline void setColor(sf::Color c) { sprite.setColor(c); }
+	public:		inline void setParent(CPanneau* p) { parent = p; }		
+				inline CPanneau* getParent() { return parent; }
 
-	void addUnrefArg(int arg);
-	inline void setPredicat(std::function<int(fonction_type)>* p) { predicat = p; }
-	inline void setFonction(std::function<void(fonction_type)>* f) { fonction = f; }
-	inline void setArguments(fonction_type* a) { arguments = a; }
+												protected:	CPanneau* parent;
 
-	void replaceArgument(fonction_type* a);
-	void cancelArgumentReplacement();
+	//Core members
+	public:		inline void setPredicat(std::function<int(fonction_type)>* p) { predicat = p; }	
+				inline std::function<int(fonction_type)>* getPredicat() { return predicat; }
+				int usePredicat();
+	public:		inline void setFonction(std::function<void(fonction_type)>* f) { fonction = f; }
+				inline std::function<void(fonction_type)>* getFonction() { return fonction; }
+				void useFonction();
+	public:		inline void setArguments(fonction_type* a) { arguments = a; }
+				inline fonction_type* getArguments(fonction_type* a) { return arguments; }
+				void addUnrefArg(int arg);
+												protected:	std::function<int(fonction_type)>* predicat = NULL;
+															std::function<void(fonction_type)>* fonction = NULL;
+															fonction_type* arguments = NULL;
+															std::vector<int> unreferenced_arguments;
 
-	inline std::function<int(fonction_type)>* getPredicat() { return predicat; }
-	inline std::function<void(fonction_type)>* getFonction() { return fonction; }
-	inline fonction_type* getArguments(fonction_type* a) { return arguments; }
+	//Replace the argument until wish
+	public:		void replaceArgument(fonction_type* a);	
+				void cancelArgumentReplacement();
 
+												protected:	fonction_type* ex_arguments = NULL;
+	
 protected:
-	CPanneau* parent;
-
-	sf::Sprite sprite;
-	sf::Color color = sf::Color::White;
-	sf::IntRect rect;
-	GROUP groupe;
-
-	std::function<int(fonction_type)>* predicat = NULL;
-	std::function<void(fonction_type)>* fonction = NULL;
-	fonction_type* arguments = NULL;
-	fonction_type* ex_arguments = NULL;
-	std::vector<int> unreferenced_arguments;
-
 	bool init = true;
-	
 };
 
-class CPanneau : public CHud
+
+
+
+
+
+
+
+
+
+
+#define PANEL_LIST CPanneau::panneau_list
+class CPanneau : public CHud, public CRetourable
 {
 public:
-	void zoom(float z) override;
-	void afficher() override;
-	bool test() override;
-	void gerer() override;
-	void update() override;
-
-	bool testButtons();
+//STATIC//
+	static std::vector<std::vector<CPanneau*>> panneau_list;
 
 	static bool testPanneau();
 	static void gererPanneau();
 	static void afficherPanneau();
-private:
-	static std::vector<std::vector<CPanneau*>> panneau_list;
-public:
+	static int whichPosition(CPanneau* panneau);
+//
+
 	CPanneau(const sf::Texture* texture, sf::IntRect rect, CPanneau* with = NULL, sf::IntRect swap = sf::IntRect());
 	~CPanneau(void);
 
+	void zoom(float z) override;
 	inline float getZoom() { return sprite.getScale().x; }
 
-	void group(CPanneau* with);
-	void unGroup();
-
-	void addBouton(CBouton* b, CBouton* with = NULL, CBouton::GROUP groupe = CBouton::NONE);
+	void afficher() override;
+	bool test() override;
+	void gerer() override;
+	void update() override;
 	void draw();
 
-	void setPosition(sf::Vector2f pos);
+	//Sprite
+	public:		inline const sf::Sprite* getSprite() { return &sprite; }
+	public:		inline sf::Vector2f getPosition() { return sprite.getPosition(); }
+				void setPosition(sf::Vector2f pos);
 
-	inline sf::Vector2f getPosition() { return sprite.getPosition(); }
-	inline const sf::Sprite* getSprite() { return &sprite; }
+												private:	sf::Sprite sprite;
+															sf::Vector2i size_ini;		//Size of the sprite's texture
+															sf::Sprite sprite_fond;
+															sf::IntRect rect;
+															sf::RenderTexture render;
+	//Core
+	public:		void setPredicatScroll(std::function<int(fonction_type)>* p);
+				inline void setPredicatSwap(std::function<int(fonction_type)>* p) { predicatSwap = p; }
+				inline void setFonction(std::function<void(fonction_type)>* f) { fonction = f; }
+				inline void setArguments(fonction_type* a) { arguments = a; }
 
-	std::vector<CBouton*>* getBoutonList(CBouton* bouton);
-	void setPredicatScroll(std::function<int(fonction_type)>* p);
-	inline void setPredicatSwap(std::function<int(fonction_type)>* p) { predicatSwap = p; }
-	inline void setArguments(fonction_type* a) { arguments = a; }
-	inline void setFonction(std::function<void(fonction_type)>* f) { fonction = f; }
+												private:	std::function<int(fonction_type)>* predicatScroll = NULL;
+																void scrollMe();
+																	bool scrolledDown = true;
+																	bool scrolling = false;
+																	bool scrollgoal;
+																	float offset = 0;
+															std::function<int(fonction_type)>* predicatSwap = NULL;
+																sf::IntRect swap; //For a 2 stated pannel
+																bool swap_etat = false; //Swaped or not
+															std::function<void(fonction_type)>* fonction = NULL;
+															fonction_type* arguments = NULL;
+	//Group
+	public:		void group(CPanneau* with);
+				void unGroup();
+				int getGroup() { return which_group; }
 
-	inline void setMoveGroup(CPanneau* panneau) { move_group = panneau->move_group; }
-	void affectMoveGroup();
+												private:	int which_group;
+	//Move group
+	public:		inline void setMoveGroup(CPanneau* panneau) { move_group = panneau->move_group; }
+				void affectMoveGroup(std::function<void(int, int)>* function = NULL);
+				int getMoveGroup() { return move_group; }
 
-private:
-	void scrollMe();
-
-	std::vector<std::vector<CBouton*>> bouton_list;
-	sf::RenderTexture render;
-
-	sf::Sprite sprite_fond;
-	sf::Sprite sprite;
-
+												private:	int move_group = 0;
+	//Buttons
+	public:		void addBouton(CBouton* b, CBouton* with = NULL, CBouton::GROUP groupe = CBouton::NONE);
+				std::vector<CBouton*>* getBoutonList(CBouton* bouton);
+	public:		bool testButtons();
+												private:		std::vector<std::vector<CBouton*>> bouton_list;
 private:
 	bool ini = true;
-	float offset = 0;
-	sf::Vector2i size_ini;
-	int which_group;
-
-	std::function<int(fonction_type)>* predicatScroll = NULL;
-	bool scrolledDown = true;
-	bool scrolling = false;
-	bool scrollgoal;
-
-	int move_group = 0;
-
-	fonction_type* arguments = NULL;
-
-	sf::IntRect rect; //Primal rect of the pannel
-
-	//SWAP//
-	sf::IntRect swap; //For a 2 stated pannel
-	bool swap_etat = false; //Swaped or not
-	std::function<int(fonction_type)>* predicatSwap = NULL;
-
-	std::function<void(fonction_type)>* fonction = NULL;
 };

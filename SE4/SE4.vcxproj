@@ -83,6 +83,8 @@
     <ClCompile Include="Brosse.cpp" />
     <ClCompile Include="Calque.cpp" />
     <ClCompile Include="Bouton.cpp" />
+    <ClCompile Include="Calque_static.cpp" />
+    <ClCompile Include="Calque_transf.cpp" />
     <ClCompile Include="Copy.cpp" />
     <ClCompile Include="Crayon.cpp" />
     <ClCompile Include="Curseur.cpp" />
@@ -98,6 +100,9 @@
     <ClCompile Include="OptionColor.cpp" />
     <ClCompile Include="Outil.cpp" />
     <ClCompile Include="Panneau.cpp" />
+    <ClCompile Include="PanneauControler.cpp" />
+    <ClCompile Include="PanneauControler_retour.cpp" />
+    <ClCompile Include="Panneau_static.cpp" />
     <ClCompile Include="Pot.cpp" />
     <ClCompile Include="RectSelec.cpp" />
     <ClCompile Include="Res.cpp" />
@@ -107,6 +112,7 @@
     <ClCompile Include="Selec.cpp" />
     <ClCompile Include="SelecColor.cpp" />
     <ClCompile Include="Snap.cpp" />
+    <ClCompile Include="Calque_retour.cpp" />
     <ClCompile Include="SpriteAnim.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Var.cpp" />
@@ -139,6 +145,7 @@
     <ClInclude Include="OptionColor.h" />
     <ClInclude Include="Outil.h" />
     <ClInclude Include="Panneau.h" />
+    <ClInclude Include="PanneauControler.h" />
     <ClInclude Include="Pot.h" />
     <ClInclude Include="RectSelec.h" />
     <ClInclude Include="Res.h" />

@@ -23,6 +23,12 @@
     <Filter Include="Fonctionnalités">
       <UniqueIdentifier>{5beb9fcf-ea12-4880-a5af-ab42c7e2cfd0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Calque">
+      <UniqueIdentifier>{b79548bf-8b79-4d70-b2b1-e44581675599}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Menu\Panneau">
+      <UniqueIdentifier>{50a8c0ec-adf1-4318-a60b-f0f919377fd5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -43,9 +49,6 @@
     <ClCompile Include="Fonction.cpp">
       <Filter>MAIN</Filter>
     </ClCompile>
-    <ClCompile Include="Calque.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Hud.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -60,9 +63,6 @@
     </ClCompile>
     <ClCompile Include="Var.cpp">
       <Filter>MAIN</Filter>
-    </ClCompile>
-    <ClCompile Include="Panneau.cpp">
-      <Filter>Menu</Filter>
     </ClCompile>
     <ClCompile Include="Arg.cpp">
       <Filter>MAIN</Filter>
@@ -148,6 +148,30 @@
     <ClCompile Include="Snap.cpp">
       <Filter>Outils</Filter>
     </ClCompile>
+    <ClCompile Include="Calque.cpp">
+      <Filter>Source\Calque</Filter>
+    </ClCompile>
+    <ClCompile Include="Calque_static.cpp">
+      <Filter>Source\Calque</Filter>
+    </ClCompile>
+    <ClCompile Include="Calque_transf.cpp">
+      <Filter>Source\Calque</Filter>
+    </ClCompile>
+    <ClCompile Include="Calque_retour.cpp">
+      <Filter>Source\Calque</Filter>
+    </ClCompile>
+    <ClCompile Include="Panneau.cpp">
+      <Filter>Menu\Panneau</Filter>
+    </ClCompile>
+    <ClCompile Include="PanneauControler.cpp">
+      <Filter>Menu\Panneau</Filter>
+    </ClCompile>
+    <ClCompile Include="Panneau_static.cpp">
+      <Filter>Menu\Panneau</Filter>
+    </ClCompile>
+    <ClCompile Include="PanneauControler_retour.cpp">
+      <Filter>Menu\Panneau</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -161,9 +185,6 @@
     </ClInclude>
     <ClInclude Include="Retour.h">
       <Filter>Retour</Filter>
-    </ClInclude>
-    <ClInclude Include="Calque.h">
-      <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Hud.h">
       <Filter>Source</Filter>
@@ -182,9 +203,6 @@
     </ClInclude>
     <ClInclude Include="Res.h">
       <Filter>MAIN</Filter>
-    </ClInclude>
-    <ClInclude Include="Panneau.h">
-      <Filter>Menu</Filter>
     </ClInclude>
     <ClInclude Include="Writter.h">
       <Filter>MAIN</Filter>
@@ -266,6 +284,15 @@
     </ClInclude>
     <ClInclude Include="Snap.h">
       <Filter>Outils</Filter>
+    </ClInclude>
+    <ClInclude Include="Calque.h">
+      <Filter>Source\Calque</Filter>
+    </ClInclude>
+    <ClInclude Include="Panneau.h">
+      <Filter>Menu\Panneau</Filter>
+    </ClInclude>
+    <ClInclude Include="PanneauControler.h">
+      <Filter>Menu\Panneau</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

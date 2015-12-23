@@ -12,6 +12,7 @@ CInput::CInput(void)
 		t[i] = 0;
 		t_double[i] = 0;
 		t_double_start_frame[i] = 0;
+		t_release[i] = 0;
 	}
 
 	io_to_sfml[Ctrl] = sf::Keyboard::LControl;
@@ -69,6 +70,8 @@ void CInput::ini_pos(sf::Vector2i var_pos)
 }
 
 bool CInput::pressed(Key key) {return t[key];}
+
+bool CInput::released(Key key) {return t_release[key];}
 
 bool CInput::log(Key key) {return t[key] == 1 || t[key] > tempo;}
 
@@ -150,6 +153,19 @@ int CInput::id_of(type_advio key_comb)
 //MAIN FONCTION
 bool CInput::gerer()
 {
+	for (int i = 0; i < LASTKEY; i++)
+	{
+		t_release[i] = 0;
+		if (t_double[i] > 0)
+			t_double[i]--;
+	}
+	for (int i = LASTKEY+1; i < LASTMOUSE; i++)
+	{
+		t_release[i] = 0;
+		if (t_double[i] > 0)
+			t_double[i]--;
+	}
+
 	Key key_pressed[2] = {LASTKEY, LASTKEY};
 	int i_kp = 0;
 
@@ -177,11 +193,11 @@ bool CInput::gerer()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) { return true; } //Quitter
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) { t[MLeft]++; key_pressed[i_kp] = MLeft; i_kp++;}
-	else { if (t[MLeft]) { t_double[MLeft] = tempo_d; } t[MLeft] = 0; t_double_start_frame[MLeft] = 0; }
+	else { if (t[MLeft]) { t_double[MLeft] = tempo_d; t_release[MLeft] = 1; } t[MLeft] = 0; t_double_start_frame[MLeft] = 0; }
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) { t[MRight]++; key_pressed[i_kp] = MRight; i_kp++;}
-	else { if (t[MRight]) { t_double[MRight] = tempo_d; } t[MRight] = 0; t_double_start_frame[MRight] = 0; }
+	else { if (t[MRight]) { t_double[MRight] = tempo_d; t_release[MRight] = 1; } t[MRight] = 0; t_double_start_frame[MRight] = 0; }
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Middle)) { t[MMiddle]++; key_pressed[i_kp] = MMiddle; i_kp++;}
-	else { if (t[MMiddle]) { t_double[MMiddle] = tempo_d; } t[MMiddle] = 0; t_double_start_frame[MMiddle] = 0; }
+	else { if (t[MMiddle]) { t_double[MMiddle] = tempo_d; t_release[MMiddle] = 1; } t[MMiddle] = 0; t_double_start_frame[MMiddle] = 0; }
 	
 	for (int i=0; i < LASTKEY; i++)
 		if (sf::Keyboard::isKeyPressed(io_to_sfml[i]))
@@ -196,7 +212,10 @@ bool CInput::gerer()
 		else 
 		{
 			if (t[i])
+			{
 				t_double[i] = tempo_d;
+				t_release[MMiddle] = 1;
+			}
 			t[i] = 0;
 			t_double_start_frame[i] = 0;
 		}
@@ -217,13 +236,6 @@ bool CInput::gerer()
 
 	key_combinaison[0] = {t[Ctrl], t[Maj], t[Alt], t[Space], key_pressed[0], getPressMode(key_pressed[0])};
 	key_combinaison[1] = {t[Ctrl], t[Maj], t[Alt], t[Space], key_pressed[1], getPressMode(key_pressed[1])};
-
-	for (int i = 0; i < LASTKEY; i++)
-		if (t_double[i] > 0)
-			t_double[i]--;
-	for (int i = LASTKEY+1; i < LASTMOUSE; i++)
-		if (t_double[i] > 0)
-			t_double[i]--;
 
 	return false;
 }

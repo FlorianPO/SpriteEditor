@@ -3,6 +3,7 @@
 #include "Input.h"
 #include "App.h"
 #include "Fonction.h"
+#include "Retour.h"
 
 std::vector<std::vector<CPanneau*>> CPanneau::panneau_list;
 
@@ -12,10 +13,15 @@ void CPanneau::zoom(float z) {sprite.setScale(z, z);}
 
 bool CPanneau::test() {return CFonction::onSprite(&sprite);}
 
-void CPanneau::afficher() {APP->fenetre.draw(sprite);}
+void CPanneau::afficher()
+{
+	APP->fenetre.draw(sprite);
+	PANEL_CONTROLER->afficher(this);
+}
 
 void CPanneau::gerer()
 {
+	bool var = false;
 	//Test buttons if totally scrolled down
 	if (scrolledDown == true)
 		for (int i = 0; i < bouton_list.size(); i++)
@@ -25,15 +31,20 @@ void CPanneau::gerer()
 					for (int k = j + 1; k < bouton_list[i].size(); k++)
 						bouton_list[i][k]->gerer();
 					bouton_list[i][j]->updateGroup();
+					var = true;
 					break;
 				}
 
-	//Fonction if pannel clicked on
-	if (fonction != NULL)
-		if (!testButtons() && IO->again(CInput::MLeft) && CFonction::onSprite(&sprite))
-			(*fonction)(*arguments);
-
-	update();
+	if (!var)
+	{
+		if (move_group != 0)
+			PANEL_CONTROLER->test(this);
+			
+		if (IO->released(CInput::MLeft))
+			if (PANEL_CONTROLER->justAClick())
+				if (fonction != NULL && CFonction::onSprite(&sprite))
+					(*fonction)(*arguments);
+	}
 }
 
 void CPanneau::update()
@@ -77,69 +88,11 @@ void CPanneau::update()
 			for (int j = 0; j < bouton_list[i].size(); j++)
 				if (bouton_list[i][j]->update())
 					var = true;
-				
+
 	//Render panel
 	if (var || ini) draw();
 	ini = false;
 }
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-bool CPanneau::testPanneau()
-{
-	for (int i = 0; i < panneau_list.size(); i++)
-		for (int j = 0; j < panneau_list[i].size(); j++)
-			if (panneau_list[i][j]->test())
-				return true;
-	return false;
-}
-
-void CPanneau::gererPanneau()
-{
-	static int ex_size = panneau_list.size();
-	for (int i = 0; i < panneau_list.size(); i++)
-	{
-		static int ex_size_1 = panneau_list[i].size();
-		for (int j = 0; j < panneau_list[i].size(); j++)
-		{
-			panneau_list[i][j]->gerer();
-
-			if (panneau_list.size() < ex_size)
-			{
-				i -= ex_size - panneau_list.size();
-				ex_size = panneau_list.size();
-				j = 0;
-			}
-			else if (panneau_list[i].size() < ex_size_1)
-			{
-				j -= ex_size_1 - panneau_list[i].size();
-				ex_size_1 = panneau_list[i].size();
-			}
-		}
-	}
-}
-
-void CPanneau::afficherPanneau()
-{
-	for (int i = 0; i < panneau_list.size(); i++)
-		for (int j = 0; j < panneau_list[i].size(); j++)
-			panneau_list[i][j]->afficher();
-}
-
-bool CPanneau::testButtons()
-{
-	for (int i = 0; i < bouton_list.size(); i++)
-		for (int j = 0; j < bouton_list[i].size(); j++)
-			if (bouton_list[i][j]->onSprite())
-				return true;
-	return false;
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 CPanneau::CPanneau(const sf::Texture* texture, sf::IntRect rect, CPanneau* with, sf::IntRect swap)
 {
@@ -201,8 +154,6 @@ void CPanneau::addBouton(CBouton* b, CBouton* with, CBouton::GROUP groupe)
 	else
 		bouton_list.push_back(std::vector<CBouton*> {b});
 }
-
-
 
 void CPanneau::draw()
 {
@@ -293,11 +244,13 @@ void CPanneau::setPredicatScroll(std::function<int(fonction_type)>* p)
 	sprite.setTextureRect(sf::IntRect(0, 0, sprite.getTextureRect().width, offset));
 }
 
-void CPanneau::affectMoveGroup()
+void CPanneau::affectMoveGroup(std::function<void(int, int)>* function)
 {
 	static int move_group_count = 0;
 	move_group_count ++;
 	move_group = move_group_count;
+
+	PANEL_CONTROLER->addFunction(function);
 }
 
 void CPanneau::scrollMe()
