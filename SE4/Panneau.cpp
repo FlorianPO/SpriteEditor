@@ -41,7 +41,7 @@ void CPanneau::gerer()
 			PANEL_CONTROLER->test(this);
 			
 		if (IO->released(CInput::MLeft))
-			if (PANEL_CONTROLER->justAClick())
+			if (PANEL_CONTROLER->busy())
 				if (fonction != NULL && CFonction::onSprite(&sprite))
 					(*fonction)(*arguments);
 	}
@@ -155,6 +155,24 @@ void CPanneau::addBouton(CBouton* b, CBouton* with, CBouton::GROUP groupe)
 		bouton_list.push_back(std::vector<CBouton*> {b});
 }
 
+bool CPanneau::testButtons()
+{
+	for (int i = 0; i < bouton_list.size(); i++)
+		for (int j = 0; j < bouton_list[i].size(); j++)
+			if (bouton_list[i][j]->onSprite())
+				return true;
+	return false;
+}
+
+std::vector<CBouton*>* CPanneau::getBoutonList(CBouton* bouton)
+{
+	for (int i = 0; i < bouton_list.size(); i++)
+		for (int j = 0; j < bouton_list[i].size(); j++)
+			if (bouton_list[i][j] == bouton)
+				return &bouton_list[i];
+	return NULL;
+}
+
 void CPanneau::draw()
 {
 	if (render.getSize().y == 0)
@@ -225,15 +243,6 @@ void CPanneau::setPosition(sf::Vector2f pos)
 				return;
 			}
 	}
-}
-
-std::vector<CBouton*>* CPanneau::getBoutonList(CBouton* bouton)
-{
-	for (int i = 0; i < bouton_list.size(); i++)
-		for (int j = 0; j < bouton_list[i].size(); j++)
-			if (bouton_list[i][j] == bouton)
-				return &bouton_list[i];
-	return NULL;
 }
 
 void CPanneau::setPredicatScroll(std::function<int(fonction_type)>* p)

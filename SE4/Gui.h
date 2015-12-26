@@ -19,6 +19,8 @@ public:
 	void gerer() override;
 	bool test() override;
 	void update() override;
+	void afficher() override;
+	void position() override;
 
 	void replaceCadre(sf::IntRect* cadre);
 	void cancelCadreReplacement();

@@ -12,6 +12,15 @@
 class CSpriteAnim : public CHud
 {
 public:
+	void zoom(float z) override;
+	void update() override;
+	void gerer() override;
+	bool test() override;
+	void position() override;
+	void afficher() override;
+	bool busy() override; 
+
+public:
 	static CSpriteAnim* _t;
 
 	struct type_anim
@@ -22,8 +31,6 @@ public:
 public:
 	CSpriteAnim(void);
 	~CSpriteAnim(void);
-public:
-	void afficher() override;
 
 	inline CPanneau* getPanneau() { return panneau; }
 	static type_anim searchAnimation(sf::Image* i_src, sf::Vector2i p_ini);
@@ -31,17 +38,18 @@ public:
 private:
 	void selecAnimation(int i);
 
-	std::vector<sf::IntRect> frame_list[3];
-	sf::Sprite view_sprites[3];
-	sf::Vector2i tempo_list[3];
-	sf::RectangleShape recteur_list[3];
+	std::vector<sf::IntRect> frame_list[3];	//The rectangle views among time
+	sf::Sprite view_sprites[3]; //The sprite corresponding to the views
+	sf::Vector2f offset_list[3]; //The position relatively to the down-left corner of the screen
+	sf::Vector2i cpt_list[3]; //.x: number of rect in frame_list, .y: cpt
+	sf::RectangleShape recteur_list[3]; //The rectangle showing what is displayed
 
 	type_anim result;
-	sf::Image img;
 
+// GUI + CORE //
 private:
 	CPanneau* panneau;
-	CBoutonSwitch* boutons_numero[3]; static void fonction_nbr(fonction_type l);
+	CBoutonSwitch* boutons_numero[3];
 	CBoutonSegment* boutons_frame[3];
 	CBoutonDisplay* boutons_chrono[3];
 	CBoutonSwitch* boutons_rect[3];
@@ -53,5 +61,6 @@ private:
 	CBoutonActive* bouton_sync; static bool predicat_sync(fonction_type l); static void fonction_sync(fonction_type l);
 	CBoutonSwitch* bouton_ombre;
 	CBoutonSwitch* bouton_chaine;
+//
 };
 

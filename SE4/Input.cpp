@@ -264,16 +264,3 @@ void CInput::delete_retour()
 {
 	retour_click.erase(retour_click.begin() + i_retour_click + 1, retour_click.end());
 }
-
-void CInput::checkCenter(sf::Vector2f* ptr_vect)
-{
-	if (BROSSE->getSize().x % 2 == 0 && int(ptr_vect->x) != ptr_vect->x)
-		ptr_vect->x = int(ptr_vect->x);
-	else if (BROSSE->getSize().x % 2 != 0 && int(ptr_vect->x) == ptr_vect->x)
-		ptr_vect->x += 0.5f;
-
-	if (BROSSE->getSize().y % 2 == 0 && int(ptr_vect->y) != ptr_vect->y)
-		ptr_vect->y = int(ptr_vect->y);
-	else if (BROSSE->getSize().y % 2 != 0 && int(ptr_vect->y) == ptr_vect->y)
-		ptr_vect->y += 0.5f;
-}

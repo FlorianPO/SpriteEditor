@@ -2,7 +2,7 @@
 
 #include "stdafx.h"
 #include "Retourable.h"
-#include <bitset>
+#include "Brosse.h"
 
 #define IO CInput::_t
 class CInput : public CRetourable
@@ -98,10 +98,9 @@ public:
 	inline sf::Vector2i getDeltaMouse() { return delta_m; }
 	inline sf::Vector2i getDeltaPixel() { return delta_p; }
 
-	sf::Vector2f getCenter() { checkCenter(&center); return center; }
-	sf::Vector2f getPreviousCenter() { checkCenter(&center_prec); return center_prec; }
-	sf::Vector2f getPreviousCenterClick() { checkCenter(&ex_click); return ex_click; }
-	void checkCenter(sf::Vector2f* ptr_vect);
+	sf::Vector2f getCenter() { return BROSSE->centerOf(center); }
+	sf::Vector2f getPreviousCenter() { return BROSSE->centerOf(center_prec); }
+	sf::Vector2f getPreviousCenterClick() { return BROSSE->centerOf(ex_click); }
 	
 	inline void setExClick(sf::Vector2f position) { ex_click = position; }
 

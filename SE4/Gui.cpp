@@ -291,25 +291,27 @@ CGui::CGui(void)
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	CHud::addMe(this);
+}
 
-	f_afficher = new std::function<void(void)>([]() {
-		GUI->panneau_1->afficher();
-		GUI->panneau_2->afficher();
-		SPRITE_ANIM->getPanneau()->afficher();
-		GUI->panneau_4->afficher();
-		GUI->panneau_6->afficher();
-		GUI->panneau_7->afficher();
-		GUI->panneau_copy->afficher();
-		GUI->panneau_8->afficher();
-		GUI->panneau_9->afficher();
+void CGui::afficher()
+{
+	GUI->panneau_1->afficher();
+	GUI->panneau_2->afficher();
+	SPRITE_ANIM->getPanneau()->afficher();
+	GUI->panneau_4->afficher();
+	GUI->panneau_6->afficher();
+	GUI->panneau_7->afficher();
+	GUI->panneau_copy->afficher();
+	GUI->panneau_8->afficher();
+	GUI->panneau_9->afficher();
 
-		for (int i = CALQUE_LIST.size()-1; i >= 0; i--)
-			CALQUE_LIST[i]->getPanneau()->afficher();
-	});
+	for (int i = CALQUE_LIST.size()-1; i >= 0; i--)
+		CALQUE_LIST[i]->getPanneau()->afficher();
+}
 
-	f_position = new std::function<void(void)>([]() {
-		GUI->panneau_1->setPosition(APP->getPositionCamera(2) - sf::Vector2f(GUI->panneau_1->getSprite()->getGlobalBounds().width, 0));
-	});
+void CGui::position()
+{
+	GUI->panneau_1->setPosition(APP->getPositionCamera(2) - sf::Vector2f(GUI->panneau_1->getSprite()->getGlobalBounds().width, 0));
 }
 
 CGui::~CGui(void)

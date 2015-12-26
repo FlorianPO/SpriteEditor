@@ -25,7 +25,7 @@ public:
 	void gererFond();
 
 	//Camera related
-	sf::Vector2f getPositionCamera(int coin);
+	sf::Vector2f getPositionCamera(int coin); //Up-left: 1, Up-right: 2, Down-right: 3, Down-left: 4
 	void init_camera(); //Init camera
 	void zoomer(float z, bool s); //Zoomer la caméra (z : niveau de zoom) (s : zoomer sur la souris)
 	void follow(sf::Vector2f pos); //Center camera on a position

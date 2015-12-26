@@ -128,11 +128,12 @@ sf::Vector2f CApp::getPositionCamera(int coin) //VERIFIED//
 {
 	switch (coin)
 	{
-		case 0: return camera.getCenter();
-		case 1: return sf::Vector2f(camera.getCenter().x - camera.getSize().x / 2.f, camera.getCenter().y - camera.getSize().y / 2.f);
-		case 2: return sf::Vector2f(camera.getCenter().x + camera.getSize().x / 2.f, camera.getCenter().y - camera.getSize().y / 2.f);
-		case 3: return sf::Vector2f(camera.getCenter().x + camera.getSize().x / 2.f, camera.getCenter().y + camera.getSize().y / 2.f);
-		default: return sf::Vector2f(camera.getCenter().x - camera.getSize().x / 2.f, camera.getCenter().y + camera.getSize().y / 2.f);
+		case 0:		return camera.getCenter();
+		case 1:		return sf::Vector2f(camera.getCenter().x - camera.getSize().x / 2.f, camera.getCenter().y - camera.getSize().y / 2.f);
+		case 2:		return sf::Vector2f(camera.getCenter().x + camera.getSize().x / 2.f, camera.getCenter().y - camera.getSize().y / 2.f);
+		case 3:		return sf::Vector2f(camera.getCenter().x + camera.getSize().x / 2.f, camera.getCenter().y + camera.getSize().y / 2.f);
+		case 4:		return sf::Vector2f(camera.getCenter().x - camera.getSize().x / 2.f, camera.getCenter().y + camera.getSize().y / 2.f);
+		default:	return camera.getCenter();
 	}
 }
 
@@ -228,7 +229,7 @@ void CApp::gerer()
 			}
 	}
 
-	if (!CHud::onHud() && !CHud::busy())
+	if (!CHud::onHud() && !CHud::isBusy())
 	{
 		//Utiliser l'outil
 		if (OUTIL != NULL && COPY == NULL || COPY != NULL && COutil::isTransform())

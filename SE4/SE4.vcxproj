@@ -83,6 +83,7 @@
     <ClCompile Include="Brosse.cpp" />
     <ClCompile Include="Calque.cpp" />
     <ClCompile Include="Bouton.cpp" />
+    <ClCompile Include="Calque_gui.cpp" />
     <ClCompile Include="Calque_static.cpp" />
     <ClCompile Include="Calque_transf.cpp" />
     <ClCompile Include="Copy.cpp" />
@@ -114,6 +115,7 @@
     <ClCompile Include="Snap.cpp" />
     <ClCompile Include="Calque_retour.cpp" />
     <ClCompile Include="SpriteAnim.cpp" />
+    <ClCompile Include="SpriteAnim_core.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Var.cpp" />
     <ClCompile Include="Writter.cpp" />

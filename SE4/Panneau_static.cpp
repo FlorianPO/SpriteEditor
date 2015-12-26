@@ -53,12 +53,3 @@ void CPanneau::afficherPanneau()
 		for (int j = 0; j < panneau_list[i].size(); j++)
 			panneau_list[i][j]->afficher();
 }
-
-bool CPanneau::testButtons()
-{
-	for (int i = 0; i < bouton_list.size(); i++)
-		for (int j = 0; j < bouton_list[i].size(); j++)
-			if (bouton_list[i][j]->onSprite())
-				return true;
-	return false;
-}

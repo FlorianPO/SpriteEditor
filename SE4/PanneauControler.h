@@ -19,7 +19,7 @@ public:
 	void gerer();
 	void test(CPanneau* panel);
 	void afficher(CPanneau* panel);
-	bool justAClick() {return global_moving != 2;}
+	bool busy() {return global_moving == 2;}
 	
 	public:		CPanneau* getMovingSrc() {return moving_src;}		private:	CPanneau* moving_src;
 	public:		CPanneau* getMovingDst() {return moving_dst;}		private:	CPanneau* moving_dst;

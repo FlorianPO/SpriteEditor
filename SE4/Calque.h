@@ -24,8 +24,9 @@ public:
 	static const int hauteur_c = 34;
 //
 
-	CCalque(sf::Texture* texture_var);
-	~CCalque();
+public:		CCalque(sf::Texture* texture_var);
+private:	void GuiConstructor();
+public:		~CCalque();
 
 	void draw(sf::Sprite* spr = BROSSE->getSprite(), sf::RenderStates* render = RES->getRender(CRes::SHADER::usual), bool no_retour = false);
 	void draw_brosse(sf::Vector2f pos, sf::RenderStates* render = RES->getRender(CRes::SHADER::usual));

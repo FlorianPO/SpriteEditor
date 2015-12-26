@@ -42,12 +42,11 @@ bool CBoutonSwitch::gerer()
 
 bool CBoutonSwitch::update(bool forceTo, bool force_var)
 {
-	if (predicat != NULL)
-		etat = usePredicat();
-	
 	if (forceTo)
 		etat = force_var;
-
+	else if (predicat != NULL)
+		etat = usePredicat();
+	
 	if (etat != ex_etat)
 	{
 		if (rect2 != sf::IntRect())

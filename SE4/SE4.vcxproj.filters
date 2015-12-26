@@ -29,6 +29,9 @@
     <Filter Include="Menu\Panneau">
       <UniqueIdentifier>{50a8c0ec-adf1-4318-a60b-f0f919377fd5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fonctionnalités\SpriteAnim">
+      <UniqueIdentifier>{49f0c4a3-1f63-4828-ad10-1e4f1693c898}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -124,9 +127,6 @@
     <ClCompile Include="OptionColor.cpp">
       <Filter>Fonctionnalités</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteAnim.cpp">
-      <Filter>Fonctionnalités</Filter>
-    </ClCompile>
     <ClCompile Include="Baguette.cpp">
       <Filter>Outils</Filter>
     </ClCompile>
@@ -171,6 +171,15 @@
     </ClCompile>
     <ClCompile Include="PanneauControler_retour.cpp">
       <Filter>Menu\Panneau</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteAnim.cpp">
+      <Filter>Fonctionnalités\SpriteAnim</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteAnim_core.cpp">
+      <Filter>Fonctionnalités\SpriteAnim</Filter>
+    </ClCompile>
+    <ClCompile Include="Calque_gui.cpp">
+      <Filter>Source\Calque</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -261,9 +270,6 @@
     <ClInclude Include="OptionColor.h">
       <Filter>Fonctionnalités</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteAnim.h">
-      <Filter>Fonctionnalités</Filter>
-    </ClInclude>
     <ClInclude Include="Baguette.h">
       <Filter>Outils</Filter>
     </ClInclude>
@@ -293,6 +299,9 @@
     </ClInclude>
     <ClInclude Include="PanneauControler.h">
       <Filter>Menu\Panneau</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteAnim.h">
+      <Filter>Fonctionnalités\SpriteAnim</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
