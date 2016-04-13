@@ -39,6 +39,8 @@ SE 3: adding a complete panel framework
 
 SE 4: revised version with fast and stable architecture (current version)
 
+SE 5: trying to integrate Qt (not on GitHub yet)
+
 Sprite Editor is meant to be as powerful, intuitive and simple as possible.
 It will provide tons of easy features meant to speed up graphical programming.
 
