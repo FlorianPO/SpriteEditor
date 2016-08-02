@@ -2,15 +2,15 @@
 
 #include "Source Files/Application/Tool/Tool.h"
 
-class CRotation : public CTool
+class Rotation : public Tool
 {
 // CONSTRUCTOR
 public:
-	CRotation();
-	~CRotation() {}
+	Rotation();
+	~Rotation() {}
 
 // METHODS
 public:
-	void afficher() override;
+	void display() override;
 	void use() override;
 };

@@ -1,23 +1,19 @@
 #pragma once
 
-#include "stdafx.h"
-
+#include "stdenum.h"
 #include "Source Files/Application/Tool/Tool.h"
-#include "Source Files/Application/Tool/ToolAbstract/ToolColorModifier.h"
-#include "Source Files/Application/Tool/ToolAbstract/ToolLiner.h"
+#include "Source Files/Application/Tool/ToolAbstract/TLiner.h"
 
-class CCrayon : public virtual CTool, virtual CToolColorModifier, virtual ToolLiner
+class Crayon : public Tool, TLiner
 {
 // CONSTRUCT
 public:
-	CCrayon();
-	~CCrayon() {}
+	Crayon();
+	~Crayon() {}
 
 // METHODS
 public:
-	void afficher() override;
+	void display() override;
 	void use() override;
-private:
-	void use_line(sf::Vector2f pos_ini);
 };
 

@@ -1,14 +1,13 @@
 #pragma once
 
-#include "stdafx.h"
-#include <QtWidgets/QPushButton>
+#include "stdenum.h"
 
 class State2Button : public QPushButton
 {
 	Q_OBJECT
 // CONSTRUCTOR
 public:
-	explicit State2Button(QWidget* parent, QString* path_enabled, QString* path_disabled, bool active=true);
+	State2Button(QWidget* parent, QString* path_enabled, QString* path_disabled, bool active=true);
 	~State2Button() {}
 
 // SIGNALS SLOTS
@@ -21,6 +20,7 @@ public:
 		void enabled();
 		void disabled();
 
+// MEMBERS
 private:
 	bool state;
 	QIcon* iconEnabled=NULL;

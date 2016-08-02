@@ -1,7 +1,6 @@
 #pragma once
 
-#include "stdafx.h"
-#include <QtWidgets/QLabel>
+#include "stdenum.h"
 
 class ViewLabel : public QLabel
 {
@@ -13,10 +12,11 @@ public:
 		EXTENDED,
 		WIDE
 	};
+
 // CONSTRUCTOR
 public:
 	ViewLabel(QWidget* parent, enum_size e_size=DEFAULT);
-	~ViewLabel() {}
+	virtual ~ViewLabel() {}
 
 // SIGNALS SLOTS
 	public slots:
@@ -29,7 +29,6 @@ public:
 // MEMBERS
 protected:
 	int value=-1;
-	std::string prefixe;
-
+	std::string prefixe="";
 };
 

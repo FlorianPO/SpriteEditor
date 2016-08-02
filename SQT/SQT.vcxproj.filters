@@ -47,9 +47,6 @@
     <Filter Include="Source Files\Widget">
       <UniqueIdentifier>{abe8cc04-823e-4fe2-a501-21babe22f70a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Application\AdvIO %28deprecated%29">
-      <UniqueIdentifier>{689db7ec-e88e-4a5a-936e-bc3020651e3b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Application\Brush">
       <UniqueIdentifier>{53ec8f59-382d-4122-aff4-705ed0974d21}</UniqueIdentifier>
     </Filter>
@@ -158,11 +155,11 @@
     <Filter Include="Source Files\Widget\Gui\LayerPanel\LayerList\SpriteView">
       <UniqueIdentifier>{82aa0bea-4029-40be-90a6-f9bda4c07d2b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Application\IO\AdvIO">
+      <UniqueIdentifier>{689db7ec-e88e-4a5a-936e-bc3020651e3b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source Files\Application\AdvIO\EnteredInput.cpp">
-      <Filter>Source Files\Application\AdvIO %28deprecated%29</Filter>
-    </ClCompile>
     <ClCompile Include="Source Files\Application\Brush\Brushes\BrushCircle.cpp">
       <Filter>Source Files\Application\Brush\Brushes</Filter>
     </ClCompile>
@@ -223,15 +220,6 @@
     <ClCompile Include="Source Files\Application\Curseur\Curseur.cpp">
       <Filter>Source Files\Application\Curseur</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\Application\IO\Input.cpp">
-      <Filter>Source Files\Application\IO</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_Input.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_Input.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="Source Files\Application\Layer\Layer.cpp">
       <Filter>Source Files\Application\Layer</Filter>
     </ClCompile>
@@ -250,29 +238,8 @@
     <ClCompile Include="GeneratedFiles\Release\moc_LayerController.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\Application\Layer\Layer_retour.cpp">
-      <Filter>Source Files\Application\Layer</Filter>
-    </ClCompile>
     <ClCompile Include="Source Files\Application\Layer\Layer_transf.cpp">
       <Filter>Source Files\Application\Layer</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\Application\Res\Res.cpp">
-      <Filter>Source Files\Application\Res</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\Application\Selec\Selec.cpp">
-      <Filter>Source Files\Application\Selec</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_Selec.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_Selec.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\Application\Selec\Selec_modify.cpp">
-      <Filter>Source Files\Application\Selec</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\Application\Var\Var.cpp">
-      <Filter>Source Files\Application\Var</Filter>
     </ClCompile>
     <ClCompile Include="Source Files\Application\App.cpp">
       <Filter>Source Files\Application</Filter>
@@ -282,15 +249,6 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_App.cpp">
       <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\Application\Tool\ToolAbstract\ToolColorModifier.cpp">
-      <Filter>Source Files\Application\Tool\ToolAbstract</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\Application\Tool\ToolAbstract\ToolLiner.cpp">
-      <Filter>Source Files\Application\Tool\ToolAbstract</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\Application\Tool\ToolAbstract\ToolPixelChecker.cpp">
-      <Filter>Source Files\Application\Tool\ToolAbstract</Filter>
     </ClCompile>
     <ClCompile Include="Source Files\Application\Tool\Tools\Aero.cpp">
       <Filter>Source Files\Application\Tool\Tools</Filter>
@@ -343,12 +301,6 @@
     <ClCompile Include="Source Files\Fonction\Fonction.cpp">
       <Filter>Source Files\Fonction</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\Fonction\Writter\Writter.cpp">
-      <Filter>Source Files\Fonction\Writter</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\Fonction\Arg\Arg.cpp">
-      <Filter>Source Files\Fonction\Arg</Filter>
-    </ClCompile>
     <ClCompile Include="Source Files\OptionPanel\OptionColor\OptionColor.cpp">
       <Filter>Source Files\OptionPanel\OptionColor</Filter>
     </ClCompile>
@@ -358,12 +310,6 @@
     <ClCompile Include="Source Files\OptionPanel\SpriteAnim\SpriteAnim_core.cpp">
       <Filter>Source Files\OptionPanel\SpriteAnim</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\Retour\Retour.cpp">
-      <Filter>Source Files\Retour %28deprecated%29</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\Retour\Retourable.cpp">
-      <Filter>Source Files\Retour %28deprecated%29</Filter>
-    </ClCompile>
     <ClCompile Include="Source Files\SignalType\SignalColor.cpp">
       <Filter>Source Files\SignalType</Filter>
     </ClCompile>
@@ -372,24 +318,6 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_SignalColor.cpp">
       <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\SignalType\SignalController.cpp">
-      <Filter>Source Files\SignalType</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\Widget\MainWindow\MainQt.cpp">
-      <Filter>Source Files\Widget\MainWindow</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_MainQt.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_MainQt.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\Widget\SQT\SFML.cpp">
-      <Filter>Source Files\Widget\SQT</Filter>
     </ClCompile>
     <ClCompile Include="Source Files\Widget\SQT\SQT.cpp">
       <Filter>Source Files\Widget\SQT</Filter>
@@ -457,15 +385,6 @@
     <ClCompile Include="GeneratedFiles\Release\moc_VerticalLayout.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\Widget\Gui\w_Gui.cpp">
-      <Filter>Source Files\Widget\Gui</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_w_Gui.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_w_Gui.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="Source Files\Widget\Gui\ToolPanel\ToolPanel.cpp">
       <Filter>Source Files\Widget\Gui\ToolPanel</Filter>
     </ClCompile>
@@ -473,24 +392,6 @@
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_ToolPanel.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\Widget\Gui\ToolOptionPanel\ToolWidget\ToolWidget.cpp">
-      <Filter>Source Files\Widget\Gui\ToolOptionPanel\ToolWidget</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ToolWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ToolWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\Widget\Gui\ToolOptionPanel\ToolOptionPanel.cpp">
-      <Filter>Source Files\Widget\Gui\ToolOptionPanel</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ToolOptionPanel.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ToolOptionPanel.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Source Files\Widget\Gui\LayerPanel\LayerList\SpriteView\SpriteView.cpp">
@@ -538,6 +439,159 @@
     <ClCompile Include="GeneratedFiles\Release\moc_ColorPanel.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ShortcutController.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ShortcutController.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_CameraController.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_CameraController.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Camera\CameraController.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Selection\SelectionController.cpp">
+      <Filter>Source Files\Application\Selec</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SelectionController.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SelectionController.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Selection\SelectionController_modify.cpp">
+      <Filter>Source Files\Application\Selec</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_InputController.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_InputController.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Resource\ResourceController.cpp">
+      <Filter>Source Files\Application\Res</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\SignalType\SignalInit.cpp">
+      <Filter>Source Files\SignalType</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_QtApp.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_QtApp.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\QtApp\QtApp.cpp">
+      <Filter>Source Files\Widget\MainWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_FLineEdit.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_FLineEdit.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\Various\FLineEdit\FLineEdit.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Gui.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Gui.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\Gui\Gui.cpp">
+      <Filter>Source Files\Widget\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\SQT\SFMLView.cpp">
+      <Filter>Source Files\Widget\SQT</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Input\InputController.cpp">
+      <Filter>Source Files\Application\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Input\ShortcutController.cpp">
+      <Filter>Source Files\Application\IO\AdvIO</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Tool\ToolAbstract\TSelectionModifier.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Tool\ToolAbstract\TLiner.cpp">
+      <Filter>Source Files\Application\Tool\ToolAbstract</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Tool\ToolAbstract\TPixelChecker.cpp">
+      <Filter>Source Files\Application\Tool\ToolAbstract</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\_main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_BrushPanel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_BrushPanel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\Gui\BrushPanel\BrushPanel.cpp">
+      <Filter>Source Files\Widget\Gui\ToolOptionPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\Gui\BrushPanel\BrushWidget\BrushWidget.cpp">
+      <Filter>Source Files\Widget\Gui\ToolOptionPanel\ToolWidget</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_BrushWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_BrushWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\UndoStack\UndoStack.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_UndoStack.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_UndoStack.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Layer\LayerUndo.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Tool\ToolAbstract\TLayerUpdater.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Selection\SelectionUndo.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Selection\SelectionController_transf.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Copy\Copy_transf.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Copy\CopyUndo.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Curseur\CurseurUndo.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Fonction\FonctionSpecial.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Fonction\FonctionPosition.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Fonction\FonctionMath.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Queue\QueueController.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_QueueController.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_QueueController.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="SQT.qrc">
@@ -558,17 +612,11 @@
     <CustomBuild Include="Source Files\Application\Copy\CopyController.h">
       <Filter>Source Files\Application\Copy</Filter>
     </CustomBuild>
-    <CustomBuild Include="Source Files\Application\IO\Input.h">
-      <Filter>Source Files\Application\IO</Filter>
-    </CustomBuild>
     <CustomBuild Include="Source Files\Application\Layer\Layer.h">
       <Filter>Source Files\Application\Layer</Filter>
     </CustomBuild>
     <CustomBuild Include="Source Files\Application\Layer\LayerController.h">
       <Filter>Source Files\Application\Layer</Filter>
-    </CustomBuild>
-    <CustomBuild Include="Source Files\Application\Selec\Selec.h">
-      <Filter>Source Files\Application\Selec</Filter>
     </CustomBuild>
     <CustomBuild Include="Source Files\Application\App.h">
       <Filter>Source Files\Application</Filter>
@@ -578,9 +626,6 @@
     </CustomBuild>
     <CustomBuild Include="Source Files\SignalType\SignalColor.h">
       <Filter>Source Files\SignalType</Filter>
-    </CustomBuild>
-    <CustomBuild Include="Source Files\Widget\MainWindow\MainQt.h">
-      <Filter>Source Files\Widget\MainWindow</Filter>
     </CustomBuild>
     <CustomBuild Include="Source Files\Widget\SQT\SQT.h">
       <Filter>Source Files\Widget\SQT</Filter>
@@ -603,17 +648,8 @@
     <CustomBuild Include="Source Files\Widget\Various\VerticalLayout\VerticalLayout.h">
       <Filter>Source Files\Widget\Various\VerticalLayout</Filter>
     </CustomBuild>
-    <CustomBuild Include="Source Files\Widget\Gui\w_Gui.h">
-      <Filter>Source Files\Widget\Gui</Filter>
-    </CustomBuild>
     <CustomBuild Include="Source Files\Widget\Gui\ToolPanel\ToolPanel.h">
       <Filter>Source Files\Widget\Gui\ToolPanel</Filter>
-    </CustomBuild>
-    <CustomBuild Include="Source Files\Widget\Gui\ToolOptionPanel\ToolWidget\ToolWidget.h">
-      <Filter>Source Files\Widget\Gui\ToolOptionPanel\ToolWidget</Filter>
-    </CustomBuild>
-    <CustomBuild Include="Source Files\Widget\Gui\ToolOptionPanel\ToolOptionPanel.h">
-      <Filter>Source Files\Widget\Gui\ToolOptionPanel</Filter>
     </CustomBuild>
     <CustomBuild Include="Source Files\Widget\Gui\LayerPanel\LayerList\SpriteView\SpriteView.h">
       <Filter>Source Files\Widget\Gui\LayerPanel\LayerList\SpriteView</Filter>
@@ -645,20 +681,47 @@
     <CustomBuild Include="LayerPanel.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="SQT.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ToolOptionPanel.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="ToolPanel.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="Source Files\Application\Camera\CameraController.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Application\Selection\SelectionController.h">
+      <Filter>Source Files\Application\Selec</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\QtApp\QtApp.h">
+      <Filter>Source Files\Widget\MainWindow</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Widget\Various\FLineEdit\FLineEdit.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Widget\Gui\Gui.h">
+      <Filter>Source Files\Widget\Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Application\Input\InputController.h">
+      <Filter>Source Files\Application\IO</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Application\Input\ShortcutController.h">
+      <Filter>Source Files\Application\IO\AdvIO</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Widget\Gui\BrushPanel\BrushPanel.h">
+      <Filter>Source Files\Widget\Gui\ToolOptionPanel</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Widget\Gui\BrushPanel\BrushWidget\BrushWidget.h">
+      <Filter>Source Files\Widget\Gui\ToolOptionPanel\ToolWidget</Filter>
+    </CustomBuild>
+    <CustomBuild Include="BrushPanel.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Application\UndoStack\UndoStack.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Application\Queue\QueueController.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source Files\Application\AdvIO\EnteredInput.h">
-      <Filter>Source Files\Application\AdvIO %28deprecated%29</Filter>
-    </ClInclude>
     <ClInclude Include="Source Files\Application\Brush\Brushes\BrushCircle.h">
       <Filter>Source Files\Application\Brush\Brushes</Filter>
     </ClInclude>
@@ -673,21 +736,6 @@
     </ClInclude>
     <ClInclude Include="Source Files\Application\Curseur\Curseur.h">
       <Filter>Source Files\Application\Curseur</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Files\Application\Res\Res.h">
-      <Filter>Source Files\Application\Res</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Files\Application\Var\Var.h">
-      <Filter>Source Files\Application\Var</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Files\Application\Tool\ToolAbstract\ToolColorModifier.h">
-      <Filter>Source Files\Application\Tool\ToolAbstract</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Files\Application\Tool\ToolAbstract\ToolLiner.h">
-      <Filter>Source Files\Application\Tool\ToolAbstract</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Files\Application\Tool\ToolAbstract\ToolPixelChecker.h">
-      <Filter>Source Files\Application\Tool\ToolAbstract</Filter>
     </ClInclude>
     <ClInclude Include="Source Files\Application\Tool\Tools\Aero.h">
       <Filter>Source Files\Application\Tool\Tools</Filter>
@@ -731,29 +779,11 @@
     <ClInclude Include="Source Files\Fonction\Fonction.h">
       <Filter>Source Files\Fonction</Filter>
     </ClInclude>
-    <ClInclude Include="Source Files\Fonction\Writter\Writter.h">
-      <Filter>Source Files\Fonction\Writter</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Files\Fonction\Arg\Arg.h">
-      <Filter>Source Files\Fonction\Arg</Filter>
-    </ClInclude>
     <ClInclude Include="Source Files\OptionPanel\OptionColor\OptionColor.h">
       <Filter>Source Files\OptionPanel\OptionColor</Filter>
     </ClInclude>
     <ClInclude Include="Source Files\OptionPanel\SpriteAnim\SpriteAnim.h">
       <Filter>Source Files\OptionPanel\SpriteAnim</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Files\Retour\Retour.h">
-      <Filter>Source Files\Retour %28deprecated%29</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Files\Retour\Retourable.h">
-      <Filter>Source Files\Retour %28deprecated%29</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Files\SignalType\SignalController.h">
-      <Filter>Source Files\SignalType</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Files\Widget\SQT\SFML.h">
-      <Filter>Source Files\Widget\SQT</Filter>
     </ClInclude>
     <ClInclude Include="Source Files\Widget\Various\TabSFML\TabSFML.h">
       <Filter>Source Files\Widget\Various\TabSFML</Filter>
@@ -779,14 +809,47 @@
     <ClInclude Include="GeneratedFiles\ui_LayerPanel.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_SQT.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_ToolOptionPanel.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_ToolPanel.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\Application\Resource\ResourceController.h">
+      <Filter>Source Files\Application\Res</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\SignalType\SignalInit.h">
+      <Filter>Source Files\SignalType</Filter>
+    </ClInclude>
+    <ClInclude Include="stdenum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\Widget\SQT\SFMLView.h">
+      <Filter>Source Files\Widget\SQT</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\Application\Tool\ToolAbstract\TSelectionModifier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\Application\Tool\ToolAbstract\TLiner.h">
+      <Filter>Source Files\Application\Tool\ToolAbstract</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\Application\Tool\ToolAbstract\TPixelChecker.h">
+      <Filter>Source Files\Application\Tool\ToolAbstract</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_BrushPanel.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\Application\Layer\LayerUndo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\Application\Tool\ToolAbstract\TLayerUpdater.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\Application\Selection\SelectionUndo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\Application\Copy\CopyUndo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\Application\Curseur\CurseurUndo.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

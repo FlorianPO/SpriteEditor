@@ -1,21 +1,22 @@
 #pragma once
 
-#include "stdafx.h"
+#include "stdenum.h"
 #include "ui_ToolPanel.h"
-#include "Source Files/Application/Tool/Tool.h"
+class Tool; // Forward declaration
 
 class ToolPanel :  public QWidget
 {
 	Q_OBJECT
+// CONSTRUCTOR
 public:
-	explicit ToolPanel(QWidget *parent, const QPoint& position=QPoint(0, 0));
+	ToolPanel(QWidget *parent, const QPoint& position=QPoint(0, 0));
 	~ToolPanel() {};
 
-	int getBottomY() { return ui.Frame->geometry().height() + pos().y(); }
-
+// SIGNALS SLOTS
 	public slots:
-		void toolSelected(CTool* tool);
+		void toolSelected(Tool* tool);
 
+// MEMBERS
 private:
 	Ui_ToolPanel ui;
 };

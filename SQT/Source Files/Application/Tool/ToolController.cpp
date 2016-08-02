@@ -1,48 +1,69 @@
-#include "Source Files/Application/Tool/ToolController.h"
+#include "ToolController.h"
 
 // All tools
-#include "Source Files/Application/Tool/Tools/Aero.h"
-#include "Source Files/Application/Tool/Tools/Crayon.h"
-#include "Source Files/Application/Tool/Tools/Gomme.h"
-#include "Source Files/Application/Tool/Tools/Pot.h"
-#include "Source Files/Application/Tool/Tools/RectSelec.h"
-#include "Source Files/Application/Tool/Tools/Baguette.h"
-#include "Source Files/Application/Tool/Tools/SelecColor.h"
-#include "Source Files/Application/Tool/Tools/Snap.h"
-#include "Source Files/Application/Tool/Tools/Move.h"
-#include "Source Files/Application/Tool/Tools/Grand.h"
-#include "Source Files/Application/Tool/Tools/Rotation.h"
-#include "Source Files/Application/Tool/Tools/Flip.h"
+#include "Tools/Aero.h"
+#include "Tools/Crayon.h"
+#include "Tools/Gomme.h"
+#include "Tools/Pot.h"
+#include "Tools/RectSelec.h"
+#include "Tools/Baguette.h"
+#include "Tools/SelecColor.h"
+#include "Tools/Snap.h"
+#include "Tools/Move.h"
+#include "Tools/Grand.h"
+#include "Tools/Rotation.h"
+#include "Tools/Flip.h"
 
-CToolController* CToolController::_t;
+#include "Source Files/Application/Input/ShortcutController.h"
 
-void CToolController::selectTool(CTool::tool_enum tool) {
+using namespace nTol;
+
+ToolController* ToolController::_t;
+
+ToolController::ToolController() {
+	SHORTCUT_CONTROLLER->createShortcut(QKeySequence(Qt::Key_A), this, SLOT(selectTool(int)), static_cast<int>(CRAYON));
+	SHORTCUT_CONTROLLER->createShortcut(QKeySequence(Qt::Key_Z), this, SLOT(selectTool(int)), static_cast<int>(GOMME));
+	SHORTCUT_CONTROLLER->createShortcut(QKeySequence(Qt::Key_E), this, SLOT(selectTool(int)), static_cast<int>(AERO));
+	SHORTCUT_CONTROLLER->createShortcut(QKeySequence(Qt::Key_R), this, SLOT(selectTool(int)), static_cast<int>(POT));
+	//
+	SHORTCUT_CONTROLLER->createShortcut(QKeySequence(Qt::Key_Q), this, SLOT(selectTool(int)), static_cast<int>(RECTSELEC));
+	SHORTCUT_CONTROLLER->createShortcut(QKeySequence(Qt::Key_S), this, SLOT(selectTool(int)), static_cast<int>(BAGUETTE));
+	SHORTCUT_CONTROLLER->createShortcut(QKeySequence(Qt::Key_D), this, SLOT(selectTool(int)), static_cast<int>(SELECCOLOR));
+	SHORTCUT_CONTROLLER->createShortcut(QKeySequence(Qt::Key_F), this, SLOT(selectTool(int)), static_cast<int>(SNAP));
+	//
+	SHORTCUT_CONTROLLER->createShortcut(QKeySequence(Qt::Key_W), this, SLOT(selectTool(int)), static_cast<int>(MOVE));
+	SHORTCUT_CONTROLLER->createShortcut(QKeySequence(Qt::Key_X), this, SLOT(selectTool(int)), static_cast<int>(GRAND));
+	SHORTCUT_CONTROLLER->createShortcut(QKeySequence(Qt::Key_C), this, SLOT(selectTool(int)), static_cast<int>(ROTATION));
+	SHORTCUT_CONTROLLER->createShortcut(QKeySequence(Qt::Key_V), this, SLOT(selectTool(int)), static_cast<int>(FLIP));
+	//
+}
+
+void ToolController::selectTool(nTol::tool_enum tool) {
 	if (current_tool != NULL)
 		delete current_tool;
 
-	switch (tool)
-	{
-		case CTool::CRAYON:			current_tool = new CCrayon();		break;
-		case CTool::GOMME:			current_tool = new CGomme();		break;
-		case CTool::AERO:			current_tool = new CAero();			break;
-		case CTool::POT:			current_tool = new CPot();			break;
-		//case CTool::DEGRADE:		current_tool = new CDegrade();		break;
-		case CTool::RECTSELEC:		current_tool = new CRectSelec();	break;
-		case CTool::BAGUETTE:		current_tool = new CBaguette();		break;
-		case CTool::SELECCOLOR:		current_tool = new CSelecColor();	break;
-		case CTool::SNAP:			current_tool = new CSnap();			break;
-		//case CTool::CHEMIN:		current_tool = new CChemin();		break;
-		case CTool::MOVE:			current_tool = new CMove();			break;
-		case CTool::GRAND:			current_tool = new CGrand();		break;
-		case CTool::ROTATION:		current_tool = new CRotation();		break;
-		case CTool::FLIP:			current_tool = new CFlip();			break;
-		//case CTool::ALIGN:		current_tool = new CAlign();		break;
-		default:														break;
+	switch (tool) {
+		case CRAYON:		current_tool = new Crayon();		break;
+		case GOMME:			current_tool = new Gomme();			break;
+		case AERO:			current_tool = new Aero();			break;
+		case POT:			current_tool = new Pot();			break;
+		//case DEGRADE:		current_tool = new CDegrade();		break;
+		case RECTSELEC:		current_tool = new RectSelec();		break;
+		case BAGUETTE:		current_tool = new Baguette();		break;
+		case SELECCOLOR:	current_tool = new SelecColor();	break;
+		case SNAP:			current_tool = new Snap();			break;
+		//case CHEMIN:		current_tool = new CChemin();		break;
+		case MOVE:			current_tool = new Move();			break;
+		case GRAND:			current_tool = new Grand();			break;
+		case ROTATION:		current_tool = new Rotation();		break;
+		case FLIP:			current_tool = new Flip();			break;
+		//case ALIGN:		current_tool = new CAlign();		break;
+		default:													break;
 	}
 
 	emit toolSelected(current_tool);
 }
 
-void CToolController::selectTool(int tool_id) {
-	selectTool(static_cast<CTool::tool_enum>(tool_id));
+void ToolController::selectTool(int tool_id) {
+	selectTool(static_cast<tool_enum>(tool_id));
 }

@@ -3,7 +3,7 @@
 #include "SpriteAnim.h"
 #include "Source Files/Application/App.h"
 #include "Source Files/Application/Layer/Layer.h"
-#include "Source Files/Application/IO/Input.h"
+#include "Source Files/Application/INPUT/InputController.h"
 #include "Source Files/Fonction/Fonction.h"
 
 
@@ -71,7 +71,7 @@ void CSpriteAnim::selecAnimation(int i)
 
 CSpriteAnim::type_anim CSpriteAnim::searchAnimation(sf::Image* i_src, sf::Vector2i p_ini)
 {
-	if (!CFonction::onCalque(p_ini, i_src))
+	if (!Fonction::onCalque(p_ini, i_src))
 		return type_anim{ sf::IntRect(), 0 };
 
 	sf::Vector2i p_tmp;
@@ -165,15 +165,15 @@ void CSpriteAnim::update()
 	if (!CHud::onHud(this))
 		if (busy()) //SELECTION
 		{
-			if (IO->again(Qt::LeftButton))
+			if (INPUT->again(Qt::LeftButton))
 			{
-				result = searchAnimation(LAYER->getImage(), IO->getPixel() - LAYER->getPosition_i());
+				result = searchAnimation(LAYER->getImage(), INPUT->getPixel() - VECTOR2I(LAYER->getPosition()));
 				if (result.nbr_anim > 0)
 					for (int i=0; i < 3; i++)
 						if (boutons_numero[i]->getEtat())
 							selecAnimation(i);
 			}
-			else if (IO->released(Qt::LeftButton))
+			else if (INPUT->released(Qt::LeftButton))
 			{
 				for (int i = 0; i < 3; i++)
 					if (boutons_numero[i]->getEtat() == 1)
@@ -183,12 +183,12 @@ void CSpriteAnim::update()
 		}
 		else
 		{
-			if (!IO->pressed(Qt::RightButton))
+			if (!INPUT->pressed(Qt::RightButton))
 				moving = 0;
 			if (moving > 0)
-				offset_list[moving-1] -= sf::Vector2f(IO->getDeltaMouse().x, IO->getDeltaMouse().y);
+				offset_list[moving-1] -= sf::Vector2f(INPUT->getDeltaScreen().x, INPUT->getDeltaScreen().y);
 			
-			if (!IO->pressed(Qt::LeftButton))
+			if (!INPUT->pressed(Qt::LeftButton))
 				scaling = 0;
 			if (scaling > 0)
 				zoom_me(scaling-1);
@@ -197,7 +197,7 @@ void CSpriteAnim::update()
 
 void CSpriteAnim::zoom_me(int i)
 {
-	sf::Vector2f temp = CFonction::selecPointRect(view_sprites[i].getPosition(), sf::Vector2f(IO->getPosition().x, IO->getPosition().y), 2).distance;
+	sf::Vector2f temp = Fonction::selecPointRect(view_sprites[i].getPosition(), sf::Vector2f(INPUT->getPosition().x, INPUT->getPosition().y), 2).distance;
 	sf::Vector2f dist_ini = posm_click - view_sprites[i].getPosition();
 	sf::Vector2f scale = sf::Vector2f(temp.x/dist_ini.x, temp.y/dist_ini.y);
 
@@ -211,16 +211,16 @@ void CSpriteAnim::gerer()
 		if (moving == 0 && scaling == 0)
 			for (int i=0; i < 3; i++)
 				if (frame_list[i].size() > 0 && boutons_oeil[i]->getEtat())
-					if (CFonction::onSprite(&view_sprites[i]))
-						if (IO->pressed(Qt::RightButton))
+					if (Fonction::mouseOnSprite(&view_sprites[i]))
+						if (INPUT->pressed(Qt::RightButton))
 						{
 							moving = i+1;
 							break;
 						}
-						else if (IO->pressed(Qt::LeftButton))
+						else if (INPUT->pressed(Qt::LeftButton))
 						{
 							scaling = i+1;
-							posm_click = CFonction::selecPointRect(view_sprites[i].getPosition(), sf::Vector2f(IO->getPosition().x, IO->getPosition().y), 2).distance;
+							posm_click = Fonction::selecPointRect(view_sprites[i].getPosition(), sf::Vector2f(INPUT->getPosition().x, INPUT->getPosition().y), 2).distance;
 							scal_click = zoom_list[i];
 							break;
 						}
@@ -231,7 +231,7 @@ bool CSpriteAnim::test()
 {
 	for (int i=0; i < 3; i++)
 		if (frame_list[i].size() > 0 && boutons_oeil[i]->getEtat())
-			if (CFonction::onSprite(&view_sprites[i]))
+			if (Fonction::mouseOnSprite(&view_sprites[i]))
 				return true;
 	return moving > 0 || scaling > 0;
 }
@@ -247,15 +247,15 @@ void CSpriteAnim::position()
 			
 }
 
-void CSpriteAnim::afficher()
+void CSpriteAnim::display()
 {
 	for (int i=2; i >=0; i--)
 		if (frame_list[i].size() > 0)
 		{
 			if (boutons_oeil[i]->getEtat())
-				APP->fenetre->draw(view_sprites[i]);
+				APP->getWindow().draw(view_sprites[i]);
 			if (boutons_rect[i]->getEtat())
-				APP->fenetre->draw(recteur_list[i]);
+				APP->getWindow().draw(recteur_list[i]);
 		}
 			
 }

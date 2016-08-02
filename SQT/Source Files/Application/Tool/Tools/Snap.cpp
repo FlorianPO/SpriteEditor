@@ -1,68 +1,57 @@
-#include "Source Files/Application/Tool/Tools/Snap.h"
+#include "Snap.h"
 
-#include "Source Files/Application/App.h"
 #include "Source Files/Application/Layer/LayerController.h"
-#include "Source Files/Application/Selec/Selec.h"
+#include "Source Files/Application/Layer/Layer.h"
+#include "Source Files/Application/Selection/SelectionController.h"
 #include "Source Files/Fonction/Fonction.h"
-#include "Source Files/Application/IO/Input.h"
-#include "Source Files/Retour/Retour.h"
-#include <QtWidgets/QApplication>
+#include "Source Files/Application/Input/InputController.h"
 
-CSnap::CSnap() {
-	numero_outil = CTool::SNAP;
+using namespace nSet;
+
+Snap::Snap() {
+	numero_outil = nTol::SNAP;
 }
 
-void CSnap::afficher() {
-	sf::Color color = sf::Color(100 * bool(rand() % 2), 100 * bool(rand() % 2), 100 * bool(rand() % 2));
-	for (int i = 0; i < conf_lines.size(); i++) {
-		conf_lines[i].line[0].color = color;
-		conf_lines[i].line[1].color = color;
-		APP->fenetre->draw(conf_lines[i].line);
-	}
-}
-
-
-void CSnap::snap(sf::Vector2i pos_ini, sf::Vector2i pos) {
-	bit_image.create(LAYER->getImage().getSize().x, LAYER->getImage().getSize().y, SELEC->ident_color);
+void Snap::snap(sf::Vector2i pos_ini, sf::Vector2i pos) {
+	bit_image.create(LAYER->getImage()->getSize().x, LAYER->getImage()->getSize().y, SELEC->ident_color);
 
 	sf::VertexArray l(sf::LinesStrip, 2);
-	conf_lines.clear();
+	oriented_lines.clear();
 
 	rect = sf::IntRect(std::min(pos_ini.x, pos.x), std::min(pos_ini.y, pos.y), std::abs(pos_ini.x - pos.x) + 1, std::abs(pos_ini.y - pos.y) + 1);
-
 	for (int i = rect.left; i < rect.left + rect.width; i++) {
 		//Haut
 		l[0].position = sf::Vector2f(i, rect.top);
 		l[1].position = sf::Vector2f(i + 1, rect.top);
-		conf_lines.push_back(CTool::creer_conf_line(l, 0, i, rect.top));
+		oriented_lines.push_back(oLine(l, UP, i, rect.top));
 		//Bas
 		l[0].position = sf::Vector2f(i, rect.top + rect.height);
 		l[1].position = sf::Vector2f(i + 1, rect.top + rect.height);
-		conf_lines.push_back(CTool::creer_conf_line(l, 2, i, rect.top + rect.height));
+		oriented_lines.push_back(oLine(l, DOWN, i, rect.top + rect.height));
 	}
 	for (int j = rect.top; j < rect.top + rect.height; j++) {
 		//Gauche
 		l[0].position = sf::Vector2f(rect.left, j);
 		l[1].position = sf::Vector2f(rect.left, j + 1);
-		conf_lines.push_back(CTool::creer_conf_line(l, 3, rect.left, j));
+		oriented_lines.push_back(oLine(l, LEFT, rect.left, j));
 		//Droite
 		l[0].position = sf::Vector2f(rect.left + rect.width, j);
 		l[1].position = sf::Vector2f(rect.left + rect.width, j + 1);
-		conf_lines.push_back(CTool::creer_conf_line(l, 1, rect.left + rect.width, j));
+		oriented_lines.push_back(oLine(l, RIGHT, rect.left + rect.width, j));
 	}
 }
 
-void CSnap::snapping(sf::IntRect rect, sf::Vector2i pos_click) {
+void Snap::snapping(sf::IntRect rect, sf::Vector2i pos_click) {
 	sf::VertexArray l(sf::LinesStrip, 2);
-	conf_lines.clear();
+	oriented_lines.clear();
 
-	rect.left -= LAYER->getPosition_i().x;
-	rect.top -= LAYER->getPosition_i().y;
-	if (CFonction::checkCadre(&rect, sf::IntRect(0, 0, LAYER->getTexture().getSize().x, LAYER->getTexture().getSize().y)))
+	rect.left -= VECTOR2I(LAYER->getPosition()).x;
+	rect.top -= VECTOR2I(LAYER->getPosition()).y;
+	if (Fonction::checkCadre(&rect, sf::IntRect(0, 0, LAYER->getTexture().getSize().x, LAYER->getTexture().getSize().y)))
 		return;
 
-	test_image = &LAYER->getImage();
-	base_color = CFonction::getColor(pos_click, *test_image);
+	test_image = LAYER->getImage();
+	setBaseColor(Fonction::getColor(pos_click, *test_image));
 
 	for (int i = rect.left; i <= rect.left + rect.width - 1; i++) {
 		bool var = false;
@@ -70,7 +59,7 @@ void CSnap::snapping(sf::IntRect rect, sf::Vector2i pos_click) {
 			if (!var && !pixelCheck(test_image->getPixel(i, j))) {
 				l[0].position = sf::Vector2f(i, j);
 				l[1].position = sf::Vector2f(i + 1, j);
-				conf_lines.push_back(CTool::creer_conf_line(l, 0, i, j));
+				oriented_lines.push_back(oLine(l, UP, i, j));
 				var = true;
 			}
 			if (var) {
@@ -79,7 +68,7 @@ void CSnap::snapping(sf::IntRect rect, sf::Vector2i pos_click) {
 				{
 					l[0].position = sf::Vector2f(i, j + 1);
 					l[1].position = sf::Vector2f(i + 1, j + 1);
-					conf_lines.push_back(CTool::creer_conf_line(l, 2, i, j));
+					oriented_lines.push_back(oLine(l, DOWN, i, j));
 					var = false;
 				}
 			}
@@ -92,7 +81,7 @@ void CSnap::snapping(sf::IntRect rect, sf::Vector2i pos_click) {
 			if (!var && !pixelCheck(test_image->getPixel(i, j))) {
 				l[0].position = sf::Vector2f(i, j);
 				l[1].position = sf::Vector2f(i, j + 1);
-				conf_lines.push_back(CTool::creer_conf_line(l, 3, i, j));
+				oriented_lines.push_back(oLine(l, LEFT, i, j));
 				var = true;
 			}
 			if (var) {
@@ -101,7 +90,7 @@ void CSnap::snapping(sf::IntRect rect, sf::Vector2i pos_click) {
 				{
 					l[0].position = sf::Vector2f(i + 1, j);
 					l[1].position = sf::Vector2f(i + 1, j + 1);
-					conf_lines.push_back(CTool::creer_conf_line(l, 1, i, j));
+					oriented_lines.push_back(oLine(l, RIGHT, i, j));
 					var = false;
 				}
 			}
@@ -109,62 +98,25 @@ void CSnap::snapping(sf::IntRect rect, sf::Vector2i pos_click) {
 	}
 }
 
-void CSnap::end_selec(int type) {
-	if (conf_lines.size() > 0) {
-		CTool::move_line(&conf_lines, LAYER->getPosition_i());
+void Snap::use() {
+	SELEC->move();
 
-		int x_min = conf_lines[0].x, y_min = conf_lines[0].y, x_max = conf_lines[0].x, y_max = conf_lines[0].y;
-		for (int i = 0; i < conf_lines.size(); i++) {
-			if (conf_lines[i].x < x_min) { x_min = conf_lines[i].x; }
-			else if (conf_lines[i].x > x_max) { x_max = conf_lines[i].x; }
-			if (conf_lines[i].y < y_min) { y_min = conf_lines[i].y; }
-			else if (conf_lines[i].y > y_max) { y_max = conf_lines[i].y; }
-		}
+	if (INPUT->again(Qt::LeftButton))
+		pos_click = INPUT->getPixel();
 
-		switch (type) {
-			case 0:	SELEC->createSelection(sf::IntRect(x_min, y_min, x_max - x_min + 1, y_max - y_min + 1), bit_image, conf_lines);
-				break;
-			case 1: SELEC->addSelection(sf::IntRect(x_min, y_min, x_max - x_min + 1, y_max - y_min + 1), bit_image, conf_lines);
-				break;
-			case 2: SELEC->subSelection(sf::IntRect(x_min, y_min, x_max - x_min + 1, y_max - y_min + 1), bit_image, conf_lines);
-				break;
-			case 3: SELEC->intersectSelection(sf::IntRect(x_min, y_min, x_max - x_min + 1, y_max - y_min + 1), bit_image, conf_lines);
-				break;
-		}
-		conf_lines.clear();
-	}
-}
-
-void CSnap::use() {
-	static bool active = false;
-	static sf::Vector2i pos_click;
-	static int key;
-	sf::Vector2i center = IO->getPixel();
-
-	if (IO->again(Qt::LeftButton)) {
-		pos_click = IO->getPixel();
-		active = true;
-	}
-
-	if (active) {
-		if (IO->pressed(Qt::LeftButton))
-			snap(pos_click, center);
-		else {
-			//RETOUR->group({IO, LAYER});
-			//IO->creer_retour();
-
-			snapping(rect, pos_click);
-			Qt::KeyboardModifiers special = QApplication::keyboardModifiers();
-			if (special & Qt::ShiftModifier && special & Qt::ControlModifier)
-				end_selec(3);
-			else if (special & Qt::ControlModifier)
-				end_selec(2);
-			else if (special & Qt::ShiftModifier)
-				end_selec(1);
-			else
-				end_selec(0);
-			active = false;
-		}
+	if (INPUT->pressed(Qt::LeftButton))
+		snap(pos_click, INPUT->getPixel());
+	else if (INPUT->released(Qt::LeftButton)) {
+		snapping(rect, pos_click);
+		
+		if (INPUT->pressed(Qt::Key_Shift) && INPUT->pressed(Qt::Key_Control))
+			endSelection(INTERSECT, bit_image);
+		else if (INPUT->pressed(Qt::Key_Control))
+			endSelection(SUB, bit_image);
+		else if (INPUT->pressed(Qt::Key_Shift))
+			endSelection(ADD, bit_image);
+		else
+			endSelection(NO_FUSION, bit_image);
 	}
 
 }

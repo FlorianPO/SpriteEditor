@@ -1,9 +1,10 @@
-#include "Source Files/Widget/Gui/ColorPanel/ColorPanel.h"
+#include "ColorPanel.h"
 
 #include "Source Files/Application/Color/ColorController.h"
+#include "Source Files/Widget/Various/Label/ClickLabel.h"
+#include "Source Files/SignalType/SignalColor.h"
 
-ColorPanel::ColorPanel(QWidget *parent, const QPoint& position) : QWidget(parent)
-{
+ColorPanel::ColorPanel(QWidget *parent, const QPoint& position) : QWidget(parent) {
 	move(position);
 	ui.setupUi(this);
 	show();

@@ -1,13 +1,15 @@
-#include "Source Files/Application/Curseur/Curseur.h"
+#include "Curseur.h"
+
 #include "Source Files/Application/App.h"
-#include "Source Files/Application/IO/Input.h"
-#include "Source Files/Application/Var/Var.h"
+#include "Source Files/Application/Input/InputController.h"
 #include "Source Files/Fonction/Fonction.h"
+#include "Source Files/Application/UndoStack/UndoStack.h"
+#include "CurseurUndo.h"
 
-CCurseur* CCurseur::_t;
+Curseur* Curseur::_t;
 
-CCurseur::CCurseur(void)
-{
+Curseur::Curseur() {
+	///// Cursor construction
 	sf::VertexArray line = sf::VertexArray(sf::LinesStrip, 2);
 	float a = 3;
 
@@ -24,64 +26,48 @@ CCurseur::CCurseur(void)
 	line[0].position.x = 0; line[0].position.y = a * std::sqrt(2.f);
 	line[1].position.x = 0; line[1].position.y = -a * std::sqrt(2.f);
 	lines.push_back(line);
-
-	position = sf::Vector2f();
+	//
 }
 
-CCurseur::~CCurseur(void) {}
-
-void CCurseur::afficher()
-{
+void Curseur::display() {
 	sf::Color color = sf::Color(255 * bool(rand() % 2), 255 * bool(rand() % 2), 255 * bool(rand() % 2));
-	for (int i = 0; i < lines.size(); i++)
-	{
+	FOR_I (lines.size()) {
 		lines[i][0].color = color;
 		lines[i][1].color = color;
-		APP->fenetre->draw(lines[i]);
+		APP->getWindow().draw(lines[i]);
 	}
 }
 
-void CCurseur::setPosition(sf::Vector2f pos)
-{
-	for (int i = 0; i < lines.size(); i++)
-	{
+void Curseur::setPosition(sf::Vector2f pos) {
+	FOR_I (lines.size()) {
 		lines[i][0].position -= position - pos;
 		lines[i][1].position -= position - pos;
 	}
 	position = pos;
 }
 
-void CCurseur::gerer(sf::Sprite* sprite)
-{
-	if (!IO->pressed(Qt::Key_Shift))
-	{
-		if (IO->pressed(Qt::RightButton))
-			setPosition(IO->getPosition());
+void Curseur::gerer(sf::Sprite* sprite) {
+	if (!INPUT->pressed(Qt::Key_Shift)) {
+		if (INPUT->again(Qt::RightButton))
+			start_pos = position;	
+
+		if (INPUT->pressed(Qt::RightButton))
+			setPosition(INPUT->getPosition());
+		else if (INPUT->released(Qt::RightButton))
+			UNDO->push(new CurseurUndo(position, start_pos));
 	}
 	else
-		if (IO->again(Qt::RightButton))
-		{
-			sf::Vector2f* tmp = CFonction::selecPoint(sprite, IO->getPosition(), static_cast<unsigned int>(-1));
-			if (tmp != NULL)
-			{
+		if (INPUT->again(Qt::RightButton)) {
+			sf::Vector2f* tmp = Fonction::selecPoint(sprite, INPUT->getPosition(), static_cast<unsigned int>(-1));
+			if (tmp != NULL) {
+				start_pos = position;
 				setPosition(*tmp);
+				UNDO->push(new CurseurUndo(position, start_pos));
 				delete tmp;
-			}	
+			}
 		}
 }
 
-void CCurseur::ini(sf::Sprite* sprite)
-{
-	sf::FloatRect rect_glob = sprite->getGlobalBounds();
-	sf::Vector2f pos_center(rect_glob.left + rect_glob.width / 2.f, rect_glob.top + rect_glob.height / 2.f);
-
-	float angle = sprite->getRotation() / 180 * VAR->PI;
-	sf::Vector2f temp = pos_center - position;
-	pos_center.x = temp.x*std::cos(angle) + temp.y*std::sin(angle);
-	pos_center.y = temp.y*std::cos(angle) - temp.x*std::sin(angle);
-	pos_center.x /= sprite->getScale().x;
-	pos_center.y /= sprite->getScale().y;
-
-	sprite->setOrigin(sf::Vector2f(sprite->getTextureRect().width / 2.f, sprite->getTextureRect().height / 2.f) - pos_center);
-	sprite->setPosition(position);
+void Curseur::init(sf::Sprite* sprite) {
+	Fonction::setOriginGlobally(*sprite, position);
 }

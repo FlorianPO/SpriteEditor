@@ -1,20 +1,19 @@
 #pragma once
 
-#include "stdafx.h"
-#include <QtWidgets/QWidget>
-#include <QtWidgets/QFrame>
+#include "stdenum.h"
 
 class RFrame : public QWidget
 {
 	Q_OBJECT
+// CONSTRUCTOR
 public:
-	explicit RFrame(QWidget *parent, const QPoint& position=QPoint(), const QSize& size=QSize());
+	RFrame(QWidget *parent);
 	~RFrame() {}
 
+// METHODS
+public:
 	void setFrameGeometry(const QPoint& pos, const QSize& size);
-
 	QFrame* getFrame() { return frame; }
-	int getBottomY() { return geometry().height() + geometry().y();}
 
 private:
 	void mouseMoveEvent(QMouseEvent* event) override;
@@ -23,6 +22,8 @@ private:
 	void moveEvent(QMoveEvent *event) override;
 	void resizeEvent(QResizeEvent *event) override;
 
+// MEMBERS
+private:
 	QFrame* frame=NULL;
 	QPoint dragStartPosition;
 	QRect dragStartGeometry;

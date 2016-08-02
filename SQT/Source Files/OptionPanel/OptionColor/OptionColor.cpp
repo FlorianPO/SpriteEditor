@@ -1,14 +1,14 @@
 /*
 
 #include "OptionColor.h"
-#include "Source Files/Application/Res/Res.h"
-#include "Source Files/Application/IO/Input.h"
+#include "Source Files/Application/Resource/ResourceController.h"
+#include "Source Files/Application/INPUT/InputController.h"
 #include "Source Files/Fonction/Fonction.h"
 #include "Source Files/Application/App.h"
 #include "Gui.h"
 #include "Source Files/Application/Var/Var.h"
 #include "EnteredInput.h"
-#include "Source Files/Application/Tool/Tool.h"
+#include "Source Files/Application/nTol/nTol.h"
 
 COptionColor* OPTION_COLOR;
 sf::Color COptionColor::color_list[15];
@@ -33,38 +33,38 @@ COptionColor::COptionColor(void* param) //VERIFIED//
 {
 */
 	/*
-	ADVIO->replace({CInput::A}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(0);}), this);
-	ADVIO->replace({Qt::Key_Z}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(1);}), this);
-	ADVIO->replace({CInput::E}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(2);}), this);
-	ADVIO->replace({CInput::R}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(3);}), this);
-	ADVIO->replace({CInput::T}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(4);}), this);
-	ADVIO->replace({Qt::Key_Q}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(5);}), this);
-	ADVIO->replace({Qt::Key_S}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(6);}), this);
-	ADVIO->replace({Qt::Key_D}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(7);}), this);
-	ADVIO->replace({CInput::F}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(8);}), this);
-	ADVIO->replace({CInput::G}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(9);}), this);
-	ADVIO->replace({CInput::W}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(10);}), this);
-	ADVIO->replace({CInput::X}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(11);}), this);
-	ADVIO->replace({CInput::C}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(12);}), this);
-	ADVIO->replace({CInput::V}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(13);}), this);
-	ADVIO->replace({CInput::B}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(14);}), this);
+	ADVIO->replace({InputController::A}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(0);}), this);
+	ADVIO->replace({Qt::Key_Z}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(1);}), this);
+	ADVIO->replace({InputController::E}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(2);}), this);
+	ADVIO->replace({InputController::R}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(3);}), this);
+	ADVIO->replace({InputController::T}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(4);}), this);
+	ADVIO->replace({Qt::Key_Q}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(5);}), this);
+	ADVIO->replace({Qt::Key_S}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(6);}), this);
+	ADVIO->replace({Qt::Key_D}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(7);}), this);
+	ADVIO->replace({InputController::F}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(8);}), this);
+	ADVIO->replace({InputController::G}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(9);}), this);
+	ADVIO->replace({InputController::W}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(10);}), this);
+	ADVIO->replace({InputController::X}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(11);}), this);
+	ADVIO->replace({InputController::C}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(12);}), this);
+	ADVIO->replace({InputController::V}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(13);}), this);
+	ADVIO->replace({InputController::B}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->getColor(14);}), this);
 
-	ADVIO->replace({Qt::Key_Control, CInput::A}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(0);}), this);
-	ADVIO->replace({Qt::Key_Control, Qt::Key_Z}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(1);}), this);
-	ADVIO->replace({Qt::Key_Control, CInput::E}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(2);}), this);
-	ADVIO->replace({Qt::Key_Control, CInput::R}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(3);}), this);
-	ADVIO->replace({Qt::Key_Control, CInput::T}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(4);}), this);
-	ADVIO->replace({Qt::Key_Control, Qt::Key_Q}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(5);}), this);
-	ADVIO->replace({Qt::Key_Control, Qt::Key_S}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(6);}), this);
-	ADVIO->replace({Qt::Key_Control, Qt::Key_D}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(7);}), this);
-	ADVIO->replace({Qt::Key_Control, CInput::F}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(8);}), this);
-	ADVIO->replace({Qt::Key_Control, CInput::G}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(9);}), this);
-	ADVIO->replace({Qt::Key_Control, CInput::W}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(10);}), this);
-	ADVIO->replace({Qt::Key_Control, CInput::X}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(11);}), this);
-	ADVIO->replace({Qt::Key_Control, CInput::C}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(12);}), this);
-	ADVIO->replace({Qt::Key_Control, CInput::V}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(13);}), this);
-	ADVIO->replace({Qt::Key_Control, CInput::B}, CInput::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(14);}), this);
-	ADVIO->replace({Qt::Key_Space}, CInput::AGAIN, new std::function<void(void)>([]() {
+	ADVIO->replace({Qt::Key_Control, InputController::A}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(0);}), this);
+	ADVIO->replace({Qt::Key_Control, Qt::Key_Z}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(1);}), this);
+	ADVIO->replace({Qt::Key_Control, InputController::E}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(2);}), this);
+	ADVIO->replace({Qt::Key_Control, InputController::R}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(3);}), this);
+	ADVIO->replace({Qt::Key_Control, InputController::T}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(4);}), this);
+	ADVIO->replace({Qt::Key_Control, Qt::Key_Q}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(5);}), this);
+	ADVIO->replace({Qt::Key_Control, Qt::Key_S}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(6);}), this);
+	ADVIO->replace({Qt::Key_Control, Qt::Key_D}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(7);}), this);
+	ADVIO->replace({Qt::Key_Control, InputController::F}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(8);}), this);
+	ADVIO->replace({Qt::Key_Control, InputController::G}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(9);}), this);
+	ADVIO->replace({Qt::Key_Control, InputController::W}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(10);}), this);
+	ADVIO->replace({Qt::Key_Control, InputController::X}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(11);}), this);
+	ADVIO->replace({Qt::Key_Control, InputController::C}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(12);}), this);
+	ADVIO->replace({Qt::Key_Control, InputController::V}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(13);}), this);
+	ADVIO->replace({Qt::Key_Control, InputController::B}, InputController::AGAIN, new std::function<void(void)>([]() {OPTION_COLOR->setColor(14);}), this);
+	ADVIO->replace({Qt::Key_Space}, InputController::AGAIN, new std::function<void(void)>([]() {
 		delete OPTION_COLOR;
 		OPTION_COLOR = NULL;
 		return;
@@ -72,20 +72,20 @@ COptionColor::COptionColor(void* param) //VERIFIED//
 	ADVIO->replace({Qt::Key_Alt}, Qt::Key_DOUBLE_TAP, new std::function<void(void)>([]() {iniColor(true);}), this);
 	*/
 /*
-	spr1.setTexture(*RES->getTexture(CRes::TEXTURE::optionColor));
-	spr2.setTexture(*RES->getTexture(CRes::TEXTURE::optionColor_1));
-	spr3.setTexture(*RES->getTexture(CRes::TEXTURE::optionColor_3));
-	sprb.setTexture(*RES->getTexture(CRes::TEXTURE::optionColor_2));
+	spr1.setTexture(*RES->getTexture(ResourceController::TEXTURE::optionColor));
+	spr2.setTexture(*RES->getTexture(ResourceController::TEXTURE::optionColor_1));
+	spr3.setTexture(*RES->getTexture(ResourceController::TEXTURE::optionColor_3));
+	sprb.setTexture(*RES->getTexture(ResourceController::TEXTURE::optionColor_2));
 
 	sf::Image img;
 	img.create(86, 48, sf::Color::White);
 
-	spr_ancien = RES->getSprite(CRes::sprite_white, sf::Vector2i(86, 48));
+	spr_ancien = RES->getSprite(ResourceController::sprite_white, sf::Vector2i(86, 48));
 	spr_nouveau = spr_ancien;
 
 	for (int i = 0; i<15; i++)
 	{
-		sprite_list.push_back(RES->getSprite(CRes::sprite_white, sf::Vector2i(32, 14)));
+		sprite_list.push_back(RES->getSprite(ResourceController::sprite_white, sf::Vector2i(32, 14)));
 		sprite_list[i].setColor(color_list[i]);
 	}
 
@@ -137,28 +137,28 @@ void COptionColor::position()
 
 void COptionColor::gerer() //VERIFIED//
 {
-	if (IO->again(Qt::RightButton))
+	if (INPUT->again(Qt::RightButton))
 	{
 		for (int i = 0; i<sprite_list.size(); i++)
-			if (CFonction::onSprite(&sprite_list[i]))
+			if (Fonction::mouseOnSprite(&sprite_list[i]))
 				setColor(i);
 
-		if (CFonction::onSprite(&spr1))
+		if (Fonction::mouseOnSprite(&spr1))
 			spr2.setColor(*parametre);
 	}
 
 	static bool spr1_active = false;
 	static bool spr2_active = false;
 
-	if (IO->again(Qt::LeftButton))
+	if (INPUT->again(Qt::LeftButton))
 	{
 		if (!spr1_active && !spr2_active)
 		{
 			for (int i = 0; i<sprite_list.size(); i++)
-				if (CFonction::onSprite(&sprite_list[i]))
+				if (Fonction::mouseOnSprite(&sprite_list[i]))
 					getColor(i);
 
-			if (CFonction::onSprite(&spr2))
+			if (Fonction::mouseOnSprite(&spr2))
 			{
 				spr2_active = true;
 				sf::RenderTexture render;
@@ -170,16 +170,16 @@ void COptionColor::gerer() //VERIFIED//
 				render.draw(spr);
 
 				render.display();
-				image = render.getTexture().copyToImage();
+				image_selec = render.getTexture().copyToImage();
 			}
-			else if (CFonction::onSprite(&spr1))
+			else if (Fonction::mouseOnSprite(&spr1))
 			{
 				spr1_active = true;
-				image = spr1.getTexture()->copyToImage();
+				image_selec = spr1.getTexture()->copyToImage();
 			}
 		}
 	}
-	else if (!IO->pressed(Qt::LeftButton))
+	else if (!INPUT->pressed(Qt::LeftButton))
 	{
 		spr1_active = false;
 		spr2_active = false;
@@ -190,7 +190,7 @@ void COptionColor::gerer() //VERIFIED//
 	else if (spr2_active)
 		gererColor(&spr2);
 
-	if (IO->pressed(Qt::Key_Control) && (spr1_active || spr2_active))
+	if (INPUT->pressed(Qt::Key_Control) && (spr1_active || spr2_active))
 		arrondi();
 	if (spr1_active) spr2.setColor(*parametre);
 
@@ -203,13 +203,13 @@ void COptionColor::gerer() //VERIFIED//
 
 void COptionColor::gererColor(sf::Sprite *sprite) //VERIFIED//
 {
-	sf::Vector2f pos = (IO->getPosition()-sprite->getPosition())*APP->zoom;
-	sf::Vector2f center_image(image.getSize().x/2.f, image.getSize().y/2.f);
+	sf::Vector2f pos = (INPUT->getPosition()-sprite->getPosition())*APP->zoom;
+	sf::Vector2f center_image(image_selec.getSize().x/2.f, image_selec.getSize().y/2.f);
 
 	sf::Vector2f vecteur(pos.x-center_image.x, pos.y-center_image.y);
 	float angle = -std::atan2(vecteur.y, vecteur.x)*180/VAR->PI;
 
-	if (!(pos.x>=0&&pos.y>=0&&pos.x<image.getSize().x && pos.y<image.getSize().y))
+	if (!(pos.x>=0&&pos.y>=0&&pos.x<image_selec.getSize().x && pos.y<image.getSize().y))
 	{
 		float ratio;
 		if (angle<45&&angle>=-45)
@@ -224,11 +224,11 @@ void COptionColor::gererColor(sf::Sprite *sprite) //VERIFIED//
 		vecteur.x *= ratio;
 		vecteur.y *= ratio;
 
-		if (center_image.x+vecteur.x==image.getSize().x) vecteur.x--;
-		if (center_image.y+vecteur.y==image.getSize().y) vecteur.y--;
+		if (center_image.x+vecteur.x==image_selec.getSize().x) vecteur.x--;
+		if (center_image.y+vecteur.y==image_selec.getSize().y) vecteur.y--;
 	}
 
-	*parametre = CFonction::getColor(sf::Vector2i(center_image.x+vecteur.x, center_image.y+vecteur.y), &image);
+	*parametre = Fonction::getColor(sf::Vector2i(center_image.x+vecteur.x, center_image.y+vecteur.y), &image_selec);
 	ex_parametre = *parametre;
 }
 
@@ -292,25 +292,25 @@ void COptionColor::iniColor(bool display) //VERIFIED//
 			OPTION_COLOR->sprite_list[i].setColor(color_list[i]);
 }
 
-void COptionColor::afficher() //VERIFIED//
+void COptionColor::display() //VERIFIED//
 {
 	spr_nouveau.setColor(*parametre);
 
-	APP->fenetre->draw(spr3);
-	APP->fenetre->draw(spr1);
-	APP->fenetre->draw(sprb);
-	APP->fenetre->draw(spr2);
+	APP->getWindow().draw(spr3);
+	APP->getWindow().draw(spr1);
+	APP->getWindow().draw(sprb);
+	APP->getWindow().draw(spr2);
 
-	APP->fenetre->draw(spr_ancien);
-	APP->fenetre->draw(spr_nouveau);
+	APP->getWindow().draw(spr_ancien);
+	APP->getWindow().draw(spr_nouveau);
 
 	for (int i = 0; i<sprite_list.size(); i++)
-		APP->fenetre->draw(sprite_list[i]);
+		APP->getWindow().draw(sprite_list[i]);
 }
 
 bool COptionColor::test()
 {
-	return CFonction::onSprite(&spr3);
+	return Fonction::mouseOnSprite(&spr3);
 }
 */
 
@@ -356,6 +356,6 @@ void COptionColor::createCircle()
 	render.draw(quad);
 	render.display();
 
-	CFonction::copy_to_clipboard(&tex1.copyToImage());
+	Fonction::copy_to_clipboard(&tex1.copyToImage());
 }
 */

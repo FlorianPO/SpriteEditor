@@ -1,6 +1,6 @@
 #pragma once
 /*
-#include "stdafx.h"
+#include "stdenum.h"
 
 
 #define OPTION_COLOR COptionColor::_t
@@ -18,7 +18,7 @@ public:
 
 	void position() override;
 	void gerer() override;
-	void afficher() override;
+	void display() override;
 	bool test() override;
 
 private:
@@ -32,7 +32,7 @@ private:
 private:
 	sf::Color* parametre;
 	sf::Color ex_parametre;
-	sf::Image image;
+	sf::Image image_selec;
 
 	sf::Sprite sprb;
 	sf::Sprite spr1;

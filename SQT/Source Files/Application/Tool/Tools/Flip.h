@@ -2,12 +2,12 @@
 
 #include "Source Files/Application/Tool/Tool.h"
 
-class CFlip : public CTool
+class Flip : public Tool
 {
 // CONSTRUCTOR
 public:
-	CFlip();
-	~CFlip() {}
+	Flip();
+	~Flip() {}
 
 // METHODS
 public:

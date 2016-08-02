@@ -1,26 +1,14 @@
 #pragma once
 
-#include "stdafx.h"
+#include "stdenum.h"
 
-class CBrush : public QObject
+class Brush : public QObject
 {
 	Q_OBJECT
 // CONSTRUCTOR
 public:
-	explicit CBrush() {}
-	virtual ~CBrush() {}
-
-	enum brush_enum
-	{
-		PIXEL = 0,
-		CIRCLE,
-		CIRCLE_OUTLINE,
-		SQUARE,
-		SQUARE_OUTLINE
-	};
-
-	inline brush_enum getEnum() { return numero_brush; }
-	inline int getId() { return static_cast<int>(numero_brush); }
+	Brush() {}
+	virtual ~Brush() {}
 
 // METHODS
 public:
@@ -30,17 +18,34 @@ public:
 	void createPreview();
 
 	void checkSize(sf::Vector2i size_to_check);
-	void afficher(sf::Vector2f center);			//Display brush lines
-	void setPosition(sf::Vector2f center);		//Set brush's position
+	void setDisplayPosition(sf::Vector2f center, bool force=false);
+	void display(sf::Vector2f center);
+	void display(); //Display brush lines
+	
+	void setPosition(sf::Vector2f position); //Set brush's position
+	void move(sf::Vector2f delta_move);
+
+	inline sf::Vector2f getPosition() { return sprite.getPosition(); }
+	sf::Vector2f getPointedPosition();
+	sf::Vector2f getExPointedPosition();
+
+	void setExPosition(sf::Vector2f position);
+	inline sf::Vector2f getExPosition() { return truePosition(ex_position); }
+
 	void setColor(sf::Color color);
 
 	inline sf::Vector2i	getSize() { return size; }
 	inline QSize getQSize() { return QSize(size.x, size.y); }
 	inline const sf::Sprite& getSprite() { return sprite; }
 	inline const sf::Texture& getPreviewTexture() { return preview_texture; }
-	
-	sf::Vector2f centerOf(sf::Vector2f center);
-	bool onCadre();
+
+	inline nBrh::brush_enum getEnum() { return numero_brush; }
+	inline int getId() { return static_cast<int>(numero_brush); }
+
+protected:
+	void setSize(sf::Vector2i size_to_set);
+private:
+	sf::Vector2f truePosition(sf::Vector2f position);
 
 // SIGNALS SLOTS
 	public slots:
@@ -52,10 +57,11 @@ public:
 
 // MEMBERS
 protected:
-	void setSize(sf::Vector2i size_to_set);
-
 	bool default_brush = true;
-	brush_enum numero_brush;
+	nBrh::brush_enum numero_brush;
+
+	static sf::Vector2f	ex_position;
+	static sf::Vector2f display_position;
 
 	sf::Vector2i	size;
 	sf::Vector2f	hsize;

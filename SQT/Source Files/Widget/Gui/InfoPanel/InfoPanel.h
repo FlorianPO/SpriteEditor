@@ -1,17 +1,15 @@
 #pragma once
 
-#include "stdafx.h"
-
-#include <QtWidgets/QWidget>
+#include "stdenum.h"
 #include "GeneratedFiles/Ui_InfoPanel.h"
-#include "Source Files/Widget/Various/Label/ViewLabel.h"
+class ViewLabel; // Forward declaration
 
 class InfoPanel : public QWidget
 {
 	Q_OBJECT
 // CONSTRUCTOR
 public:
-	explicit InfoPanel(QWidget *parent, const QPoint& position=QPoint());
+	InfoPanel(QWidget *parent, const QPoint& position=QPoint());
 	~InfoPanel() {};
 
 // SIGNALS SLOTS

@@ -1,30 +1,31 @@
 #pragma once
 
-#include "stdafx.h"
-
+#include "stdenum.h"
 #include "GeneratedFiles/ui_LayerPanel.h"
-#include "Source Files/Application/Layer/Layer.h"
-#include "Source Files/Widget/Various/VerticalLayout/VerticalLayout.h"
-#include "Source Files/Widget/Various/StateButton/State2Button.h"
+class Layer; // Forward declaration
+class VerticalLayout; // Forward declaration
+class State2Button; // Forward declaration
 
 class LayerPanel : public QWidget
 {
 	Q_OBJECT
 // CONSTRUCTOR
 public:
-	explicit LayerPanel(QWidget *parent, const QPoint& position=QPoint());
+	LayerPanel(QWidget *parent, const QPoint& position=QPoint());
 	~LayerPanel() {}
 
 // SIGNALS SLOTS
 	private slots:
-		void layerCreated(CLayer*);
-		void layerDeleted(CLayer*);
+		void layerCreated(Layer*);
+		void layerDeleted(Layer*);
 		void onlyOneLayer();
 		void moreThanOneLayer();
-		void firstLayerSelected(CLayer*);
-		void firstLayerUnselected(CLayer*);
+		void firstLayerSelected(Layer*);
+		void firstLayerUnselected(Layer*);
 		void selectionCreated();
 		void selectionDeleted();
+		void copyCreated();
+		void copyDropped();
 
 // MEMBERS
 private:

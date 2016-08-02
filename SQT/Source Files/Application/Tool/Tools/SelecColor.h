@@ -1,17 +1,15 @@
 #pragma once
 
-#include "stdafx.h"
+#include "stdenum.h"
+#include "Source Files/Application/Tool/ToolAbstract/TPixelChecker.h"
+#include "Source Files/Application/Tool/ToolAbstract/TSelectionModifier.h"
 
-#include "Source Files/Application/Tool/Tool.h"
-#include "Source Files/Application/Tool/ToolAbstract/ToolColorModifier.h"
-#include "Source Files/Application/Tool/ToolAbstract/ToolPixelChecker.h"
-
-class CSelecColor : public virtual CTool, virtual CToolColorModifier, virtual CToolPixelChecker
+class SelecColor : public TSelectionModifier, TPixelChecker
 {
 // CONSTRUCTOR
 public:
-	CSelecColor();
-	~CSelecColor() {}
+	SelecColor();
+	~SelecColor() {}
 
 // METHODS
 public:
@@ -19,13 +17,10 @@ public:
 private:
 	void pickNoSelec();
 	void pickWithSelec();
-	void end_selec(int type);
 
 // MEMBERS
 private:
 	sf::Image* test_image;
 	sf::Image bit_image;
-
-	std::vector<CTool::line_conf> conf_lines;
 };
 

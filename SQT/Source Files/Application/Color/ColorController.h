@@ -1,31 +1,33 @@
 #pragma once
 
-#include "stdafx.h"
-#include "Source Files/SignalType/SignalColor.h"
+#include "stdenum.h"
+class SignalColor; // Forward declaration
 
-#define INIT_COLOR_CONTROLLER CColorController::createInstance();
-#define COLOR_CONTROLLER CColorController::getInstance()
+#define INIT_COLOR_CONTROLLER ColorController::createInstance();
+#define COLOR_CONTROLLER ColorController::getInstance()
 
-class CColorController : public QObject 
+class ColorController : public QObject 
 {
 	Q_OBJECT
 // INSTANCE
-private:	static CColorController* _t; 
-public:		inline static void createInstance() { _t = new CColorController(); }
-			inline static CColorController* getInstance() { return _t; }
+private:	static ColorController* _t; 
+public:		inline static void createInstance() { _t = new ColorController(); }
+			inline static ColorController* getInstance() { return _t; }
 
 // CONSTRUCTOR
 public:
-	CColorController();
-	~CColorController();
+	ColorController();
+	~ColorController();
 
 // METHODS
+public:
 	inline SignalColor* getSColor1() { return color1; }
 	inline SignalColor* getSColor2() { return color2; }
-	inline sf::Color getColor1() { return color1->getColor(); }
-	inline sf::Color getColor2() { return color2->getColor(); }
+	sf::Color getColor1();
+	sf::Color getColor2();
 
-// SIGNALS SLOTS
+	void setColor1(sf::Color c1);
+	void setColor2(sf::Color c2);
 
 // MEMBERS
 private:

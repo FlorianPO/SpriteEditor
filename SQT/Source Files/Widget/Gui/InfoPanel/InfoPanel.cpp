@@ -1,7 +1,8 @@
-#include "Source Files/Widget/Gui/InfoPanel/InfoPanel.h"
+#include "InfoPanel.h"
 
-#include "Source Files/Application/IO/Input.h"
-#include "Source Files/Application/Selec/Selec.h"
+#include "Source Files/Application/Input/InputController.h"
+#include "Source Files/Application/Selection/SelectionController.h"
+#include "Source Files/Widget/Various/Label/ViewLabel.h"
 
 InfoPanel::InfoPanel(QWidget *parent, const QPoint& position) : QWidget(parent) {
 	move(position);
@@ -10,10 +11,10 @@ InfoPanel::InfoPanel(QWidget *parent, const QPoint& position) : QWidget(parent) 
 
 	// POSX
 	PosX = new ViewLabel(this, ViewLabel::WIDE); PosX->move(QPoint(0, 24)); PosX->show(); 
-	QObject::connect(IO, SIGNAL(posPixelXChanged(int)), PosX, SLOT(changeValue(int)));
+	QObject::connect(INPUT, SIGNAL(posPixelXChanged(int)), PosX, SLOT(changeValue(int)));
 	// POSY
 	PosY = new ViewLabel(this, ViewLabel::WIDE); PosY->move(QPoint(64, 24)); PosY->show(); 
-	QObject::connect(IO, SIGNAL(posPixelYChanged(int)), PosY, SLOT(changeValue(int)));
+	QObject::connect(INPUT, SIGNAL(posPixelYChanged(int)), PosY, SLOT(changeValue(int)));
 
 	// SIZEX
 	SizeX = new ViewLabel(this, ViewLabel::WIDE); SizeX->move(QPoint(0, 64)); SizeX->show(); 

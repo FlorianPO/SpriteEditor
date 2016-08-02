@@ -1,67 +1,52 @@
-#include "Source Files/Retour/Retour.h"
-#include "Source Files/Application/IO/Input.h"
-#include "Source Files/Application/Var/Var.h"
+#include "Layer.h"
+
+#include "Source Files/Application/Input/InputController.h"
 #include "Source Files/Application/Curseur/Curseur.h"
 #include "Source Files/Fonction/Fonction.h"
 
-void CLayer::move()
-{
-	if (IO->pressed(Qt::RightButton) || IO->isZQSD() && !IO->isCMA())
-	{
-		if (!clicked)
-		{
-			posi = IO->getPixel();
-			posf = sprite.getPosition();
-			clicked = true;
-		}
+#include "LayerUndo.h"
+#include "Source Files/Application/UndoStack/UndoStack.h"
 
+void Layer::move() {
+	if (INPUT->again(Qt::RightButton)) {
+		posi = INPUT->getPixel();
+		posf = getPosition();
+	}
+
+	if (INPUT->pressed(Qt::RightButton)) {
 		sf::Vector2f move;
-		if (!IO->isZQSD())
-			if (IO->pressed(Qt::Key_Control))
-			{
-				sf::Vector2f pos_mouse = CFonction::selecPointRect(sf::Vector2f(posi.x, posi.y), sf::Vector2f(IO->getPixel().x, IO->getPixel().y)).distance;
-				pos_mouse.x = floor(pos_mouse.x);
-				pos_mouse.y = floor(pos_mouse.y);
-				move.x = pos_mouse.x + posf.x;
-				move.y = pos_mouse.y + posf.y;
-				sprite.setPosition(move);
-			}
-			else
-				sprite.move(-IO->getDeltaPixel().x, -IO->getDeltaPixel().y);
-	}
-	else if (clicked)
-	{
-		//RETOUR->add_retour({this});
-		//creer_retour(NULL, MOV);
-
-		clicked = false;
-	}
-}
-
-void CLayer::grand()
-{
-	CURSEUR->gerer(&sprite);
-
-	if (IO->pressed(Qt::LeftButton))
-	{
-		if (!clicked)
-		{
-			clicked = true;
-			CURSEUR->ini(&sprite);
-			posf.x = IO->getPixel().x;
-			posf.y = IO->getPixel().y;
-		}
-		if (IO->pressed(Qt::Key_Control))
-		{
-			int max_size = std::max(sprite.getTextureRect().width, sprite.getTextureRect().height);
-			sf::Vector2f pos_mouse = CFonction::selecPointRect(sf::Vector2f(posf.x, posf.y), sf::Vector2f(IO->getPixel().x, IO->getPixel().y)).distance;
-			sprite.setScale(1.f + pos_mouse.x / max_size, 1.f + pos_mouse.y / max_size);
+		if (INPUT->pressed(Qt::Key_Control)) {
+			sf::Vector2f pos_mouse = Fonction::selecPointRect(VECTOR2F(posi), VECTOR2F(INPUT->getDeltaPixel())).distance;
+			pos_mouse = CALL_VECTOR2F(pos_mouse, floor);
+			move = pos_mouse + posf;
+			setPosition(move);
 		}
 		else
-			sprite.setScale(1.f + (IO->getPixel().x - posf.x) / this->getSize().x, 1.f + (IO->getPixel().y - posf.y) / this->getSize().y);
+			translate(VECTOR2F(INPUT->getDeltaPixel()));
 	}
-	else if (clicked)
-	{
+	else if (INPUT->released(Qt::RightButton))
+		if (getPosition() != posf)
+			UNDO->push(new LayerMoved(this, getPosition()));
+}
+
+void Layer::grand() {
+	CURSEUR->gerer(&sprite);
+
+	if (INPUT->again(Qt::LeftButton)) {
+		CURSEUR->init(&sprite);
+		posf = VECTOR2F(INPUT->getPixel());
+	}
+
+	if (INPUT->pressed(Qt::LeftButton)) {
+		if (INPUT->pressed(Qt::Key_Control)) {
+			int max_size = std::max(sprite.getTextureRect().width, sprite.getTextureRect().height);
+			sf::Vector2f pos_mouse = Fonction::selecPointRect(posf, VECTOR2F(INPUT->getPixel())).distance;
+			setScale(sf::Vector2f(1.f + pos_mouse.x / max_size, 1.f + pos_mouse.y / max_size));
+		}
+		else
+			setScale(sf::Vector2f(1.f + (INPUT->getPixel().x - posf.x) / this->getSize().x, 1.f + (INPUT->getPixel().y - posf.y) / this->getSize().y));
+	}
+	else if (INPUT->released(Qt::LeftButton)) {
 		sf::Vector2f scale = sprite.getScale();
 		sf::Texture text = renderTexture.getTexture();
 		sf::Sprite spr(text);
@@ -76,47 +61,43 @@ void CLayer::grand()
 		renderTexture.draw(spr, sf::BlendNone);
 		renderTexture.display();
 		sprite.setTexture(renderTexture.getTexture(), true);
+		
+		UNDO->beginMacro();
+		update();
+		UNDO->push(new LayerMoved(this, sf::Vector2f(0, 0)));
+		UNDO->endMacro();
 
-		sprite.setScale(1, 1);
-		refresh = true;
-
-		//RETOUR->add_retour({this, this});
-		//creer_retour(&getImage(), ACT);
-		sprite.setPosition(0, 0);
 		sprite.setOrigin(0, 0);
-		//creer_retour(NULL, MOV);
+		sprite.setPosition(0, 0);
+		sprite.setScale(1, 1);
 
-		clicked = false;
+		sf::FloatRect bounds = sprite.getGlobalBounds();
+		emit layerMoved(sf::Vector2f(bounds.left, bounds.top));
+		emit layerScaled(sf::Vector2f(bounds.width, bounds.height));
 	}
 }
 
-void CLayer::rotation()
-{
+void Layer::rotation() {
 	CURSEUR->gerer(&sprite);
 
-	if (IO->pressed(Qt::LeftButton))
-	{
+	if (INPUT->again(Qt::LeftButton)) {
+		CURSEUR->init(&sprite);
+		angle_ini = atan2(INPUT->getPosition().y - sprite.getPosition().y, INPUT->getPosition().x - sprite.getPosition().x);
+	}
+
+	if (INPUT->pressed(Qt::LeftButton)) {
 		float angle;
-		if (!clicked)
-		{
-			clicked = true;
-			CURSEUR->ini(&sprite);
-			angle_ini = atan2(IO->getPosition().y - sprite.getPosition().y, IO->getPosition().x - sprite.getPosition().x);
-		}
-		if (IO->pressed(Qt::Key_Control))
-		{
-			sf::Vector2f pos_mouse = CFonction::selecPointRect(sprite.getPosition(), IO->getPosition()).distance;
+		if (INPUT->pressed(Qt::Key_Control)) {
+			sf::Vector2f pos_mouse = Fonction::selecPointRect(sprite.getPosition(), INPUT->getPosition()).distance;
 			angle = atan2(pos_mouse.y, pos_mouse.x);
-			sprite.setRotation(-angle * 180 / VAR->PI);
+			setRotation(Fonction::radToDeg(angle));
 		}
-		else
-		{
-			angle = atan2(IO->getPosition().y - sprite.getPosition().y, IO->getPosition().x - sprite.getPosition().x);
-			sprite.setRotation((angle - angle_ini) * 180 / VAR->PI);
+		else {
+			angle = atan2(INPUT->getPosition().y - sprite.getPosition().y, INPUT->getPosition().x - sprite.getPosition().x);
+			setRotation(Fonction::radToDeg(angle - angle_ini));
 		}
 	}
-	else if (clicked)
-	{
+	else if (INPUT->released(Qt::LeftButton)) {
 		float angle = sprite.getRotation();
 
 		sf::Texture text = renderTexture.getTexture();
@@ -130,25 +111,27 @@ void CLayer::rotation()
 		renderTexture.draw(spr, sf::BlendNone);
 		renderTexture.display();
 		sprite.setTexture(renderTexture.getTexture(), true);
-		refresh = true;
 
-		//RETOUR->add_retour({this, this});
-		//creer_retour(&getImage(), ACT);
+		UNDO->beginMacro();
+		update();
+		UNDO->push(new LayerMoved(this, sf::Vector2f(0, 0)));
+		UNDO->endMacro();
+
 		sprite.setOrigin(0, 0);
 		sprite.setPosition(0, 0);
 		sprite.setRotation(0);
-		//creer_retour(NULL, MOV);
-
-		clicked = false;
+		
+		sf::FloatRect bounds = sprite.getGlobalBounds();
+		emit layerMoved(sf::Vector2f(bounds.left, bounds.top));
+		emit layerScaled(sf::Vector2f(bounds.width, bounds.height));
 	}
 }
 
-void CLayer::flip()
-{
-	if (IO->again(Qt::LeftButton) || IO->again(Qt::RightButton))
-	{
+void Layer::flip() {
+	if (INPUT->again(Qt::LeftButton) || INPUT->again(Qt::RightButton)) {
 		sf::Image image = renderTexture.getTexture().copyToImage();
-		if (IO->again(Qt::LeftButton))
+		
+		if (INPUT->again(Qt::LeftButton))
 			image.flipHorizontally();
 		else
 			image.flipVertically();
@@ -158,8 +141,7 @@ void CLayer::flip()
 
 		renderTexture.draw(sf::Sprite(texture), sf::BlendNone);
 		renderTexture.display();
-		refresh = true;
-		//RETOUR->add_retour({this});
-		//creer_retour(&getImage(), ACT);
+		
+		update();
 	}
 }

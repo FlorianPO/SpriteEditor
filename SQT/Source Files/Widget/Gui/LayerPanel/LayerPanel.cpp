@@ -1,7 +1,11 @@
-#include "Source Files/Widget/Gui/LayerPanel/LayerPanel.h"
+#include "LayerPanel.h"
 
-#include "Source Files/Widget/Gui/LayerPanel/LayerList/LayerList.h"
-#include "Source Files/Application/Selec/Selec.h"
+#include "LayerList/LayerList.h"
+#include "Source Files/Application/Copy/CopyController.h"
+#include "Source Files/Application/Layer/LayerController.h"
+#include "Source Files/Application/Selection/SelectionController.h"
+#include "Source Files/Widget/Various/StateButton/State2Button.h"
+#include "Source Files/Widget/Various/VerticalLayout/VerticalLayout.h"
 
 LayerPanel::LayerPanel(QWidget *parent, const QPoint& position) : QWidget(parent) {
 	move(position);
@@ -9,16 +13,16 @@ LayerPanel::LayerPanel(QWidget *parent, const QPoint& position) : QWidget(parent
 	show();
 
 	QObject::connect(ui.Layer_new, SIGNAL(clicked()), LAYER_CONTROLLER, SLOT(createLayer()));
-	QObject::connect(LAYER_CONTROLLER, SIGNAL(layerCreated(CLayer*)), this, SLOT(layerCreated(CLayer*)), Qt::DirectConnection);
+	QObject::connect(LAYER_CONTROLLER, SIGNAL(layerCreated(Layer*)), this, SLOT(layerCreated(Layer*)), Qt::DirectConnection);
 
-	QObject::connect(ui.Layer_del, SIGNAL(clicked()), LAYER_CONTROLLER, SLOT(deleteLayer()));
-	QObject::connect(LAYER_CONTROLLER, SIGNAL(layerDeleted(CLayer*)), this, SLOT(layerDeleted(CLayer*)), Qt::DirectConnection);
+	QObject::connect(ui.Layer_del, SIGNAL(clicked()), LAYER_CONTROLLER, SLOT(dropLayer()));
+	QObject::connect(LAYER_CONTROLLER, SIGNAL(layerDeleted(Layer*)), this, SLOT(layerDeleted(Layer*)), Qt::DirectConnection);
 	QObject::connect(LAYER_CONTROLLER, SIGNAL(onlyOneLayer()), this, SLOT(onlyOneLayer()), Qt::DirectConnection);
 	QObject::connect(LAYER_CONTROLLER, SIGNAL(moreThanOneLayer()), this, SLOT(moreThanOneLayer()), Qt::DirectConnection);
 
 	QObject::connect(ui.Layer_fuse, SIGNAL(clicked()), LAYER_CONTROLLER, SLOT(fuseLayer()));
-	QObject::connect(LAYER_CONTROLLER, SIGNAL(firstLayerSelected(CLayer*)), this, SLOT(firstLayerSelected(CLayer*)), Qt::DirectConnection);
-	QObject::connect(LAYER_CONTROLLER, SIGNAL(firstLayerUnselected(CLayer*)), this, SLOT(firstLayerUnselected(CLayer*)), Qt::DirectConnection);
+	QObject::connect(LAYER_CONTROLLER, SIGNAL(firstLayerSelected(Layer*)), this, SLOT(firstLayerSelected(Layer*)), Qt::DirectConnection);
+	QObject::connect(LAYER_CONTROLLER, SIGNAL(firstLayerUnselected(Layer*)), this, SLOT(firstLayerUnselected(Layer*)), Qt::DirectConnection);
 
 	invert = new State2Button(this, &QString("Selections/selec_invert_enabled"), &QString("Selections/selec_invert_disabled"), false);
 	invert->move(QPoint(76, 4)); invert->show();
@@ -27,18 +31,25 @@ LayerPanel::LayerPanel(QWidget *parent, const QPoint& position) : QWidget(parent
 	QObject::connect(SELEC, SIGNAL(selectionInverted()), invert, SLOT(enable()));
 	QObject::connect(SELEC, SIGNAL(selectionUninverted()), invert, SLOT(disable()));
 
+	// Selection
 	QObject::connect(ui.Selection_del, SIGNAL(clicked()), SELEC, SLOT(deleteSelection()));
 	QObject::connect(SELEC, SIGNAL(selectionDeleted()), this, SLOT(selectionDeleted()), Qt::DirectConnection);
 	QObject::connect(SELEC, SIGNAL(selectionCreated()), this, SLOT(selectionCreated()), Qt::DirectConnection);
+	// Copy
+	QObject::connect(ui.Selection_del, SIGNAL(clicked()), COPY_CONTROLLER, SLOT(dropCopy()));
+	QObject::connect(COPY_CONTROLLER, SIGNAL(copyDropped(Copy*)), this, SLOT(copyDropped()), Qt::DirectConnection);
+	QObject::connect(COPY_CONTROLLER, SIGNAL(copyCreated(Copy*)), this, SLOT(copyCreated()), Qt::DirectConnection);
 
-	verticalLayout = new VerticalLayout(QPoint(0, ui.Layer_frame->pos().y()), false);
+	verticalLayout = new VerticalLayout(QPoint(0, ui.Layer_frame->pos().y()), false, true, this);
+	QObject::connect(verticalLayout, SIGNAL(elementMoved(int, int)), LAYER_CONTROLLER, SLOT(orderLayer(int, int)), Qt::DirectConnection);
+	QObject::connect(LAYER_CONTROLLER, SIGNAL(layerOrdered(int, int)), verticalLayout, SLOT(moveElement(int, int)), Qt::DirectConnection);
 }
 
-void LayerPanel::layerCreated(CLayer* layer) {
+void LayerPanel::layerCreated(Layer* layer) {
 	LayerList* calque = new LayerList(this, *layer);
 	verticalLayout->addWidget(calque);
 }
-void LayerPanel::layerDeleted(CLayer* layer) {
+void LayerPanel::layerDeleted(Layer* layer) {
 	verticalLayout->removeWidget(LayerList::getFromLayer(layer));
 }
 
@@ -49,18 +60,28 @@ void LayerPanel::moreThanOneLayer() {
 	ui.Layer_del->setEnabled(true);
 }
 
-void LayerPanel::firstLayerSelected(CLayer* layer) {
+void LayerPanel::firstLayerSelected(Layer* layer) {
 	ui.Layer_fuse->setEnabled(false);
 }
-void LayerPanel::firstLayerUnselected(CLayer* layer) {
+void LayerPanel::firstLayerUnselected(Layer* layer) {
 	ui.Layer_fuse->setEnabled(true);
 }
 
+// When a selection is created
 void LayerPanel::selectionCreated() {
 	invert->setEnabled(true);
 	ui.Selection_del->setEnabled(true);
 }
 void LayerPanel::selectionDeleted() {
 	invert->setEnabled(false);
+	ui.Selection_del->setEnabled(false);
+}
+
+// When a copy is created
+void LayerPanel::copyCreated() {
+	ui.Selection_del->setEnabled(true);
+}
+
+void LayerPanel::copyDropped() {
 	ui.Selection_del->setEnabled(false);
 }

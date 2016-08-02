@@ -1,6 +1,6 @@
-#include "Source Files/Widget/Various/StateButton/State2Button.h"
+#include "State2Button.h"
 
-#include "Source Files/Application/Res/Res.h"
+#include "Source Files/Application/Resource/ResourceController.h"
 
 State2Button::State2Button(QWidget* parent, QString* path_enabled, QString* path_disabled, bool active) : QPushButton(parent) {
 	setFlat(true);

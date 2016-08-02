@@ -1,14 +1,12 @@
 #pragma once
 
-#include "stdafx.h"
+#include "stdenum.h"
+class Copy; //Forward declaration
 
 #define INIT_COPY_CONTROLLER CopyController::createInstance();
-
 #define COPY_CONTROLLER CopyController::getInstance()
 #define COPY_LIST CopyController::getInstance()->getCopyList()
 #define COPY CopyController::getInstance()->getCurrentCopy()
-
-class CCopy; //Forward declaration
 
 class CopyController : public QObject
 {
@@ -19,28 +17,47 @@ public:		inline static void createInstance() { _t = new CopyController(); }
 			inline static CopyController* getInstance() { return _t; }
 
 // CONSTRUCTOR
-	CopyController() {}
+public:
+	CopyController();
 	~CopyController() {}
 
 // METHODS
-	inline CCopy* getCurrentCopy() { return current_copy; }
-	inline const std::vector<CCopy*>& getLayerList() { return copy_list; }
+public:
+	inline Copy* getCurrentCopy() { return current_copy; }
+	inline const std::vector<Copy*>& getCopyList() { return copy_list; }
 
 // SIGNALS SLOTS
 	public slots:
-		void new_copy(const sf::Image& image);
-		void _copyCreated(CCopy*);
-		void _copyApplied(CCopy*);
-		void _copyTransformed(CCopy*);
+		void copy();
+		void cut();
+		void paste();
+		void createCopy(const sf::Image& image, sf::Vector2f position);
+		void deleteCopy(Copy* copy=COPY);
+		void applyCopy(Copy* copy=COPY);
+		void dropCopy(Copy* copy=COPY);
 	signals:
-		void copyCreated(CCopy*);
-		void copyApplied(CCopy*);
-		void copyTransformed(CCopy*);
+		void copyCreated(Copy*);
+		void copyDeleted(Copy*);
+		void copyDropped(Copy*);
 
 // MEMBERS
 private:
-	CCopy* current_copy;
-	std::vector<CCopy*> copy_list;
-	sf::Vector2f last_pos_copy;
+	Copy* current_copy;
+	int space_shortcut_id;
+	int shift_core_shortcut_id;
+	int zqsd_core_shortcut_id[4];
+
+	std::vector<Copy*> copy_list;
+	sf::Vector2f apply_position;
+	sf::Vector2f copy_position;
+
+// UNDO
+public:
+	friend class CopyCreated;
+	friend class CopyDropped;
+	
+	private: // Core context
+		void _createCopy(Copy* copy);
+		void _dropCopy(Copy* copy);
 };
 

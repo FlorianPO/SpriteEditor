@@ -1,17 +1,15 @@
 #pragma once
 
-#include "stdafx.h"
+#include "stdenum.h"
+#include "Source Files/Application/Tool/ToolAbstract/TPixelChecker.h"
+#include "Source Files/Application/Tool/ToolAbstract/TSelectionModifier.h"
 
-#include "Source Files/Application/Tool/Tool.h"
-#include "Source Files/Application/Tool/ToolAbstract/ToolColorModifier.h"
-#include "Source Files/Application/Tool/ToolAbstract/ToolPixelChecker.h"
-
-class CBaguette : public virtual CTool, virtual CToolColorModifier, virtual CToolPixelChecker
+class Baguette : public TSelectionModifier, TPixelChecker
 {
 // CONSTRUCTOR
 public:
-	CBaguette();
-	~CBaguette() {}
+	Baguette();
+	~Baguette() {}
 
 // METHODS
 public:
@@ -22,14 +20,11 @@ private:
 	void linearFillWithSelec(int x, int y);
 	void linearFillNoSelec(int x, int y);
 
-	void end_selec(int type);
-
 // MEMBERS
 private:
 	sf::Image* image;
 	sf::Image bit_image;
 	
-	std::queue<CTool::range_type> ranges;
-	std::vector<CTool::line_conf> conf_lines;
+	std::queue<nTol::range_type> ranges;
 };
 

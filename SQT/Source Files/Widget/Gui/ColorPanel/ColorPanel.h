@@ -1,18 +1,17 @@
 #pragma once
 
-#include "stdafx.h"
-
+#include "stdenum.h"
 #include "GeneratedFiles/ui_ColorPanel.h"
-#include "Source Files/Widget/Various/Label/ClickLabel.h"
-#include "Source Files/SignalType/SignalColor.h"
+class ClickLabel; // Forward declaration
+class SignalColor; // Forward declaration
 
 class ColorPanel : public QWidget
 {
 	Q_OBJECT
 // CONSTRUCTOR
 public:
-	explicit ColorPanel(QWidget *parent, const QPoint& position=QPoint());
-	~ColorPanel() {};
+	ColorPanel(QWidget *parent, const QPoint& position=QPoint());
+	~ColorPanel() {}
 
 // SIGNALS SLOTS
 	public slots:

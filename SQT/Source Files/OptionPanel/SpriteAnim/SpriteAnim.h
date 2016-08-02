@@ -1,5 +1,5 @@
 /*
-#include "stdafx.h"
+#include "stdenum.h"
 
 #define SPRITE_ANIM CSpriteAnim::_t
 class CSpriteAnim : public CHud
@@ -10,7 +10,7 @@ public:
 	void gerer() override;
 	bool test() override;
 	void position() override;
-	void afficher() override;
+	void display() override;
 	bool busy() override;		
 
 public:

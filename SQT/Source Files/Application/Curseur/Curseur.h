@@ -1,29 +1,35 @@
 #pragma once
 
-#include "stdafx.h"
+#include "stdenum.h"
 
-#define INIT_CURSEUR CCurseur::createInstance();
-#define CURSEUR CCurseur::getInstance()
+#define INIT_CURSEUR Curseur::createInstance();
+#define CURSEUR Curseur::getInstance()
 
-class CCurseur 
+class Curseur 
 {
 // INSTANCE
-private:	static CCurseur* _t; 
-public:		inline static void createInstance() { _t = new CCurseur(); }
-			inline static CCurseur* getInstance() { return _t; }
-
+private:	static Curseur* _t; 
+public:		inline static void createInstance() { _t = new Curseur(); }
+			inline static Curseur* getInstance() { return _t; }
 
 // CONSTRUCTOR
-	CCurseur(void);
-	~CCurseur(void);
 public:
-	void afficher();
+	Curseur();
+	~Curseur() {}
+
+// METHODS
+public:
+	void display();
 	void setPosition(sf::Vector2f pos);
+
 	inline sf::Vector2f getPosition() { return position; }
 	void gerer(sf::Sprite* sprite);
-	void ini(sf::Sprite* sprite);
+	void init(sf::Sprite* sprite);
+
+// MEMBERS
 private:
 	std::vector<sf::VertexArray> lines;
 	sf::Vector2f position;
+	sf::Vector2f start_pos;
 };
 

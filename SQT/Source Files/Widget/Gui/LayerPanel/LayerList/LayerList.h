@@ -1,39 +1,42 @@
 #pragma once
 
-#include "stdafx.h"
-
+#include "stdenum.h"
 #include "GeneratedFiles/ui_LayerList.h"
-#include "Source Files/Application/Layer/Layer.h"
-#include "Source Files/Widget/Gui/LayerPanel/LayerList/SpriteView/SpriteView.h"
-#include "Source Files/Widget/Various/StateButton/State2Button.h"
+class Layer; // Forward declaration
+class SpriteView; // Forward declaration
+class State2Button; // Forward declaration
+class FLineEdit; // Forward declaration
 
 class LayerList : public QWidget
 {
 	Q_OBJECT
 // CONSTRUCTOR
 public:
-	explicit LayerList(QWidget* parent, CLayer& layer, const QPoint& position=QPoint());
+	LayerList(QWidget* parent, Layer& layer, const QPoint& position=QPoint());
 	~LayerList() {}
 	
 // SIGNALS SLOTS
 	public slots:
 		void layerSelected();
 		void layerUnselected();
+		void dropped();
+		void undropped();
 
 // METHODS
 public:
-	static LayerList* getFromLayer(CLayer* layer);
+	static LayerList* getFromLayer(Layer* layer);
 private:
 	bool eventFilter(QObject *object, QEvent *event) override;
-	void mousePressEvent(QMouseEvent* qm) override;
+	void mousePressEvent(QMouseEvent* Qm) override;
 
 // MEMBERS
 private:
-	static QHash<CLayer*, LayerList*> hash;
+	static QHash<Layer*, LayerList*> hash;
 
 	Ui_LayerList ui;
-	CLayer* layer;
+	Layer* layer;
 	SpriteView* sprite_view;
 	State2Button* view_button;
+	FLineEdit* lineEdit;
 };
 

@@ -1,14 +1,14 @@
 #pragma once
 
-#include "stdafx.h"
-#include "Source Files/Application/Brush/BrushController.h"
+#include "stdenum.h"
+#include "Source Files/Application/Brush/Brush.h"
 
-class CBrushCircle : public CBrush
+class BrushCircle : public Brush
 {
 // CONSTRUCTOR
 public:
-	explicit CBrushCircle();
-	virtual ~CBrushCircle() {}
+	BrushCircle();
+	virtual ~BrushCircle() {}
 
 // METHODS
 protected:

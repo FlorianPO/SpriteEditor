@@ -1,25 +1,30 @@
 #pragma once
 
-#include "stdafx.h"
+#include "stdenum.h"
 #include "Source Files/Widget/SQT/SQT.h"
 
 class SpriteView : public SQT
 {
 	Q_OBJECT
+// CONSTRUCTOR
 public:
-	explicit SpriteView(QWidget* parent, const sf::Texture& texture, sf::Vector2u size);
+	SpriteView(QWidget* parent, const sf::Texture& texture, sf::Vector2u size);
 	~SpriteView() {}
 
+// METHODS
+public:
 	void changeTexture(const sf::Texture& texture);
 	void resize();
+private:
+	virtual void OnUpdate() override;
 
+// SIGNALS SLOTS
 	public slots:
 		void selected();
 		void unselected();
 
+// MEMBERS
 private:
-	virtual void OnUpdate() override;
-	
 	sf::Sprite sprite;
 	sf::Vector2u size;
 	sf::Color background_color = sf::Color(240, 240, 240);

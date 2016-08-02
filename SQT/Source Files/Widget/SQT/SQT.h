@@ -1,24 +1,26 @@
 #pragma once
 
-#include "stdafx.h"
-#include "ui_SQT.h"
+#include "stdenum.h"
 
 class SQT : public QWidget, public sf::RenderWindow
 {
 	Q_OBJECT
+// CONSTRUCTOR
 public:
-	explicit SQT(QWidget *Parent, const QPoint& Position=QPoint(), const QSize& Size=QSize());
+	SQT(QWidget *Parent, const QSize& Size=QSize());
 	virtual ~SQT() {}
 
-	signals:
-	public slots:
-
+// METHODS
+protected:
+	void create();
 private:
-    virtual void OnInit() {}
+	virtual void OnInit();
     virtual void OnUpdate() {}
     virtual QPaintEngine* paintEngine() const override;
     virtual void showEvent(QShowEvent*) override;
     virtual void paintEvent(QPaintEvent*) override;
 
-    bool myInitialized;
+// MEMBERS
+private:
+    bool initialized=false;
 };

@@ -1,7 +1,6 @@
-#include "Source Files/Widget/Various/RFrame/RFrame.h"
-#include <QtGui/qevent.h>
+#include "RFrame.h"
 
-RFrame::RFrame(QWidget *parent, const QPoint& position, const QSize& size) : QWidget(parent)
+RFrame::RFrame(QWidget *parent) : QWidget(parent)
 {
 	setMouseTracking(true);
 	show();
@@ -22,11 +21,13 @@ void RFrame::mousePressEvent(QMouseEvent* event) {
 		dragStartGeometry = geometry();
 		focusing = true;
 	}
+	event->accept();
 }
 
 void RFrame::mouseReleaseEvent(QMouseEvent* event) {
 	if (event->button() == Qt::LeftButton)
 		focusing = false;
+	event->accept();
 }
 
 void RFrame::moveEvent(QMoveEvent* event) {
@@ -52,6 +53,7 @@ void RFrame::mouseMoveEvent(QMouseEvent* event)  {
 					QPoint(dragStartGeometry.left(), dragStartGeometry.top()),
 					QSize(width(), y)));
 	}
+	event->accept();
 }
 
 /*

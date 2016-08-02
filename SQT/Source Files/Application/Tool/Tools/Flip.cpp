@@ -1,13 +1,15 @@
-#include "Source Files/Application/Tool/Tools/Flip.h"
+#include "Flip.h"
 
+#include "Source Files/Application/Copy/CopyController.h"
 #include "Source Files/Application/Copy/Copy.h"
+#include "Source Files/Application/Layer/LayerController.h"
 #include "Source Files/Application/Layer/Layer.h"
 
-CFlip::CFlip() {
-	numero_outil = CTool::FLIP;
+Flip::Flip() {
+	numero_outil = nTol::FLIP;
 }
 
-void CFlip::use() {
+void Flip::use() {
 	if (COPY != NULL)
 		COPY->flip();
 	else

@@ -1,23 +1,25 @@
-#include "Source Files/Application/Tool/Tools/Rotation.h"
+#include "Rotation.h"
 
 #include "Source Files/Fonction/Fonction.h"
+#include "Source Files/Application/Copy/CopyController.h"
 #include "Source Files/Application/Copy/Copy.h"
 #include "Source Files/Application/Curseur/Curseur.h"
 #include "Source Files/Application/Layer/LayerController.h"
+#include "Source Files/Application/Layer/Layer.h"
 
-CRotation::CRotation() {
-	numero_outil = CTool::ROTATION;
+Rotation::Rotation() {
+	numero_outil = nTol::ROTATION;
 	if (COPY == NULL)
-		CURSEUR->setPosition(CFonction::centerCorner(LAYER->getSprite()));
+		CURSEUR->setPosition(Fonction::centerCorner(LAYER->getSprite()));
 	else
-		CURSEUR->setPosition(CFonction::centerCorner(COPY->getSprite()));
+		CURSEUR->setPosition(Fonction::centerCorner(COPY->getSprite()));
 }
 
-void CRotation::afficher() {
-	CURSEUR->afficher();
+void Rotation::display() {
+	CURSEUR->display();
 }
 
-void CRotation::use() {
+void Rotation::use() {
 	if (COPY != NULL)
 		COPY->rotation();
 	else

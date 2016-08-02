@@ -1,10 +1,10 @@
-#include "Source Files/Application/Brush/Brushes/BrushCircleOutline.h"
+#include "BrushCircleOutline.h"
 
-CBrushCircleOutline::CBrushCircleOutline() : CBrushCircle() {
-	numero_brush = SQUARE;
+BrushCircleOutline::BrushCircleOutline() : BrushCircle() {
+	numero_brush = nBrh::SQUARE;
 }
 
-void CBrushCircleOutline::cercle(float rx, float ry, sf::Image& image) {
+void BrushCircleOutline::cercle(float rx, float ry, sf::Image& image) {
 	sf::Vector2f center = sf::Vector2f(image.getSize().x / 2, image.getSize().y / 2);
 	sf::Vector2f delta = sf::Vector2f((image.getSize().x % 2 == 0)*0.5f, (image.getSize().y % 2 == 0)*0.5f);
 	sf::Vector2f pos;

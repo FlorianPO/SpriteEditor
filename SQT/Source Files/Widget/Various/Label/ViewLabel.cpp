@@ -1,4 +1,4 @@
-#include "Source Files/Widget/Various/Label/ViewLabel.h"
+#include "ViewLabel.h"
 
 ViewLabel::ViewLabel(QWidget* parent, enum_size e_size) : QLabel(parent) {
 	QSize size;

@@ -2,15 +2,15 @@
 
 #include "Source Files/Application/Tool/Tool.h"
 
-class CGrand : public CTool
+class Grand : public Tool
 {
 // CONSTRUCTOR
 public:
-	CGrand();
-	~CGrand() {}
+	Grand();
+	~Grand() {}
 
 // METHODS
 public:
 	void use() override;
-	void afficher() override;
+	void display() override;
 };

@@ -1,14 +1,14 @@
 #pragma once
 
-#include "stdafx.h"
+#include "stdenum.h"
 #include "Source Files/Application/Brush/Brushes/BrushCircle.h"
 
-class CBrushCircleOutline : public CBrushCircle
+class BrushCircleOutline : public BrushCircle
 {
 // CONSTRUTOR
 public:
-	explicit CBrushCircleOutline();
-	virtual ~CBrushCircleOutline() {}
+	BrushCircleOutline();
+	~BrushCircleOutline() {}
 
 // METHODS
 protected:

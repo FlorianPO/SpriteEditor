@@ -1,17 +1,16 @@
 #pragma once
 
-#include "stdafx.h"
-
+#include "stdenum.h"
 #include "Source Files/Application/Tool/Tool.h"
-#include "Source Files/Application/Tool/ToolAbstract/ToolColorModifier.h"
-#include "Source Files/Application/Tool/ToolAbstract/ToolPixelChecker.h"
+#include "Source Files/Application/Tool/ToolAbstract/TPixelChecker.h"
+#include "Source Files/Application/Tool/ToolAbstract/TLayerUpdater.h"
 
-class CPot : public virtual CTool, virtual CToolColorModifier, virtual CToolPixelChecker
+class Pot : public Tool, TPixelChecker, TLayerUpdater
 {
 // CONSTRUCTOR
 public:
-	CPot();
-	~CPot() {}
+	Pot();
+	~Pot() {}
 
 // METHODS
 public:
@@ -28,6 +27,6 @@ private:
 	sf::Image bit_image;
 	sf::Image image;
 
-	std::queue<CTool::range_type> ranges;
+	std::queue<nTol::range_type> ranges;
 };
 

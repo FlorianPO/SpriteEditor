@@ -1,64 +1,67 @@
-#include "Source Files/Application/Tool/Tools/Aero.h"
+#include "Aero.h"
 
-#include "Source Files/Application/Res/Res.h"
-#include "Source Files/Application/IO/Input.h"
-#include "Source Files/Fonction/Fonction.h"
-#include "Source Files/Application/Selec/Selec.h"
-#include "Source Files/Application/Layer/LayerController.h"
+#include "Source Files/Application/Resource/ResourceController.h"
+#include "Source Files/Application/Input/InputController.h"
 #include "Source Files/Application/Color/ColorController.h"
-#include <QtWidgets/QApplication>
+#include "Source Files/Application/Brush/BrushController.h"
+#include "Source Files/Application/Brush/Brush.h"
+#include "Source Files/Widget/SQT/SFMLView.h"
+#include <Source Files/Fonction/Fonction.h>
 
-CAero::CAero() {
-	numero_outil = CTool::AERO;
-	RES->getShader(CRes::usual)->setParameter("mode", 2);
+Aero::Aero() {
+	numero_outil = nTol::AERO;
+	RES->getShader(nRer::usual).setParameter("mode", 2);
 }
 
-void CAero::afficher() {
-	BRUSH->afficher(center);
-	if (IO->pressed(Qt::Key_Shift))
+void Aero::display() {
+	if (INPUT->pressed(Qt::Key_Shift)) {
 		displayLine();
+		if (SFML->QWidget::hasFocus())
+			BRUSH->setDisplayPosition(line[1].position);
+		BRUSH->display();
+	}
+	else {
+		if (SFML->QWidget::hasFocus())
+			BRUSH->setDisplayPosition(BRUSH->getPointedPosition());
+		BRUSH->display();
+	}
 }
 
-void CAero::use_line(sf::Vector2f pos_ini) {
-	RES->getShader(CRes::usual)->setParameter("offset", SELEC->getPosition() - LAYER->getPosition());
-	RES->getShader(CRes::usual)->setParameter("background", LAYER->getTexture());
-
-	drawLine(pos_ini, center);
-}
-
-void CAero::use() {
-	center = IO->getCenter();
-
-	Qt::KeyboardModifiers special = QApplication::keyboardModifiers();
-	if (special & Qt::ShiftModifier)
+void Aero::use() {
+	if (INPUT->pressed(Qt::Key_Shift))
 		calculateLine();
 
-	if (IO->pressed(Qt::LeftButton)) {
-		if (special & Qt::ShiftModifier) {
-			if (IO->again(Qt::LeftButton)) {
+	if (INPUT->pressed(Qt::LeftButton)) {
+		if (INPUT->pressed(Qt::Key_Shift)) {
+			if (INPUT->again(Qt::LeftButton)) {
 				BRUSH->setColor(COLOR_CONTROLLER->getColor1());
-				use_line(IO->getPreviousCenterClick());
+				drawLine(line[0].position, line[1].position);
 			}
 		}
-		else if (special & Qt::ControlModifier)
-			setPointedColor(COLOR_CONTROLLER->getSColor1());
+		else if (INPUT->pressed(Qt::Key_Control))
+			COLOR_CONTROLLER->setColor1(Fonction::getPointedColor());
 		else {
 			BRUSH->setColor(COLOR_CONTROLLER->getColor1());
-			use_line(IO->getPreviousCenter());
+			drawLine(BRUSH->getExPointedPosition(), BRUSH->getPointedPosition());
 		}
 	}
-	else if (IO->pressed(Qt::RightButton)) {
-		if (special & Qt::ShiftModifier) {
-			if (IO->again(Qt::RightButton)) {
+	else if (INPUT->released(Qt::LeftButton))
+		checkLayerUpdate();
+
+	if (INPUT->pressed(Qt::RightButton)) {
+		if (INPUT->pressed(Qt::Key_Shift)) {
+			if (INPUT->again(Qt::RightButton)) {
 				BRUSH->setColor(COLOR_CONTROLLER->getColor2());
-				use_line(IO->getPreviousCenterClick());
+				drawLine(line[0].position, line[1].position);
 			}
 		}
-		else if (special & Qt::ControlModifier)
-			setPointedColor(COLOR_CONTROLLER->getSColor2());
+		else if (INPUT->pressed(Qt::Key_Control))
+			COLOR_CONTROLLER->setColor2(Fonction::getPointedColor());
 		else {
 			BRUSH->setColor(COLOR_CONTROLLER->getColor2());
-			use_line(IO->getPreviousCenter());
+			drawLine(BRUSH->getExPointedPosition(), BRUSH->getPointedPosition());
 		}
 	}
+	else if (INPUT->released(Qt::RightButton))
+		checkLayerUpdate();
 }

@@ -2,12 +2,12 @@
 
 #include "Source Files/Application/Tool/Tool.h"
 
-class CMove : public CTool
+class Move : public Tool
 {
 // CONSTRUCTOR
 public:
-	CMove();
-	~CMove() {}
+	Move();
+	~Move() {}
 
 // METHODS
 public:

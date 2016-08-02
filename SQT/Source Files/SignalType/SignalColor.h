@@ -1,9 +1,9 @@
 #pragma once
 
-#include "stdafx.h"
-#include "Source Files/SignalType/SignalController.h"
+#include "stdenum.h"
+#include "Source Files/SignalType/SignalInit.h"
 
-class SignalColor : public QObject, private SignalController
+class SignalColor : public QObject, SignalInit
 {
 	Q_OBJECT
 // CONSTRUCTOR
@@ -12,11 +12,14 @@ public:
 	~SignalColor() {}
 
 // METHODS
+public:
 	inline sf::Color getColor() { return sf::Color(r, g, b, a); }
 	inline int getR() { return r; }
 	inline int getG() { return g; }
 	inline int getB() { return b; }
 	inline int getA() { return a; }
+protected:
+	void initSignals() override;
 
 // SIGNALS SLOTS
 	public slots:
@@ -32,9 +35,6 @@ public:
 		void GChanged(int g);
 		void BChanged(int b);
 		void AChanged(int a);
-
-protected:
-	void initSignals() override;
 
 // MEMBERS
 private:

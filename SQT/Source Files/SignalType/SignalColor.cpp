@@ -1,6 +1,6 @@
-#include "Source Files/SignalType/SignalColor.h"
+#include "SignalColor.h"
 
-SignalColor::SignalColor(int r, int g, int b, int a) : QObject(), SignalController() {
+SignalColor::SignalColor(int r, int g, int b, int a) : QObject(), SignalInit() {
 	this->r = static_cast<sf::Uint8>(r);
 	this->g = static_cast<sf::Uint8>(g);
 	this->b = static_cast<sf::Uint8>(b);
@@ -16,7 +16,7 @@ void SignalColor::setColor(int r, int g, int b, int a) {
 }
 
 void SignalColor::setColor(sf::Color color) {
-	setColor(color.r, color.b, color.g, color.a);
+	setColor(color.r, color.g, color.b, color.a);
 }
 
 void SignalColor::setR(int r) {
