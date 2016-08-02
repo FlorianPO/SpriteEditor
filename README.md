@@ -22,7 +22,9 @@ You can retrieve the Visual Studio project
 - Qt for Visual Studio plugin 
 
 # History
-SQT version Alpha 1.0.0 : Qt integration (current version)
+SQT version Alpha 1.1.0 (current version)
+
+SQT version Alpha 1.0.0 : Qt integration
 
 SE 4: revised version with fast and stable architecture
 
