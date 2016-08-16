@@ -43,6 +43,7 @@ public:
         Layer_del = new QPushButton(Frame);
         Layer_del->setObjectName(QStringLiteral("Layer_del"));
         Layer_del->setGeometry(QRect(28, 4, 25, 25));
+        Layer_del->setFocusPolicy(Qt::NoFocus);
         QIcon icon;
         icon.addFile(QStringLiteral("Resources/Layers/layer_del.png"), QSize(), QIcon::Normal, QIcon::Off);
         Layer_del->setIcon(icon);
@@ -52,6 +53,7 @@ public:
         Selection_del = new QPushButton(Frame);
         Selection_del->setObjectName(QStringLiteral("Selection_del"));
         Selection_del->setGeometry(QRect(100, 4, 25, 25));
+        Selection_del->setFocusPolicy(Qt::NoFocus);
         QIcon icon1;
         icon1.addFile(QStringLiteral("Resources/Selections/selec_del.png"), QSize(), QIcon::Normal, QIcon::Off);
         Selection_del->setIcon(icon1);
@@ -61,6 +63,7 @@ public:
         Layer_fuse = new QPushButton(Frame);
         Layer_fuse->setObjectName(QStringLiteral("Layer_fuse"));
         Layer_fuse->setGeometry(QRect(52, 4, 25, 25));
+        Layer_fuse->setFocusPolicy(Qt::NoFocus);
         QIcon icon2;
         icon2.addFile(QStringLiteral("Resources/Layers/layer_fuse.png"), QSize(), QIcon::Normal, QIcon::Off);
         Layer_fuse->setIcon(icon2);
@@ -70,6 +73,7 @@ public:
         Layer_new = new QPushButton(Frame);
         Layer_new->setObjectName(QStringLiteral("Layer_new"));
         Layer_new->setGeometry(QRect(4, 4, 25, 25));
+        Layer_new->setFocusPolicy(Qt::NoFocus);
         Layer_new->setText(QStringLiteral(""));
         QIcon icon3;
         icon3.addFile(QStringLiteral("Resources/Layers/layer_new.png"), QSize(), QIcon::Normal, QIcon::Off);

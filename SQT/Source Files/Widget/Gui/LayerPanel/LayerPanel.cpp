@@ -10,7 +10,7 @@
 LayerPanel::LayerPanel(QWidget *parent, const QPoint& position) : QWidget(parent) {
 	move(position);
 	ui.setupUi(this);
-	show();
+	hide();
 
 	QObject::connect(ui.Layer_new, SIGNAL(clicked()), LAYER_CONTROLLER, SLOT(createLayer()));
 	QObject::connect(LAYER_CONTROLLER, SIGNAL(layerCreated(Layer*)), this, SLOT(layerCreated(Layer*)), Qt::DirectConnection);
@@ -26,23 +26,25 @@ LayerPanel::LayerPanel(QWidget *parent, const QPoint& position) : QWidget(parent
 
 	invert = new State2Button(this, &QString("Selections/selec_invert_enabled"), &QString("Selections/selec_invert_disabled"), false);
 	invert->move(QPoint(76, 4)); invert->show();
-	QObject::connect(invert, SIGNAL(enabled()), SELEC, SLOT(invertSelection()), Qt::DirectConnection);
-	QObject::connect(invert, SIGNAL(disabled()), SELEC, SLOT(uninvertSelection()), Qt::DirectConnection);
+	QObject::connect(invert, SIGNAL(enabled()), SELEC, SLOT(invertSelection()));
+	QObject::connect(invert, SIGNAL(disabled()), SELEC, SLOT(uninvertSelection()));
 	QObject::connect(SELEC, SIGNAL(selectionInverted()), invert, SLOT(enable()));
 	QObject::connect(SELEC, SIGNAL(selectionUninverted()), invert, SLOT(disable()));
 
 	// Selection
 	QObject::connect(ui.Selection_del, SIGNAL(clicked()), SELEC, SLOT(deleteSelection()));
-	QObject::connect(SELEC, SIGNAL(selectionDeleted()), this, SLOT(selectionDeleted()), Qt::DirectConnection);
-	QObject::connect(SELEC, SIGNAL(selectionCreated()), this, SLOT(selectionCreated()), Qt::DirectConnection);
+	QObject::connect(SELEC, SIGNAL(selectionDeleted()), this, SLOT(selectionDeleted()));
+	QObject::connect(SELEC, SIGNAL(selectionCreated()), this, SLOT(selectionCreated()));
 	// Copy
 	QObject::connect(ui.Selection_del, SIGNAL(clicked()), COPY_CONTROLLER, SLOT(dropCopy()));
-	QObject::connect(COPY_CONTROLLER, SIGNAL(copyDropped(Copy*)), this, SLOT(copyDropped()), Qt::DirectConnection);
-	QObject::connect(COPY_CONTROLLER, SIGNAL(copyCreated(Copy*)), this, SLOT(copyCreated()), Qt::DirectConnection);
+	QObject::connect(COPY_CONTROLLER, SIGNAL(copyDropped(Copy*)), this, SLOT(copyDropped()));
+	QObject::connect(COPY_CONTROLLER, SIGNAL(copyCreated(Copy*)), this, SLOT(copyCreated()));
 
 	verticalLayout = new VerticalLayout(QPoint(0, ui.Layer_frame->pos().y()), false, true, this);
-	QObject::connect(verticalLayout, SIGNAL(elementMoved(int, int)), LAYER_CONTROLLER, SLOT(orderLayer(int, int)), Qt::DirectConnection);
-	QObject::connect(LAYER_CONTROLLER, SIGNAL(layerOrdered(int, int)), verticalLayout, SLOT(moveElement(int, int)), Qt::DirectConnection);
+	QObject::connect(verticalLayout, SIGNAL(elementMoved(int, int)), LAYER_CONTROLLER, SLOT(orderLayer(int, int)));
+	QObject::connect(LAYER_CONTROLLER, SIGNAL(layerOrdered(int, int)), verticalLayout, SLOT(moveElement(int, int)));
+
+	QObject::connect(verticalLayout, SIGNAL(reordered()), this, SLOT(setTabOrder()));
 }
 
 void LayerPanel::layerCreated(Layer* layer) {
@@ -84,4 +86,13 @@ void LayerPanel::copyCreated() {
 
 void LayerPanel::copyDropped() {
 	ui.Selection_del->setEnabled(false);
+}
+
+void LayerPanel::setTabOrder() {
+	auto list = verticalLayout->getList();
+
+	for (int i=1; i < list.size(); i++)
+		QWidget::setTabOrder(reinterpret_cast<QWidget*>(static_cast<LayerList*>(list[i-1])->getLineEdit()), 
+							 reinterpret_cast<QWidget*>(static_cast<LayerList*>(list[i])->getLineEdit()));
+
 }

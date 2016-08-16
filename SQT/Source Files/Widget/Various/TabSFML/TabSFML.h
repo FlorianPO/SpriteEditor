@@ -1,7 +1,7 @@
 #pragma once
 
 #include "stdenum.h"
-#include "Source Files/Widget/SQT/SQT.h"
+#include "Source Files/QtApp/SQT/SQT.h"
 class TabObject; // Foward declaration
 
 class TabSFML : public SQT
@@ -20,6 +20,7 @@ public:
 private:
 	void reOrder();
 	void OnUpdate() override;
+	void mouseMoveEvent(QMouseEvent* Qm) override;
 	void mousePressEvent(QMouseEvent* Qm) override;
 	void wheelEvent(QWheelEvent* Qw) override;
 

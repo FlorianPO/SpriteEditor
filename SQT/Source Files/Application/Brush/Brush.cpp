@@ -104,6 +104,7 @@ void Brush::createLines() {
 
 void Brush::setDisplayPosition(sf::Vector2f center, bool force) {
 	center = truePosition(center);
+
 	if (display_position != center || force) {
 		display_position = center;
 		

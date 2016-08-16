@@ -35,8 +35,8 @@ public:
 	//Sprite and texture						
 	inline const sf::Sprite& getSprite() { return sprite; }
 	inline const sf::Texture& getTexture() { return *sprite.getTexture(); }
-	inline sf::Vector2f getSize() { return sf::Vector2f(sprite.getTextureRect().width, sprite.getTextureRect().height); }
-	inline sf::FloatRect getGlobalBounds() { return sprite.getGlobalBounds(); }
+	inline sf::Vector2f getSize() { return SIZE_RECT(sprite.getTextureRect()); }
+	inline sf::IntRect getGlobalBounds() { return RECTI(sprite.getGlobalBounds()); }
 
 	//Retrieve a sf::Image		
 	inline sf::Image* getImage() { return image; }
@@ -54,6 +54,7 @@ public:
 
 // SIGNALS SLOTS
 	public slots:
+		void emitStatus();
 		void show(); //Make visible
 		void hide();
 		void select(); //Select layer
@@ -67,7 +68,7 @@ public:
 		void layerUnselected();
 		void layerDropped();
 		void layerUndropped();
-		void layerMoved(sf::Vector2f topLeftPos);
+		void layerMoved(sf::Vector2f pos);
 		void layerScaled(sf::Vector2f size);
 
 // MEMBERS

@@ -20,6 +20,7 @@ public:		inline static void createInstance() { _t = new CopyController(); }
 public:
 	CopyController();
 	~CopyController() {}
+	void freeWork();
 
 // METHODS
 public:

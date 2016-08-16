@@ -32,6 +32,14 @@ InputController::InputController() {
 		hash[keys_used[i]] = Key_struct();
 }
 
+void InputController::reset() {
+	QHashIterator<nInt::qkey, Key_struct> iterator(hash);
+	while (iterator.hasNext()) {
+		hash[iterator.key()] = Key_struct();
+		iterator.next();
+	}
+}
+
 void InputController::setMousePosition(sf::Vector2i screened, bool dump_ex, bool set_pointer) {
 	if (set_pointer)
 		sf::Mouse::setPosition(screened, APP->getWindow());

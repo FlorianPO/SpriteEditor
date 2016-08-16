@@ -9,7 +9,7 @@ ToolPanel::ToolPanel(QWidget *parent, const QPoint& position) : QWidget(parent)
 {
 	move(position);
 	ui.setupUi(this);
-	show();
+	hide();
 
 	ui.buttonGroup->setId(ui.Tool_crayon, CRAYON);
 	ui.buttonGroup->setId(ui.Tool_gomme, GOMME);

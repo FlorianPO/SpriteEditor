@@ -18,6 +18,7 @@ public:		inline static void createInstance() { _t = new UndoStack(); }
 public:
 	UndoStack();
 	~UndoStack() {}
+	void freeWork();
 
 // METHODS
 public:
@@ -49,24 +50,23 @@ private:
 	private slots:
 		void undo();
 		void redo();
-		void clear();
 
 // MEMBERS
 public:
 	std::vector<std::vector<nUnk::UndoCommand*>> stack;
-	int index=-1;
+	int index;
 
 	// Related to getPrevious(void* instance, bool clear_tmp)
 	int search_index;
 	int tmp_index;
-	void* tmp_instance = NULL;
+	void* tmp_instance;
 
-	bool undoing = false;
+	bool undoing;
 	int last_index;
 
-	bool searching = false;
-	int macro = 0; // Not a boolean, for recursive call
-	bool first = false;
+	bool searching;
+	int macro; // Not a boolean, for recursive call
+	bool first;
 	std::vector<nUnk::UndoCommand*> macro_stack;
 };
 

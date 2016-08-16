@@ -20,7 +20,15 @@ public:
 	~Gui() {}
 
 // METHODS
-protected:
+private:
+	void showEvent(QShowEvent* evnt) override;
+	void hideEvent(QHideEvent* evnt) override;
+
+// SIGNALS SLOTS
+	public slots:
+		void findSpace();
+	signals:
+		void globallyChanged();
 
 // MEMBERS
 private:

@@ -27,6 +27,7 @@ public:
 
 // MEMBERS
 public:
+	void updateView();
 	void centerOnLayer(Layer* layer=LAYER);
 	void follow(const sf::Vector2f& pos);
 
@@ -45,6 +46,6 @@ public:
 
 // MEMBERS
 private:
-	float zoom_factor;
+	float zoom_factor = 1.f;
 };
 

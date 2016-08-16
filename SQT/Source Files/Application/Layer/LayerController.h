@@ -20,6 +20,7 @@ public:		inline static void createInstance() { _t = new LayerController(); }
 public:
 	LayerController() {}
 	~LayerController() {} 
+	void freeWork();
 
 // METHODS
 public:
@@ -31,9 +32,6 @@ public:
 	Layer* firstLayer();
 
 // SIGNALS SLOTS
-	private slots:
-		void _layerSelectedMoved(sf::Vector2f position);
-		void _layerSelectedScaled(sf::Vector2f size);
 	public slots:
 		void createLayer(sf::Image* image=NULL); // Create a new LAYER based on a texture
 		void deleteLayer(Layer* layer=LAYER); // Hard delete a LAYER (forever)
@@ -45,13 +43,13 @@ public:
 	signals:
 		void layerCreated(Layer*);
 		void layerDeleted(Layer*);
+		void layerSelected(Layer*);
+		void layerUnselected(Layer*);
 		void layerOrdered(int src, int dst);
 		void firstLayerSelected(Layer*);
 		void firstLayerUnselected(Layer*);
 		void onlyOneLayer();
 		void moreThanOneLayer();
-		void layerSelectedMoved(sf::Vector2f position);
-		void layerSelectedScaled(sf::Vector2f size);
 
 // MEMBERS
 private:

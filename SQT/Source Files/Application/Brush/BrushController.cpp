@@ -7,22 +7,25 @@
 #include "Source Files/Application/Resource/ResourceController.h"
 #include "Source Files/Application/Input/InputController.h"
 #include "Source Files/Application/App.h"
-#include <Source Files/Fonction/Fonction.h>
+#include "Source Files/Application/Queue/QueueController.h"
+#include "Source Files/Fonction/Fonction.h"
 
 using namespace nBrh;
 
 BrushController* BrushController::_t;
 
-void BrushController::initSignals() {
-	changeOpacity(255);
-	changeSeuil(7);
+BrushController::BrushController() {
+	QUEUE->atStart([this]() {
+		changeOpacity(255);
+		changeSeuil(7);
 
-	changeSize(sf::Vector2i(25, 25));
+		changeSize(sf::Vector2i(25, 25));
 
-	createBrush(CIRCLE);
-	createBrush(CIRCLE_OUTLINE);
-	createBrush(SQUARE);
-	createBrush(SQUARE_OUTLINE);
+		createBrush(CIRCLE);
+		createBrush(CIRCLE_OUTLINE);
+		createBrush(SQUARE);
+		createBrush(SQUARE_OUTLINE);
+	});
 }
 
 ////////////
@@ -38,9 +41,10 @@ void BrushController::createBrush(nBrh::brush_enum brush) {
 		case CIRCLE_OUTLINE:	brush_created = new BrushCircleOutline();	break;
 		case SQUARE:			brush_created = new BrushSquare();			break;
 		case SQUARE_OUTLINE:	brush_created = new BrushSquareOutline();	break;
-		default:																	break;
+		default:															break;
 	}
 	brush_created->createPreview();
+	brush_created->checkSize(default_size);
 
 	default_brushes.push_back(brush_created);
 	emit brushCreated(brush_created);
@@ -59,7 +63,9 @@ void BrushController::selectBrush(Brush* brush) {
 			current_brush->unselect();
 		brush->select();
 		brush->checkSize(default_size);
+		
 		current_brush = brush;	
+		displayCenter(true);
 	}
 }
 void BrushController::selectBrush(nBrh::brush_enum brush) {
@@ -117,8 +123,9 @@ void BrushController::changeSeuil(int value) {
 ///////////
 // OTHER //
 ///////////
-void BrushController::displayCenter() {
+void BrushController::displayCenter(bool force) {
 	current_brush->setDisplayPosition(
-		INPUT->screenToPos(VECTOR2I(Fonction::centerCorner(APP->getWindow().getSize())))
+		INPUT->screenToPos(VECTOR2I(Fonction::centerCorner(APP->getWindow().getSize()))), 
+		force
 	);
 }

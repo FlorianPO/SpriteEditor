@@ -13,6 +13,12 @@ Layer::Layer(sf::Image* image_init) {
 	setImage(image_init, true);
 }
 
+void Layer::emitStatus() {
+	sf::FloatRect bounds = sprite.getGlobalBounds();
+	emit layerMoved(POS_RECT(bounds));
+	emit layerScaled(SIZE_RECT(bounds));
+}
+
 void Layer::update() {
 	image = new sf::Image(renderTexture.getTexture().copyToImage());
 	UNDO->push(new LayerDrawn(this, image));
@@ -151,14 +157,14 @@ void Layer::setScale(sf::Vector2f scale) {
 	sprite.setScale(scale.x, scale.y);
 
 	sf::FloatRect bounds = sprite.getGlobalBounds();
-	emit layerMoved(sf::Vector2f(bounds.left, bounds.top));
-	emit layerScaled(sf::Vector2f(bounds.width, bounds.height));
+	emit layerMoved(POS_RECT(bounds));
+	emit layerScaled(SIZE_RECT(bounds));
 }
 
 void Layer::setRotation(float rotation) {
 	sprite.setRotation(rotation);
 
 	sf::FloatRect bounds = sprite.getGlobalBounds();
-	emit layerMoved(sf::Vector2f(bounds.left, bounds.top));
-	emit layerScaled(sf::Vector2f(bounds.width, bounds.height));
+	emit layerMoved(POS_RECT(bounds));
+	emit layerScaled(SIZE_RECT(bounds));
 }

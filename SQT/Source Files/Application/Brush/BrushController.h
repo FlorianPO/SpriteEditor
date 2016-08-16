@@ -1,14 +1,13 @@
 #pragma once
 
 #include "stdenum.h"
-#include "Source Files/SignalType/SignalInit.h"
 class Brush; //Forward declaration
 
 #define INIT_BRUSH_CONTROLLER BrushController::createInstance();
 #define BRUSH_CONTROLLER BrushController::getInstance()
 #define BRUSH BrushController::getInstance()->getCurrentBrush()
 
-class BrushController : public QObject, SignalInit
+class BrushController : public QObject
 {
 	Q_OBJECT
 // INSTANCE
@@ -18,12 +17,11 @@ public:		inline static void createInstance() { _t = new BrushController(); }
 
 // CONSTRUCTOR
 public:
-	BrushController() : SignalInit() {}
+	BrushController();
 	~BrushController() {}
 
 // METHODS
 public:
-	void initSignals() override;
 	inline Brush* getCurrentBrush() { return current_brush; }
 	inline sf::Vector2i getDefaultSize() { return default_size; }
 	inline int getSeuil() { return seuil; }
@@ -58,7 +56,7 @@ public:
 		void seuilChanged(int);
 	// OTHER
 	public slots:
-		void displayCenter();
+		void displayCenter(bool force=false);
 
 // MEMBERS
 private:

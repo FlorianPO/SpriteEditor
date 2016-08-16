@@ -43,23 +43,23 @@ ShortcutController::SHORTCUT_ID ShortcutController::createShortcut(const QKeySeq
 	return ID-1;
 }
 
-ShortcutController::SHORTCUT_CORE_ID ShortcutController::createCoreShortcut(const nInt::key_combinaison& keys, Function fonction, int ntimes) {
+ShortcutController::SHORTCUT_CORE_ID ShortcutController::createCoreShortcut(const nInt::key_combinaison& keys, std::function<void(void)> function, int ntimes) {
 	int hash_code = hashKeyCombinaison(keys);
 
 	auto it = shortcut_core_hash.find(hash_code);
 	if (it != shortcut_core_hash.end()) // Shortcut already exists
 		sch_temp[hash_code] = (*it).second;
 
-	shortcut_core_hash[hash_code] = shortcut(fonction, ntimes);
+	shortcut_core_hash[hash_code] = shortcut(function, ntimes);
 	return hash_code;
 }
 
-ShortcutController::SHORTCUT_CORE_ID ShortcutController::createCoreShortcutOnce(const nInt::key_combinaison& keys, Function fonction) {
+ShortcutController::SHORTCUT_CORE_ID ShortcutController::createCoreShortcutOnce(const nInt::key_combinaison& keys, std::function<void(void)> function) {
 	int hash_code = hashKeyCombinaison(keys);
 
 	auto it = shortcut_core_hash.find(hash_code);
 	if (it == shortcut_core_hash.end()) // Shortcut doesn't exists
-		shortcut_core_hash[hash_code] = shortcut(fonction, 1);
+		shortcut_core_hash[hash_code] = shortcut(function, 1);
 	
 	return hash_code;
 }
@@ -75,7 +75,6 @@ void ShortcutController::removeShortcut(std::vector<SHORTCUT_ID>& id_list) {
 }
 
 void ShortcutController::removeCoreShortcut(SHORTCUT_CORE_ID id) {
-	delete shortcut_core_hash[id].function;
 	shortcut_core_hash.erase(id);
 
 	auto it = sch_temp.find(id);
@@ -107,7 +106,7 @@ void ShortcutController::checkKeyCombinaison(nInt::key_combinaison* keys) {
 	auto it = shortcut_core_hash.find(id);
 
 	if (it != shortcut_core_hash.end()) {
-		(*(*it).second.function)();
+		(*it).second.function();
 		if ((*it).second.ntimes != -1) {
 			(*it).second.ntimes--;
 			if ((*it).second.ntimes <= 0)

@@ -11,7 +11,13 @@ Copy::Copy(const sf::Image& image, sf::Vector2f position) {
 	sprite_copy.setPosition(position);
 
 	lines = sf::VertexArray(sf::LinesStrip, 5);
-	updateLines();
+	QUEUE->beforeDisplay(this, "updateLines");
+}
+
+void Copy::emitStatus() {
+	emit copyMoved(POS_RECT(sprite_copy.getGlobalBounds())); 
+	emit copyScaled(SIZE_RECT(sprite_copy.getGlobalBounds()));
+	emit copyRotated(sprite_copy.getRotation());
 }
 
 void Copy::updateLines() {
@@ -48,6 +54,7 @@ void Copy::setGlobalPosition(sf::Vector2f pos) {
 
 void Copy::setScale(sf::Vector2f scale) {
 	sprite_copy.setScale(scale);
+	emit copyMoved(POS_RECT(sprite_copy.getGlobalBounds()));
 	emit copyScaled(SIZE_RECT(sprite_copy.getGlobalBounds()));
 	
 	QUEUE->beforeDisplay(this, "updateLines");
@@ -55,6 +62,8 @@ void Copy::setScale(sf::Vector2f scale) {
 
 void Copy::setRotation(float rotation) {
 	sprite_copy.setRotation(rotation);
+	emit copyMoved(POS_RECT(sprite_copy.getGlobalBounds()));
+	emit copyScaled(SIZE_RECT(sprite_copy.getGlobalBounds()));
 	emit copyRotated(sprite_copy.getRotation());
 
 	QUEUE->beforeDisplay(this, "updateLines");

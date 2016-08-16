@@ -7,7 +7,7 @@ class FLineEdit : public QLineEdit
   Q_OBJECT
 // CONSTRUCTOR
 public:
-	FLineEdit(QWidget* parent=0) : QLineEdit(parent) {}
+	FLineEdit(QWidget* parent=NULL) : QLineEdit(parent) {}
 	~FLineEdit() {}
 
 // SIGNALS SLOTS

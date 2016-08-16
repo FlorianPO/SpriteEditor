@@ -17,15 +17,14 @@ private:
 	typedef int SHORTCUT_CORE_ID;
 
 	struct shortcut {
-		Function function;
+		std::function<void(void)> function;
 		int ntimes = -1;
 
-		shortcut(Function f, int n) {
+		shortcut(std::function<void(void)> f, int n) {
 			this->function = f;
 			this->ntimes = n;
 		}
 		shortcut() { // Default constructor
-			this->function = NULL;
 			this->ntimes = 0;
 		}
 	};
@@ -48,8 +47,8 @@ public:
 	void removeShortcut(std::vector<SHORTCUT_ID>& id_list);
 
 	bool coreShortcutEnabled() { return core_shortcut_enabled; }
-	SHORTCUT_CORE_ID createCoreShortcut(const nInt::key_combinaison& keys, Function fonction, int ntimes=-1);
-	SHORTCUT_CORE_ID createCoreShortcutOnce(const nInt::key_combinaison& keys, Function fonction); // A shortcut can be called once, handles multiple definitions
+	SHORTCUT_CORE_ID createCoreShortcut(const nInt::key_combinaison& keys, std::function<void(void)> function, int ntimes=-1);
+	SHORTCUT_CORE_ID createCoreShortcutOnce(const nInt::key_combinaison& keys, std::function<void(void)> function); // A shortcut can be called once, handles multiple definitions
 	void removeCoreShortcut(SHORTCUT_CORE_ID id);
 	void removeCoreShortcut(std::vector<SHORTCUT_CORE_ID>& id_list);
 

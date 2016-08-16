@@ -30,6 +30,10 @@ UINT8 Fonction::numDigits(int32_t x) {
 	return 1;
 }
 
+float Fonction::floatPart(float f) {
+	return f - int(f);
+}
+
 float Fonction::degToRad(float deg) {
 	return deg / 180 * PI;
 }
@@ -132,4 +136,20 @@ void Fonction::flipHorizontally(sf::Sprite& sprite) {
 	sf::Vector2f origin = sprite.getOrigin();
 	sf::Vector2f center = centerCorner(sprite.getTextureRect());
 	moveLocaly(sprite, sf::Vector2f(scale.x*(origin.x - center.x)*2.f, 0));
+}
+
+sf::IntRect Fonction::unionRect(sf::IntRect r1, sf::IntRect r2) {
+	int left = std::min(r1.left, r2.left);
+	int top = std::min(r1.top, r2.top);
+	int width = std::max(r1.left + r1.width, r2.left + r2.width) - left;
+	int height = std::max(r1.top + r1.height, r2.top + r2.height) - top;
+	return sf::IntRect(left, top, width, height);
+}
+
+sf::FloatRect Fonction::unionRect(sf::FloatRect r1, sf::FloatRect r2) {
+	int left = std::min(r1.left, r2.left);
+	int top = std::min(r1.top, r2.top);
+	int width = std::max(r1.left + r1.width, r2.left + r2.width) - left;
+	int height = std::max(r1.top + r1.height, r2.top + r2.height) - top;
+	return sf::FloatRect(left, top, width, height);
 }

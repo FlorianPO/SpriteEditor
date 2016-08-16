@@ -6,6 +6,8 @@
 TabSFML::TabSFML(QWidget* Parent, const QSize& Size) : SQT(Parent, Size) {
 	camera.setSize(Size.width(), Size.height());
 	camera.setCenter(Size.width() / 2.f, Size.height() / 2.f);
+
+	setMouseTracking(true);
 }
 
 void TabSFML::OnUpdate() {
@@ -13,6 +15,12 @@ void TabSFML::OnUpdate() {
 	clear(sf::Color::White);
 	FOR_I (element_list.size())
 		element_list[i]->draw(this);
+}
+
+void TabSFML::mouseMoveEvent(QMouseEvent* Qm) {
+	if (!QWidget::hasFocus())
+		setFocus();
+	Qm->accept();
 }
 
 void TabSFML::mousePressEvent(QMouseEvent* Qm) {

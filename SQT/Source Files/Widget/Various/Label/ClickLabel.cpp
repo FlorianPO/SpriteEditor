@@ -1,6 +1,7 @@
 #include "ClickLabel.h"
 
 #include "Source Files/Fonction/Fonction.h"
+#include "Source Files/Application/Input/InputController.h"
 
 ClickLabel::ClickLabel(QWidget* parent, sf::Vector2i range, enum_size e_size, bool auto_emit) : ViewLabel(parent, e_size) {
 	this->range = range;
@@ -122,13 +123,13 @@ void ClickLabel::keyPressEvent(QKeyEvent* Qk) {
 			int new_value = key - 0x30;
 			if (checkRange(&new_value) & UP_LIMIT_REACHED)
 				write_back = false;
-			changeValue(new_value);
+			setValue(new_value);
 		}
 		else {
 			int new_value = value*10 + key - 0x30;
 			if (checkRange(&new_value) & UP_LIMIT_REACHED)
 				write_back = false;
-			changeValue(new_value);
+			setValue(new_value);
 		}
 	}
 	else if (key == Qt::Key_Backspace) {
@@ -142,7 +143,7 @@ void ClickLabel::keyPressEvent(QKeyEvent* Qk) {
 			write_back = false;
 		else
 			write_back = true;
-		changeValue(new_value);
+		setValue(new_value);
 	}
 	else
 		endValueTyping();
@@ -156,6 +157,8 @@ void ClickLabel::focusInEvent(QFocusEvent* event) {
 	setText(QString::fromStdString(prefixe + std::to_string(value)));
 	write_back = false;
 
+	value_at_focus_in = value;
+	
 	emit focusIn();
 }
 
@@ -163,7 +166,8 @@ void ClickLabel::focusOutEvent(QFocusEvent* event) {
 	QWidget::focusOutEvent(event);
 	endValueTyping();
 
-	emit focusOut();
+	if (value_at_focus_in != value)
+		emit focusOut();
 }
 
 void ClickLabel::run() {
@@ -171,26 +175,33 @@ void ClickLabel::run() {
 	if (frame_cpt == 0 || frame_cpt > 20) {
 		int incr_value = static_cast<int>(add) - static_cast<int>(sub);
 
-		Qt::KeyboardModifiers special = QApplication::keyboardModifiers();
-		if (special & Qt::ShiftModifier && special & Qt::ControlModifier)
+		// No QApplication:keyboardModifiers() due to a bug (?)
+		if (INPUT->pressed(Qt::Key_Shift) && INPUT->pressed(Qt::Key_Control))
 			incr_value = incr_value * 100;
-		else if (special & Qt::ShiftModifier)
+		else if (INPUT->pressed(Qt::Key_Shift))
 			incr_value = incr_value * 50;
-		else if (special & Qt::ControlModifier)
+		else if (INPUT->pressed(Qt::Key_Control))
 			incr_value = incr_value * 5;
 
 		int new_value = value + incr_value;
 		checkRange(&new_value);
-		changeValue(new_value);
+		setValue(new_value);
 	}
 	frame_cpt++;
+}
+
+void ClickLabel::setValue(int value) {
+	if (this->value != value) {
+		setText(QString::fromStdString(prefixe + std::to_string(value)));
+		this->value = value;
+		if (auto_emit)
+			emit valueChanged(value);
+	}
 }
 
 void ClickLabel::changeValue(int value) {
 	if (this->value != value) {
 		setText(QString::fromStdString(prefixe + std::to_string(value)));
 		this->value = value;
-		if (auto_emit)
-			emit valueChanged(value);
 	}
 }

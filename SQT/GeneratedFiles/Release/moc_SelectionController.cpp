@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_SelectionController_t {
-    QByteArrayData data[31];
-    char stringdata0[412];
+    QByteArrayData data[30];
+    char stringdata0[400];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -37,37 +37,36 @@ QT_MOC_LITERAL(4, 43, 16), // "selectionCreated"
 QT_MOC_LITERAL(5, 60, 16), // "selectionDeleted"
 QT_MOC_LITERAL(6, 77, 17), // "selectionInverted"
 QT_MOC_LITERAL(7, 95, 19), // "selectionUninverted"
-QT_MOC_LITERAL(8, 115, 13), // "cadreXChanged"
-QT_MOC_LITERAL(9, 129, 13), // "cadreYChanged"
-QT_MOC_LITERAL(10, 143, 13), // "cadreWChanged"
-QT_MOC_LITERAL(11, 157, 13), // "cadreHChanged"
-QT_MOC_LITERAL(12, 171, 15), // "createSelection"
-QT_MOC_LITERAL(13, 187, 11), // "sf::IntRect"
-QT_MOC_LITERAL(14, 199, 4), // "rect"
-QT_MOC_LITERAL(15, 204, 25), // "std::vector<nSet::o_line>"
-QT_MOC_LITERAL(16, 230, 6), // "conf_l"
-QT_MOC_LITERAL(17, 237, 9), // "sf::Image"
-QT_MOC_LITERAL(18, 247, 5), // "image"
-QT_MOC_LITERAL(19, 253, 15), // "deleteSelection"
-QT_MOC_LITERAL(20, 269, 5), // "force"
-QT_MOC_LITERAL(21, 275, 12), // "addSelection"
-QT_MOC_LITERAL(22, 288, 12), // "subSelection"
-QT_MOC_LITERAL(23, 301, 18), // "intersectSelection"
-QT_MOC_LITERAL(24, 320, 15), // "invertSelection"
-QT_MOC_LITERAL(25, 336, 17), // "uninvertSelection"
-QT_MOC_LITERAL(26, 354, 11), // "deleteLayer"
-QT_MOC_LITERAL(27, 366, 16), // "const sf::Image*"
-QT_MOC_LITERAL(28, 383, 12), // "sumSelection"
-QT_MOC_LITERAL(29, 396, 3), // "add"
-QT_MOC_LITERAL(30, 400, 11) // "updateLines"
+QT_MOC_LITERAL(8, 115, 14), // "selectionMoved"
+QT_MOC_LITERAL(9, 130, 12), // "sf::Vector2f"
+QT_MOC_LITERAL(10, 143, 15), // "selectionScaled"
+QT_MOC_LITERAL(11, 159, 15), // "createSelection"
+QT_MOC_LITERAL(12, 175, 11), // "sf::IntRect"
+QT_MOC_LITERAL(13, 187, 4), // "rect"
+QT_MOC_LITERAL(14, 192, 25), // "std::vector<nSet::o_line>"
+QT_MOC_LITERAL(15, 218, 6), // "conf_l"
+QT_MOC_LITERAL(16, 225, 9), // "sf::Image"
+QT_MOC_LITERAL(17, 235, 5), // "image"
+QT_MOC_LITERAL(18, 241, 15), // "deleteSelection"
+QT_MOC_LITERAL(19, 257, 5), // "force"
+QT_MOC_LITERAL(20, 263, 12), // "addSelection"
+QT_MOC_LITERAL(21, 276, 12), // "subSelection"
+QT_MOC_LITERAL(22, 289, 18), // "intersectSelection"
+QT_MOC_LITERAL(23, 308, 15), // "invertSelection"
+QT_MOC_LITERAL(24, 324, 17), // "uninvertSelection"
+QT_MOC_LITERAL(25, 342, 11), // "deleteLayer"
+QT_MOC_LITERAL(26, 354, 16), // "const sf::Image*"
+QT_MOC_LITERAL(27, 371, 12), // "sumSelection"
+QT_MOC_LITERAL(28, 384, 3), // "add"
+QT_MOC_LITERAL(29, 388, 11) // "updateLines"
 
     },
     "SelectionController\0selectionUpdated\0"
     "\0mode\0selectionCreated\0selectionDeleted\0"
     "selectionInverted\0selectionUninverted\0"
-    "cadreXChanged\0cadreYChanged\0cadreWChanged\0"
-    "cadreHChanged\0createSelection\0sf::IntRect\0"
-    "rect\0std::vector<nSet::o_line>\0conf_l\0"
+    "selectionMoved\0sf::Vector2f\0selectionScaled\0"
+    "createSelection\0sf::IntRect\0rect\0"
+    "std::vector<nSet::o_line>\0conf_l\0"
     "sf::Image\0image\0deleteSelection\0force\0"
     "addSelection\0subSelection\0intersectSelection\0"
     "invertSelection\0uninvertSelection\0"
@@ -82,45 +81,43 @@ static const uint qt_meta_data_SelectionController[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      27,   14, // methods
+      25,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-      10,       // signalCount
+       8,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  149,    2, 0x06 /* Public */,
-       1,    0,  152,    2, 0x26 /* Public | MethodCloned */,
-       4,    0,  153,    2, 0x06 /* Public */,
-       5,    0,  154,    2, 0x06 /* Public */,
-       6,    0,  155,    2, 0x06 /* Public */,
-       7,    0,  156,    2, 0x06 /* Public */,
-       8,    1,  157,    2, 0x06 /* Public */,
-       9,    1,  160,    2, 0x06 /* Public */,
-      10,    1,  163,    2, 0x06 /* Public */,
-      11,    1,  166,    2, 0x06 /* Public */,
+       1,    1,  139,    2, 0x06 /* Public */,
+       1,    0,  142,    2, 0x26 /* Public | MethodCloned */,
+       4,    0,  143,    2, 0x06 /* Public */,
+       5,    0,  144,    2, 0x06 /* Public */,
+       6,    0,  145,    2, 0x06 /* Public */,
+       7,    0,  146,    2, 0x06 /* Public */,
+       8,    1,  147,    2, 0x06 /* Public */,
+      10,    1,  150,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      12,    2,  169,    2, 0x0a /* Public */,
-      12,    3,  174,    2, 0x0a /* Public */,
-      19,    1,  181,    2, 0x0a /* Public */,
-      19,    0,  184,    2, 0x2a /* Public | MethodCloned */,
-      21,    2,  185,    2, 0x0a /* Public */,
-      21,    3,  190,    2, 0x0a /* Public */,
-      22,    2,  197,    2, 0x0a /* Public */,
-      22,    3,  202,    2, 0x0a /* Public */,
-      23,    2,  209,    2, 0x0a /* Public */,
-      23,    3,  214,    2, 0x0a /* Public */,
-      24,    0,  221,    2, 0x0a /* Public */,
-      25,    0,  222,    2, 0x0a /* Public */,
-      26,    0,  223,    2, 0x0a /* Public */,
-      12,    2,  224,    2, 0x08 /* Private */,
-      28,    3,  229,    2, 0x08 /* Private */,
-      23,    2,  236,    2, 0x08 /* Private */,
+      11,    2,  153,    2, 0x0a /* Public */,
+      11,    3,  158,    2, 0x0a /* Public */,
+      18,    1,  165,    2, 0x0a /* Public */,
+      18,    0,  168,    2, 0x2a /* Public | MethodCloned */,
+      20,    2,  169,    2, 0x0a /* Public */,
+      20,    3,  174,    2, 0x0a /* Public */,
+      21,    2,  181,    2, 0x0a /* Public */,
+      21,    3,  186,    2, 0x0a /* Public */,
+      22,    2,  193,    2, 0x0a /* Public */,
+      22,    3,  198,    2, 0x0a /* Public */,
+      23,    0,  205,    2, 0x0a /* Public */,
+      24,    0,  206,    2, 0x0a /* Public */,
+      25,    0,  207,    2, 0x0a /* Public */,
+      11,    2,  208,    2, 0x08 /* Private */,
+      27,    3,  213,    2, 0x08 /* Private */,
+      22,    2,  220,    2, 0x08 /* Private */,
 
  // methods: name, argc, parameters, tag, flags
-      30,    0,  241,    2, 0x00 /* Private */,
+      29,    0,  225,    2, 0x00 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int,    3,
@@ -129,28 +126,26 @@ static const uint qt_meta_data_SelectionController[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,    2,
-    QMetaType::Void, QMetaType::Int,    2,
-    QMetaType::Void, QMetaType::Int,    2,
-    QMetaType::Void, QMetaType::Int,    2,
+    QMetaType::Void, 0x80000000 | 9,    2,
+    QMetaType::Void, 0x80000000 | 9,    2,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 13, 0x80000000 | 15,   14,   16,
-    QMetaType::Void, 0x80000000 | 13, 0x80000000 | 17, 0x80000000 | 15,   14,   18,   16,
-    QMetaType::Void, QMetaType::Bool,   20,
+    QMetaType::Void, 0x80000000 | 12, 0x80000000 | 14,   13,   15,
+    QMetaType::Void, 0x80000000 | 12, 0x80000000 | 16, 0x80000000 | 14,   13,   17,   15,
+    QMetaType::Void, QMetaType::Bool,   19,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 13, 0x80000000 | 15,   14,   16,
-    QMetaType::Void, 0x80000000 | 13, 0x80000000 | 17, 0x80000000 | 15,   14,   18,   16,
-    QMetaType::Void, 0x80000000 | 13, 0x80000000 | 15,   14,   16,
-    QMetaType::Void, 0x80000000 | 13, 0x80000000 | 17, 0x80000000 | 15,   14,   18,   16,
-    QMetaType::Void, 0x80000000 | 13, 0x80000000 | 15,   14,   16,
-    QMetaType::Void, 0x80000000 | 13, 0x80000000 | 17, 0x80000000 | 15,   14,   18,   16,
+    QMetaType::Void, 0x80000000 | 12, 0x80000000 | 14,   13,   15,
+    QMetaType::Void, 0x80000000 | 12, 0x80000000 | 16, 0x80000000 | 14,   13,   17,   15,
+    QMetaType::Void, 0x80000000 | 12, 0x80000000 | 14,   13,   15,
+    QMetaType::Void, 0x80000000 | 12, 0x80000000 | 16, 0x80000000 | 14,   13,   17,   15,
+    QMetaType::Void, 0x80000000 | 12, 0x80000000 | 14,   13,   15,
+    QMetaType::Void, 0x80000000 | 12, 0x80000000 | 16, 0x80000000 | 14,   13,   17,   15,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 13, 0x80000000 | 27,   14,   18,
-    QMetaType::Void, 0x80000000 | 13, 0x80000000 | 27, QMetaType::Bool,   14,   18,   29,
-    QMetaType::Void, 0x80000000 | 13, 0x80000000 | 27,   14,   18,
+    QMetaType::Void, 0x80000000 | 12, 0x80000000 | 26,   13,   17,
+    QMetaType::Void, 0x80000000 | 12, 0x80000000 | 26, QMetaType::Bool,   13,   17,   28,
+    QMetaType::Void, 0x80000000 | 12, 0x80000000 | 26,   13,   17,
 
  // methods: parameters
     QMetaType::Void,
@@ -170,27 +165,25 @@ void SelectionController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, 
         case 3: _t->selectionDeleted(); break;
         case 4: _t->selectionInverted(); break;
         case 5: _t->selectionUninverted(); break;
-        case 6: _t->cadreXChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 7: _t->cadreYChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 8: _t->cadreWChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 9: _t->cadreHChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 10: _t->createSelection((*reinterpret_cast< sf::IntRect(*)>(_a[1])),(*reinterpret_cast< const std::vector<nSet::o_line>(*)>(_a[2]))); break;
-        case 11: _t->createSelection((*reinterpret_cast< sf::IntRect(*)>(_a[1])),(*reinterpret_cast< const sf::Image(*)>(_a[2])),(*reinterpret_cast< const std::vector<nSet::o_line>(*)>(_a[3]))); break;
-        case 12: _t->deleteSelection((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 13: _t->deleteSelection(); break;
-        case 14: _t->addSelection((*reinterpret_cast< sf::IntRect(*)>(_a[1])),(*reinterpret_cast< const std::vector<nSet::o_line>(*)>(_a[2]))); break;
-        case 15: _t->addSelection((*reinterpret_cast< sf::IntRect(*)>(_a[1])),(*reinterpret_cast< const sf::Image(*)>(_a[2])),(*reinterpret_cast< const std::vector<nSet::o_line>(*)>(_a[3]))); break;
-        case 16: _t->subSelection((*reinterpret_cast< sf::IntRect(*)>(_a[1])),(*reinterpret_cast< const std::vector<nSet::o_line>(*)>(_a[2]))); break;
-        case 17: _t->subSelection((*reinterpret_cast< sf::IntRect(*)>(_a[1])),(*reinterpret_cast< const sf::Image(*)>(_a[2])),(*reinterpret_cast< const std::vector<nSet::o_line>(*)>(_a[3]))); break;
-        case 18: _t->intersectSelection((*reinterpret_cast< sf::IntRect(*)>(_a[1])),(*reinterpret_cast< const std::vector<nSet::o_line>(*)>(_a[2]))); break;
-        case 19: _t->intersectSelection((*reinterpret_cast< sf::IntRect(*)>(_a[1])),(*reinterpret_cast< const sf::Image(*)>(_a[2])),(*reinterpret_cast< const std::vector<nSet::o_line>(*)>(_a[3]))); break;
-        case 20: _t->invertSelection(); break;
-        case 21: _t->uninvertSelection(); break;
-        case 22: _t->deleteLayer(); break;
-        case 23: _t->createSelection((*reinterpret_cast< sf::IntRect(*)>(_a[1])),(*reinterpret_cast< const sf::Image*(*)>(_a[2]))); break;
-        case 24: _t->sumSelection((*reinterpret_cast< sf::IntRect(*)>(_a[1])),(*reinterpret_cast< const sf::Image*(*)>(_a[2])),(*reinterpret_cast< bool(*)>(_a[3]))); break;
-        case 25: _t->intersectSelection((*reinterpret_cast< sf::IntRect(*)>(_a[1])),(*reinterpret_cast< const sf::Image*(*)>(_a[2]))); break;
-        case 26: _t->updateLines(); break;
+        case 6: _t->selectionMoved((*reinterpret_cast< sf::Vector2f(*)>(_a[1]))); break;
+        case 7: _t->selectionScaled((*reinterpret_cast< sf::Vector2f(*)>(_a[1]))); break;
+        case 8: _t->createSelection((*reinterpret_cast< sf::IntRect(*)>(_a[1])),(*reinterpret_cast< const std::vector<nSet::o_line>(*)>(_a[2]))); break;
+        case 9: _t->createSelection((*reinterpret_cast< sf::IntRect(*)>(_a[1])),(*reinterpret_cast< const sf::Image(*)>(_a[2])),(*reinterpret_cast< const std::vector<nSet::o_line>(*)>(_a[3]))); break;
+        case 10: _t->deleteSelection((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 11: _t->deleteSelection(); break;
+        case 12: _t->addSelection((*reinterpret_cast< sf::IntRect(*)>(_a[1])),(*reinterpret_cast< const std::vector<nSet::o_line>(*)>(_a[2]))); break;
+        case 13: _t->addSelection((*reinterpret_cast< sf::IntRect(*)>(_a[1])),(*reinterpret_cast< const sf::Image(*)>(_a[2])),(*reinterpret_cast< const std::vector<nSet::o_line>(*)>(_a[3]))); break;
+        case 14: _t->subSelection((*reinterpret_cast< sf::IntRect(*)>(_a[1])),(*reinterpret_cast< const std::vector<nSet::o_line>(*)>(_a[2]))); break;
+        case 15: _t->subSelection((*reinterpret_cast< sf::IntRect(*)>(_a[1])),(*reinterpret_cast< const sf::Image(*)>(_a[2])),(*reinterpret_cast< const std::vector<nSet::o_line>(*)>(_a[3]))); break;
+        case 16: _t->intersectSelection((*reinterpret_cast< sf::IntRect(*)>(_a[1])),(*reinterpret_cast< const std::vector<nSet::o_line>(*)>(_a[2]))); break;
+        case 17: _t->intersectSelection((*reinterpret_cast< sf::IntRect(*)>(_a[1])),(*reinterpret_cast< const sf::Image(*)>(_a[2])),(*reinterpret_cast< const std::vector<nSet::o_line>(*)>(_a[3]))); break;
+        case 18: _t->invertSelection(); break;
+        case 19: _t->uninvertSelection(); break;
+        case 20: _t->deleteLayer(); break;
+        case 21: _t->createSelection((*reinterpret_cast< sf::IntRect(*)>(_a[1])),(*reinterpret_cast< const sf::Image*(*)>(_a[2]))); break;
+        case 22: _t->sumSelection((*reinterpret_cast< sf::IntRect(*)>(_a[1])),(*reinterpret_cast< const sf::Image*(*)>(_a[2])),(*reinterpret_cast< bool(*)>(_a[3]))); break;
+        case 23: _t->intersectSelection((*reinterpret_cast< sf::IntRect(*)>(_a[1])),(*reinterpret_cast< const sf::Image*(*)>(_a[2]))); break;
+        case 24: _t->updateLines(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -227,27 +220,15 @@ void SelectionController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, 
             }
         }
         {
-            typedef void (SelectionController::*_t)(int );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&SelectionController::cadreXChanged)) {
+            typedef void (SelectionController::*_t)(sf::Vector2f );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&SelectionController::selectionMoved)) {
                 *result = 6;
             }
         }
         {
-            typedef void (SelectionController::*_t)(int );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&SelectionController::cadreYChanged)) {
+            typedef void (SelectionController::*_t)(sf::Vector2f );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&SelectionController::selectionScaled)) {
                 *result = 7;
-            }
-        }
-        {
-            typedef void (SelectionController::*_t)(int );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&SelectionController::cadreWChanged)) {
-                *result = 8;
-            }
-        }
-        {
-            typedef void (SelectionController::*_t)(int );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&SelectionController::cadreHChanged)) {
-                *result = 9;
             }
         }
     }
@@ -269,8 +250,6 @@ void *SelectionController::qt_metacast(const char *_clname)
     if (!_clname) return Q_NULLPTR;
     if (!strcmp(_clname, qt_meta_stringdata_SelectionController.stringdata0))
         return static_cast<void*>(const_cast< SelectionController*>(this));
-    if (!strcmp(_clname, "SignalInit"))
-        return static_cast< SignalInit*>(const_cast< SelectionController*>(this));
     return QObject::qt_metacast(_clname);
 }
 
@@ -280,13 +259,13 @@ int SelectionController::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 27)
+        if (_id < 25)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 27;
+        _id -= 25;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 27)
+        if (_id < 25)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 27;
+        _id -= 25;
     }
     return _id;
 }
@@ -323,30 +302,16 @@ void SelectionController::selectionUninverted()
 }
 
 // SIGNAL 6
-void SelectionController::cadreXChanged(int _t1)
+void SelectionController::selectionMoved(sf::Vector2f _t1)
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 6, _a);
 }
 
 // SIGNAL 7
-void SelectionController::cadreYChanged(int _t1)
+void SelectionController::selectionScaled(sf::Vector2f _t1)
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 7, _a);
-}
-
-// SIGNAL 8
-void SelectionController::cadreWChanged(int _t1)
-{
-    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 8, _a);
-}
-
-// SIGNAL 9
-void SelectionController::cadreHChanged(int _t1)
-{
-    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 9, _a);
 }
 QT_END_MOC_NAMESPACE

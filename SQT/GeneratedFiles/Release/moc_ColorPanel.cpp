@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_ColorPanel_t {
-    QByteArrayData data[6];
-    char stringdata0[59];
+    QByteArrayData data[4];
+    char stringdata0[40];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,13 +32,10 @@ static const qt_meta_stringdata_ColorPanel_t qt_meta_stringdata_ColorPanel = {
 QT_MOC_LITERAL(0, 0, 10), // "ColorPanel"
 QT_MOC_LITERAL(1, 11, 13), // "color1Changed"
 QT_MOC_LITERAL(2, 25, 0), // ""
-QT_MOC_LITERAL(3, 26, 12), // "SignalColor*"
-QT_MOC_LITERAL(4, 39, 5), // "color"
-QT_MOC_LITERAL(5, 45, 13) // "color2Changed"
+QT_MOC_LITERAL(3, 26, 13) // "color2Changed"
 
     },
-    "ColorPanel\0color1Changed\0\0SignalColor*\0"
-    "color\0color2Changed"
+    "ColorPanel\0color1Changed\0\0color2Changed"
 };
 #undef QT_MOC_LITERAL
 
@@ -56,12 +53,12 @@ static const uint qt_meta_data_ColorPanel[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,   24,    2, 0x0a /* Public */,
-       5,    1,   27,    2, 0x0a /* Public */,
+       1,    0,   24,    2, 0x0a /* Public */,
+       3,    0,   25,    2, 0x0a /* Public */,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 3,    4,
-    QMetaType::Void, 0x80000000 | 3,    4,
+    QMetaType::Void,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -72,11 +69,12 @@ void ColorPanel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         ColorPanel *_t = static_cast<ColorPanel *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->color1Changed((*reinterpret_cast< SignalColor*(*)>(_a[1]))); break;
-        case 1: _t->color2Changed((*reinterpret_cast< SignalColor*(*)>(_a[1]))); break;
+        case 0: _t->color1Changed(); break;
+        case 1: _t->color2Changed(); break;
         default: ;
         }
     }
+    Q_UNUSED(_a);
 }
 
 const QMetaObject ColorPanel::staticMetaObject = {

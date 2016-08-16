@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_LayerPanel_t {
-    QByteArrayData data[13];
-    char stringdata0[173];
+    QByteArrayData data[14];
+    char stringdata0[185];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -41,14 +41,15 @@ QT_MOC_LITERAL(8, 94, 20), // "firstLayerUnselected"
 QT_MOC_LITERAL(9, 115, 16), // "selectionCreated"
 QT_MOC_LITERAL(10, 132, 16), // "selectionDeleted"
 QT_MOC_LITERAL(11, 149, 11), // "copyCreated"
-QT_MOC_LITERAL(12, 161, 11) // "copyDropped"
+QT_MOC_LITERAL(12, 161, 11), // "copyDropped"
+QT_MOC_LITERAL(13, 173, 11) // "setTabOrder"
 
     },
     "LayerPanel\0layerCreated\0\0Layer*\0"
     "layerDeleted\0onlyOneLayer\0moreThanOneLayer\0"
     "firstLayerSelected\0firstLayerUnselected\0"
     "selectionCreated\0selectionDeleted\0"
-    "copyCreated\0copyDropped"
+    "copyCreated\0copyDropped\0setTabOrder"
 };
 #undef QT_MOC_LITERAL
 
@@ -58,7 +59,7 @@ static const uint qt_meta_data_LayerPanel[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      10,   14, // methods
+      11,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -66,16 +67,17 @@ static const uint qt_meta_data_LayerPanel[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,   64,    2, 0x08 /* Private */,
-       4,    1,   67,    2, 0x08 /* Private */,
-       5,    0,   70,    2, 0x08 /* Private */,
-       6,    0,   71,    2, 0x08 /* Private */,
-       7,    1,   72,    2, 0x08 /* Private */,
-       8,    1,   75,    2, 0x08 /* Private */,
-       9,    0,   78,    2, 0x08 /* Private */,
-      10,    0,   79,    2, 0x08 /* Private */,
-      11,    0,   80,    2, 0x08 /* Private */,
-      12,    0,   81,    2, 0x08 /* Private */,
+       1,    1,   69,    2, 0x08 /* Private */,
+       4,    1,   72,    2, 0x08 /* Private */,
+       5,    0,   75,    2, 0x08 /* Private */,
+       6,    0,   76,    2, 0x08 /* Private */,
+       7,    1,   77,    2, 0x08 /* Private */,
+       8,    1,   80,    2, 0x08 /* Private */,
+       9,    0,   83,    2, 0x08 /* Private */,
+      10,    0,   84,    2, 0x08 /* Private */,
+      11,    0,   85,    2, 0x08 /* Private */,
+      12,    0,   86,    2, 0x08 /* Private */,
+      13,    0,   87,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 3,    2,
@@ -84,6 +86,7 @@ static const uint qt_meta_data_LayerPanel[] = {
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 3,    2,
     QMetaType::Void, 0x80000000 | 3,    2,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -108,6 +111,7 @@ void LayerPanel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 7: _t->selectionDeleted(); break;
         case 8: _t->copyCreated(); break;
         case 9: _t->copyDropped(); break;
+        case 10: _t->setTabOrder(); break;
         default: ;
         }
     }
@@ -138,13 +142,13 @@ int LayerPanel::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 10)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 10;
+        _id -= 11;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 10)
+        if (_id < 11)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 10;
+        _id -= 11;
     }
     return _id;
 }

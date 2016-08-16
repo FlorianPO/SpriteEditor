@@ -32,6 +32,7 @@ private:
 	void focusInEvent(QFocusEvent *event) override;
 	void focusOutEvent(QFocusEvent *event) override;
 
+	void setValue(int value);
 	int checkRange(int* value); // Returns check_info_enum combinaison
 	void endValueTyping();
 
@@ -59,5 +60,7 @@ private:
 	int ex_keyboard_value;
 	bool text_initiated = false;
 	bool write_back = false;
+
+	int value_at_focus_in;
 };
 

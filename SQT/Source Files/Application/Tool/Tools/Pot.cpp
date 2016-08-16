@@ -19,8 +19,7 @@ void Pot::full_dessiner(sf::Color color) {
 	RES->getShader(nRer::pot).setParameter("couleur", color);
 
 	sf::Texture texture = LAYER->getTexture();
-	sf::Sprite sprite = sf::Sprite(texture);
-	LAYER->drawSprite(sprite, sf::Vector2f(0, 0), RES->getRender(nRer::pot));
+	LAYER->drawSpriteLocaly(sf::Sprite(texture), RES->getRender(nRer::pot));
 
 	checkLayerUpdate(true);
 }
@@ -48,8 +47,7 @@ void Pot::dessiner() {
 	}
 	sf::Texture texture;
 	texture.loadFromImage(image);
-	sf::Sprite sprite = sf::Sprite(texture);
-	LAYER->drawSprite(sprite, sf::Vector2f(0, 0), sf::RenderStates::Default);
+	LAYER->drawSpriteLocaly(sf::Sprite(texture), sf::RenderStates::Default);
 
 	checkLayerUpdate(true);
 }

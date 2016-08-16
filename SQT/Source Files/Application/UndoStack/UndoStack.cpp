@@ -8,8 +8,30 @@ UndoStack* UndoStack::_t;
 
 UndoStack::UndoStack() {
 	using namespace nInt;
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::CTRL + Qt::Key_Z, LOG), FUNCTION(UNDO->undo()));
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::CTRL + Qt::Key_Y, LOG), FUNCTION(UNDO->redo()));
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::CTRL + Qt::Key_Z, LOG), [this](){undo();});
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::CTRL + Qt::Key_Y, LOG), [this](){redo();});
+}
+
+//////////
+// FREE //
+//////////
+void UndoStack::freeWork() {
+	FOR_I (stack.size())
+		FOR_J (stack[i].size())
+			delete stack[i][j];
+	stack.clear();
+	FOR_I (macro_stack.size())
+		delete macro_stack[i];
+	macro_stack.clear();
+
+	index = -1;
+
+	tmp_instance = NULL;
+	undoing = false;
+
+	searching = false;
+	macro = 0;
+	first = false;
 }
 
 void UndoStack::_printStack() {
@@ -58,16 +80,6 @@ void UndoStack::clear(int from_index) {
 			delete stack[i][j];
 		stack.erase(stack.begin() + i);
 	}
-}
-
-void UndoStack::clear() {
-	FOR_I (stack.size())
-		FOR_J (stack[i].size())
-			delete stack[i][j];
-	stack.clear();
-	FOR_I (macro_stack.size())
-		delete macro_stack[i];
-	macro_stack.clear();
 }
 
 void UndoStack::undo() {

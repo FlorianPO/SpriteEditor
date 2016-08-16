@@ -15,8 +15,8 @@ public:
 
 // SIGNALS SLOTS
 	public slots:
-		void color1Changed(SignalColor* color);
-		void color2Changed(SignalColor*	color);
+		void color1Changed();
+		void color2Changed();
 
 // MEMBERS
 private:
@@ -24,5 +24,8 @@ private:
 
 	ClickLabel *r1, *g1, *b1, *a1;
 	ClickLabel *r2, *g2, *b2, *a2;
+
+	SignalColor* C1;
+	SignalColor* C2;
 };
 

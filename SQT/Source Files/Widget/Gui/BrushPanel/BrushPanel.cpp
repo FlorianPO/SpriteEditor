@@ -9,7 +9,7 @@
 BrushPanel::BrushPanel(QWidget* parent, const QPoint& position) : QWidget(parent) {
 	move(position);
 	ui.setupUi(this);
-	show();
+	hide();
 
 	// OPACITY
 	Opacity = new ClickLabel(this, sf::Vector2i(0, 255));

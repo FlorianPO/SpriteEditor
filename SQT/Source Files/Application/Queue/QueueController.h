@@ -6,16 +6,6 @@
 #define QUEUE_CONTROLLER QueueController::getInstance()
 #define QUEUE QUEUE_CONTROLLER
 
-#define BEFORE_DISPLAY(group, i_type) static Function_Arg __static__function = NULL; if (!QUEUE->isBeforeDisplay(group)) { \
-	if (__static__function == NULL) __static__function = new std::function<void(void*)>([](void* _arg) { i_type _this = static_cast<i_type>(_arg);
-#define END_BEFOR_DISPLAY(group) QUEUE->beforeDisplay(group, _FunctionArg(this, __static__function)); }
-
-/*	
-BEFORE_DISPLAY(0, Copy*)
-	_this->updateLines();
-}); END_BEFOR_DISPLAY(0);
-*/
-
 class QueueController : public QObject
 {
 	Q_OBJECT
@@ -27,22 +17,42 @@ public:		inline static void createInstance() { _t = new QueueController(); }
 // CONSTRUCTOR
 public:
 	QueueController() {}
-	~QueueController();
+	~QueueController() {}
 
 // METHODS
 public:
-	void beforeDisplay(QObject* receiver, const char* slot);
-	void beforeDisplay(int group, _FunctionArg function);
-	bool isBeforeDisplay(int group);
+	void beforeDisplay(QObject* receiver, const char* function_name, const char* overrides=NULL);
+	void beforeDisplay(std::function<void(void)> lambda);
+
+	void atStart(QObject* receiver, const char* function_name, const char* overrides=NULL);
+	void atStart(std::function<void(void)> lambda);
 
 	void updateBeforeDisplay();
+	void updateAtStart();
 
 // MEMBERS
 private:
-	std::vector<QObject*> before_display_receivers;
-	std::vector<const char*> before_display_slots;
-	std::vector<_FunctionArg> before_display;
-	std::vector<int> group_before_display;
+	struct recv_slot {
+		QObject* object;
+		const char* slot;
+
+		recv_slot(QObject* o, const char* s) {
+			object = o;
+			slot = s;
+		}
+
+		bool operator==(const recv_slot& obj) {
+			return object == obj.object && !strcmp(slot, obj.slot);
+		}
+	};
+
+	// Before display
+	std::vector<recv_slot> bd_slots;
+	std::vector<std::function<void(void)>> bd_lambdas;
+
+	// At start
+	std::vector<recv_slot> as_slots;
+	std::vector<std::function<void(void)>> as_lambdas;
 };
 
 

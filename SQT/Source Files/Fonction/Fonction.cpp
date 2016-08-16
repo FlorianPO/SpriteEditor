@@ -3,6 +3,7 @@
 #include "Source Files/Application/Input/InputController.h"
 #include "Source Files/Application/Layer/LayerController.h"
 #include "Source Files/Application/Layer/Layer.h"
+#include "Source Files/Application/Resource/ResourceController.h"
 
 bool Fonction::mouseOnSprite(const sf::Sprite* sprite) {
 	sf::FloatRect rect = sprite->getGlobalBounds();
@@ -125,10 +126,6 @@ sf::Color Fonction::getPointedColor() {
 	return Fonction::getColor(INPUT->getPixel() - VECTOR2I(LAYER->getPosition()), *LAYER->getImage());
 }
 
-sf::IntRect Fonction::FloatRectToIntRect(sf::FloatRect rect) {
-	return sf::IntRect(rect.left, rect.top, rect.width, rect.height);
-}
-
 std::vector<sf::Vector2f>* Fonction::getPoints(sf::Sprite* sprite) {
 	std::vector<sf::Vector2f>* points = new std::vector<sf::Vector2f>();
 
@@ -171,4 +168,18 @@ bool Fonction::checkCadre(sf::IntRect* cadre, sf::IntRect cadre_in) {
 			return true;
 	}
 	return false;
+}
+
+void Fonction::fuseTexture(sf::RenderTexture& render_texture, const sf::Texture& texture_src, sf::Vector2f pos_src) {
+	sf::Texture texture_dst = render_texture.getTexture();
+	sf::Sprite spr;
+	spr.setPosition(pos_src);
+	spr.setTexture(texture_src, true);
+
+	RES->getShader(nRer::fuse).setParameter("source", texture_src);
+	RES->getShader(nRer::fuse).setParameter("background", texture_dst);
+	RES->getShader(nRer::fuse).setParameter("position", pos_src);
+
+	render_texture.draw(spr, RES->getRender(nRer::fuse));
+	render_texture.display();
 }

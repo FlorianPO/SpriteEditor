@@ -15,44 +15,32 @@ public:		inline static void createInstance(sf::RenderWindow* _f) { _t = new App(
 
 // CONSTRUCTOR
 public:
-	App(sf::RenderWindow* _f);
-	~App();
+	App(sf::RenderWindow* _f) { fenetre = _f; }
+	~App() { fenetre->close(); }
 
 // METHODS
 public:
-	//void sauvegarder(std::string destination); //Save the current view
-	void loadFromPath(std::string source); //Load an image_selec
-	void init_work(sf::Image* image);
-	void free_work();
+	void load(std::string source);
+	void loadAsLayer(std::string source);
+	void initWork(sf::Image* image);
+	void freeWork();
 
 	//void macro();
 	sf::RenderWindow& getWindow() { return *fenetre; }
+	sf::String getFileName() { return filename; }
+	sf::String getPath() { return path; }
+
 
 	void run(); //Step the application
 	void display(); //Global display
 
 	inline unsigned int whichFrame() {return frame;}
-private:
-	Q_INVOKABLE void gererFond();
-	Q_INVOKABLE void gererLines();
-	void displayLines();
-
-// SIGNALS SLOTS
-	private slots:
-		void cadreMoved();
-		void cadreScaled();
-		void cameraZoomed(float zoom_factor);
-		void cameraMoved();
-
+		
 // MEMBERS
 private:
 	sf::RenderWindow* fenetre;
 	sf::String filename; //Name of the loaded file
-
-	sf::VertexArray lines_bord; //Yellow lines around work zone
-	sf::Color color_fond = sf::Color(128, 128, 128); //Background color
-	sf::Sprite sprite_transparency; //Transparency squares (like GIMP)
-	sf::VertexArray cache_fond[4];
+	sf::String path; //Path of the loaded file
 
 	unsigned int frame = 0; //Frame counter
 };

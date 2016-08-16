@@ -7,12 +7,12 @@
 ColorPanel::ColorPanel(QWidget *parent, const QPoint& position) : QWidget(parent) {
 	move(position);
 	ui.setupUi(this);
-	show();
+	hide();
 
 	// COLOR1
-	SignalColor* C1 = COLOR_CONTROLLER->getSColor1();
+	C1 = COLOR_CONTROLLER->getSColor1();
 	ui.Color1->setAutoFillBackground(true);
-	QObject::connect(C1, SIGNAL(colorChanged(SignalColor*)), this, SLOT(color1Changed(SignalColor*)));
+	QObject::connect(C1, SIGNAL(colorChanged()), this, SLOT(color1Changed()));
 
 	// R
 	r1 = new ClickLabel(this, sf::Vector2i(0, 255), ClickLabel::EXTENDED, true); r1->move(QPoint(64, 0)); r1->show(); 
@@ -36,9 +36,9 @@ ColorPanel::ColorPanel(QWidget *parent, const QPoint& position) : QWidget(parent
 	QObject::connect(a1, SIGNAL(valueChanged(int)), C1, SLOT(setA(int)));
 
 	// COLOR2
-	SignalColor* C2 = COLOR_CONTROLLER->getSColor2();
+	C2 = COLOR_CONTROLLER->getSColor2();
 	ui.Color2->setAutoFillBackground(true);
-	QObject::connect(C2, SIGNAL(colorChanged(SignalColor*)), this, SLOT(color2Changed(SignalColor*)));
+	QObject::connect(C2, SIGNAL(colorChanged()), this, SLOT(color2Changed()));
 
 	// R
 	r2 = new ClickLabel(this, sf::Vector2i(0, 255), ClickLabel::EXTENDED, true); r2->move(QPoint(8, 72)); r2->show(); 
@@ -62,19 +62,18 @@ ColorPanel::ColorPanel(QWidget *parent, const QPoint& position) : QWidget(parent
 	QObject::connect(a2, SIGNAL(valueChanged(int)), C2, SLOT(setA(int)));
 }
 
-void ColorPanel::color1Changed(SignalColor* color) {
+void ColorPanel::color1Changed() {
 	ui.Color1->setStyleSheet(QString::fromStdString("background-color: rgba(" +
-							 std::to_string(color->getR()) + "," + 
-							 std::to_string(color->getG()) + "," +
-							 std::to_string(color->getB()) + "," +
-							 std::to_string(color->getA()) + ");"));
+							 std::to_string(C1->getR()) + "," + 
+							 std::to_string(C1->getG()) + "," +
+							 std::to_string(C1->getB()) + "," +
+							 std::to_string(C1->getA()) + ");"));
 }
 
-void ColorPanel::color2Changed(SignalColor* color) {
+void ColorPanel::color2Changed() {
 	ui.Color2->setStyleSheet(QString::fromStdString("background-color: rgba(" +
-							 std::to_string(color->getR()) + "," + 
-							 std::to_string(color->getG()) + "," +
-							 std::to_string(color->getB()) + "," +
-							 std::to_string(color->getA()) + ");"));
+							 std::to_string(C2->getR()) + "," + 
+							 std::to_string(C2->getG()) + "," +
+							 std::to_string(C2->getB()) + "," +
+							 std::to_string(C2->getA()) + ");"));
 }
-

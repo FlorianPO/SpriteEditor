@@ -33,6 +33,6 @@ void SelectionController::move() {
 void SelectionController::keyMove(int x, int y) {
 	if (isSelected()) {
 		translate(sf::Vector2f(x, y));
-		SHORTCUT_CONTROLLER->createCoreShortcutOnce(nInt::keyCombinaison(Qt::Key_Shift, nInt::RELEASED), FUNCTION(UNDO->push(new SelecMoved(SELEC, SELEC->getPosition()))));
+		SHORTCUT_CONTROLLER->createCoreShortcutOnce(nInt::keyCombinaison(Qt::Key_Shift, nInt::RELEASED), [this](){UNDO->push(new SelecMoved(this, getPosition()));});
 	}
 }

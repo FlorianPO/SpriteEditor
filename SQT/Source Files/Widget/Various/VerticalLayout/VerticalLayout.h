@@ -7,7 +7,7 @@ class VerticalLayout : public QObject
 	Q_OBJECT
 // CONSTRUCTOR
 public:
-	VerticalLayout(QPoint topLeft=QPoint(), bool upToDown=true, bool dragable=false, QWidget* parent=NULL);
+	VerticalLayout(QPoint topLeft=QPoint(), bool up_to_down=true, bool dragable=false, QWidget* parent=NULL);
 	~VerticalLayout() {}
 
 // METHODS
@@ -18,13 +18,16 @@ public:
 	void removeWidget(QWidget* widget, bool del=true);
 	void setSpacing(int spacing);
 	void setLocalSpacing(int spacing);
-	void refresh();
+
+	bool isUptoDown() { return up_to_down; }
+	const std::deque<QWidget*>& getList() { return widget_list; }
 
 	// For multiple call optimisation 
 	void _fillBegin() { _cstr = true; }
 	void _fillEnd() { _cstr = false; refresh(); }
 
 private:
+	void refresh();
 	bool eventFilter(QObject *object, QEvent *evnt) override;
 	QWidget* posOn(const QPoint& pos, QWidget* ignore_me=NULL); // returns the widget where pos is located
 
@@ -33,13 +36,14 @@ private:
 		void moveElement(int src, int dst); // Doesn't emit elementMoved(...)
 	signals:
 		void elementMoved(int src, int dst);
+		void reordered();
 
 // MEMBERS
 private:
 	QPoint topLeftPos;
 	std::deque<QWidget*> widget_list;
 	std::deque<int> spacing_list;
-	bool upToDown;
+	bool up_to_down;
 	int spacing = 0;
 	bool _cstr = false;
 

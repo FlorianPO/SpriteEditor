@@ -26,6 +26,7 @@ public:
 		void selectionDeleted();
 		void copyCreated();
 		void copyDropped();
+		void setTabOrder();
 
 // MEMBERS
 private:

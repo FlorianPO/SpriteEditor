@@ -37,6 +37,9 @@
 #include <QLineEdit>
 #include <QtCore/QSignalMapper.h>
 #include <QShortcut.h>
+#include <QMenuBar.h>
+#include <QMenu.h>
+#include <QFileDialog.h>
 
 #define PI 3.14159265358979323846
 #define PIH PI / 8.0
@@ -45,6 +48,8 @@
 #define QBOTTOMY(w)				(w)->pos().y() + (w)->size().height()
 #define VECTOR2F(v)				sf::Vector2f(v.x, v.y)
 #define VECTOR2I(v)				sf::Vector2i(v.x, v.y)
+#define RECTI(r)				sf::IntRect(r.left, r.top, r.width, r.height)
+#define RECTF(r)				sf::IntRect(r.left, r.top, r.width, r.height)
 #define POS_RECT(r)				sf::Vector2f(r.left, r.top)
 #define SIZE_RECT(r)			sf::Vector2f(r.width, r.height)
 
@@ -54,6 +59,8 @@
 #define ARG_SIZE(r)				r.width, r.height
 #define CALL_VECTOR2F(v, f)		sf::Vector2f(f(v.x), f(v.y))
 #define CALL_VECTOR2I(v, f)		sf::Vector2i(f(v.x), f(v.y))
+#define OPER_VECTOR2F(v, op)	sf::Vector2f(v.x op, v.y op)
+#define OPER_VECTOR2I(v, op)	sf::Vector2f(v.x op, v.y op)
 
 #define H_VECTOR2F(v)	sf::Vector2f(v.x / 2.f, v.y / 2.f)
 #define H_VECTOR2I(v)	sf::Vector2i(v.x / 2.f, v.y / 2.f)
@@ -76,19 +83,3 @@
 #define FOR_K_INV(max)		for (int k=max-1; k >= 0; k--)
 #define FIRST(list)		list[0]
 #define LAST(list)		list[list.size()-1]
-
-
-typedef std::function<void(void)>* Function;
-typedef std::function<void(void*)>* Function_Arg;
-struct _FunctionArg {
-	void* instance;
-	Function_Arg function;
-
-	_FunctionArg(void* i, Function_Arg f) {
-		this->instance = i;
-		this->function = f;
-	} 
-};
-
-#define FUNCTION(cmd_l) (new std::function<void(void)>([]() {cmd_l;}))
-#define FUNCTION_ARG(i_type) _FunctionArg(this, new std::function<void(void*)>([](void* _arg) { i_type _this = static_cast<i_type>(_arg); 

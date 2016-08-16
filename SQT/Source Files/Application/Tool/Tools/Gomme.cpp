@@ -5,7 +5,7 @@
 #include "Source Files/Application/Resource/ResourceController.h"
 #include "Source Files/Application/Brush/BrushController.h"
 #include "Source Files/Application/Brush/Brush.h"
-#include "Source Files/Widget/SQT/SFMLView.h"
+#include "Source Files/QtApp/SQT/SFMLView.h"
 #include <Source Files/Fonction/Fonction.h>
 
 Gomme::Gomme(void) {

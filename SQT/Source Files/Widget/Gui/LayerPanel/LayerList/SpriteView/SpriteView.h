@@ -1,7 +1,7 @@
 #pragma once
 
 #include "stdenum.h"
-#include "Source Files/Widget/SQT/SQT.h"
+#include "Source Files/QtApp/SQT/SQT.h"
 
 class SpriteView : public SQT
 {

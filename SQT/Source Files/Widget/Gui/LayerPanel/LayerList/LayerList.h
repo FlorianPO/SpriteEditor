@@ -25,6 +25,9 @@ public:
 // METHODS
 public:
 	static LayerList* getFromLayer(Layer* layer);
+	FLineEdit* getLineEdit() { return line_edit; }
+
+
 private:
 	bool eventFilter(QObject *object, QEvent *event) override;
 	void mousePressEvent(QMouseEvent* Qm) override;
@@ -37,6 +40,6 @@ private:
 	Layer* layer;
 	SpriteView* sprite_view;
 	State2Button* view_button;
-	FLineEdit* lineEdit;
+	FLineEdit* line_edit;
 };
 

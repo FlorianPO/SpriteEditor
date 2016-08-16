@@ -13,7 +13,7 @@ using namespace nSet;
 
 SelectionController* SelectionController::_t;
 
-SelectionController::SelectionController() : SignalInit() {
+SelectionController::SelectionController() {
 	RES->getShader(nRer::cut).setParameter("texture", renderTexture_selec.getTexture());
 	RES->getShader(nRer::invert).setParameter("texture", renderTexture_selec.getTexture());
 	RES->getShader(nRer::update).setParameter("texture", renderTexture_selec.getTexture());
@@ -21,16 +21,19 @@ SelectionController::SelectionController() : SignalInit() {
 	RES->getShader(nRer::pot).setParameter("texture", renderTexture_selec.getTexture());
 
 	using namespace nInt;
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_Z, LOG), FUNCTION(SELEC->keyMove(0, -1)));
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_S, LOG), FUNCTION(SELEC->keyMove(0, 1)));
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_Q, LOG), FUNCTION(SELEC->keyMove(-1, 0)));
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_D, LOG), FUNCTION(SELEC->keyMove(1, 0)));
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_Z, LOG), [this](){keyMove(0, -1);});
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_S, LOG), [this](){keyMove(0, 1);});
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_Q, LOG), [this](){keyMove(-1, 0);});
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_D, LOG), [this](){keyMove(1, 0);});
 
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::Key_Shift, DOUBLE_TAP), FUNCTION(SELEC->deleteSelection()));
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::Key_Delete, AGAIN), FUNCTION(SELEC->deleteLayer()));
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::Key_Shift, DOUBLE_TAP), [this](){deleteSelection();});
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::Key_Delete, AGAIN), [this](){deleteLayer();});
 }
 
-void SelectionController::initSignals() {
+//////////
+// FREE //
+//////////
+void SelectionController::freeWork() {
 	UNDO->beginFirst();
 	deleteSelection(true);
 	UNDO->endFirst();
@@ -107,10 +110,8 @@ bool SelectionController::onSelec(int x, int y) {
 void SelectionController::updateCadre() {
 	cadre = sf::IntRect(sprite_selec.getPosition().x + 1, sprite_selec.getPosition().y + 1, sprite_selec.getTextureRect().width - 2, sprite_selec.getTextureRect().height - 2);
 
-	emit cadreXChanged(cadre.left);
-	emit cadreYChanged(cadre.top);
-	emit cadreWChanged(cadre.width);
-	emit cadreHChanged(cadre.height);
+	emit selectionMoved(POS_RECT(cadre));
+	emit selectionScaled(SIZE_RECT(cadre));
 }
 
 void SelectionController::invert() {
@@ -148,7 +149,6 @@ void SelectionController::updateLines() {
 			pos_lines->lines[i].y += delta_move.y;
 		}
 		pos_lines->pos += delta_move;
-		updateCadre();
 	}
 }
 
@@ -206,18 +206,27 @@ void SelectionController::setInverted(bool inverted) {
 
 void SelectionController::translate(sf::Vector2f translation) {
 	sprite_selec.move(translation);
+	updateCadre();
 	QUEUE->beforeDisplay(this, "updateLines");
 }
 
 void SelectionController::setPosition(sf::Vector2f pos) {
-	sf::Vector2f ex_pos = sprite_selec.getPosition();
 	sprite_selec.setPosition(pos);
+	updateCadre();
 	QUEUE->beforeDisplay(this, "updateLines");
+}
+
+void SelectionController::setRealPosition(sf::Vector2f real_pos) {
+	setPosition(sf::Vector2f(real_pos.x-1, real_pos.y-1));
+}
+
+sf::Vector2f SelectionController::getRealPosition() {
+	sf::Vector2f pos = sprite_selec.getPosition();
+	return sf::Vector2f(pos.x+1, pos.y+1);
 }
 
 void SelectionController::displayLines() {
 	if (isSelected()) {
-		//APP->getWindow().draw(sprite_selec); // DEBUG
 		sf::Color color = sf::Color(255 * bool(rand() % 2), 255 * bool(rand() % 2), 255 * bool(rand() % 2));
 		FOR_I (pos_lines->lines.size()) {
 			pos_lines->lines[i].line[0].color = color;

@@ -4,29 +4,35 @@
 #include "Source Files/Application/App.h"
 #include "Source Files/Application/Input/InputController.h"
 #include "Source Files/Application/Input/ShortcutController.h"
-#include "Source Files/Widget/SQT/SFMLView.h"
+#include "Source Files/QtApp/SQT/SFMLView.h"
+#include "Source Files/Fonction/Fonction.h"
 
 CameraController* CameraController::_t;
 
 CameraController::CameraController() {
 	using namespace nInt;
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::ALT + Qt::Key_Z, PRESSED), FUNCTION(CAMERA->moveY(-MOVE_FACTOR*(1.f/CAMERA->getZoom()))));
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::ALT + Qt::Key_S, PRESSED), FUNCTION(CAMERA->moveY(MOVE_FACTOR*(1.f/CAMERA->getZoom()))));
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::ALT + Qt::Key_Q, PRESSED), FUNCTION(CAMERA->moveX(-MOVE_FACTOR*(1.f/CAMERA->getZoom()))));
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::ALT + Qt::Key_D, PRESSED), FUNCTION(CAMERA->moveX(MOVE_FACTOR*(1.f/CAMERA->getZoom()))));
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::ALT + Qt::Key_Z, PRESSED), [this](){moveY(-MOVE_FACTOR*(1.f/getZoom()));});
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::ALT + Qt::Key_S, PRESSED), [this](){moveY(MOVE_FACTOR*(1.f/getZoom()));});
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::ALT + Qt::Key_Q, PRESSED), [this](){moveX(-MOVE_FACTOR*(1.f/getZoom()));});
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::ALT + Qt::Key_D, PRESSED), [this](){moveX(MOVE_FACTOR*(1.f/getZoom()));});
 
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(WHEEL_UP,				 AGAIN), FUNCTION(CAMERA->moveY(-40*(1.f/CAMERA->getZoom()))));
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(WHEEL_DOWN,				 AGAIN), FUNCTION(CAMERA->moveY(40*(1.f/CAMERA->getZoom()))));
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + WHEEL_UP,	 AGAIN), FUNCTION(CAMERA->moveX(-40*(1.f/CAMERA->getZoom()))));
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + WHEEL_DOWN,	 AGAIN), FUNCTION(CAMERA->moveX(40*(1.f/CAMERA->getZoom()))));
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::MiddleButton, PRESSED), FUNCTION(CAMERA->moveCamera(sf::Vector2f(-INPUT->getDeltaScreen().x/CAMERA->getZoom(), 
-																																 -INPUT->getDeltaScreen().y/CAMERA->getZoom()))));
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(WHEEL_UP,				 AGAIN), [this](){moveY(-40*(1.f/getZoom()));});
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(WHEEL_DOWN,				 AGAIN), [this](){moveY(40*(1.f/getZoom()));});
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + WHEEL_UP,	 AGAIN), [this](){moveX(-40*(1.f/getZoom()));});
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + WHEEL_DOWN,	 AGAIN), [this](){moveX(40*(1.f/getZoom()));});
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::MiddleButton, PRESSED), [this](){moveCamera(sf::Vector2f(-INPUT->getDeltaScreen().x/getZoom(), 
+																														-INPUT->getDeltaScreen().y/getZoom()));});
 
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::CTRL + WHEEL_UP,		AGAIN),	FUNCTION(CAMERA->zoomCamera(0.5f)));
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::CTRL + WHEEL_DOWN,	AGAIN),	FUNCTION(CAMERA->zoomCamera(2)));
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::CTRL + WHEEL_UP,		AGAIN),	[this](){zoomCamera(0.5f);});
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::CTRL + WHEEL_DOWN,	AGAIN),	[this](){zoomCamera(2);});
 
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::Key_Alt,			DOUBLE_TAP), FUNCTION(CAMERA->centerOnLayer()));
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::MiddleButton,	DOUBLE_TAP), FUNCTION(CAMERA->follow(INPUT->getPosition())));
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::Key_Alt,			DOUBLE_TAP), [this](){centerOnLayer();});
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::MiddleButton,	DOUBLE_TAP), [this](){follow(INPUT->getPosition());});
+}
+
+void CameraController::updateView() {
+	setSize(sf::Vector2f(SFML->width()/zoom_factor, SFML->height()/zoom_factor));
+	emit moved(getCenter());
 }
 
 void CameraController::centerOnLayer(Layer* layer) {
@@ -43,18 +49,25 @@ void CameraController::zoomCamera(float factor, bool centered_on_mouse) {
 		return;
 
 	if (centered_on_mouse) {
-		sf::Vector2f pos_mouse = INPUT->getPosition();
 		if (factor <= 1.f) {
-			setCenter((pos_mouse.x + getCenter().x) / 2.f, (pos_mouse.y + getCenter().y) / 2.f);
+			sf::Vector2f pos_mouse = INPUT->getPosition();
+			sf::Vector2f pos = sf::Vector2f((pos_mouse.x + getCenter().x) / 2.f, (pos_mouse.y + getCenter().y) / 2.f);
+			setCenter(pos);
 			zoom(factor);
 			zoom_factor /= factor;
 		}
 		else {
-			float x = getCenter().x - pos_mouse.x;
-			float y = getCenter().y - pos_mouse.y;
+			sf::Vector2f pos_mouse = INPUT->getPosition();
+			sf::Vector2f float_part = CALL_VECTOR2F(pos_mouse, Fonction::floatPart);
+			float_part = OPER_VECTOR2F(float_part, *2);
+			pos_mouse.x = int(pos_mouse.x) + float_part.x;
+			pos_mouse.y = int(pos_mouse.y) + float_part.y;
+
+			sf::Vector2f center = getCenter();
+			sf::Vector2f pos = sf::Vector2f(2*center.x - pos_mouse.x, 2*center.y - pos_mouse.y);
+			setCenter(pos);
 			zoom(factor);
 			zoom_factor /= factor;
-			sf::View::move(x, y);
 		}
 		emit moved(getCenter());
 	}

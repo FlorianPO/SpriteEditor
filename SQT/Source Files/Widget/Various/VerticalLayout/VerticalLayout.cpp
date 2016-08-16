@@ -1,8 +1,8 @@
 #include "VerticalLayout.h"
 
-VerticalLayout::VerticalLayout(QPoint topLeft, bool upToDown, bool dragable, QWidget* parent) {
+VerticalLayout::VerticalLayout(QPoint topLeft, bool up_to_down, bool dragable, QWidget* parent) {
 	topLeftPos = topLeft;
-	this->upToDown = upToDown;
+	this->up_to_down = up_to_down;
 	this->dragable = dragable;
 	if (dragable) {
 		clicked = false;
@@ -60,7 +60,7 @@ bool VerticalLayout::eventFilter(QObject* object, QEvent* evnt) {
 				}
 				_fillEnd();
 
-				if (!upToDown) {
+				if (!up_to_down) {
 					index_moved = widget_list.size()-1-index_moved;
 					destination = widget_list.size()-1-destination;
 				}
@@ -105,7 +105,7 @@ bool VerticalLayout::eventFilter(QObject* object, QEvent* evnt) {
 }
 
 void VerticalLayout::moveElement(int src, int dst) {
-	if (!upToDown) {
+	if (!up_to_down) {
 		src = widget_list.size()-1-src;
 		dst = widget_list.size()-1-dst;
 	}
@@ -119,10 +119,12 @@ void VerticalLayout::moveElement(int src, int dst) {
 
 QWidget* VerticalLayout::posOn(const QPoint& pos, QWidget* ignore_me) {
 	FOR_I (widget_list.size()) {
-		if (widget_list[i] == ignore_me)
-			continue;
-		if (widget_list[i]->geometry().contains(pos))
-			return widget_list[i];
+		if (widget_list[i]->isVisible()) {	
+			if (widget_list[i] == ignore_me)
+				continue;
+			if (widget_list[i]->geometry().contains(pos))
+				return widget_list[i];
+		}
 	}
 	return NULL;
 }
@@ -131,7 +133,7 @@ void VerticalLayout::addWidget(QWidget* widget, bool filter) {
 	if (filter)
 		widget->installEventFilter(this);
 
-	if (upToDown) {
+	if (up_to_down) {
 		widget_list.push_back(widget);
 		spacing_list.push_back(0);
 	}
@@ -203,6 +205,7 @@ void VerticalLayout::setLocalSpacing(int spacing) {
 
 void VerticalLayout::refresh() {
 	int prevWidgetYBottom = topLeftPos.y();
+
 	FOR_I (widget_list.size()) {
 		if (widget_list[i]->isVisible()) {
 			if (i > 0)
@@ -212,4 +215,6 @@ void VerticalLayout::refresh() {
 			prevWidgetYBottom += spacing + widget_list[i]->height();
 		}
 	}
+	if (!dragging)
+		emit reordered();
 }

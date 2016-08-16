@@ -1,13 +1,12 @@
 #pragma once
 
 #include "stdenum.h"
-#include "Source Files/SignalType/SignalInit.h"
 
 #define INIT_SELECTION_CONTROLLER SelectionController::createInstance();
 #define SELECTION_CONTROLLER SelectionController::getInstance()
 #define SELEC SELECTION_CONTROLLER
 
-class SelectionController : public QObject, SignalInit
+class SelectionController : public QObject
 {
 	Q_OBJECT
 // INSTANCE
@@ -19,6 +18,7 @@ public:		inline static void createInstance() { _t = new SelectionController(); }
 public:
 	SelectionController();
 	~SelectionController() {}
+	void freeWork();
 
 // SIGNALS / SLOTS
 	public slots:
@@ -44,27 +44,24 @@ public:
 		void selectionDeleted();
 		void selectionInverted();
 		void selectionUninverted();
-		// CADRE
-		void cadreXChanged(int);
-		void cadreYChanged(int);
-		void cadreWChanged(int);
-		void cadreHChanged(int);
-
+		void selectionMoved(sf::Vector2f);
+		void selectionScaled(sf::Vector2f);
+		
 // METHODS
 public:
 	void displayLines();
 	void move(); // Direct mouse manipulation
 	void translate(sf::Vector2f translation);
 	void setPosition(sf::Vector2f pos);
+	void setRealPosition(sf::Vector2f real_pos);
 
 	bool onSelec(int x, int y);
 	inline bool isSelected() { return pos_lines != NULL; }
 	inline bool isInverted() { return inverted; }
 	inline sf::Vector2f getPosition() { return sprite_selec.getPosition(); }
+	sf::Vector2f getRealPosition();
 	inline sf::IntRect getCadre() { return cadre; }
 
-protected:
-	void initSignals() override;
 private:
 	void invert();
 	void updateCadre();

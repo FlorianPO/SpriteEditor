@@ -23,8 +23,9 @@ namespace Fonction
 	sf::Color getPointedColor();
 
 	bool checkCadre(sf::IntRect* cadre, sf::IntRect cadre_in);
-	sf::IntRect FloatRectToIntRect(sf::FloatRect rect);
 	std::vector<sf::Vector2f>* getPoints(sf::Sprite* sprite);
+
+	void fuseTexture(sf::RenderTexture& render_texture, const sf::Texture& texture_src, sf::Vector2f pos_src);
 
 	/////////////
 	// SPECIAL //
@@ -38,6 +39,7 @@ namespace Fonction
 	// MATH //
 	//////////
 	UINT8 numDigits(int32_t x);
+	float floatPart(float f);
 	float degToRad(float deg);
 	float radToDeg(float rad);
 	float norme(sf::Vector2f direction);
@@ -51,6 +53,8 @@ namespace Fonction
 	void setOriginGlobally(sf::Sprite& sprite, sf::Vector2f origin);
 	void flipVertically(sf::Sprite& sprite);
 	void flipHorizontally(sf::Sprite& sprite);
+	sf::IntRect unionRect(sf::IntRect r1, sf::IntRect r2);
+	sf::FloatRect unionRect(sf::FloatRect r1, sf::FloatRect r2);
 
 	//////////////
 	// POSITION //

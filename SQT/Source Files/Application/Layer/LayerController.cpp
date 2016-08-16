@@ -8,6 +8,20 @@
 
 LayerController* LayerController::_t;
 
+//////////
+// FREE //
+//////////
+void LayerController::freeWork() {
+	if (current_layer != NULL)
+		current_layer = NULL;
+
+	FOR_I (layer_list.size()) {
+		emit layerDeleted(layer_list[i]);
+		delete layer_list[i];
+	}
+	layer_list.clear();
+}
+
 ////////////
 // CREATE //
 ////////////
@@ -104,14 +118,11 @@ void LayerController::selectLayer(Layer* layer) {
 
 	if (ex_layer != NULL) {
 		ex_layer->unselect();
-		QObject::disconnect(ex_layer, SIGNAL(layerMoved(sf::Vector2f)), this, SLOT(_layerSelectedMoved(sf::Vector2f)));
-		QObject::disconnect(ex_layer, SIGNAL(layerScaled(sf::Vector2f)), this, SLOT(_layerSelectedScaled(sf::Vector2f)));
+		emit layerUnselected(ex_layer);
 	}
 	current_layer->select();
-	QObject::connect(current_layer, SIGNAL(layerMoved(sf::Vector2f)), this, SLOT(_layerSelectedMoved(sf::Vector2f)));
-	QObject::connect(current_layer, SIGNAL(layerScaled(sf::Vector2f)), this, SLOT(_layerSelectedScaled(sf::Vector2f)));
-	_layerSelectedMoved(current_layer->getPosition());
-	_layerSelectedMoved(current_layer->getSize());
+	emit layerSelected(current_layer);
+	current_layer->emitStatus();
 
 	if (current_layer == firstLayer())
 		emit firstLayerSelected(current_layer);
@@ -132,7 +143,7 @@ void LayerController::fuseLayer(Layer* layer_src, Layer* layer_dst) {
 
 	RES->getShader(nRer::fuse).setParameter("source", tex);
 	RES->getShader(nRer::fuse).setParameter("background", tex2);
-	RES->getShader(nRer::fuse).setParameter("position", spr.getPosition());
+	RES->getShader(nRer::fuse).setParameter("position", spr.getPosition() - layer_dst->getPosition());
 
 	layer_dst->drawSprite(spr, RES->getRender(nRer::fuse));
 	
@@ -174,14 +185,6 @@ Layer* LayerController::firstLayer() {
 		if (!layer_list[i]->isDead())
 			return layer_list[i];
 	return NULL;
-}
-
-void LayerController::_layerSelectedMoved(sf::Vector2f position) {
-	emit layerSelectedMoved(position);
-}
-
-void LayerController::_layerSelectedScaled(sf::Vector2f size) {
-	emit layerSelectedScaled(size);
 }
 
 ///////////

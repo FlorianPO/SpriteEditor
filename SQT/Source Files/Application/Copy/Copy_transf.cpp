@@ -32,9 +32,9 @@ void Copy::move() {
 
 void Copy::keyMove(int x, int y) {
 	translate(sf::Vector2f(x, y));
-	SHORTCUT_CONTROLLER->createCoreShortcutOnce(nInt::keyCombinaison(Qt::Key_Shift, nInt::RELEASED), FUNCTION(
-		UNDO->push(new CopyMoved(COPY, POS_RECT(COPY->sprite_copy.getGlobalBounds()))
-	)));
+	SHORTCUT_CONTROLLER->createCoreShortcutOnce(nInt::keyCombinaison(Qt::Key_Shift, nInt::RELEASED), [](){
+		UNDO->push(new CopyMoved(COPY, POS_RECT(COPY->sprite_copy.getGlobalBounds())));
+	});
 }
 
 void Copy::grand() {

@@ -20,6 +20,21 @@ CopyController::CopyController() {
 }
 
 //////////
+// FREE //
+//////////
+void CopyController::freeWork() {
+	if (current_copy != NULL) {
+		_dropCopy(current_copy);
+		current_copy = NULL;
+	}
+	FOR_I (copy_list.size()) {
+		emit copyDeleted(copy_list[i]);
+		delete copy_list[i];
+	}
+	copy_list.clear();
+}
+
+//////////
 // COPY //
 //////////
 void CopyController::copy() {
@@ -28,22 +43,22 @@ void CopyController::copy() {
 
 		cadre.left -= LAYER->getPosition().x;
 		cadre.top -= LAYER->getPosition().y;
-		if (Fonction::checkCadre(&cadre, sf::IntRect(sf::Vector2i(), VECTOR2I(LAYER->getTexture().getSize()))))
+		if (Fonction::checkCadre(&cadre, sf::IntRect(sf::Vector2i(), VECTOR2I(LAYER->getSize()))))
 			return;
 
-		copy_position = sf::Vector2f(cadre.left, cadre.top) + LAYER->getPosition();
+		copy_position = POS_RECT(cadre) + LAYER->getPosition();
 
 		sf::Texture texture;
 		texture.loadFromImage(LAYER->getTexture().copyToImage(), cadre);
 
-		sf::RenderTexture renderTexture; renderTexture.create(cadre.width, cadre.height);
+		sf::RenderTexture renderTexture; renderTexture.create(ARG_SIZE(cadre));
 		renderTexture.clear(sf::Color::Transparent);
 		renderTexture.draw(sf::Sprite(texture), sf::BlendNone);
 		renderTexture.display();
 
 		sf::Texture tex = renderTexture.getTexture();
 		RES->getShader(nRer::cut).setParameter("offset", SELEC->getPosition() - LAYER->getPosition());
-		RES->getShader(nRer::cut).setParameter("offset_image", sf::Vector2f(cadre.left, cadre.top));
+		RES->getShader(nRer::cut).setParameter("offset_image", POS_RECT(cadre));
 		RES->getShader(nRer::cut).setParameter("background", tex);
 
 		sf::Sprite spr(texture);
@@ -52,6 +67,8 @@ void CopyController::copy() {
 
 		Fonction::copy_to_clipboard(&renderTexture.getTexture().copyToImage());
 	}
+	else if (COPY != NULL)
+		copy_position = COPY->getPosition();
 }
 
 /////////
@@ -96,15 +113,16 @@ void CopyController::createCopy(const sf::Image& image, sf::Vector2f position) {
 
 void CopyController::_createCopy(Copy* copy) {
 	emit copyCreated(copy);
+	copy->emitStatus();
 
 	using namespace nInt;
 	space_shortcut_id = SHORTCUT_CONTROLLER->createShortcut(QKeySequence(Qt::Key_Space), this, SLOT(applyCopy()));
-	shift_core_shortcut_id = SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::Key_Shift, DOUBLE_TAP), FUNCTION(COPY_CONTROLLER->dropCopy(COPY)));
+	shift_core_shortcut_id = SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::Key_Shift, DOUBLE_TAP), [this](){dropCopy(current_copy);});
 
-	zqsd_core_shortcut_id[0] = SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_Z, LOG), FUNCTION(COPY->keyMove(0, -1)));
-	zqsd_core_shortcut_id[1] = SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_S, LOG), FUNCTION(COPY->keyMove(0, 1)));
-	zqsd_core_shortcut_id[2] = SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_Q, LOG), FUNCTION(COPY->keyMove(-1, 0)));
-	zqsd_core_shortcut_id[3] = SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_D, LOG), FUNCTION(COPY->keyMove(1, 0)));
+	zqsd_core_shortcut_id[0] = SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_Z, LOG), [this](){current_copy->keyMove(0, -1);});
+	zqsd_core_shortcut_id[1] = SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_S, LOG), [this](){current_copy->keyMove(0, 1);});
+	zqsd_core_shortcut_id[2] = SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_Q, LOG), [this](){current_copy->keyMove(-1, 0);});
+	zqsd_core_shortcut_id[3] = SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_D, LOG), [this](){current_copy->keyMove(1, 0);});
 
 	current_copy = copy;
 }
@@ -130,7 +148,7 @@ void CopyController::applyCopy(Copy* copy) {
 
 	RES->getShader(nRer::fuse).setParameter("source", tex);
 	RES->getShader(nRer::fuse).setParameter("background", tex2);
-	RES->getShader(nRer::fuse).setParameter("position", spr.getPosition());
+	RES->getShader(nRer::fuse).setParameter("position", spr.getPosition() - LAYER->getPosition());
 
 	LAYER->drawSprite(spr, RES->getRender(nRer::fuse));
 	
@@ -157,6 +175,7 @@ void CopyController::_dropCopy(Copy* copy) {
 
 	if (current_copy == copy)
 		current_copy = NULL;
+
 	SHORTCUT_CONTROLLER->removeShortcut(space_shortcut_id);
 	SHORTCUT_CONTROLLER->removeCoreShortcut(shift_core_shortcut_id);
 	FOR_I (4)

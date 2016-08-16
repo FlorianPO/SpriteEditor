@@ -4,6 +4,7 @@
 
 State2Button::State2Button(QWidget* parent, QString* path_enabled, QString* path_disabled, bool active) : QPushButton(parent) {
 	setFlat(true);
+	setFocusPolicy(Qt::NoFocus);
 	resize(QSize(25, 25));
 	setIconSize(QSize(23, 23));
 

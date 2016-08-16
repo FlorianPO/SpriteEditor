@@ -1,9 +1,8 @@
 #pragma once
 
 #include "stdenum.h"
-#include "Source Files/SignalType/SignalInit.h"
 
-class SignalColor : public QObject, SignalInit
+class SignalColor : public QObject
 {
 	Q_OBJECT
 // CONSTRUCTOR
@@ -18,8 +17,6 @@ public:
 	inline int getG() { return g; }
 	inline int getB() { return b; }
 	inline int getA() { return a; }
-protected:
-	void initSignals() override;
 
 // SIGNALS SLOTS
 	public slots:
@@ -30,7 +27,7 @@ protected:
 		void setB(int b);
 		void setA(int a);
 	signals:	
-		void colorChanged(SignalColor*);
+		void colorChanged();
 		void RChanged(int r);
 		void GChanged(int g);
 		void BChanged(int b);

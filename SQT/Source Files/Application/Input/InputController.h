@@ -25,6 +25,7 @@ public:		inline static void createInstance() { _t = new InputController(); }
 public:
 	InputController();
 	~InputController() {}
+	void reset();
 
 private:
 	struct Key_struct {

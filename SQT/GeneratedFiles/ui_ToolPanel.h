@@ -57,6 +57,7 @@ public:
         buttonGroup->addButton(Tool_crayon);
         Tool_crayon->setObjectName(QStringLiteral("Tool_crayon"));
         Tool_crayon->setGeometry(QRect(4, 4, 25, 25));
+        Tool_crayon->setFocusPolicy(Qt::NoFocus);
         Tool_crayon->setText(QStringLiteral(""));
         QIcon icon;
         icon.addFile(QStringLiteral("Resources/Tools/tool_crayon.png"), QSize(), QIcon::Normal, QIcon::Off);
@@ -69,6 +70,7 @@ public:
         buttonGroup->addButton(Tool_gomme);
         Tool_gomme->setObjectName(QStringLiteral("Tool_gomme"));
         Tool_gomme->setGeometry(QRect(28, 4, 25, 25));
+        Tool_gomme->setFocusPolicy(Qt::NoFocus);
         QIcon icon1;
         icon1.addFile(QStringLiteral("Resources/Tools/tool_gomme.png"), QSize(), QIcon::Normal, QIcon::Off);
         Tool_gomme->setIcon(icon1);
@@ -80,6 +82,7 @@ public:
         buttonGroup->addButton(Tool_rect_select);
         Tool_rect_select->setObjectName(QStringLiteral("Tool_rect_select"));
         Tool_rect_select->setGeometry(QRect(3, 28, 25, 25));
+        Tool_rect_select->setFocusPolicy(Qt::NoFocus);
         QIcon icon2;
         icon2.addFile(QStringLiteral("Resources/Tools/tool_rectselect.png"), QSize(), QIcon::Normal, QIcon::Off);
         Tool_rect_select->setIcon(icon2);
@@ -91,6 +94,7 @@ public:
         buttonGroup->addButton(Tool_aero);
         Tool_aero->setObjectName(QStringLiteral("Tool_aero"));
         Tool_aero->setGeometry(QRect(52, 4, 25, 25));
+        Tool_aero->setFocusPolicy(Qt::NoFocus);
         QIcon icon3;
         icon3.addFile(QStringLiteral("Resources/Tools/tool_aero.png"), QSize(), QIcon::Normal, QIcon::Off);
         Tool_aero->setIcon(icon3);
@@ -102,6 +106,7 @@ public:
         buttonGroup->addButton(Tool_pot);
         Tool_pot->setObjectName(QStringLiteral("Tool_pot"));
         Tool_pot->setGeometry(QRect(76, 4, 25, 25));
+        Tool_pot->setFocusPolicy(Qt::NoFocus);
         QIcon icon4;
         icon4.addFile(QStringLiteral("Resources/Tools/tool_pot.png"), QSize(), QIcon::Normal, QIcon::Off);
         Tool_pot->setIcon(icon4);
@@ -113,6 +118,7 @@ public:
         buttonGroup->addButton(Tool_none1);
         Tool_none1->setObjectName(QStringLiteral("Tool_none1"));
         Tool_none1->setGeometry(QRect(100, 4, 25, 25));
+        Tool_none1->setFocusPolicy(Qt::NoFocus);
         Tool_none1->setIconSize(QSize(23, 23));
         Tool_none1->setCheckable(true);
         Tool_none1->setAutoDefault(false);
@@ -121,6 +127,7 @@ public:
         buttonGroup->addButton(Tool_baguette);
         Tool_baguette->setObjectName(QStringLiteral("Tool_baguette"));
         Tool_baguette->setGeometry(QRect(28, 28, 25, 25));
+        Tool_baguette->setFocusPolicy(Qt::NoFocus);
         QIcon icon5;
         icon5.addFile(QStringLiteral("Resources/Tools/tool_baguette.png"), QSize(), QIcon::Normal, QIcon::Off);
         Tool_baguette->setIcon(icon5);
@@ -132,6 +139,7 @@ public:
         buttonGroup->addButton(Tool_selec_color);
         Tool_selec_color->setObjectName(QStringLiteral("Tool_selec_color"));
         Tool_selec_color->setGeometry(QRect(52, 28, 25, 25));
+        Tool_selec_color->setFocusPolicy(Qt::NoFocus);
         QIcon icon6;
         icon6.addFile(QStringLiteral("Resources/Tools/tool_seleccolor.png"), QSize(), QIcon::Normal, QIcon::Off);
         Tool_selec_color->setIcon(icon6);
@@ -143,6 +151,7 @@ public:
         buttonGroup->addButton(Tool_snap);
         Tool_snap->setObjectName(QStringLiteral("Tool_snap"));
         Tool_snap->setGeometry(QRect(76, 28, 25, 25));
+        Tool_snap->setFocusPolicy(Qt::NoFocus);
         QIcon icon7;
         icon7.addFile(QStringLiteral("Resources/Tools/tool_snap.png"), QSize(), QIcon::Normal, QIcon::Off);
         Tool_snap->setIcon(icon7);
@@ -154,6 +163,7 @@ public:
         buttonGroup->addButton(Tool_none2);
         Tool_none2->setObjectName(QStringLiteral("Tool_none2"));
         Tool_none2->setGeometry(QRect(100, 28, 25, 25));
+        Tool_none2->setFocusPolicy(Qt::NoFocus);
         Tool_none2->setIconSize(QSize(23, 23));
         Tool_none2->setCheckable(true);
         Tool_none2->setAutoDefault(false);
@@ -162,6 +172,7 @@ public:
         buttonGroup->addButton(Tool_move);
         Tool_move->setObjectName(QStringLiteral("Tool_move"));
         Tool_move->setGeometry(QRect(4, 52, 25, 25));
+        Tool_move->setFocusPolicy(Qt::NoFocus);
         QIcon icon8;
         icon8.addFile(QStringLiteral("Resources/Tools/tool_move.png"), QSize(), QIcon::Normal, QIcon::Off);
         Tool_move->setIcon(icon8);
@@ -173,6 +184,7 @@ public:
         buttonGroup->addButton(Tool_grand);
         Tool_grand->setObjectName(QStringLiteral("Tool_grand"));
         Tool_grand->setGeometry(QRect(28, 52, 25, 25));
+        Tool_grand->setFocusPolicy(Qt::NoFocus);
         QIcon icon9;
         icon9.addFile(QStringLiteral("Resources/Tools/tool_grand.png"), QSize(), QIcon::Normal, QIcon::Off);
         Tool_grand->setIcon(icon9);
@@ -184,6 +196,7 @@ public:
         buttonGroup->addButton(Tool_rotation);
         Tool_rotation->setObjectName(QStringLiteral("Tool_rotation"));
         Tool_rotation->setGeometry(QRect(52, 52, 25, 25));
+        Tool_rotation->setFocusPolicy(Qt::NoFocus);
         QIcon icon10;
         icon10.addFile(QStringLiteral("Resources/Tools/tool_rotation.png"), QSize(), QIcon::Normal, QIcon::Off);
         Tool_rotation->setIcon(icon10);
@@ -195,6 +208,7 @@ public:
         buttonGroup->addButton(Tool_flip);
         Tool_flip->setObjectName(QStringLiteral("Tool_flip"));
         Tool_flip->setGeometry(QRect(76, 52, 25, 25));
+        Tool_flip->setFocusPolicy(Qt::NoFocus);
         QIcon icon11;
         icon11.addFile(QStringLiteral("Resources/Tools/tool_flip.png"), QSize(), QIcon::Normal, QIcon::Off);
         Tool_flip->setIcon(icon11);
@@ -206,6 +220,7 @@ public:
         buttonGroup->addButton(Tool_none3);
         Tool_none3->setObjectName(QStringLiteral("Tool_none3"));
         Tool_none3->setGeometry(QRect(100, 52, 25, 25));
+        Tool_none3->setFocusPolicy(Qt::NoFocus);
         Tool_none3->setIconSize(QSize(23, 23));
         Tool_none3->setCheckable(true);
         Tool_none3->setAutoDefault(false);

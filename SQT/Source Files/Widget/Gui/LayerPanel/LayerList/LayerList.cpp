@@ -13,7 +13,7 @@ LayerList::LayerList(QWidget* parent, Layer& layer, const QPoint& position) : QW
 	move(position);
 	ui.setupUi(this);
 	show();
-
+	
 	this->layer = &layer;
 	hash[this->layer] = this;
 
@@ -25,13 +25,13 @@ LayerList::LayerList(QWidget* parent, Layer& layer, const QPoint& position) : QW
 	QObject::connect(view_button, SIGNAL(enabled()), this->layer, SLOT(show()));
 	QObject::connect(view_button, SIGNAL(disabled()), this->layer, SLOT(hide()));
 
-	lineEdit = new FLineEdit(this);
-	lineEdit->setGeometry(QRect(80, 4, 49, 25));
-	lineEdit->setText(layer.getName());
-	lineEdit->setStyleSheet("background-color:white;");
-	lineEdit->show();
-	QObject::connect(lineEdit, SIGNAL(focussed()), SHORTCUT_CONTROLLER, SLOT(disableCoreShortcut()));
-	QObject::connect(lineEdit, SIGNAL(unFocussed()), SHORTCUT_CONTROLLER, SLOT(enableCoreShortcut()));
+	line_edit = new FLineEdit(this);
+	line_edit->setGeometry(QRect(80, 4, 49, 25));
+	line_edit->setText(layer.getName());
+	line_edit->setStyleSheet("background-color:white;");
+	line_edit->show();
+	QObject::connect(line_edit, SIGNAL(focussed()), SHORTCUT_CONTROLLER, SLOT(disableCoreShortcut()));
+	QObject::connect(line_edit, SIGNAL(unFocussed()), SHORTCUT_CONTROLLER, SLOT(enableCoreShortcut()));
 
 	sprite_view = new SpriteView(this, layer.getTexture(), sf::Vector2u(40, 29));
 	sprite_view->setGeometry(QRect(32, 2, 40, 29));
