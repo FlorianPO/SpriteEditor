@@ -18,7 +18,6 @@ public:
 	void createPreview();
 
 	void checkSize(sf::Vector2i size_to_check);
-	void setDisplayPosition(sf::Vector2f center, bool force=false);
 	void display(sf::Vector2f center);
 	void display(); //Display brush lines
 	
@@ -27,10 +26,8 @@ public:
 
 	inline sf::Vector2f getPosition() { return sprite.getPosition(); }
 	sf::Vector2f getPointedPosition();
-	sf::Vector2f getExPointedPosition();
-
-	void setExPosition(sf::Vector2f position);
-	inline sf::Vector2f getExPosition() { return truePosition(ex_position); }
+	sf::Vector2f getExPosition();
+	sf::Vector2f truePosition(sf::Vector2f position);
 
 	void setColor(sf::Color color);
 
@@ -44,8 +41,7 @@ public:
 
 protected:
 	void setSize(sf::Vector2i size_to_set);
-private:
-	sf::Vector2f truePosition(sf::Vector2f position);
+	void setDisplayPosition(sf::Vector2f center);
 
 // SIGNALS SLOTS
 	public slots:
@@ -60,9 +56,6 @@ protected:
 	bool default_brush = true;
 	nBrh::brush_enum numero_brush;
 
-	static sf::Vector2f	ex_position;
-	static sf::Vector2f display_position;
-
 	sf::Vector2i	size;
 	sf::Vector2f	hsize;
 	sf::Vector2i	parity;
@@ -71,7 +64,6 @@ protected:
 	sf::Sprite		sprite;
 	sf::Texture		preview_texture;
 
-	std::vector<sf::VertexArray> lines;
-	std::vector<sf::VertexArray> lines_init;
+	nSet::positionned_lines lines;
 };
 

@@ -16,7 +16,6 @@ sf::Vector2f LayerUndo::getPosition()	{ return static_cast<LayerUndo*>(UNDO->get
 // CREATED //
 /////////////
 LayerCreated::LayerCreated(void* layer, sf::Image* image) : LayerUndo(layer) {
-	type = LAYER_CREATED;
 	this->image = image;
 }
 
@@ -37,7 +36,6 @@ void LayerCreated::redo() {
 // DRAWN //
 ///////////
 LayerDrawn::LayerDrawn(void* layer, sf::Image* image) : LayerUndo(layer) {
-	type = LAYER_DRAWN;
 	this->image = image;
 }
 
@@ -48,17 +46,18 @@ LayerDrawn::~LayerDrawn() {
 void LayerDrawn::undo() {
 	auto image = static_cast<LayerUndo*>(UNDO->getPrevious(instance, true))->getImage(); 
 	static_cast<Layer*>(instance)->setImage(image);
+	static_cast<Layer*>(instance)->layerUpdated();
 }
 
 void LayerDrawn::redo() {
 	static_cast<Layer*>(instance)->setImage(image);
+	static_cast<Layer*>(instance)->layerUpdated();
 }
 
 ///////////
 // MOVED //
 ///////////
 LayerMoved::LayerMoved(void* layer, sf::Vector2f position) : LayerUndo(layer) {
-	type = LAYER_MOVED;
 	this->position = position;
 }
 
@@ -74,9 +73,7 @@ void LayerMoved::redo() {
 /////////////
 // DROPPED //
 /////////////
-LayerDropped::LayerDropped(void* layer) : LayerUndo(layer) {
-	type = LAYER_DROPPED;
-}
+LayerDropped::LayerDropped(void* layer) : LayerUndo(layer) {}
 
 void LayerDropped::undo() {
 	LAYER_CONTROLLER->_createLayer(static_cast<Layer*>(instance));
@@ -90,7 +87,6 @@ void LayerDropped::redo() {
 // ORDERED //
 /////////////
 LayerOrdered::LayerOrdered(int src, int dst) {
-	type = LAYER_ORDERED;
 	this->source = src;
 	this->destination = dst;
 }

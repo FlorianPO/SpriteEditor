@@ -5,11 +5,11 @@
 	#include <X11/Xlib.h>
 #endif
 
-SQT::SQT(QWidget* Parent, const QSize& Size) : QWidget(Parent) {
+SQT::SQT(QWidget* Parent, const QSize& Size, bool auto_refresh) : QWidget(Parent) {
 	setAttribute(Qt::WA_PaintOnScreen);
-	setAttribute(Qt::WA_OpaquePaintEvent);
 	setAttribute(Qt::WA_NoSystemBackground);
-
+	
+	this->auto_refresh = auto_refresh;
 	resize(Size);
 }
 
@@ -25,6 +25,12 @@ void SQT::showEvent(QShowEvent*) {
 	}
 }
 
+void SQT::refresh() {
+	OnUpdate();
+	display();
+	update();
+}
+
 void SQT::create() {
 	sf::RenderWindow::create(reinterpret_cast<sf::WindowHandle>(winId()));
 	setFramerateLimit(60); // 60 FPS
@@ -35,7 +41,9 @@ QPaintEngine* SQT::paintEngine() const {
 }
 
 void SQT::paintEvent(QPaintEvent*) {
-	OnUpdate();
-	display();
-	update();
+	if (auto_refresh) {
+		OnUpdate();
+		display();
+		update();
+	}
 }

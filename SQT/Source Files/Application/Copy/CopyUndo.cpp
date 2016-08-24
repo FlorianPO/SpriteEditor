@@ -18,7 +18,6 @@ sf::Vector2f CopyUndo::getOrigin()		{ return static_cast<CopyUndo*>(UNDO->getPre
 // CREATED //
 /////////////
 CopyCreated::CopyCreated(void* copy, sf::Vector2f position) : CopyUndo(copy) {
-	type = COPY_CREATED;
 	this->position = position;
 }
 
@@ -37,9 +36,7 @@ void CopyCreated::redo() {
 /////////////
 // DROPPED //
 /////////////
-CopyDropped::CopyDropped(void* copy) : CopyUndo(copy) {
-	type = COPY_DROPPED;
-}
+CopyDropped::CopyDropped(void* copy) : CopyUndo(copy) {}
 
 void CopyDropped::undo() {
 	COPY_CONTROLLER->_createCopy(static_cast<Copy*>(instance));
@@ -53,7 +50,6 @@ void CopyDropped::redo() {
 // MOVED //
 ///////////
 CopyMoved::CopyMoved(void* copy, sf::Vector2f position) : CopyUndo(copy) {
-	type = COPY_MOVED;
 	this->position = position;
 }
 
@@ -70,7 +66,6 @@ void CopyMoved::redo() {
 // SCALED //
 ////////////
 CopyScaled::CopyScaled(void* copy, sf::Vector2f position, sf::Vector2f scale, sf::Vector2f origin) : CopyUndo(copy) {
-	type = COPY_SCALED;
 	this->position = position;
 	this->scale = scale;
 	this->origin = origin;
@@ -97,7 +92,6 @@ void CopyScaled::redo() {
 // ROTATED //
 /////////////
 CopyRotated::CopyRotated(void* copy, sf::Vector2f position, float rotation, sf::Vector2f origin) : CopyUndo(copy) {
-	type = COPY_ROTATED;
 	this->position = position;
 	this->rotation = rotation;
 	this->origin = origin;
@@ -124,7 +118,6 @@ void CopyRotated::redo() {
 // FLIPPED //
 /////////////
 CopyFlipped::CopyFlipped(void* copy, sf::Vector2f position, sf::Vector2f scale) : CopyUndo(copy) {
-	type = COPY_FLIPPED;
 	this->position = position;
 	this->scale = scale;
 }

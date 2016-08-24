@@ -67,30 +67,10 @@ namespace nRer {
 
 // UndoStack
 namespace nUnk {
-	enum TYPE {
-		LAYER_CREATED = 0,
-		LAYER_DRAWN,
-		LAYER_MOVED,
-		LAYER_DROPPED,
-		LAYER_ORDERED,
-		SELEC_DELETED,
-		SELEC_UPDATED,
-		SELEC_MOVED,
-		SELEC_INVERTED,
-		COPY_CREATED,
-		COPY_DROPPED,
-		COPY_MOVED,
-		COPY_ROTATED,
-		COPY_SCALED,
-		COPY_FLIPPED,
-		CURSOR_UNDO
-	};
-
 	class UndoCommand {
 		private:
 			bool first = false;
 		protected:
-			TYPE type;
 			void* instance = NULL;
 		public:
 			UndoCommand() {}
@@ -100,7 +80,6 @@ namespace nUnk {
 			virtual void redo() = 0;
 
 			void* getInstance() { return instance; }
-			TYPE getType() { return type; }
 
 			void setFirst() { first = true; }
 			bool isFirst() { return first; }
@@ -230,8 +209,12 @@ namespace nSet {
 			}
 	};
 
-	struct positionned_lines {
+	struct positionned_olines {
 		std::vector<o_line> lines;
+		sf::Vector2f pos;
+	};
+	struct positionned_lines {
+		std::vector<sf::VertexArray> lines;
 		sf::Vector2f pos;
 	};
 }

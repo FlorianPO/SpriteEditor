@@ -70,6 +70,7 @@ public:
 		void layerUndropped();
 		void layerMoved(sf::Vector2f pos);
 		void layerScaled(sf::Vector2f size);
+		void layerUpdated();
 
 // MEMBERS
 private:

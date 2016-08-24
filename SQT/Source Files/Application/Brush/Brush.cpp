@@ -5,9 +5,6 @@
 #include "Source Files/Application/Resource/ResourceController.h"
 #include "Source Files/Application/Input/InputController.h"
 
-sf::Vector2f Brush::ex_position;
-sf::Vector2f Brush::display_position;
-
 void Brush::select() {
 	emit selected();
 }
@@ -24,16 +21,12 @@ void Brush::unselect() {
 	emit unselected();
 }
 
-void Brush::setExPosition(sf::Vector2f position) {
-	ex_position = position;
-}
-
 sf::Vector2f Brush::getPointedPosition() {
 	return truePosition(INPUT->getPosition());
 }
 
-sf::Vector2f Brush::getExPointedPosition() {
-	return truePosition(INPUT->getExPosition());
+sf::Vector2f Brush::getExPosition() {
+	return truePosition(BRUSH_CONTROLLER->getExPosition());
 }
 
 void Brush::setColor(sf::Color color) {
@@ -48,9 +41,11 @@ void Brush::createPreview() {
 void Brush::createLines() {
 	sf::VertexArray line(sf::LinesStrip, 2);
 
-	lines.clear();
+	lines.lines.clear();
+	
 	sf::Image image = texture.copyToImage();
 	setSize(VECTOR2I(image.getSize()));
+	lines.pos = sf::Vector2f(parity.x == 0 ? 0 : 0.5f, parity.y == 0 ? 0 : 0.5f);
 
 	FOR_I (size.x)
 		FOR_J (size.y)
@@ -60,61 +55,56 @@ void Brush::createLines() {
 				//Gauche
 				if (i - 1 >= 0) {
 					if (image.getPixel(i - 1, j).a == 0) {
-						line[0].position = sf::Vector2f(x, y); line[1].position = sf::Vector2f(x, y + 1); lines.push_back(line);
+						line[0].position = sf::Vector2f(x, y); line[1].position = sf::Vector2f(x, y + 1); lines.lines.push_back(line);
 					}
 				}
 				else {
-					line[0].position = sf::Vector2f(x, y); line[1].position = sf::Vector2f(x, y + 1); lines.push_back(line);
+					line[0].position = sf::Vector2f(x, y); line[1].position = sf::Vector2f(x, y + 1); lines.lines.push_back(line);
 				}
 
 				//Droite
 				if (i + 1 < size.x) {
 					if (image.getPixel(i + 1, j).a == 0) {
-						line[0].position = sf::Vector2f(x + 1, y); line[1].position = sf::Vector2f(x + 1, y + 1); lines.push_back(line);
+						line[0].position = sf::Vector2f(x + 1, y); line[1].position = sf::Vector2f(x + 1, y + 1); lines.lines.push_back(line);
 					}
 				}
 				else {
-					line[0].position = sf::Vector2f(x + 1, y); line[1].position = sf::Vector2f(x + 1, y + 1); lines.push_back(line);
+					line[0].position = sf::Vector2f(x + 1, y); line[1].position = sf::Vector2f(x + 1, y + 1); lines.lines.push_back(line);
 				}
 
 				//Haut
 				if (j - 1 >= 0) {
 					if (image.getPixel(i, j - 1).a == 0) {
-						line[0].position = sf::Vector2f(x, y); line[1].position = sf::Vector2f(x + 1, y); lines.push_back(line);
+						line[0].position = sf::Vector2f(x, y); line[1].position = sf::Vector2f(x + 1, y); lines.lines.push_back(line);
 					}
 				}
 				else {
-					line[0].position = sf::Vector2f(x, y); line[1].position = sf::Vector2f(x + 1, y); lines.push_back(line);
+					line[0].position = sf::Vector2f(x, y); line[1].position = sf::Vector2f(x + 1, y); lines.lines.push_back(line);
 				}
 
 				//Bas
 				if (j + 1 < size.y) {
 					if (image.getPixel(i, j + 1).a == 0) {
-						line[0].position = sf::Vector2f(x, y + 1); line[1].position = sf::Vector2f(x + 1, y + 1); lines.push_back(line);
+						line[0].position = sf::Vector2f(x, y + 1); line[1].position = sf::Vector2f(x + 1, y + 1); lines.lines.push_back(line);
 					}
 				}
 				else {
-					line[0].position = sf::Vector2f(x, y + 1); line[1].position = sf::Vector2f(x + 1, y + 1); lines.push_back(line);
+					line[0].position = sf::Vector2f(x, y + 1); line[1].position = sf::Vector2f(x + 1, y + 1); lines.lines.push_back(line);
 				}
 			}
-
-	lines_init = lines;
-	setDisplayPosition(display_position, true);
 }
 
-void Brush::setDisplayPosition(sf::Vector2f center, bool force) {
+void Brush::setDisplayPosition(sf::Vector2f center) {
 	center = truePosition(center);
 
-	if (display_position != center || force) {
-		display_position = center;
-		
-		FOR_I (lines.size()) {
-			lines[i][0].position.x = floor(center.x + lines_init[i][0].position.x);
-			lines[i][0].position.y = floor(center.y + lines_init[i][0].position.y);
-
-			lines[i][1].position.x = floor(center.x + lines_init[i][1].position.x);
-			lines[i][1].position.y = floor(center.y + lines_init[i][1].position.y);
+	if (lines.pos != center) {
+		sf::Vector2f delta_move = center - lines.pos;
+		FOR_I (lines.lines.size()) {
+			lines.lines[i][0].position += delta_move;
+			lines.lines[i][1].position += delta_move;
 		}
+		
+		lines.pos = center;
 	}
 }
 
@@ -124,12 +114,14 @@ void Brush::display(sf::Vector2f center) {
 }
 
 void Brush::display() {
-	sf::Color color = sf::Color(255 * bool(rand() % 2), 255 * bool(rand() % 2), 255 * bool(rand() % 2));
-	FOR_I (lines.size()) {
-		lines[i][0].color = color;
-		lines[i][1].color = color;
+	setDisplayPosition(BRUSH_CONTROLLER->getDisplayPosition());
 
-		APP->getWindow().draw(lines[i]);
+	sf::Color color = sf::Color(255 * bool(rand() % 2), 255 * bool(rand() % 2), 255 * bool(rand() % 2));
+	FOR_I (lines.lines.size()) {
+		lines.lines[i][0].color = color;
+		lines.lines[i][1].color = color;
+
+		APP->getWindow().draw(lines.lines[i]);
 	}
 }
 

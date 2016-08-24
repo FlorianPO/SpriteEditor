@@ -2,10 +2,12 @@
 
 #include "SpriteView/SpriteView.h"
 #include "Source Files/Application/Input/ShortcutController.h"
+#include "Source Files/Application/Queue/QueueController.h"
 #include "Source Files/Widget/Various/StateButton/State2Button.h"
 #include "Source Files/Application/Layer/LayerController.h"
 #include "Source Files/Application/Layer/Layer.h"
 #include "Source Files/Widget/Various/FLineEdit/FLineEdit.h"
+#include "Source Files/Widget/Gui/Gui.h"
 
 QHash<Layer*, LayerList*> LayerList::hash;
 
@@ -13,7 +15,7 @@ LayerList::LayerList(QWidget* parent, Layer& layer, const QPoint& position) : QW
 	move(position);
 	ui.setupUi(this);
 	show();
-	
+
 	this->layer = &layer;
 	hash[this->layer] = this;
 
@@ -44,18 +46,27 @@ LayerList::LayerList(QWidget* parent, Layer& layer, const QPoint& position) : QW
 	QObject::connect(this->layer, SIGNAL(layerUnselected()), this, SLOT(layerUnselected()));
 	QObject::connect(this->layer, SIGNAL(layerDropped()), this, SLOT(dropped()));
 	QObject::connect(this->layer, SIGNAL(layerUndropped()), this, SLOT(undropped()));
+	
+	QObject::connect(this->layer, SIGNAL(layerUpdated()), this, SLOT(layerUpdated()));
+	QObject::connect(GUI, SIGNAL(globallyChanged()), this, SLOT(layerUpdated()));
 }
 
 LayerList* LayerList::getFromLayer(Layer* layer) {
 	return hash[layer];
 }
 
+void LayerList::layerUpdated() {
+	QUEUE->beforeDisplay([this](){sprite_view->refresh();});
+}
+
 void LayerList::layerSelected() {
 	setStyleSheet("background-color: rgb(200,200,200);");
+	layerUpdated();
 }
 
 void LayerList::layerUnselected() {
 	setStyleSheet("background-color: none;");
+	layerUpdated();
 }
 
 void LayerList::dropped() {
@@ -72,8 +83,20 @@ void LayerList::mousePressEvent(QMouseEvent* Qm) {
 	Qm->accept();
 }
 
+void LayerList::moveEvent(QMoveEvent* Qm) {
+	layerUpdated();
+}
+
 bool LayerList::eventFilter(QObject* object, QEvent* event) {
 	if (object == sprite_view && event->type() == QEvent::MouseButtonPress)
 		mousePressEvent(static_cast<QMouseEvent*>(event));
 	return false;
 }
+
+/*const sf::Uint8* raw_data = layer->getImage()->getPixelsPtr();
+QImage myImage = QImage(ARG_VECTOR(layer->getSize()), QImage::Format_ARGB32);
+for (int y = 0; y < myImage.height(); y++)
+	memcpy(myImage.scanLine(y), raw_data + y * myImage.bytesPerLine(), myImage.bytesPerLine());
+myImage = myImage.rgbSwapped();
+
+myLabel->setPixmap(QPixmap::fromImage(myImage));*/

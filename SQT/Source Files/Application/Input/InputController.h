@@ -1,6 +1,7 @@
 #pragma once
 
 #include "stdenum.h"
+#include "LineSmoother.h"
 
 #define INIT_INPUT_CONTROLLER InputController::createInstance();
 #define INPUT_CONTROLLER InputController::getInstance()
@@ -73,6 +74,7 @@ public:
 
 	void setMousePosition(sf::Vector2i screened, bool dump_ex=false, bool set_pointer=true);
 
+	inline const std::vector<sf::Vector2f>& getSmoothList() { return pos_smoothed; }
 	inline sf::Vector2f getPosition() { return pos; }
 	inline sf::Vector2f getExPosition() { return ex_pos; }
 	inline sf::Vector2i getDeltaPos() { return delta_pixel; }
@@ -102,6 +104,10 @@ private:
 	// Shortcut feature
 	std::vector<nInt::qkey> key_pressed;
 	std::vector<int> key_to_release;
+
+	LineSmoother lsmooth;
+	std::vector<sf::Vector2f> pos_smoothed;
+	bool clear_smoothed = false;
 
 	sf::Vector2f pos,		ex_pos,		pos_click,		delta_pos;
 	sf::Vector2i pixel,		ex_pixel,	pixel_click,	delta_pixel;

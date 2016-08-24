@@ -22,6 +22,7 @@ void Layer::emitStatus() {
 void Layer::update() {
 	image = new sf::Image(renderTexture.getTexture().copyToImage());
 	UNDO->push(new LayerDrawn(this, image));
+	emit layerUpdated();
 }
 
 void Layer::setImage(sf::Image* image_var, bool recreate) {

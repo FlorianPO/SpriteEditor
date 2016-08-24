@@ -16,7 +16,8 @@ public:
 	~LayerList() {}
 	
 // SIGNALS SLOTS
-	public slots:
+	private slots:
+		void layerUpdated();
 		void layerSelected();
 		void layerUnselected();
 		void dropped();
@@ -31,6 +32,7 @@ public:
 private:
 	bool eventFilter(QObject *object, QEvent *event) override;
 	void mousePressEvent(QMouseEvent* Qm) override;
+	void moveEvent(QMoveEvent *Qm) override;
 
 // MEMBERS
 private:
@@ -38,7 +40,7 @@ private:
 
 	Ui_LayerList ui;
 	Layer* layer;
-	SpriteView* sprite_view;
+	SpriteView* sprite_view = NULL;
 	State2Button* view_button;
 	FLineEdit* line_edit;
 };

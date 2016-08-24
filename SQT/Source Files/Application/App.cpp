@@ -46,6 +46,11 @@ void App::initWork(sf::Image* image) {
 
 	BRUSH_CONTROLLER->selectBrush(nBrh::CIRCLE);
 	TOOL_CONTROLLER->selectTool(nTol::AERO);
+
+	UNDO->beginFirst();
+	BRUSH_CONTROLLER->setExPosition(sf::Vector2f());
+	UNDO->endFirst();
+
 	UNDO->beginFirst();
 	LAYER_CONTROLLER->createLayer(image);
 	UNDO->endFirst();
@@ -100,6 +105,7 @@ void App::display() {
 	//float fps = 1.f/(h.restart().asSeconds());
 	//std::cout << fps << std::endl;
 
+	test();
+
 	frame++;
 }
-

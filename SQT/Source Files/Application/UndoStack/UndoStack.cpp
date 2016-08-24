@@ -43,7 +43,6 @@ void UndoStack::_printStack() {
 		FOR_J (stack[i].size()) {
 			if (stack[i][j]->isFirst())
 				is_first = true;
-			std::cout << stack[i][j]->getType() << " ";
 		}
 		std::cout << "}";
 		if (is_first)
@@ -153,46 +152,6 @@ nUnk::UndoCommand* UndoStack::getPrevious(void* instance, bool clear_tmp) {
 			}
 
 	std::cout << "UNDO_STACK : instance not found (" << tmp_instance << ")" << std::endl;
-	return NULL;
-}
-
-nUnk::UndoCommand* UndoStack::getPrevious(nUnk::TYPE type, void* instance) {
-	if (instance == NULL) {
-		FOR_I_INV (index)
-			FOR_J (stack[i].size())
-				if (stack[i][j]->getType() == type)
-					return stack[i][j];
-	}
-	else
-		FOR_I_INV (index)
-			FOR_J (stack[i].size())
-				if (stack[i][j]->getInstance() == instance && stack[i][j]->getType() == type)
-					return stack[i][j];
-
-	std::cout << "UNDO_STACK : type " << type << " not found (instance : " << instance << ")" << std::endl;
-	return NULL;
-}
-
-nUnk::UndoCommand* UndoStack::getPrevious(std::vector<nUnk::TYPE> type_list, void* instance) {
-	if (instance == NULL) {
-		FOR_I_INV (index)
-			FOR_J (stack[i].size())
-				for (int k=0; k < type_list.size(); k++)
-					if (stack[i][j]->getType() == type_list[k])
-						return stack[i][j];
-	}
-	else
-		FOR_I_INV (index)
-			FOR_J (stack[i].size())
-				if (stack[i][j]->getInstance() == instance)
-					FOR_K (type_list.size())
-						if (stack[i][j]->getType() == type_list[k])
-							return stack[i][j];
-
-	std::cout << "UNDO_STACK : types { ";
-	FOR_I (type_list.size())
-		std::cout << type_list[i] << " ";
-	std::cout << "} not found (instance : " << instance << ")" << std::endl;
 	return NULL;
 }
 

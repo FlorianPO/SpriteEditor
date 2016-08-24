@@ -2,7 +2,7 @@
 
 #include "Source Files/Fonction/Fonction.h"
 
-SpriteView::SpriteView(QWidget* parent, const sf::Texture& texture, sf::Vector2u size) : SQT(parent, QSize(texture.getSize().x, texture.getSize().y)) {
+SpriteView::SpriteView(QWidget* parent, const sf::Texture& texture, sf::Vector2u size) : SQT(parent, QSize(texture.getSize().x, texture.getSize().y), false) {
 	this->size = size;
 	changeTexture(texture);
 }
@@ -29,5 +29,5 @@ void SpriteView::unselected() {
 
 void SpriteView::OnUpdate() {
 	clear(background_color);
-	draw(sprite);
+	draw(sprite);	
 }

@@ -30,61 +30,9 @@ UINT8 Fonction::numDigits(int32_t x) {
 	return 1;
 }
 
-float Fonction::floatPart(float f) {
-	return f - int(f);
-}
-
-float Fonction::degToRad(float deg) {
-	return deg / 180 * PI;
-}
-
-float Fonction::radToDeg(float rad) {
-	return rad * 180 / PI;
-}
-
-float Fonction::hypothenus(double cote1, double cote2) {
+double Fonction::hypothenus(double cote1, double cote2) {
 	double hyp = cote1*cote1 + cote2*cote2;
 	return std::sqrt(hyp);
-}
-
-float Fonction::norme(sf::Vector2f direction) {
-	return std::sqrt(std::pow(direction.x, 2) + std::pow(direction.y, 2));
-}
-
-float Fonction::norme(sf::Vector2i direction) {
-	return std::sqrt(std::pow(direction.x, 2) + std::pow(direction.y, 2));
-}
-
-sf::Vector2f Fonction::rotationGlobal(sf::Vector2f toRot, sf::Vector2f center, double angle, nStd::Angle angle_type) {
-	if (angle_type == nStd::DEG)
-		angle = degToRad(angle);
-	
-	double x = toRot.x;
-	double y = toRot.y;
-	double x_temp = x;
-
-	x -= center.x;
-	y -= center.y;
-	x = x*std::cos(angle) - y*std::sin(angle);
-	y = y*std::cos(angle) + x_temp*std::sin(angle);
-	x += center.x;
-	y += center.y;
-
-	return sf::Vector2f(x, y);
-}
-
-sf::Vector2f Fonction::rotationLocal(sf::Vector2f toRot, double angle, nStd::Angle angle_type) {
-	if (angle_type == nStd::DEG)
-		angle = degToRad(angle);
-
-	double x = toRot.x;
-	double y = toRot.y;
-	double x_temp = x;
-
-	x = x*std::cos(angle) - y*std::sin(angle);
-	y = y*std::cos(angle) + x_temp*std::sin(angle);
-
-	return sf::Vector2f(x, y);
 }
 
 void Fonction::moveLocaly(sf::Sprite& sprite, sf::Vector2f translation) {
@@ -138,18 +86,47 @@ void Fonction::flipHorizontally(sf::Sprite& sprite) {
 	moveLocaly(sprite, sf::Vector2f(scale.x*(origin.x - center.x)*2.f, 0));
 }
 
-sf::IntRect Fonction::unionRect(sf::IntRect r1, sf::IntRect r2) {
-	int left = std::min(r1.left, r2.left);
-	int top = std::min(r1.top, r2.top);
-	int width = std::max(r1.left + r1.width, r2.left + r2.width) - left;
-	int height = std::max(r1.top + r1.height, r2.top + r2.height) - top;
-	return sf::IntRect(left, top, width, height);
+////////////
+// DROITE //
+////////////
+Vector2d Fonction::intersect(const vector& d1, const vector& d2) {
+	if (d1.infinite())
+		return Vector2d(d1.p1.x, d2.pente() * d1.p1.x + d2.origin());
+	if (d2.infinite())
+		return Vector2d(d2.p1.x, d1.pente() * d2.p1.x + d1.origin());
+
+	Vector2d final;
+	final.x = (d2.origin() - d1.origin())/(d1.pente() - d2.pente());
+	final.y = d1.pente() * final.x  + d1.origin();
+
+	return final;
 }
 
-sf::FloatRect Fonction::unionRect(sf::FloatRect r1, sf::FloatRect r2) {
-	int left = std::min(r1.left, r2.left);
-	int top = std::min(r1.top, r2.top);
-	int width = std::max(r1.left + r1.width, r2.left + r2.width) - left;
-	int height = std::max(r1.top + r1.height, r2.top + r2.height) - top;
-	return sf::FloatRect(left, top, width, height);
+bool Fonction::parallel(const vector& d1, const vector& d2) {
+	if (d1.infinite() && d2.infinite())
+		return true;
+	if (d1.infinite() || d2.infinite())
+		return false;
+
+	return Fonction::equal(fabs(d1.pente()), fabs(d2.pente()));
+}
+
+double Fonction::scalar(const vector& d1, const vector& d2) {
+	return d1.size.x*d2.size.x + d1.size.y*d2.size.y;
+}
+
+double Fonction::vetoriel(const vector& d1, const vector& d2) {
+	return d1.size.x*d2.size.y - d1.size.y*d2.size.x;
+}
+
+double Fonction::angle(const vector& d1, const vector& d2, nStd::Angle angle_type) {
+	double cos_angle = scalar(d1, d2) / (d1.norme()*d2.norme());
+	double sin_angle = vetoriel(d1, d2) / (d1.norme()*d2.norme());
+
+	double angle = atan2(sin_angle, cos_angle);
+
+	if (angle_type == nStd::RAD)
+		return angle;
+	else
+		return radToDeg(angle);
 }

@@ -9,6 +9,8 @@
 #include "Source Files/Application/App.h"
 #include "Source Files/Application/Queue/QueueController.h"
 #include "Source Files/Fonction/Fonction.h"
+#include "Source Files/Application/UndoStack/UndoStack.h"
+#include "BrushUndo.h"
 
 using namespace nBrh;
 
@@ -48,6 +50,11 @@ void BrushController::createBrush(nBrh::brush_enum brush) {
 
 	default_brushes.push_back(brush_created);
 	emit brushCreated(brush_created);
+}
+
+void BrushController::setExPosition(sf::Vector2f position) {
+	_setExPosition(position);
+	UNDO->push(new BrushUndo(position));
 }
 
 void BrushController::createBrush(int brush_id) {
@@ -124,8 +131,5 @@ void BrushController::changeSeuil(int value) {
 // OTHER //
 ///////////
 void BrushController::displayCenter(bool force) {
-	current_brush->setDisplayPosition(
-		INPUT->screenToPos(VECTOR2I(Fonction::centerCorner(APP->getWindow().getSize()))), 
-		force
-	);
+	setDisplayPosition(INPUT->screenToPos(VECTOR2I(Fonction::centerCorner(APP->getWindow().getSize()))));
 }

@@ -26,6 +26,13 @@ public:
 	inline sf::Vector2i getDefaultSize() { return default_size; }
 	inline int getSeuil() { return seuil; }
 	inline int getOpacity() { return opacity; }
+	void setExPosition(sf::Vector2f position);
+	sf::Vector2f getExPosition() { return ex_position; }
+	void setDisplayPosition(sf::Vector2f position) { display_position = position; }
+	sf::Vector2f getDisplayPosition() { return display_position; }
+private:
+	friend class BrushUndo;
+	void _setExPosition(sf::Vector2f position) { ex_position = position; }
 
 // SIGNALS SLOTS
 	// CREATE
@@ -67,5 +74,8 @@ private:
 	sf::Vector2i default_size;
 	int opacity;
 	int seuil;
+
+	sf::Vector2f ex_position;
+	sf::Vector2f display_position;
 };
 

@@ -10,14 +10,13 @@ using namespace nUnk;
 //////////
 sf::Image* SelecUndo::getImage()					{ return static_cast<SelecUndo*>(UNDO->getPrevious(instance))->getImage(); }
 sf::Vector2f SelecUndo::getPosition()				{ return static_cast<SelecUndo*>(UNDO->getPrevious(instance))->getPosition(); }
-nSet::positionned_lines* SelecUndo::getLines()		{ return static_cast<SelecUndo*>(UNDO->getPrevious(instance))->getLines(); }
+nSet::positionned_olines* SelecUndo::getLines()		{ return static_cast<SelecUndo*>(UNDO->getPrevious(instance))->getLines(); }
 bool SelecUndo::isInverted()						{ return static_cast<SelecUndo*>(UNDO->getPrevious(instance))->isInverted(); }
 
 /////////////
 // UPDATED //
 /////////////
-SelecUpdated::SelecUpdated(void* instance, sf::Image* image, sf::Vector2f position, nSet::positionned_lines* plines, bool inverted) : SelecUndo(instance) {
-	type = SELEC_UPDATED;
+SelecUpdated::SelecUpdated(void* instance, sf::Image* image, sf::Vector2f position, nSet::positionned_olines* plines, bool inverted) : SelecUndo(instance) {
 	this->image = image;
 	this->position = position;
 	this->plines = plines;
@@ -48,7 +47,6 @@ void SelecUpdated::redo() {
 // MOVED //
 ///////////
 SelecMoved::SelecMoved(void* instance, sf::Vector2f position) : SelecUndo(instance) {
-	type = SELEC_MOVED;
 	this->position = position;
 }
 
@@ -64,9 +62,7 @@ void SelecMoved::redo() {
 /////////////
 // DELETED //
 /////////////
-SelecDeleted::SelecDeleted(void* instance) : SelecUndo(instance) {
-	type = SELEC_DELETED;
-}
+SelecDeleted::SelecDeleted(void* instance) : SelecUndo(instance) {}
 
 void SelecDeleted::undo() {
 	UNDO->beginSearching();
@@ -87,7 +83,6 @@ void SelecDeleted::redo() {
 // INVERTED //
 //////////////
 SelecInverted::SelecInverted(void* instance, sf::Image* image, bool inverted) : SelecUndo(instance) {
-	type = SELEC_INVERTED;
 	this->image = image;
 	this->inverted = inverted;
 }

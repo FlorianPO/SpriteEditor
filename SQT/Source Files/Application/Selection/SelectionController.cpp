@@ -152,7 +152,7 @@ void SelectionController::updateLines() {
 	}
 }
 
-void SelectionController::setSelection(sf::Image* image, sf::Vector2f position, nSet::positionned_lines* plines, bool invert) {
+void SelectionController::setSelection(sf::Image* image, sf::Vector2f position, nSet::positionned_olines* plines, bool invert) {
 	if (image != NULL) {
 		sprite_selec.setPosition(position);
 		setImage(image);
@@ -184,7 +184,7 @@ void SelectionController::setImage(sf::Image* image) {
 	}
 }
 
-void SelectionController::setLines(nSet::positionned_lines* plines) {
+void SelectionController::setLines(nSet::positionned_olines* plines) {
 	if (pos_lines != plines) {
 		if (pos_lines == NULL)
 			emit selectionCreated();

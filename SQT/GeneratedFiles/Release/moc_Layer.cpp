@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Layer_t {
-    QByteArrayData data[20];
-    char stringdata0[187];
+    QByteArrayData data[21];
+    char stringdata0[200];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -42,21 +42,22 @@ QT_MOC_LITERAL(9, 104, 12), // "sf::Vector2f"
 QT_MOC_LITERAL(10, 117, 3), // "pos"
 QT_MOC_LITERAL(11, 121, 11), // "layerScaled"
 QT_MOC_LITERAL(12, 133, 4), // "size"
-QT_MOC_LITERAL(13, 138, 10), // "emitStatus"
-QT_MOC_LITERAL(14, 149, 4), // "show"
-QT_MOC_LITERAL(15, 154, 4), // "hide"
-QT_MOC_LITERAL(16, 159, 6), // "select"
-QT_MOC_LITERAL(17, 166, 8), // "unselect"
-QT_MOC_LITERAL(18, 175, 4), // "drop"
-QT_MOC_LITERAL(19, 180, 6) // "undrop"
+QT_MOC_LITERAL(13, 138, 12), // "layerUpdated"
+QT_MOC_LITERAL(14, 151, 10), // "emitStatus"
+QT_MOC_LITERAL(15, 162, 4), // "show"
+QT_MOC_LITERAL(16, 167, 4), // "hide"
+QT_MOC_LITERAL(17, 172, 6), // "select"
+QT_MOC_LITERAL(18, 179, 8), // "unselect"
+QT_MOC_LITERAL(19, 188, 4), // "drop"
+QT_MOC_LITERAL(20, 193, 6) // "undrop"
 
     },
     "Layer\0layerVisible\0\0layerUnvisible\0"
     "layerSelected\0layerUnselected\0"
     "layerDropped\0layerUndropped\0layerMoved\0"
     "sf::Vector2f\0pos\0layerScaled\0size\0"
-    "emitStatus\0show\0hide\0select\0unselect\0"
-    "drop\0undrop"
+    "layerUpdated\0emitStatus\0show\0hide\0"
+    "select\0unselect\0drop\0undrop"
 };
 #undef QT_MOC_LITERAL
 
@@ -66,31 +67,32 @@ static const uint qt_meta_data_Layer[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      15,   14, // methods
+      16,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       8,       // signalCount
+       9,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   89,    2, 0x06 /* Public */,
-       3,    0,   90,    2, 0x06 /* Public */,
-       4,    0,   91,    2, 0x06 /* Public */,
-       5,    0,   92,    2, 0x06 /* Public */,
-       6,    0,   93,    2, 0x06 /* Public */,
-       7,    0,   94,    2, 0x06 /* Public */,
-       8,    1,   95,    2, 0x06 /* Public */,
-      11,    1,   98,    2, 0x06 /* Public */,
+       1,    0,   94,    2, 0x06 /* Public */,
+       3,    0,   95,    2, 0x06 /* Public */,
+       4,    0,   96,    2, 0x06 /* Public */,
+       5,    0,   97,    2, 0x06 /* Public */,
+       6,    0,   98,    2, 0x06 /* Public */,
+       7,    0,   99,    2, 0x06 /* Public */,
+       8,    1,  100,    2, 0x06 /* Public */,
+      11,    1,  103,    2, 0x06 /* Public */,
+      13,    0,  106,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      13,    0,  101,    2, 0x0a /* Public */,
-      14,    0,  102,    2, 0x0a /* Public */,
-      15,    0,  103,    2, 0x0a /* Public */,
-      16,    0,  104,    2, 0x0a /* Public */,
-      17,    0,  105,    2, 0x0a /* Public */,
-      18,    0,  106,    2, 0x0a /* Public */,
-      19,    0,  107,    2, 0x0a /* Public */,
+      14,    0,  107,    2, 0x0a /* Public */,
+      15,    0,  108,    2, 0x0a /* Public */,
+      16,    0,  109,    2, 0x0a /* Public */,
+      17,    0,  110,    2, 0x0a /* Public */,
+      18,    0,  111,    2, 0x0a /* Public */,
+      19,    0,  112,    2, 0x0a /* Public */,
+      20,    0,  113,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void,
@@ -101,6 +103,7 @@ static const uint qt_meta_data_Layer[] = {
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 9,   10,
     QMetaType::Void, 0x80000000 | 9,   12,
+    QMetaType::Void,
 
  // slots: parameters
     QMetaType::Void,
@@ -128,13 +131,14 @@ void Layer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void 
         case 5: _t->layerUndropped(); break;
         case 6: _t->layerMoved((*reinterpret_cast< sf::Vector2f(*)>(_a[1]))); break;
         case 7: _t->layerScaled((*reinterpret_cast< sf::Vector2f(*)>(_a[1]))); break;
-        case 8: _t->emitStatus(); break;
-        case 9: _t->show(); break;
-        case 10: _t->hide(); break;
-        case 11: _t->select(); break;
-        case 12: _t->unselect(); break;
-        case 13: _t->drop(); break;
-        case 14: _t->undrop(); break;
+        case 8: _t->layerUpdated(); break;
+        case 9: _t->emitStatus(); break;
+        case 10: _t->show(); break;
+        case 11: _t->hide(); break;
+        case 12: _t->select(); break;
+        case 13: _t->unselect(); break;
+        case 14: _t->drop(); break;
+        case 15: _t->undrop(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -188,6 +192,12 @@ void Layer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void 
                 *result = 7;
             }
         }
+        {
+            typedef void (Layer::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Layer::layerUpdated)) {
+                *result = 8;
+            }
+        }
     }
 }
 
@@ -216,13 +226,13 @@ int Layer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 15)
+        if (_id < 16)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 15;
+        _id -= 16;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 15)
+        if (_id < 16)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 15;
+        _id -= 16;
     }
     return _id;
 }
@@ -275,5 +285,11 @@ void Layer::layerScaled(sf::Vector2f _t1)
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 7, _a);
+}
+
+// SIGNAL 8
+void Layer::layerUpdated()
+{
+    QMetaObject::activate(this, &staticMetaObject, 8, Q_NULLPTR);
 }
 QT_END_MOC_NAMESPACE

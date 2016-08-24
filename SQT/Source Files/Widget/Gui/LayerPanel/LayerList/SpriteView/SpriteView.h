@@ -29,4 +29,6 @@ private:
 	sf::Vector2u size;
 	sf::Color background_color = sf::Color(240, 240, 240);
 	bool select = false;
+
+	bool init = false;
 };

@@ -29,10 +29,6 @@ public:
 	// Get previous command of a given object (index is stored when instance is the same beetween 
 	// two consecutive calls for rescursive functionnality. Clearable with clear_tmp == true
 	nUnk::UndoCommand* getPrevious(void* instance, bool clear_tmp=false);
-	// Get the previous command with TYPE relatively to index
-	nUnk::UndoCommand* getPrevious(nUnk::TYPE type, void* instance = NULL); 
-	// Get the previous command that matches any type of the types list relatively to index
-	nUnk::UndoCommand* getPrevious(std::vector<nUnk::TYPE> type_list, void* instance = NULL); 
 
 	void beginSearching();
 	void endSearching();

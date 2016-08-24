@@ -46,6 +46,7 @@
 
 // MACRO DEFINITION
 #define QBOTTOMY(w)				(w)->pos().y() + (w)->size().height()
+#define VECTOR2D(v)				Vector2d(v.x, v.y)
 #define VECTOR2F(v)				sf::Vector2f(v.x, v.y)
 #define VECTOR2I(v)				sf::Vector2i(v.x, v.y)
 #define RECTI(r)				sf::IntRect(r.left, r.top, r.width, r.height)
@@ -68,6 +69,7 @@
 
 #define DEBUG					std::cout << "_Debug_" << std::endl;
 #define DEBUGN(n)				std::cout << n << std::endl;
+#define DEBUGH(h, n)			std::cout << h << " : " << n << std::endl;
 #define DEBUG_VECTOR(v)			std::cout << v.x << "   " << v.y << std::endl;
 #define DEBUG_RECT(r)			std::cout << r.left << "   " << r.top  << "   " << r.width  << "   " << r.height << std::endl;
 #define DEBUGN_VECTOR(n, v)		std::cout << n << ":  " << v.x << "   " << v.y << std::endl;
@@ -83,3 +85,5 @@
 #define FOR_K_INV(max)		for (int k=max-1; k >= 0; k--)
 #define FIRST(list)		list[0]
 #define LAST(list)		list[list.size()-1]
+
+typedef sf::Vector2<double> Vector2d;

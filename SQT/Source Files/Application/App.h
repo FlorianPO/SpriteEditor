@@ -1,6 +1,7 @@
 #pragma once
 
 #include "stdenum.h"
+#include "Source Files/Application/Input/LineSmoother.h"
 
 #define INIT_APP App::createInstance
 #define APP App::getInstance()
@@ -43,5 +44,8 @@ private:
 	sf::String path; //Path of the loaded file
 
 	unsigned int frame = 0; //Frame counter
+
+// TEST
+	void test();
 };
 

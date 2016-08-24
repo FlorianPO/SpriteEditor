@@ -10,26 +10,26 @@ public:
 
 	virtual sf::Image* getImage();
 	virtual sf::Vector2f getPosition();
-	virtual nSet::positionned_lines* getLines();
+	virtual nSet::positionned_olines* getLines();
 	virtual bool isInverted();
 };
 
 class SelecUpdated : public SelecUndo
 {
 public:
-	SelecUpdated(void* instance, sf::Image* image, sf::Vector2f position, nSet::positionned_lines* oriented_lines, bool inverted);
+	SelecUpdated(void* instance, sf::Image* image, sf::Vector2f position, nSet::positionned_olines* oriented_lines, bool inverted);
 	~SelecUpdated();
 	void undo() override;
 	void redo() override;
 
 	sf::Image* getImage() override { return image; }
 	sf::Vector2f getPosition() override	{ return position; }
-	nSet::positionned_lines* getLines() override { return plines; }
+	nSet::positionned_olines* getLines() override { return plines; }
 	bool isInverted() override { return inverted; }
 private:
 	sf::Image* image;
 	sf::Vector2f position;
-	nSet::positionned_lines* plines;
+	nSet::positionned_olines* plines;
 	bool inverted;
 };
 
@@ -56,7 +56,7 @@ public:
 
 	sf::Image* getImage() override { return NULL; }
 	sf::Vector2f getPosition() override	{ return sf::Vector2f(); }
-	nSet::positionned_lines* getLines() override { return NULL; }
+	nSet::positionned_olines* getLines() override { return NULL; }
 	bool isInverted() override { return false; }
 };
 

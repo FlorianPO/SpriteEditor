@@ -1,19 +1,22 @@
-#include "Menu.h"
+﻿#include "Menu.h"
 
 #include "Source Files/QtApp/Actions/SaveAction.h"
 #include "Source Files/QtApp/Actions/OpenAction.h"
+#include "Source Files/QtApp/Actions/SpriteEditor.h"
 
 Menu::Menu(QWidget* parent) : QMenuBar(parent) {
 	parent->installEventFilter(this);
 	setGeometry(QRect(0, 0, 1920, w_height));
 
 	fileMenu = addMenu("Fichier");
-	toolMenu = addMenu("Outils");
+	windowMenu = addMenu("Fen\303\252tres");
 
 	// FILE
 	fileMenu->addAction(new SaveAction());
 	fileMenu->addAction(new OpenAction());
 	fileMenu->addAction(new OpenActionAsLayer());
+	// WINDOW
+	windowMenu->addAction(new SpriteEditor());
 }
 
 void Menu::showEvent(QShowEvent* evnt) {

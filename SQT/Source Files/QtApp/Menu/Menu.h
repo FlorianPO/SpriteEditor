@@ -23,7 +23,7 @@ private:
 // MEMBERS
 private:
 	QMenu* fileMenu;
-	QMenu* toolMenu;
+	QMenu* windowMenu;
 
 	int w_height = 27;
 };

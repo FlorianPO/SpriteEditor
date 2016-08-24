@@ -153,12 +153,33 @@ bool InputController::gerer() {
 
 	setMousePosition(sf::Mouse::getPosition(APP->getWindow()), false, false);
 
-	if (again(Qt::LeftButton)) {
+	if (clear_smoothed) {
+		pos_smoothed.clear();
+		clear_smoothed = false;
+	}
+	else if (pos_smoothed.size() > 0)
+		pos_smoothed = { LAST(pos_smoothed) };
+
+	if (again(Qt::LeftButton) || again(Qt::RightButton)) {
 		screen_click = screen;
 		pos_click = pos;
 		pixel_click = pixel;
+
+		pos_smoothed = { pos, pos };
 	}
 	
+	if (pressed(Qt::LeftButton) || pressed(Qt::RightButton))
+		lsmooth.addPoint(pos);
+	if (released(Qt::LeftButton) || released(Qt::RightButton)) {
+		lsmooth.addPoint(pos);
+		lsmooth.endPoint();
+		clear_smoothed = true;
+	}
+
+	auto list = lsmooth.getAvailable();
+	FOR_I (list.size())
+		pos_smoothed.push_back(list[i]);
+
 	bindZQSD();
 	
 	if (SHORTCUT_CONTROLLER->coreShortcutEnabled() && key_pressed.size() > 0) {

@@ -82,7 +82,7 @@ private:
 	sf::Sprite sprite_selec;
 
 	sf::Image* image_selec;
-	nSet::positionned_lines* pos_lines;
+	nSet::positionned_olines* pos_lines;
 
 	// Related to void move()
 	sf::Vector2i pos_init;
@@ -96,9 +96,9 @@ public:
 	friend class SelecInverted;
 
 	private:
-		void setSelection(sf::Image* image, sf::Vector2f position, nSet::positionned_lines* plines, bool invert);
+		void setSelection(sf::Image* image, sf::Vector2f position, nSet::positionned_olines* plines, bool invert);
 		void setImage(sf::Image* image);
-		void setLines(nSet::positionned_lines* plines);
+		void setLines(nSet::positionned_olines* plines);
 		void setInverted(bool inverted);
 };
 

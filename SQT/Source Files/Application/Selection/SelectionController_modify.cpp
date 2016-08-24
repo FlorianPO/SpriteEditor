@@ -13,7 +13,7 @@ void SelectionController::createSelection(sf::IntRect rect, const std::vector<nS
 	createSelection(rect, NULL);
 	setInverted(false);
 
-	pos_lines = new nSet::positionned_lines();
+	pos_lines = new nSet::positionned_olines();
 	pos_lines->lines = std::vector<nSet::o_line>(conf_l);
 	pos_lines->pos = getPosition();
 	updateCadre();
@@ -26,7 +26,7 @@ void SelectionController::createSelection(sf::IntRect rect, const sf::Image& ima
 	createSelection(rect, &image);
 	setInverted(false);
 
-	pos_lines = new nSet::positionned_lines();
+	pos_lines = new nSet::positionned_olines();
 	pos_lines->lines = std::vector<nSet::o_line>(conf_l);
 	pos_lines->pos = getPosition();
 	updateCadre();
@@ -77,7 +77,7 @@ void SelectionController::addSelection(sf::IntRect rect, const std::vector<nSet:
 	if (isSelected()) {
 		sumSelection(rect, NULL, true);
 
-		pos_lines = new nSet::positionned_lines(*pos_lines);
+		pos_lines = new nSet::positionned_olines(*pos_lines);
 		pos_lines->lines.insert(pos_lines->lines.end(), conf_l.begin(), conf_l.end());
 		pos_lines->pos = getPosition();
 	
@@ -94,7 +94,7 @@ void SelectionController::addSelection(sf::IntRect rect, const sf::Image& image,
 	if (isSelected()) {
 		sumSelection(rect, &image, true);
 
-		pos_lines = new nSet::positionned_lines(*pos_lines);
+		pos_lines = new nSet::positionned_olines(*pos_lines);
 		pos_lines->lines.insert(pos_lines->lines.end(), conf_l.begin(), conf_l.end());
 		pos_lines->pos = getPosition();
 
@@ -114,7 +114,7 @@ void SelectionController::subSelection(sf::IntRect rect, const std::vector<nSet:
 	if (isSelected()) {
 		sumSelection(rect, NULL, false);
 
-		pos_lines = new nSet::positionned_lines(*pos_lines);
+		pos_lines = new nSet::positionned_olines(*pos_lines);
 		pos_lines->lines.insert(pos_lines->lines.end(), conf_l.begin(), conf_l.end());
 		pos_lines->pos = getPosition();
 
@@ -129,7 +129,7 @@ void SelectionController::subSelection(sf::IntRect rect, const sf::Image& image,
 	if (isSelected()) {
 		sumSelection(rect, &image, false);
 
-		pos_lines = new nSet::positionned_lines(*pos_lines);
+		pos_lines = new nSet::positionned_olines(*pos_lines);
 		pos_lines->lines.insert(pos_lines->lines.end(), conf_l.begin(), conf_l.end());
 		pos_lines->pos = getPosition();
 
@@ -204,7 +204,7 @@ void SelectionController::intersectSelection(sf::IntRect rect, const std::vector
 		intersectSelection(rect, static_cast<sf::Image*>(NULL));
 		setInverted(false);
 
-		pos_lines = new nSet::positionned_lines(*pos_lines);
+		pos_lines = new nSet::positionned_olines(*pos_lines);
 		FOR_I_INV (pos_lines->lines.size())
 			if (!rect.contains(pos_lines->lines[i].x, pos_lines->lines[i].y))
 				pos_lines->lines.erase(pos_lines->lines.begin() + i);
@@ -225,7 +225,7 @@ void SelectionController::intersectSelection(sf::IntRect rect, const sf::Image& 
 		intersectSelection(rect, &image);
 		setInverted(false);
 
-		pos_lines = new nSet::positionned_lines(*pos_lines);
+		pos_lines = new nSet::positionned_olines(*pos_lines);
 		FOR_I_INV (pos_lines->lines.size())
 			if (!rect.contains(pos_lines->lines[i].x, pos_lines->lines[i].y))
 				pos_lines->lines.erase(pos_lines->lines.begin() + i);

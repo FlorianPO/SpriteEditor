@@ -67,7 +67,7 @@ void ColorPanel::color1Changed() {
 							 std::to_string(C1->getR()) + "," + 
 							 std::to_string(C1->getG()) + "," +
 							 std::to_string(C1->getB()) + "," +
-							 std::to_string(C1->getA()) + ");"));
+							 std::to_string(C1->getA()/255.f) + ");"));
 }
 
 void ColorPanel::color2Changed() {
@@ -75,5 +75,5 @@ void ColorPanel::color2Changed() {
 							 std::to_string(C2->getR()) + "," + 
 							 std::to_string(C2->getG()) + "," +
 							 std::to_string(C2->getB()) + "," +
-							 std::to_string(C2->getA()) + ");"));
+							 std::to_string(C2->getA()/255.f) + ");"));
 }
