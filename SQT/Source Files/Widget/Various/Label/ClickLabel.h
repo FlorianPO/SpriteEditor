@@ -8,7 +8,7 @@ class ClickLabel : public ViewLabel
 	Q_OBJECT
 // CONSTRUCTOR
 public:
-	ClickLabel(QWidget* parent, sf::Vector2i range, enum_size e_size=DEFAULT, bool auto_emit = false);
+	ClickLabel(QWidget* parent, const sf::Vector2i& range, enum_size e_size=DEFAULT, bool auto_emit = false);
 	~ClickLabel() {}
 
 // SIGNALS SLOTS
@@ -18,9 +18,9 @@ public:
 	public slots:
 		void changeValue(int value) override;
 	signals:
-		void valueChanged(int value);
-		void focusIn();
-		void focusOut();
+		void valueChanged(int value) const;
+		void focusIn() const;
+		void focusOut() const;
 
 // METHODS
 private:
@@ -33,7 +33,7 @@ private:
 	void focusOutEvent(QFocusEvent *event) override;
 
 	void setValue(int value);
-	int checkRange(int* value); // Returns check_info_enum combinaison
+	int checkRange(int& value); // Returns check_info_enum combinaison
 	void endValueTyping();
 
 // ENUM

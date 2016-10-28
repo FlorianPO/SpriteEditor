@@ -9,7 +9,7 @@ RectSelec::RectSelec() {
 	numero_outil = nTol::RECTSELEC;
 }
 
-void RectSelec::selec_rect(sf::Vector2i pos_ini, sf::Vector2i pos) {
+void RectSelec::selec_rect(const sf::Vector2i& pos_ini, const sf::Vector2i& pos) {
 	static sf::Vector2i ex_pos;
 
 	if (ex_pos != pos) {

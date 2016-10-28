@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_ShortcutController_t {
     QByteArrayData data[7];
-    char stringdata0[107];
+    char stringdata0[106];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,13 +34,13 @@ QT_MOC_LITERAL(1, 19, 18), // "enableCoreShortcut"
 QT_MOC_LITERAL(2, 38, 0), // ""
 QT_MOC_LITERAL(3, 39, 19), // "disableCoreShortcut"
 QT_MOC_LITERAL(4, 59, 19), // "checkKeyCombinaison"
-QT_MOC_LITERAL(5, 79, 22), // "nInt::key_combinaison*"
-QT_MOC_LITERAL(6, 102, 4) // "keys"
+QT_MOC_LITERAL(5, 79, 21), // "nInt::key_combinaison"
+QT_MOC_LITERAL(6, 101, 4) // "keys"
 
     },
     "ShortcutController\0enableCoreShortcut\0"
     "\0disableCoreShortcut\0checkKeyCombinaison\0"
-    "nInt::key_combinaison*\0keys"
+    "nInt::key_combinaison\0keys"
 };
 #undef QT_MOC_LITERAL
 
@@ -78,7 +78,7 @@ void ShortcutController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, i
         switch (_id) {
         case 0: _t->enableCoreShortcut(); break;
         case 1: _t->disableCoreShortcut(); break;
-        case 2: _t->checkKeyCombinaison((*reinterpret_cast< nInt::key_combinaison*(*)>(_a[1]))); break;
+        case 2: _t->checkKeyCombinaison((*reinterpret_cast< const nInt::key_combinaison(*)>(_a[1]))); break;
         default: ;
         }
     }

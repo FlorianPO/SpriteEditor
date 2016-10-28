@@ -10,7 +10,7 @@ class InfoPanel_position : public QWidget
 	Q_OBJECT
 // CONSTRUCTOR
 public:
-	InfoPanel_position(QWidget *parent, const QPoint& position=QPoint());
+	InfoPanel_position(QWidget *parent);
 	~InfoPanel_position() {};
 
 // MEMBERS

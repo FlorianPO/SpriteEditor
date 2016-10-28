@@ -32,12 +32,12 @@ static const qt_meta_stringdata_InfoPanel_copy_t qt_meta_stringdata_InfoPanel_co
 QT_MOC_LITERAL(0, 0, 14), // "InfoPanel_copy"
 QT_MOC_LITERAL(1, 15, 4), // "bind"
 QT_MOC_LITERAL(2, 20, 0), // ""
-QT_MOC_LITERAL(3, 21, 5), // "Copy*"
+QT_MOC_LITERAL(3, 21, 5), // "Copy&"
 QT_MOC_LITERAL(4, 27, 4), // "copy"
 QT_MOC_LITERAL(5, 32, 6) // "unbind"
 
     },
-    "InfoPanel_copy\0bind\0\0Copy*\0copy\0unbind"
+    "InfoPanel_copy\0bind\0\0Copy&\0copy\0unbind"
 };
 #undef QT_MOC_LITERAL
 
@@ -71,7 +71,7 @@ void InfoPanel_copy::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         InfoPanel_copy *_t = static_cast<InfoPanel_copy *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->bind((*reinterpret_cast< Copy*(*)>(_a[1]))); break;
+        case 0: _t->bind((*reinterpret_cast< Copy(*)>(_a[1]))); break;
         case 1: _t->unbind(); break;
         default: ;
         }

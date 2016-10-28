@@ -1,16 +1,16 @@
 #include "Fonction.h"
 
-int Fonction::copy_to_clipboard(sf::Image *image) {
+int Fonction::copy_to_clipboard(sf::Image& image) {
 	sf::Uint8* buffer;
 	HGLOBAL clipbuffer;
 
-	int buflen = image->getSize().x*image->getSize().y * 4;
+	int buflen = image.getSize().x*image.getSize().y * 4;
 
 	//Header
 	BITMAPINFOHEADER header;
 	header.biSize = sizeof(BITMAPINFOHEADER);
-	header.biWidth = image->getSize().x;
-	header.biHeight = image->getSize().y;
+	header.biWidth = image.getSize().x;
+	header.biHeight = image.getSize().y;
 	header.biPlanes = 1;
 	header.biBitCount = 32;
 	header.biCompression = BI_RGB;
@@ -34,14 +34,14 @@ int Fonction::copy_to_clipboard(sf::Image *image) {
 
 	memcpy(buffer, &header, sizeof(BITMAPINFOHEADER));
 
-	FOR_J (image->getSize().y)
-		FOR_I (image->getSize().x) {
-			sf::Color temp = image->getPixel(i, j);
-			image->setPixel(i, j, sf::Color(temp.b, temp.g, temp.r, temp.a));
+	FOR_J (image.getSize().y)
+		FOR_I (image.getSize().x) {
+			sf::Color temp = image.getPixel(i, j);
+			image.setPixel(i, j, sf::Color(temp.b, temp.g, temp.r, temp.a));
 		}
-	image->flipVertically();
+	image.flipVertically();
 
-	memcpy(buffer + sizeof(BITMAPINFOHEADER), image->getPixelsPtr(), buflen);
+	memcpy(buffer + sizeof(BITMAPINFOHEADER), image.getPixelsPtr(), buflen);
 
 	GlobalUnlock(clipbuffer);
 	SetClipboardData(CF_DIB, clipbuffer);
@@ -51,7 +51,7 @@ int Fonction::copy_to_clipboard(sf::Image *image) {
 	return 0;
 }
 
-int Fonction::copy_to_clipboard(std::string string) {
+int Fonction::copy_to_clipboard(const std::string& string) {
 	if (!OpenClipboard(NULL)) { return 1; }
 
 	EmptyClipboard();
@@ -89,7 +89,7 @@ sf::String Fonction::get_macro() {
 	return sf::String(text);
 }
 
-sf::Image* Fonction::get_clipboard() {
+std::shared_ptr<sf::Image> Fonction::get_clipboard() {
 	sf::Uint8* buffer;
 	HANDLE hData;
 
@@ -116,12 +116,12 @@ sf::Image* Fonction::get_clipboard() {
 	memcpy(buffer2, &header, sizeof(BITMAPFILEHEADER));
 	memcpy(buffer2 + sizeof(BITMAPFILEHEADER), buffer, buflen);
 
-	sf::Image* image = new sf::Image();
-	image->loadFromMemory(buffer2, buflen + sizeof(BITMAPFILEHEADER));
+	auto ptr = std::make_shared<sf::Image>();
+	ptr->loadFromMemory(buffer2, buflen + sizeof(BITMAPFILEHEADER));
 	delete[] buffer2;
 
 	GlobalUnlock(hData);
 	CloseClipboard();
 
-	return image;
+	return ptr;
 }

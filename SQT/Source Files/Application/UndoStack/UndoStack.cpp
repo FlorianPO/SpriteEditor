@@ -6,10 +6,22 @@
 
 UndoStack* UndoStack::_t;
 
-UndoStack::UndoStack() {
+UndoStack::UndoStack(bool is_main_stack) {
+	if (is_main_stack)
+		startShortcut();
+	freeWork();
+}
+
+void UndoStack::startShortcut() {
 	using namespace nInt;
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::CTRL + Qt::Key_Z, LOG), [this](){undo();});
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::CTRL + Qt::Key_Y, LOG), [this](){redo();});
+	sh_ctrlz = SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::CTRL + Qt::Key_Z, LOG), [this](){undo();});
+	sh_ctrly = SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::CTRL + Qt::Key_Y, LOG), [this](){redo();});
+}
+
+void UndoStack::stopShortcut() {
+	using namespace nInt;
+	SHORTCUT_CONTROLLER->removeCoreShortcut(sh_ctrlz);
+	SHORTCUT_CONTROLLER->removeCoreShortcut(sh_ctrly);
 }
 
 //////////
@@ -34,7 +46,7 @@ void UndoStack::freeWork() {
 	first = false;
 }
 
-void UndoStack::_printStack() {
+void UndoStack::_printStack() const {
 	std::cout << "BEGIN" << std::endl;
 	std::cout << "Index : " << index << std::endl;
 	FOR_I (stack.size()) {
@@ -55,14 +67,14 @@ void UndoStack::_printStack() {
 	std::cout << "END" << std::endl;
 }
 
-void UndoStack::push(nUnk::UndoCommand* command) {
+void UndoStack::push(nUnk::UndoCommand& command) {
 	if (first)
-		command->setFirst();
+		command.setFirst();
 
 	if (macro == 0) {
 		if (stack.size()-1 != index)
 			clear(index+1); // Delete top of the stack
-		stack.push_back({command});
+		stack.push_back( {&command} );
 		index++;
 
 		#if DEBUG_STACK
@@ -70,12 +82,12 @@ void UndoStack::push(nUnk::UndoCommand* command) {
 		#endif
 	}
 	else
-		macro_stack.push_back(command);
+		macro_stack.push_back(&command);
 }
 
 void UndoStack::clear(int from_index) {
 	for (int i=stack.size()-1; i >= from_index; i--) {
-		FOR_J (stack[i].size())
+		FOR_J_INV (stack[i].size())
 			delete stack[i][j];
 		stack.erase(stack.begin() + i);
 	}
@@ -132,7 +144,7 @@ void UndoStack::redo() {
 	}
 }
 
-nUnk::UndoCommand* UndoStack::getPrevious(void* instance, bool clear_tmp) {
+nUnk::UndoCommand& UndoStack::getPrevious(void* instance, bool clear_tmp) {
 	if (tmp_instance != instance || clear_tmp) {
 		if (searching)
 			tmp_index = search_index;
@@ -148,11 +160,11 @@ nUnk::UndoCommand* UndoStack::getPrevious(void* instance, bool clear_tmp) {
 				#if DEBUG_STACK
 				std::cout << "index found : " << i << std::endl;
 				#endif
-				return stack[i][j];
+				return *stack[i][j];
 			}
 
 	std::cout << "UNDO_STACK : instance not found (" << tmp_instance << ")" << std::endl;
-	return NULL;
+	return *stack[-1][-1];
 }
 
 void UndoStack::beginSearching() {

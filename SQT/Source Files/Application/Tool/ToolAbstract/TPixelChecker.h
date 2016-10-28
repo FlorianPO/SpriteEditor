@@ -11,8 +11,8 @@ public:
 
 // METHODS
 protected:
-	inline void setBaseColor(sf::Color color) { base_color = color; }
-	virtual bool pixelCheck(sf::Color color);
+	inline void setBaseColor(const sf::Color& color) { base_color = color; }
+	virtual bool pixelCheck(const sf::Color& color) const;
 	
 // MEMBERS
 protected:

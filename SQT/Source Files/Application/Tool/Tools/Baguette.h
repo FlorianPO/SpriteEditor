@@ -22,7 +22,7 @@ private:
 
 // MEMBERS
 private:
-	sf::Image* image;
+	const sf::Image* image;
 	sf::Image bit_image;
 	
 	std::queue<nTol::range_type> ranges;

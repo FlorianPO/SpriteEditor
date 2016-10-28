@@ -1,26 +1,27 @@
 #pragma once
 
 #include "stdenum.h"
+#include "Source Files/SignalType/SignalListObject.h"
 class Brush; // Forward declaration
 
-class Layer : public QObject
+class Layer : public SignalListObject
 {
 	Q_OBJECT
 // CONSTRUCTOR
 public:		
-	Layer(sf::Image* image_init);
+	Layer(sf::Image& image_init);
 	~Layer() {}
 
 // METHODS
 public:
 	void drawSpriteLocaly(const sf::Sprite& spr, const sf::RenderStates& render); // Draw directly on render
-	void drawSpriteLocaly(sf::Sprite& spr, sf::Vector2f position, const sf::RenderStates& render); // Draw directly on render
+	void drawSpriteLocaly(sf::Sprite& spr, const sf::Vector2f& position, const sf::RenderStates& render); // Draw directly on render
 	void drawSprite(sf::Sprite& spr, const sf::RenderStates& render);
-	void drawSprite(sf::Sprite& spr, sf::Vector2f position, const sf::RenderStates& render); // Optimized
+	void drawSprite(sf::Sprite& spr, const sf::Vector2f&, const sf::RenderStates& render); // Optimized
 
-	void drawBrushLocally(Brush& brush, sf::Vector2f position, const sf::RenderStates& render); // Draw directly on render
+	void drawBrushLocally(Brush& brush, const sf::Vector2f&, const sf::RenderStates& render); // Draw directly on render
 	void drawBrushLocally(Brush& brush, const sf::RenderStates& render); // Draw directly on render
-	void drawBrush(Brush& brush, sf::Vector2f position, const sf::RenderStates& render); // Optimized
+	void drawBrush(Brush& brush, const sf::Vector2f&, const sf::RenderStates& render); // Optimized
 	void drawBrush(Brush& brush, const sf::RenderStates& render);  // Good if called occasionaly
 
 	void update();
@@ -33,50 +34,41 @@ public:
 	void flip();
 
 	//Sprite and texture						
-	inline const sf::Sprite& getSprite() { return sprite; }
-	inline const sf::Texture& getTexture() { return *sprite.getTexture(); }
-	inline sf::Vector2f getSize() { return SIZE_RECT(sprite.getTextureRect()); }
-	inline sf::IntRect getGlobalBounds() { return RECTI(sprite.getGlobalBounds()); }
+	inline const sf::Sprite& getSprite() const { return sprite; }
+	inline const sf::Texture& getTexture() const { return *sprite.getTexture(); }
+	inline sf::Vector2f getSize() const { return SIZE_RECT(sprite.getTextureRect()); }
+	inline sf::IntRect getGlobalBounds() const { return RECTI(sprite.getGlobalBounds()); }
 
 	//Retrieve a sf::Image		
-	inline sf::Image* getImage() { return image; }
+	inline const sf::Image& getImage() const { return *image; }
+				
+	inline bool isVisible() const { return visible; }
+	inline const QString& getName() const { return name; }
+	void setName(const QString& string);
 
-	inline bool isDead() { return dead; }				
-	inline bool isVisible() { return visible; }
-	inline const QString& getName() { return name; }
-	
 	// TRANSFORMATION
-	inline sf::Vector2f getPosition() { return sprite.getPosition(); }
-	void setPosition(sf::Vector2f position);
-	void translate(sf::Vector2f translation);
-	void setScale(sf::Vector2f scale);
+	inline const sf::Vector2f& getPosition() const { return sprite.getPosition(); }
+	void setPosition(const sf::Vector2f& position);
+	void translate(const sf::Vector2f& translation);
+	void setScale(const sf::Vector2f& scale);
 	void setRotation(float rotation);
 
 // SIGNALS SLOTS
 	public slots:
-		void emitStatus();
+		void emitStatus() const;
 		void show(); //Make visible
 		void hide();
-		void select(); //Select layer
-		void unselect();
-		void drop(); //Erase layer
-		void undrop(); //Erase layer
 	signals:
-		void layerVisible();
-		void layerUnvisible();
-		void layerSelected();
-		void layerUnselected();
-		void layerDropped();
-		void layerUndropped();
-		void layerMoved(sf::Vector2f pos);
-		void layerScaled(sf::Vector2f size);
-		void layerUpdated();
+		void layerVisible() const;
+		void layerUnvisible() const;
+		void layerMoved(sf::Vector2f pos) const;
+		void layerScaled(sf::Vector2f size) const;
+		void layerUpdated() const;
+		void nameChanged(QString) const;
 
 // MEMBERS
 private:
-	bool dead = false;
 	bool visible = true;
-	bool clicked = false;
 	sf::Image* image;
 
 	sf::Sprite sprite;
@@ -95,5 +87,5 @@ public:
 	friend class LayerMoved;
 
 	private: // Core context
-		void setImage(sf::Image* image_var, bool recreate=false);
+		void setImage(sf::Image& image_var, bool recreate=false);
 };

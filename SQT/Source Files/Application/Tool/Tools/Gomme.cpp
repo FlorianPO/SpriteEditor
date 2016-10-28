@@ -5,7 +5,7 @@
 #include "Source Files/Application/Resource/ResourceController.h"
 #include "Source Files/Application/Brush/BrushController.h"
 #include "Source Files/Application/Brush/Brush.h"
-#include "Source Files/QtApp/SQT/SFMLView.h"
+#include "Source Files/Widget/SQT/SFMLView.h"
 #include "Source Files/Fonction/Fonction.h"
 #include "Source Files/Application/UndoStack/UndoStack.h"
 
@@ -35,7 +35,7 @@ void Gomme::use() {
 	if (INPUT->pressed(Qt::LeftButton)) {
 		if (INPUT->pressed(Qt::Key_Shift)) {
 			if (INPUT->again(Qt::LeftButton)) {
-				RES->getShader(nRer::usual).setParameter("mode", 0);
+				RES->getShader(nRer::usual).setParameter("mode", 0.f);
 				drawLine(line[0].position, line[1].position);
 				UPDATE(line[1].position)
 			}
@@ -43,13 +43,13 @@ void Gomme::use() {
 		else if (INPUT->pressed(Qt::Key_Control))
 			COLOR_CONTROLLER->setColor1(Fonction::getPointedColor());
 		else if (hasSmoothLine()) {
-			RES->getShader(nRer::usual).setParameter("mode", 0);
+			RES->getShader(nRer::usual).setParameter("mode", 0.f);
 			drawSmoothLine();
 		}
 	}
 	else if (INPUT->released(Qt::LeftButton)) {
 		if (!INPUT->pressed(Qt::Key_Shift) && !INPUT->pressed(Qt::Key_Control) && hasSmoothLine()) {
-			RES->getShader(nRer::usual).setParameter("mode", 0);
+			RES->getShader(nRer::usual).setParameter("mode", 0.f);
 			drawSmoothLine();
 			UPDATE(LAST(INPUT->getSmoothList()))
 		}

@@ -103,10 +103,12 @@ void LineSmoother::endSmooth() {
 
 		if (!no_smooth) {
 			d1.setAtP1(array[indice]);
+
 			d2.rotateAroundP1(angle / 6);
 			d1.rotateAroundP1(angle / 2);
 
 			auto list = smooth_laplacian(d1.p1, Fonction::intersect(d1, d2), d2.p1);
+			DEBUGN(list.size())
 			array.insert(array.begin() + indice + 1, list.begin(), list.end());
 		}
 		getReady(indice, array.size()-1);
@@ -128,16 +130,50 @@ void LineSmoother::getReady(int from, int to) {
 	}
 }
 
-std::vector<Vector2d> LineSmoother::smooth_laplacian(Vector2d begin, Vector2d middle, Vector2d end) {
+std::vector<Vector2d> LineSmoother::smooth_laplacian(const Vector2d& begin, const Vector2d& middle, const Vector2d& end) {
+	std::vector<Vector2d> m1_center_m2 = _smooth_laplacian(begin, middle, end);
+
+	if (m1_center_m2.size() < 3)
+		return m1_center_m2;
+
+	std::vector<Vector2d> left = _smooth_laplacian(begin, m1_center_m2[0], m1_center_m2[1]);
+	std::vector<Vector2d> right = _smooth_laplacian(m1_center_m2[1], m1_center_m2[2], end);
+	std::vector<Vector2d> final_list;
+	
+	FOR_I (left.size())
+		final_list.push_back(left[i]);
+	final_list.push_back(m1_center_m2[1]);
+	FOR_I (right.size())
+		final_list.push_back(right[i]);
+
+	FOR_I (final_list.size()) {
+		if (i > 0 && i < final_list.size()-1)
+			final_list[i] = Vector2d((final_list[i-1].x + final_list[i].x + final_list[i+1].x)/3.0, 
+									 (final_list[i-1].y + final_list[i].y + final_list[i+1].y)/3.0);
+	}
+
+	return final_list;
+}
+
+std::vector<Vector2d> LineSmoother::_smooth_laplacian(const Vector2d& begin, const Vector2d& middle, const Vector2d& end) {
 	Fonction::vector d1(begin, middle);
 	Fonction::vector d2(end, middle);
 
-	Vector2d m1 = d1.middle(50);
-	Vector2d m2 = d2.middle(50);
-	Vector2d center_triangle = Vector2d((m1.x*2 + m2.x*2 + middle.x)/5.f, (m1.y*2 + m2.y*2 + middle.y)/5.f);
+	if (Fonction::norme(end - begin) < 10)
+		return {};
+
+	Vector2d m1 = d1.middle(33);
+	Vector2d m2 = d2.middle(33);
+	
+	double norme_m1 = d1.norme();
+	double norme_m2 = d2.norme();
+	double norme_middle = d1.norme()/2 + d2.norme()/2;
+
+	Vector2d center_triangle = Vector2d((m1.x*norme_m1 + m2.x*norme_m2 + middle.x*norme_middle)/(norme_m1 + norme_m2 + norme_middle), 
+										(m1.y*norme_m1 + m2.y*norme_m2 + middle.y*norme_middle)/(norme_m1 + norme_m2 + norme_middle));
 
 	if (Fonction::equal(d1.norme(), 0) || Fonction::equal(d2.norme(), 0))
 		return {center_triangle};
-
+	
 	return {m1, center_triangle, m2};
 }

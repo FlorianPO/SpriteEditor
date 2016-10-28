@@ -11,7 +11,7 @@ class InfoPanel_selection : public QWidget
 	Q_OBJECT
 // CONSTRUCTOR
 public:
-	InfoPanel_selection(QWidget *parent, const QPoint& position=QPoint());
+	InfoPanel_selection(QWidget *parent);
 	~InfoPanel_selection() {}
 
 	private slots:

@@ -12,26 +12,26 @@ public:
 
 // METHODS
 public:
-	inline sf::Color getColor() { return sf::Color(r, g, b, a); }
-	inline int getR() { return r; }
-	inline int getG() { return g; }
-	inline int getB() { return b; }
-	inline int getA() { return a; }
+	inline sf::Color getColor() const { return sf::Color(r, g, b, a); }
+	inline int getR() const { return r; }
+	inline int getG() const { return g; }
+	inline int getB() const { return b; }
+	inline int getA() const { return a; }
 
 // SIGNALS SLOTS
 	public slots:
-		void setColor(sf::Color color);
+		void setColor(const sf::Color& color);
 		void setColor(int r, int g, int b, int a);
 		void setR(int r);
 		void setG(int g);
 		void setB(int b);
 		void setA(int a);
 	signals:	
-		void colorChanged();
-		void RChanged(int r);
-		void GChanged(int g);
-		void BChanged(int b);
-		void AChanged(int a);
+		void colorChanged() const;
+		void RChanged(int r) const;
+		void GChanged(int g) const;
+		void BChanged(int b) const;
+		void AChanged(int a) const;
 
 // MEMBERS
 private:

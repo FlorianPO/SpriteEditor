@@ -5,9 +5,7 @@
 
 using namespace nTol;
 
-ToolPanel::ToolPanel(QWidget *parent, const QPoint& position) : QWidget(parent) 
-{
-	move(position);
+ToolPanel::ToolPanel(QWidget *parent) : QWidget(parent) {
 	ui.setupUi(this);
 	hide();
 
@@ -27,11 +25,11 @@ ToolPanel::ToolPanel(QWidget *parent, const QPoint& position) : QWidget(parent)
 	QObject::connect(ui.buttonGroup, SIGNAL(buttonPressed(int)), 
 					 TOOL_CONTROLLER, SLOT(selectTool(int)), 
 					 Qt::DirectConnection);
-	QObject::connect(TOOL_CONTROLLER, SIGNAL(toolSelected(Tool*)), 
-					 this, SLOT(toolSelected(Tool*)), 
+	QObject::connect(TOOL_CONTROLLER, SIGNAL(toolSelected(Tool&)), 
+					 this, SLOT(toolSelected(Tool&)), 
 					 Qt::DirectConnection);
 }
 
-void ToolPanel::toolSelected(Tool* tool) {
-	ui.buttonGroup->button(tool->getId())->setChecked(true);
+void ToolPanel::toolSelected(Tool& tool) {
+	ui.buttonGroup->button(tool.getId())->setChecked(true);
 }

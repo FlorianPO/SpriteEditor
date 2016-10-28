@@ -4,8 +4,8 @@
 #include "Source Files/Application/Brush/Brush.h"
 #include "Source Files/Application/Resource/ResourceController.h"
 
-BrushWidget::BrushWidget(Brush& brush, const sf::Sprite& sprite) {
-	tool_sprite = sprite;
+BrushWidget::BrushWidget(Brush& brush, const sf::Texture& texture) {
+	tool_sprite = sf::Sprite(texture);
 	tool_sprite.setColor(sf::Color::Black);
 	offset = sf::Vector2f(3, 3);
 
@@ -28,18 +28,18 @@ BrushWidget::BrushWidget(Brush& brush, const sf::Sprite& sprite) {
 	sizeChanged(this->brush->getSize());
 }
 
-void BrushWidget::draw(sf::RenderWindow* fenetre) {
+void BrushWidget::draw(sf::RenderWindow& fenetre) {
 	if (selec)
-		fenetre->draw(square);
-	fenetre->draw(tool_sprite);
-	fenetre->draw(tool_size);
+		fenetre.draw(square);
+	fenetre.draw(tool_sprite);
+	fenetre.draw(tool_size);
 }
 
-sf::FloatRect BrushWidget::getBounds() {
+sf::FloatRect BrushWidget::getBounds() const {
 	return sf::FloatRect(square.getPosition(), sf::Vector2f(39, 23));
 }
 
-void BrushWidget::setPosition(sf::Vector2f pos) {
+void BrushWidget::setPosition(const sf::Vector2f& pos) {
 	square.setPosition(pos);
 	tool_sprite.setPosition(pos + offset);
 
@@ -55,10 +55,10 @@ void BrushWidget::unselected() {
 }
 
 void BrushWidget::tabSelect() {
-	BRUSH_CONTROLLER->selectBrush(this->brush);
+	BRUSH_CONTROLLER->selectBrush(*brush);
 }
 
-void BrushWidget::sizeChanged(sf::Vector2i size) {
+void BrushWidget::sizeChanged(const sf::Vector2i& size) {
 	tool_size.setString(std::to_string(size.x) + "\n" + std::to_string(size.y));
 	this->size = size;
 }

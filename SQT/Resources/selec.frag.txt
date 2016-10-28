@@ -28,7 +28,7 @@ void main()
 	
 	vec4 pixel_back = texture2D(background, pos_back);
 	
-	if (mode == 0) //BlendNone GOMME
+	if (mode < 0.4) //BlendNone GOMME
 	{
 		if (alpha == 0 || texture2D(texture, pos).a > 0)
 			gl_FragColor = pixel_back;

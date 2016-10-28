@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../Source Files/QtApp/Menu/Menu.h"
+#include "../../Source Files/Widget/Menu/Menu.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
@@ -73,7 +73,7 @@ void Menu::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (Menu::*_t)();
+            typedef void (Menu::*_t)() const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Menu::globallyChanged)) {
                 *result = 0;
             }
@@ -119,8 +119,8 @@ int Menu::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void Menu::globallyChanged()
+void Menu::globallyChanged()const
 {
-    QMetaObject::activate(this, &staticMetaObject, 0, Q_NULLPTR);
+    QMetaObject::activate(const_cast< Menu *>(this), &staticMetaObject, 0, Q_NULLPTR);
 }
 QT_END_MOC_NAMESPACE

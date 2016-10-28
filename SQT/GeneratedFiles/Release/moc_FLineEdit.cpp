@@ -77,13 +77,13 @@ void FLineEdit::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (FLineEdit::*_t)();
+            typedef void (FLineEdit::*_t)() const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&FLineEdit::focussed)) {
                 *result = 0;
             }
         }
         {
-            typedef void (FLineEdit::*_t)();
+            typedef void (FLineEdit::*_t)() const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&FLineEdit::unFocussed)) {
                 *result = 1;
             }
@@ -129,14 +129,14 @@ int FLineEdit::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void FLineEdit::focussed()
+void FLineEdit::focussed()const
 {
-    QMetaObject::activate(this, &staticMetaObject, 0, Q_NULLPTR);
+    QMetaObject::activate(const_cast< FLineEdit *>(this), &staticMetaObject, 0, Q_NULLPTR);
 }
 
 // SIGNAL 1
-void FLineEdit::unFocussed()
+void FLineEdit::unFocussed()const
 {
-    QMetaObject::activate(this, &staticMetaObject, 1, Q_NULLPTR);
+    QMetaObject::activate(const_cast< FLineEdit *>(this), &staticMetaObject, 1, Q_NULLPTR);
 }
 QT_END_MOC_NAMESPACE

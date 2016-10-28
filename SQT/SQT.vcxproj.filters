@@ -30,7 +30,9 @@
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{76ee6f0e-dfc4-484a-92b5-c50374f35896}</UniqueIdentifier>
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;cxx;c;def</Extensions>
+      <ParseFiles>true</ParseFiles>
     </Filter>
     <Filter Include="Source Files\Application">
       <UniqueIdentifier>{ced5a43e-b98d-4899-80ec-f2752b3cd26b}</UniqueIdentifier>
@@ -217,9 +219,6 @@
     <ClCompile Include="GeneratedFiles\Release\moc_CopyController.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\Application\Curseur\Curseur.cpp">
-      <Filter>Source Files\Application\Curseur</Filter>
-    </ClCompile>
     <ClCompile Include="Source Files\Application\Layer\Layer.cpp">
       <Filter>Source Files\Application\Layer</Filter>
     </ClCompile>
@@ -343,15 +342,6 @@
     <ClCompile Include="GeneratedFiles\Release\moc_ViewLabel.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\Widget\Various\RFrame\RFrame.cpp">
-      <Filter>Source Files\Widget\Various\RFrame</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_RFrame.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_RFrame.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="Source Files\Widget\Various\StateButton\State2Button.cpp">
       <Filter>Source Files\Widget\Various\StateButton</Filter>
     </ClCompile>
@@ -373,15 +363,6 @@
     <ClCompile Include="Source Files\Widget\Various\TabSFML\TabSFML.cpp">
       <Filter>Source Files\Widget\Various\TabSFML</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\Widget\Various\VerticalLayout\VerticalLayout.cpp">
-      <Filter>Source Files\Widget\Various\VerticalLayout</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_VerticalLayout.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_VerticalLayout.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="Source Files\Widget\Gui\ToolPanel\ToolPanel.cpp">
       <Filter>Source Files\Widget\Gui\ToolPanel</Filter>
     </ClCompile>
@@ -390,9 +371,6 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_ToolPanel.cpp">
       <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\Widget\Gui\LayerPanel\LayerList\SpriteView\SpriteView.cpp">
-      <Filter>Source Files\Widget\Gui\LayerPanel\LayerList\SpriteView</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_SpriteView.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -553,9 +531,6 @@
     <ClCompile Include="Source Files\Application\Copy\CopyUndo.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\Application\Curseur\CurseurUndo.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source Files\Fonction\FonctionSpecial.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
@@ -610,17 +585,11 @@
     <ClCompile Include="GeneratedFiles\Release\moc_Background.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\QtApp\Actions\SaveAction.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_SaveAction.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_SaveAction.cpp">
       <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\QtApp\Actions\OpenAction.cpp">
-      <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_OpenAction.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -634,28 +603,10 @@
     <ClCompile Include="GeneratedFiles\Release\moc_Menu.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\QtApp\Menu\Menu.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\QtApp\SQT\SFMLView.cpp">
-      <Filter>Source Files\Widget\SQT</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\QtApp\SQT\SQT.cpp">
-      <Filter>Source Files\Widget\SQT</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_SFMLView.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_SFMLView.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\QtApp\Actions\SpriteEditor.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_SpriteEditor.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_SpriteEditor.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Source Files\Application\Test.cpp">
@@ -666,6 +617,216 @@
     </ClCompile>
     <ClCompile Include="Source Files\Application\Brush\BrushUndo.cpp">
       <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SpriteList.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SpriteList.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_OpenSpriteEditor.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_OpenSpriteEditor.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\SpriteEditor\SpriteEditor.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SpriteEditor.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SpriteEditor.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\Menu\Actions\OpenAction.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\Menu\Actions\OpenSpriteEditor.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\Menu\Actions\SaveAction.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\Menu\Menu.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\SQT\SFMLView.cpp">
+      <Filter>Source Files\Widget\SQT</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\SQT\SQT.cpp">
+      <Filter>Source Files\Widget\SQT</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\SpriteEditor\SpriteList\SpriteList.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ListObject.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ListObject.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\SignalType\SignalListObject.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SignalListObject.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SignalListObject.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SignalList.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SignalList.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\SignalType\SignalList.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\SpriteEditor\SpriteList\SpriteFrame.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\Various\Layout\ListObject.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\Various\Layout\VerticalLayout.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\Various\Layout\VerticalList.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\Various\Layout\HorizontalLayout.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\Various\Layout\Layout.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Layout.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Layout.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\Various\Layout\GridLayout.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_List.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_List.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\Various\Layout\HorizontalList.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\Various\Layout\List.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\Various\Layout\GridList.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SpriteFrame.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SpriteFrame.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\Various\SpriteView\SpriteView.cpp">
+      <Filter>Source Files\Widget\Gui\LayerPanel\LayerList\SpriteView</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SpriteFrameList.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SpriteFrameList.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\SpriteEditor\SpriteList\SpriteFrameList.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\Various\FComboBox\FComboBox.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_FComboBox.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_FComboBox.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Action\Actions\RectList.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_RectList.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Action.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_RectList.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Action.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Action\Actions\Rect.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Rect.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Rect.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_AnimationController.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_AnimationController.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Animation\AnimationController.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Animation.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Animation.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Animation\Animation.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Curseur\Curseur.cpp">
+      <Filter>Source Files\Application\Curseur</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Curseur\CurseurUndo.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Animation\AnimationUndo.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Animation\AnimationRect\AnimationRect.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Animation\AnimationRect\AnimationRectUndo.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_AnimationRect.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_AnimationRect.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Widget\Various\Layout\ListUndo.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Application\Action\Actions\TransformAnim.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_TransformAnim.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_TransformAnim.cpp">
+      <Filter>Generated Files\Release</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -708,23 +869,14 @@
     <CustomBuild Include="Source Files\Widget\Various\Label\ViewLabel.h">
       <Filter>Source Files\Widget\Various\Label</Filter>
     </CustomBuild>
-    <CustomBuild Include="Source Files\Widget\Various\RFrame\RFrame.h">
-      <Filter>Source Files\Widget\Various\RFrame</Filter>
-    </CustomBuild>
     <CustomBuild Include="Source Files\Widget\Various\StateButton\State2Button.h">
       <Filter>Source Files\Widget\Various\StateButton</Filter>
     </CustomBuild>
     <CustomBuild Include="Source Files\Widget\Various\TabSFML\TabObject.h">
       <Filter>Source Files\Widget\Various\TabSFML</Filter>
     </CustomBuild>
-    <CustomBuild Include="Source Files\Widget\Various\VerticalLayout\VerticalLayout.h">
-      <Filter>Source Files\Widget\Various\VerticalLayout</Filter>
-    </CustomBuild>
     <CustomBuild Include="Source Files\Widget\Gui\ToolPanel\ToolPanel.h">
       <Filter>Source Files\Widget\Gui\ToolPanel</Filter>
-    </CustomBuild>
-    <CustomBuild Include="Source Files\Widget\Gui\LayerPanel\LayerList\SpriteView\SpriteView.h">
-      <Filter>Source Files\Widget\Gui\LayerPanel\LayerList\SpriteView</Filter>
     </CustomBuild>
     <CustomBuild Include="Source Files\Widget\Gui\LayerPanel\LayerList\LayerList.h">
       <Filter>Source Files\Widget\Gui\LayerPanel\LayerList</Filter>
@@ -807,22 +959,94 @@
     <CustomBuild Include="Source Files\Application\Background\Background.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="Source Files\QtApp\Actions\SaveAction.h">
+    <CustomBuild Include="SpriteList.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Widget\SpriteEditor\SpriteEditor.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="Source Files\QtApp\Actions\OpenAction.h">
+    <CustomBuild Include="SpriteEditor.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Widget\Menu\Actions\OpenAction.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="Source Files\QtApp\Menu\Menu.h">
+    <CustomBuild Include="Source Files\Widget\Menu\Actions\OpenSpriteEditor.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="Source Files\QtApp\SQT\SQT.h">
+    <CustomBuild Include="Source Files\Widget\Menu\Actions\SaveAction.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Widget\Menu\Menu.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Widget\SQT\SFMLView.h">
       <Filter>Source Files\Widget\SQT</Filter>
     </CustomBuild>
-    <CustomBuild Include="Source Files\QtApp\SQT\SFMLView.h">
+    <CustomBuild Include="Source Files\Widget\SQT\SQT.h">
       <Filter>Source Files\Widget\SQT</Filter>
     </CustomBuild>
-    <CustomBuild Include="Source Files\QtApp\Actions\SpriteEditor.h">
+    <CustomBuild Include="Source Files\Widget\SpriteEditor\SpriteList\SpriteList.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\SignalType\SignalListObject.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\SignalType\SignalList.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Widget\Various\Layout\ListObject.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Widget\Various\Layout\VerticalLayout.h">
+      <Filter>Source Files\Widget\Various\VerticalLayout</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Widget\Various\Layout\VerticalList.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Widget\Various\Layout\Layout.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Widget\Various\Layout\List.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Widget\SpriteEditor\SpriteList\SpriteFrame.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Widget\Various\SpriteView\SpriteView.h">
+      <Filter>Source Files\Widget\Gui\LayerPanel\LayerList\SpriteView</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Widget\SpriteEditor\SpriteList\SpriteFrameList.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="SpriteFrame.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="SpriteFrameList.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Widget\Various\FComboBox\FComboBox.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Application\Action\Actions\RectList.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Application\Action\Action.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Application\Action\Actions\Rect.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Application\Animation\AnimationController.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Application\Animation\Animation.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Application\Animation\AnimationRect\AnimationRect.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source Files\Application\Action\Actions\TransformAnim.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -838,9 +1062,6 @@
     </ClInclude>
     <ClInclude Include="Source Files\Application\Brush\Brushes\BrushSquareOutline.h">
       <Filter>Source Files\Application\Brush\Brushes</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Files\Application\Curseur\Curseur.h">
-      <Filter>Source Files\Application\Curseur</Filter>
     </ClInclude>
     <ClInclude Include="Source Files\Application\Tool\Tools\Aero.h">
       <Filter>Source Files\Application\Tool\Tools</Filter>
@@ -944,9 +1165,6 @@
     <ClInclude Include="Source Files\Application\Copy\CopyUndo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source Files\Application\Curseur\CurseurUndo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_InfoPanel_copy.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
@@ -960,6 +1178,45 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source Files\Application\Brush\BrushUndo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_SpriteList.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_SpriteEditor.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\Widget\Various\Layout\HorizontalLayout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\Widget\Various\Layout\GridLayout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\Widget\Various\Layout\HorizontalList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\Widget\Various\Layout\GridList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_SpriteFrame.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_SpriteFrameList.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\Application\Curseur\Curseur.h">
+      <Filter>Source Files\Application\Curseur</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\Application\Curseur\CurseurUndo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\Application\Animation\AnimationUndo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\Application\Animation\AnimationRect\AnimationRectUndo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\Widget\Various\Layout\ListUndo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

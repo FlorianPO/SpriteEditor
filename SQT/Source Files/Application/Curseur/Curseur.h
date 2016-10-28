@@ -20,11 +20,11 @@ public:
 // METHODS
 public:
 	void display();
-	void setPosition(sf::Vector2f pos);
+	void setPosition(const sf::Vector2f& pos);
 
-	inline sf::Vector2f getPosition() { return position; }
-	void gerer(sf::Sprite* sprite);
-	void init(sf::Sprite* sprite);
+	inline const sf::Vector2f& getPosition() const { return position; }
+	void gerer(const sf::Sprite& sprite);
+	void init(sf::Sprite& sprite);
 
 // MEMBERS
 private:

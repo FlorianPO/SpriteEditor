@@ -12,6 +12,6 @@ public:
 
 // METHODS
 protected:
-	virtual void carre(float rx, float ry, sf::Image& image) override;
+	virtual void carre(sf::Image& image) override;
 };
 

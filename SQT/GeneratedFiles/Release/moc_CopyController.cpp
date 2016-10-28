@@ -32,9 +32,9 @@ static const qt_meta_stringdata_CopyController_t qt_meta_stringdata_CopyControll
 QT_MOC_LITERAL(0, 0, 14), // "CopyController"
 QT_MOC_LITERAL(1, 15, 11), // "copyCreated"
 QT_MOC_LITERAL(2, 27, 0), // ""
-QT_MOC_LITERAL(3, 28, 5), // "Copy*"
-QT_MOC_LITERAL(4, 34, 11), // "copyDeleted"
-QT_MOC_LITERAL(5, 46, 11), // "copyDropped"
+QT_MOC_LITERAL(3, 28, 5), // "Copy&"
+QT_MOC_LITERAL(4, 34, 11), // "copyDropped"
+QT_MOC_LITERAL(5, 46, 11), // "copyDeleted"
 QT_MOC_LITERAL(6, 58, 4), // "copy"
 QT_MOC_LITERAL(7, 63, 3), // "cut"
 QT_MOC_LITERAL(8, 67, 5), // "paste"
@@ -48,8 +48,8 @@ QT_MOC_LITERAL(15, 133, 9), // "applyCopy"
 QT_MOC_LITERAL(16, 143, 8) // "dropCopy"
 
     },
-    "CopyController\0copyCreated\0\0Copy*\0"
-    "copyDeleted\0copyDropped\0copy\0cut\0paste\0"
+    "CopyController\0copyCreated\0\0Copy&\0"
+    "copyDropped\0copyDeleted\0copy\0cut\0paste\0"
     "createCopy\0sf::Image\0image\0sf::Vector2f\0"
     "position\0deleteCopy\0applyCopy\0dropCopy"
 };
@@ -79,11 +79,11 @@ static const uint qt_meta_data_CopyController[] = {
        8,    0,   90,    2, 0x0a /* Public */,
        9,    2,   91,    2, 0x0a /* Public */,
       14,    1,   96,    2, 0x0a /* Public */,
-      14,    0,   99,    2, 0x2a /* Public | MethodCloned */,
+      14,    0,   99,    2, 0x0a /* Public */,
       15,    1,  100,    2, 0x0a /* Public */,
-      15,    0,  103,    2, 0x2a /* Public | MethodCloned */,
+      15,    0,  103,    2, 0x0a /* Public */,
       16,    1,  104,    2, 0x0a /* Public */,
-      16,    0,  107,    2, 0x2a /* Public | MethodCloned */,
+      16,    0,  107,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    2,
@@ -111,18 +111,18 @@ void CopyController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         CopyController *_t = static_cast<CopyController *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->copyCreated((*reinterpret_cast< Copy*(*)>(_a[1]))); break;
-        case 1: _t->copyDeleted((*reinterpret_cast< Copy*(*)>(_a[1]))); break;
-        case 2: _t->copyDropped((*reinterpret_cast< Copy*(*)>(_a[1]))); break;
+        case 0: _t->copyCreated((*reinterpret_cast< Copy(*)>(_a[1]))); break;
+        case 1: _t->copyDropped((*reinterpret_cast< Copy(*)>(_a[1]))); break;
+        case 2: _t->copyDeleted((*reinterpret_cast< Copy(*)>(_a[1]))); break;
         case 3: _t->copy(); break;
         case 4: _t->cut(); break;
         case 5: _t->paste(); break;
-        case 6: _t->createCopy((*reinterpret_cast< const sf::Image(*)>(_a[1])),(*reinterpret_cast< sf::Vector2f(*)>(_a[2]))); break;
-        case 7: _t->deleteCopy((*reinterpret_cast< Copy*(*)>(_a[1]))); break;
+        case 6: _t->createCopy((*reinterpret_cast< const sf::Image(*)>(_a[1])),(*reinterpret_cast< const sf::Vector2f(*)>(_a[2]))); break;
+        case 7: _t->deleteCopy((*reinterpret_cast< Copy(*)>(_a[1]))); break;
         case 8: _t->deleteCopy(); break;
-        case 9: _t->applyCopy((*reinterpret_cast< Copy*(*)>(_a[1]))); break;
+        case 9: _t->applyCopy((*reinterpret_cast< Copy(*)>(_a[1]))); break;
         case 10: _t->applyCopy(); break;
-        case 11: _t->dropCopy((*reinterpret_cast< Copy*(*)>(_a[1]))); break;
+        case 11: _t->dropCopy((*reinterpret_cast< Copy(*)>(_a[1]))); break;
         case 12: _t->dropCopy(); break;
         default: ;
         }
@@ -130,20 +130,20 @@ void CopyController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (CopyController::*_t)(Copy * );
+            typedef void (CopyController::*_t)(Copy & ) const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&CopyController::copyCreated)) {
                 *result = 0;
             }
         }
         {
-            typedef void (CopyController::*_t)(Copy * );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&CopyController::copyDeleted)) {
+            typedef void (CopyController::*_t)(Copy & ) const;
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&CopyController::copyDropped)) {
                 *result = 1;
             }
         }
         {
-            typedef void (CopyController::*_t)(Copy * );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&CopyController::copyDropped)) {
+            typedef void (CopyController::*_t)(Copy & ) const;
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&CopyController::copyDeleted)) {
                 *result = 2;
             }
         }
@@ -187,23 +187,23 @@ int CopyController::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void CopyController::copyCreated(Copy * _t1)
+void CopyController::copyCreated(Copy & _t1)const
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+    QMetaObject::activate(const_cast< CopyController *>(this), &staticMetaObject, 0, _a);
 }
 
 // SIGNAL 1
-void CopyController::copyDeleted(Copy * _t1)
+void CopyController::copyDropped(Copy & _t1)const
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 1, _a);
+    QMetaObject::activate(const_cast< CopyController *>(this), &staticMetaObject, 1, _a);
 }
 
 // SIGNAL 2
-void CopyController::copyDropped(Copy * _t1)
+void CopyController::copyDeleted(Copy & _t1)const
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 2, _a);
+    QMetaObject::activate(const_cast< CopyController *>(this), &staticMetaObject, 2, _a);
 }
 QT_END_MOC_NAMESPACE

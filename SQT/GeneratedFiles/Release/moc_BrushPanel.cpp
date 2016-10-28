@@ -32,11 +32,11 @@ static const qt_meta_stringdata_BrushPanel_t qt_meta_stringdata_BrushPanel = {
 QT_MOC_LITERAL(0, 0, 10), // "BrushPanel"
 QT_MOC_LITERAL(1, 11, 12), // "brushCreated"
 QT_MOC_LITERAL(2, 24, 0), // ""
-QT_MOC_LITERAL(3, 25, 6), // "Brush*"
+QT_MOC_LITERAL(3, 25, 6), // "Brush&"
 QT_MOC_LITERAL(4, 32, 5) // "brush"
 
     },
-    "BrushPanel\0brushCreated\0\0Brush*\0brush"
+    "BrushPanel\0brushCreated\0\0Brush&\0brush"
 };
 #undef QT_MOC_LITERAL
 
@@ -68,7 +68,7 @@ void BrushPanel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         BrushPanel *_t = static_cast<BrushPanel *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->brushCreated((*reinterpret_cast< Brush*(*)>(_a[1]))); break;
+        case 0: _t->brushCreated((*reinterpret_cast< Brush(*)>(_a[1]))); break;
         default: ;
         }
     }

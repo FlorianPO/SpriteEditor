@@ -20,7 +20,7 @@ private:
 		std::function<void(void)> function;
 		int ntimes = -1;
 
-		shortcut(std::function<void(void)> f, int n) {
+		shortcut(const std::function<void(void)>& f, int n) {
 			this->function = f;
 			this->ntimes = n;
 		}
@@ -44,24 +44,25 @@ public:
 	SHORTCUT_ID createShortcut(const QKeySequence& seq, const QObject* receiver, const char* slot, int arg);
 	SHORTCUT_ID createShortcut(const QKeySequence& seq, const QObject* receiver, const char* slot);
 	void removeShortcut(SHORTCUT_ID id);
-	void removeShortcut(std::vector<SHORTCUT_ID>& id_list);
+	void removeShortcut(const std::vector<SHORTCUT_ID>& id_list);
 
-	bool coreShortcutEnabled() { return core_shortcut_enabled; }
-	SHORTCUT_CORE_ID createCoreShortcut(const nInt::key_combinaison& keys, std::function<void(void)> function, int ntimes=-1);
-	SHORTCUT_CORE_ID createCoreShortcutOnce(const nInt::key_combinaison& keys, std::function<void(void)> function); // A shortcut can be called once, handles multiple definitions
+	bool coreShortcutEnabled() const { return core_shortcut_enabled; }
+	SHORTCUT_CORE_ID createCoreShortcut(const nInt::key_combinaison& keys, const std::function<void(void)>& function, int ntimes=-1);
+	SHORTCUT_CORE_ID createCoreShortcutOnce(const nInt::key_combinaison& keys, const std::function<void(void)>& function); // A shortcut can be called once, handles multiple definitions
 	void removeCoreShortcut(SHORTCUT_CORE_ID id);
-	void removeCoreShortcut(std::vector<SHORTCUT_CORE_ID>& id_list);
+	void removeCoreShortcut(const std::vector<SHORTCUT_CORE_ID>& id_list);
 
 // SIGNALS SLOTS
 	public slots:
 		void enableCoreShortcut();
 		void disableCoreShortcut();
-		void checkKeyCombinaison(nInt::key_combinaison* keys);
+		void checkKeyCombinaison(const nInt::key_combinaison& keys);
 
 // MEMBERS
 private:
 	QSignalMapper* mapper;
 	QHash<SHORTCUT_ID, QShortcut*> shortcut_hash;
+	QHash<SHORTCUT_ID, std::vector<QShortcut*>> sh_temp;
 	int ID;
 	bool core_shortcut_enabled;
 
@@ -91,5 +92,5 @@ private:
 	}
 
 	std::unordered_map<_HashKeysCode, shortcut, HashFn, EqualFn> shortcut_core_hash;
-	std::unordered_map<_HashKeysCode, shortcut, HashFn, EqualFn> sch_temp; // stores shortcut in double
+	std::unordered_map<_HashKeysCode, std::vector<shortcut>, HashFn, EqualFn> sch_temp; // stores shortcut in double
 };

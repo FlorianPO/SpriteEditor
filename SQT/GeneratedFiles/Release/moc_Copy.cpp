@@ -103,19 +103,19 @@ void Copy::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (Copy::*_t)(sf::Vector2f );
+            typedef void (Copy::*_t)(sf::Vector2f ) const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Copy::copyMoved)) {
                 *result = 0;
             }
         }
         {
-            typedef void (Copy::*_t)(sf::Vector2f );
+            typedef void (Copy::*_t)(sf::Vector2f ) const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Copy::copyScaled)) {
                 *result = 1;
             }
         }
         {
-            typedef void (Copy::*_t)(float );
+            typedef void (Copy::*_t)(float ) const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Copy::copyRotated)) {
                 *result = 2;
             }
@@ -160,23 +160,23 @@ int Copy::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void Copy::copyMoved(sf::Vector2f _t1)
+void Copy::copyMoved(sf::Vector2f _t1)const
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+    QMetaObject::activate(const_cast< Copy *>(this), &staticMetaObject, 0, _a);
 }
 
 // SIGNAL 1
-void Copy::copyScaled(sf::Vector2f _t1)
+void Copy::copyScaled(sf::Vector2f _t1)const
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 1, _a);
+    QMetaObject::activate(const_cast< Copy *>(this), &staticMetaObject, 1, _a);
 }
 
 // SIGNAL 2
-void Copy::copyRotated(float _t1)
+void Copy::copyRotated(float _t1)const
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 2, _a);
+    QMetaObject::activate(const_cast< Copy *>(this), &staticMetaObject, 2, _a);
 }
 QT_END_MOC_NAMESPACE

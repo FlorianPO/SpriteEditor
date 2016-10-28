@@ -40,7 +40,7 @@ void InputController::reset() {
 	}
 }
 
-void InputController::setMousePosition(sf::Vector2i screened, bool dump_ex, bool set_pointer) {
+void InputController::setMousePosition(const sf::Vector2i& screened, bool dump_ex, bool set_pointer) {
 	if (set_pointer)
 		sf::Mouse::setPosition(screened, APP->getWindow());
 
@@ -75,7 +75,7 @@ void InputController::setMousePosition(sf::Vector2i screened, bool dump_ex, bool
 	emit posPixelYChanged(pixel.y);
 }
 
-sf::Vector2f InputController::screenToPos(sf::Vector2i screen_position) {
+sf::Vector2f InputController::screenToPos(const sf::Vector2i& screen_position) const {
 	sf::Vector2f vector;
 	vector.x = screen_position.x / CAMERA->getZoom();
 	vector.y = screen_position.y / CAMERA->getZoom();
@@ -84,7 +84,7 @@ sf::Vector2f InputController::screenToPos(sf::Vector2i screen_position) {
 	return vector;
 }
 
-sf::Vector2i InputController::posToScreen(sf::Vector2f position) {
+sf::Vector2i InputController::posToScreen(sf::Vector2f position) const {
 	sf::Vector2i vector;
 	position -= CAMERA->getPosition(nStd::UP_LEFT);
 	vector.x = position.x * CAMERA->getZoom();
@@ -93,7 +93,7 @@ sf::Vector2i InputController::posToScreen(sf::Vector2f position) {
 	return vector;
 }
 
-bool InputController::isPressMode(nInt::qkey code, nInt::PressMode press_mode) {
+bool InputController::isPressMode(nInt::qkey code, nInt::PressMode press_mode) const {
 	switch (press_mode) {
 		case PRESSED:		return pressed(code);
 		case RELEASED:		return released(code);
@@ -106,20 +106,20 @@ bool InputController::isPressMode(nInt::qkey code, nInt::PressMode press_mode) {
 	}
 }
 
-bool InputController::isSpecial() {
+bool InputController::isSpecial() const {
 	return pressed(Qt::Key_Control)
 		|| pressed(Qt::Key_Shift)
 		|| pressed(Qt::Key_Alt);
 }
 
-bool InputController::isZQSD() {
+bool InputController::isZQSD() const {
 	return pressed(Qt::Key_Z)
 		|| pressed(Qt::Key_Q)
 		|| pressed(Qt::Key_S)
 		|| pressed(Qt::Key_D);
 }
 
-nInt::press_code InputController::getPressCode(nInt::qkey code) {
+nInt::press_code InputController::getPressCode(nInt::qkey code) const {
 	Key_struct key = hash[code];
 
 	int return_value = 0;
@@ -177,9 +177,25 @@ bool InputController::gerer() {
 	}
 
 	auto list = lsmooth.getAvailable();
-	FOR_I (list.size())
-		pos_smoothed.push_back(list[i]);
+	FOR_I (list.size()) {
+		sf::Vector2f vect = list[i];
 
+		/*float float_x = Fonction::floatPart(list[i].x);
+		float float_y = Fonction::floatPart(list[i].y);
+
+		if (std::abs(float_x) >= 0.750)
+			vect.x = std::floor(vect.x) + float_x > 0 ? 1 : -1;
+		else if (std::abs(float_x) <= 0.250)
+			vect.x = std::floor(vect.x);
+
+		if (std::abs(float_y) >= 0.750)
+			vect.y = std::floor(vect.y) + float_y > 0 ? 1 : -1;
+		else if (std::abs(float_x) <= 0.250)
+			vect.y = std::floor(vect.y);*/
+
+		pos_smoothed.push_back(vect);
+	}
+		
 	bindZQSD();
 	
 	if (SHORTCUT_CONTROLLER->coreShortcutEnabled() && key_pressed.size() > 0) {
@@ -194,14 +210,14 @@ bool InputController::gerer() {
 
 		FOR_I (key_pressed.size()) {
 			if (key_pressed[i] < 0x01000020 || key_pressed[i] > 0x01000023) {
-				emit combinaisonPressed(&nInt::keyCombinaison(key_pressed[i]+modifier, getPressCode(key_pressed[i])));
+				emit combinaisonPressed(nInt::keyCombinaison(key_pressed[i]+modifier, getPressCode(key_pressed[i])));
 				if (key_pressed[i] == WHEEL_UP || key_pressed[i] == WHEEL_DOWN) { // WHEEL_UP WHEEL_DOWN
 					key_pressed.erase(key_pressed.begin() + i);
 					i--;
 				}
 			}
 			else // Qt::Key_Control Qt::Key_Shift Qt::Key_Alt 
-				emit combinaisonPressed(&nInt::keyCombinaison(key_pressed[i], getPressCode(key_pressed[i])));
+				emit combinaisonPressed(nInt::keyCombinaison(key_pressed[i], getPressCode(key_pressed[i])));
 		}
 	}
 

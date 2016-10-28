@@ -2,15 +2,11 @@
 
 #include "stdenum.h"
 #include "Source Files/Application/Layer/LayerController.h"
-class Layer; // Forward declaration
+class Layer;
 
 #define INIT_CAMERA_CONTROLLER CameraController::createInstance();
 #define CAMERA_CONTROLLER CameraController::getInstance()
 #define CAMERA CAMERA_CONTROLLER
-
-#define MAX_ZOOM 64.f
-#define MIN_ZOOM 0.125f
-#define MOVE_FACTOR 10.f
  
 class CameraController : public QObject, public sf::View
 {
@@ -28,21 +24,21 @@ public:
 // MEMBERS
 public:
 	void updateView();
-	void centerOnLayer(Layer* layer=LAYER);
+	void centerOnLayer(const Layer& layer);
 	void follow(const sf::Vector2f& pos);
 
-	void moveCamera(sf::Vector2f delta_move);
+	void moveCamera(const sf::Vector2f& delta_move);
 	void moveX(float x);
 	void moveY(float y);
-	sf::Vector2f getPosition(nStd::Corner corner);
+	sf::Vector2f getPosition(nStd::Corner corner) const;
 
 	void zoomCamera(float factor, bool centered_on_mouse=true);
-	inline float getZoom() { return zoom_factor; }
+	inline float getZoom() const { return zoom_factor; }
 
 // SIGNALS SLOTS
 	signals:
-		void moved(sf::Vector2f position);
-		void zoomed(float zoom_factor);
+		void moved(sf::Vector2f position) const;
+		void zoomed(float zoom_factor) const;
 
 // MEMBERS
 private:

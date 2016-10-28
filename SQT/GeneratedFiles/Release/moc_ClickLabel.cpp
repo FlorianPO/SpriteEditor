@@ -95,19 +95,19 @@ void ClickLabel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (ClickLabel::*_t)(int );
+            typedef void (ClickLabel::*_t)(int ) const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ClickLabel::valueChanged)) {
                 *result = 0;
             }
         }
         {
-            typedef void (ClickLabel::*_t)();
+            typedef void (ClickLabel::*_t)() const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ClickLabel::focusIn)) {
                 *result = 1;
             }
         }
         {
-            typedef void (ClickLabel::*_t)();
+            typedef void (ClickLabel::*_t)() const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ClickLabel::focusOut)) {
                 *result = 2;
             }
@@ -152,21 +152,21 @@ int ClickLabel::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void ClickLabel::valueChanged(int _t1)
+void ClickLabel::valueChanged(int _t1)const
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+    QMetaObject::activate(const_cast< ClickLabel *>(this), &staticMetaObject, 0, _a);
 }
 
 // SIGNAL 1
-void ClickLabel::focusIn()
+void ClickLabel::focusIn()const
 {
-    QMetaObject::activate(this, &staticMetaObject, 1, Q_NULLPTR);
+    QMetaObject::activate(const_cast< ClickLabel *>(this), &staticMetaObject, 1, Q_NULLPTR);
 }
 
 // SIGNAL 2
-void ClickLabel::focusOut()
+void ClickLabel::focusOut()const
 {
-    QMetaObject::activate(this, &staticMetaObject, 2, Q_NULLPTR);
+    QMetaObject::activate(const_cast< ClickLabel *>(this), &staticMetaObject, 2, Q_NULLPTR);
 }
 QT_END_MOC_NAMESPACE

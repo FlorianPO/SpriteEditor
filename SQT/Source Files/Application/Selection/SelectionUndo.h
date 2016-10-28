@@ -8,24 +8,24 @@ public:
 	SelecUndo(void* instance) { this->instance = instance; }
 	~SelecUndo() {}
 
-	virtual sf::Image* getImage();
-	virtual sf::Vector2f getPosition();
-	virtual nSet::positionned_olines* getLines();
-	virtual bool isInverted();
+	virtual sf::Image* getImage() const;
+	virtual sf::Vector2f getPosition() const;
+	virtual nSet::positionned_olines* getLines() const;
+	virtual bool isInverted() const;
 };
 
 class SelecUpdated : public SelecUndo
 {
 public:
-	SelecUpdated(void* instance, sf::Image* image, sf::Vector2f position, nSet::positionned_olines* oriented_lines, bool inverted);
+	SelecUpdated(void* instance, sf::Image& image, sf::Vector2f position, nSet::positionned_olines& oriented_lines, bool inverted);
 	~SelecUpdated();
 	void undo() override;
 	void redo() override;
 
-	sf::Image* getImage() override { return image; }
-	sf::Vector2f getPosition() override	{ return position; }
-	nSet::positionned_olines* getLines() override { return plines; }
-	bool isInverted() override { return inverted; }
+	sf::Image* getImage() const override { return image; }
+	sf::Vector2f getPosition() const override	{ return position; }
+	nSet::positionned_olines* getLines() const override { return plines; }
+	bool isInverted() const override { return inverted; }
 private:
 	sf::Image* image;
 	sf::Vector2f position;
@@ -36,12 +36,12 @@ private:
 class SelecMoved : public SelecUndo
 {
 public:
-	SelecMoved(void* instance, sf::Vector2f position);
+	SelecMoved(void* instance, const sf::Vector2f& position);
 	~SelecMoved() {}
 	void undo() override;
 	void redo() override;
 
-	sf::Vector2f getPosition() override	{ return position; }
+	sf::Vector2f getPosition() const override { return position; }
 private:
 	sf::Vector2f position;
 };
@@ -54,22 +54,22 @@ public:
 	void undo() override;
 	void redo() override;
 
-	sf::Image* getImage() override { return NULL; }
-	sf::Vector2f getPosition() override	{ return sf::Vector2f(); }
-	nSet::positionned_olines* getLines() override { return NULL; }
-	bool isInverted() override { return false; }
+	sf::Image* getImage() const override { return NULL; }
+	sf::Vector2f getPosition() const override	{ return sf::Vector2f(); }
+	nSet::positionned_olines* getLines() const override { return NULL; }
+	bool isInverted() const override { return false; }
 };
 
 class SelecInverted : public SelecUndo
 {
 public:
-	SelecInverted(void* instance, sf::Image* image, bool inverted);
+	SelecInverted(void* instance, sf::Image& image, bool inverted);
 	~SelecInverted();
 	void undo() override;
 	void redo() override;
 
-	sf::Image* getImage() override { return image; }
-	bool isInverted() override { return inverted; }
+	sf::Image* getImage() const override { return image; }
+	bool isInverted() const override { return inverted; }
 private:
 	sf::Image* image;
 	bool inverted;

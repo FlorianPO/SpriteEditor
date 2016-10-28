@@ -1,21 +1,21 @@
 #pragma once
 
 #include "stdenum.h"
-#include "Source Files/QtApp/SQT/SQT.h"
+#include "Source Files/Widget/SQT/SQT.h"
 class TabObject; // Foward declaration
 
 class TabSFML : public SQT
 {
 // CONSTRUCTOR
 public:
-	TabSFML(QWidget* Parent, const QSize& Size=QSize());
+	TabSFML(QWidget* parent, const QSize& size);
 	~TabSFML() {}
 
 // METHODS
 public:
-	void add(TabObject* tab_object); //Add at the end of list
-	void add(TabObject* tab_object, int index); //Insert at a specific index 
-	void remove(TabObject* tab_object);
+	void add(TabObject& tab_object); //Add at the end of list
+	void add(TabObject& tab_object, int index); //Insert at a specific index 
+	void remove(TabObject& tab_object);
 	void remove(int index);
 private:
 	void reOrder();

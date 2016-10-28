@@ -20,7 +20,7 @@ private:
 
 // MEMBERS
 private:
-	sf::Image* test_image;
+	const sf::Image* test_image;
 	sf::Image bit_image;
 };
 

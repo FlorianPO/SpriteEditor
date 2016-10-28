@@ -4,13 +4,12 @@
 #include "Source Files/Widget/Various/Label/ClickLabel.h"
 #include "Source Files/SignalType/SignalColor.h"
 
-ColorPanel::ColorPanel(QWidget *parent, const QPoint& position) : QWidget(parent) {
-	move(position);
+ColorPanel::ColorPanel(QWidget *parent) : QWidget(parent) {
 	ui.setupUi(this);
 	hide();
 
 	// COLOR1
-	C1 = COLOR_CONTROLLER->getSColor1();
+	C1 = &COLOR_CONTROLLER->getSColor1();
 	ui.Color1->setAutoFillBackground(true);
 	QObject::connect(C1, SIGNAL(colorChanged()), this, SLOT(color1Changed()));
 
@@ -36,7 +35,7 @@ ColorPanel::ColorPanel(QWidget *parent, const QPoint& position) : QWidget(parent
 	QObject::connect(a1, SIGNAL(valueChanged(int)), C1, SLOT(setA(int)));
 
 	// COLOR2
-	C2 = COLOR_CONTROLLER->getSColor2();
+	C2 = &COLOR_CONTROLLER->getSColor2();
 	ui.Color2->setAutoFillBackground(true);
 	QObject::connect(C2, SIGNAL(colorChanged()), this, SLOT(color2Changed()));
 

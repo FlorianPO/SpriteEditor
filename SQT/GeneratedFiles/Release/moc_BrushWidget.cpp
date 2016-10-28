@@ -84,7 +84,7 @@ void BrushWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         BrushWidget *_t = static_cast<BrushWidget *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->sizeChanged((*reinterpret_cast< sf::Vector2i(*)>(_a[1]))); break;
+        case 0: _t->sizeChanged((*reinterpret_cast< const sf::Vector2i(*)>(_a[1]))); break;
         case 1: _t->sizeXChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 2: _t->sizeYChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 3: _t->selected(); break;

@@ -15,7 +15,7 @@ public:
 // METHODS
 public:
 	void use() override;
-	static void full_dessiner(sf::Color color);
+	static void full_dessiner(const sf::Color& color, bool additive);
 private:
 	void dessiner();
 	void linearFill(int x, int y);
@@ -23,7 +23,7 @@ private:
 // MEMBERS
 private:
 	sf::Color fill_color;
-	sf::Image* test_image;
+	const sf::Image* test_image;
 	sf::Image bit_image;
 	sf::Image image;
 

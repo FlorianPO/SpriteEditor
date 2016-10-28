@@ -14,16 +14,10 @@ public:
 public:
 	void use() override;
 private:
-	void selec_rect(sf::Vector2i pos_ini, sf::Vector2i pos);
+	void selec_rect(const sf::Vector2i& pos_ini, const sf::Vector2i& pos);
 
 // MEMBERS
 private:
 	sf::Vector2i ex_center;
-
-// UNDO
-public:
-	friend class SelecUpdated;
-	friend class SelecMoved;
-	friend class SelecDeleted;
 };
 

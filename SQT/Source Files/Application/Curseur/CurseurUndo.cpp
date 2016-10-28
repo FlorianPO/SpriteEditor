@@ -4,7 +4,7 @@
 
 using namespace nUnk;
 
-CurseurUndo::CurseurUndo(sf::Vector2f pos, sf::Vector2f ex_pos) {
+CurseurUndo::CurseurUndo(const sf::Vector2f& pos, const sf::Vector2f& ex_pos) {
 	this->pos = pos;
 	this->ex_pos = ex_pos;
 }

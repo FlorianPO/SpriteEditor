@@ -7,31 +7,31 @@ class Copy : public QObject
 	Q_OBJECT
 // CONSTRUCTOR
 public:
-	Copy(const sf::Image& image, sf::Vector2f position);
+	Copy(const sf::Image& image, const sf::Vector2f& position);
 	~Copy() {}
 
 // METHODS
 public:
-	inline const sf::Sprite& getSprite() { return sprite_copy; }
-	inline const sf::Texture& getTexture() { return *sprite_copy.getTexture(); }
+	inline const sf::Sprite& getSprite() const { return sprite_copy; }
+	inline const sf::Texture& getTexture() const { return *sprite_copy.getTexture(); }
 
-	inline sf::Vector2f getPosition() { return sprite_copy.getPosition(); }
-	inline sf::Vector2f getGlobalPosition() { return POS_RECT(sprite_copy.getGlobalBounds()); }
-	inline sf::FloatRect getGlobalBounds() { return sprite_copy.getGlobalBounds(); }
-	void setPosition(sf::Vector2f pos);
-	void setGlobalPosition(sf::Vector2f pos);
-	void translate(sf::Vector2f translation);
+	inline const sf::Vector2f& getPosition() const { return sprite_copy.getPosition(); }
+	inline sf::Vector2f getGlobalPosition() const { return POS_RECT(sprite_copy.getGlobalBounds()); }
+	inline sf::FloatRect getGlobalBounds() const { return sprite_copy.getGlobalBounds(); }
+	void setPosition(const sf::Vector2f& pos);
+	void setGlobalPosition(const sf::Vector2f& pos);
+	void translate(const sf::Vector2f& translation);
 
-	void setScale(sf::Vector2f scale);
+	void setScale(const sf::Vector2f& scale);
 	void setRotation(float rotation);
-	void setOrigin(sf::Vector2f origin);
-
+	void setOrigin(const sf::Vector2f& origin);
+	
 	void display();
 	void displayLines();
 
 	// TRANSFORMATIONS
 	void move();
-	void keyMove(int x, int y);
+	void keyMove(const sf::Vector2f& delta);
 	void grand();
 	void rotation();
 	void flip();
@@ -41,11 +41,11 @@ private:
 
 // SIGNALS SLOTS
 	public slots:
-		void emitStatus();
+		void emitStatus() const;
 	signals:
-		void copyMoved(sf::Vector2f topLeftPos);
-		void copyScaled(sf::Vector2f size);
-		void copyRotated(float angle);
+		void copyMoved(sf::Vector2f topLeftPos) const;
+		void copyScaled(sf::Vector2f size) const;
+		void copyRotated(float angle) const;
 
 // MEMBERS
 private:

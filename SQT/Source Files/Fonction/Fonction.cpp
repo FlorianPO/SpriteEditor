@@ -5,8 +5,8 @@
 #include "Source Files/Application/Layer/Layer.h"
 #include "Source Files/Application/Resource/ResourceController.h"
 
-bool Fonction::mouseOnSprite(const sf::Sprite* sprite) {
-	sf::FloatRect rect = sprite->getGlobalBounds();
+bool Fonction::mouseOnSprite(const sf::Sprite& sprite) {
+	sf::FloatRect rect = sprite.getGlobalBounds();
 	return rect.contains(INPUT->getPosition());
 }
 
@@ -16,16 +16,16 @@ bool Fonction::mouseOnSprite(const sf::Sprite& sprite, const sf::RenderWindow& f
 	return rect.contains(ARG_VECTOR(pos));
 }
 
-bool Fonction::mouseOnRect(sf::FloatRect rect) {
+bool Fonction::mouseOnRect(const sf::FloatRect& rect) {
 	return rect.contains(INPUT->getPosition());
 }
 
-bool Fonction::mouseOnRect(sf::FloatRect rect, const sf::RenderWindow& fenetre) {
+bool Fonction::mouseOnRect(const sf::FloatRect& rect, const sf::RenderWindow& fenetre) {
 	sf::Vector2i pos = sf::Mouse::getPosition(fenetre);
 	return rect.contains(ARG_VECTOR(pos));
 }
 
-Fonction::sl_PR Fonction::selecPointRect(sf::Vector2f pos_ini, sf::Vector2f pos, int only, double angle, float seuil) {
+Fonction::sl_PR Fonction::selecPointRect(const sf::Vector2f& pos_ini, const sf::Vector2f& pos, int only, double angle, float seuil) {
 	if (pos == pos_ini)
 		return {sf::Vector2f(), -1};
 	float a = Fonction::norme(pos_ini - pos);
@@ -70,8 +70,8 @@ Fonction::sl_PR Fonction::selecPointRect(sf::Vector2f pos_ini, sf::Vector2f pos,
 	return {sf::Vector2f(), -1};
 }
 
-sf::Vector2f* Fonction::selecPoint(sf::Sprite* sprite, sf::Vector2f pos, float seuil) {
-	sf::FloatRect rect = sprite->getGlobalBounds();
+std::shared_ptr<sf::Vector2f> Fonction::selecPoint(const sf::Sprite& sprite, const sf::Vector2f& pos, float seuil) {
+	sf::FloatRect rect = sprite.getGlobalBounds();
 	sf::Vector2f points[9];
 	points[0] = topLeftCorner(rect);
 	points[1] = topRightCorner(rect);
@@ -79,19 +79,19 @@ sf::Vector2f* Fonction::selecPoint(sf::Sprite* sprite, sf::Vector2f pos, float s
 	points[3] = bottomLeftCorner(rect);
 	points[4] = centerCorner(rect);
 
-	sf::FloatRect rect2 = sf::FloatRect(0, 0, sprite->getTextureRect().width * sprite->getScale().x, sprite->getTextureRect().height * sprite->getScale().y);
+	sf::FloatRect rect2 = sf::FloatRect(0, 0, sprite.getTextureRect().width * sprite.getScale().x, sprite.getTextureRect().height * sprite.getScale().y);
 	points[5] = sf::Vector2f(0, 0);
 	points[6] = sf::Vector2f(rect2.width, 0);
 	points[7] = sf::Vector2f(0, rect2.height);
 	points[8] = sf::Vector2f(rect2.width, rect2.height);
 
-	float angle = -sprite->getRotation() / 180 * PI;
+	float angle = -sprite.getRotation() / 180 * PI;
 	for (int i = 5; i < 9; i++) {
-		sf::Vector2f temp = points[i] - sf::Vector2f(sprite->getOrigin().x * sprite->getScale().x, sprite->getOrigin().y * sprite->getScale().y);
+		sf::Vector2f temp = points[i] - sf::Vector2f(sprite.getOrigin().x * sprite.getScale().x, sprite.getOrigin().y * sprite.getScale().y);
 		points[i].x = temp.x*std::cos(angle) + temp.y*std::sin(angle);
 		points[i].y = temp.y*std::cos(angle) - temp.x*std::sin(angle);
 
-		points[i] += sprite->getPosition();
+		points[i] += sprite.getPosition();
 	}
 
 	float distance[9];
@@ -103,74 +103,74 @@ sf::Vector2f* Fonction::selecPoint(sf::Sprite* sprite, sf::Vector2f pos, float s
 		if (distance[i] < distance[j])
 			j = i;
 	if (distance[j] < seuil)
-		return new sf::Vector2f(points[j]);
-	return NULL;
+		return std::make_shared<sf::Vector2f>(points[j]);
+	return std::shared_ptr<sf::Vector2f>(NULL);
 }
 
-bool Fonction::onCalque(sf::Vector2i vect, const sf::Image& image_courant) {
-	return vect.x >= 0 && vect.x < image_courant.getSize().x && vect.y >= 0 && vect.y < image_courant.getSize().y;
+bool Fonction::onCalque(const sf::Vector2i& pos, const sf::Image& image_courant) {
+	return pos.x >= 0 && pos.x < image_courant.getSize().x && pos.y >= 0 && pos.y < image_courant.getSize().y;
 }
 
-bool Fonction::onCalque(sf::Vector2i vect, const sf::Texture& texture_courant) {
-	return vect.x >= 0 && vect.x < texture_courant.getSize().x && vect.y >= 0 && vect.y < texture_courant.getSize().y;
+bool Fonction::onCalque(const sf::Vector2i& pos, const sf::Texture& texture_courant) {
+	return pos.x >= 0 && pos.x < texture_courant.getSize().x && pos.y >= 0 && pos.y < texture_courant.getSize().y;
 }
 
-sf::Color Fonction::getColor(sf::Vector2i vect, const sf::Image& image_courant) {
-	if (onCalque(vect, image_courant))
-		return image_courant.getPixel(ARG_VECTOR(vect));
+sf::Color Fonction::getColor(const sf::Vector2i& pos, const sf::Image& image_courant) {
+	if (onCalque(pos, image_courant))
+		return image_courant.getPixel(ARG_VECTOR(pos));
 
 	return sf::Color::Black;
 }
 
 sf::Color Fonction::getPointedColor() {
-	return Fonction::getColor(INPUT->getPixel() - VECTOR2I(LAYER->getPosition()), *LAYER->getImage());
+	return Fonction::getColor(INPUT->getPixel() - VECTOR2I(LAYER->getPosition()), LAYER->getImage());
 }
 
-std::vector<sf::Vector2f>* Fonction::getPoints(sf::Sprite* sprite) {
-	std::vector<sf::Vector2f>* points = new std::vector<sf::Vector2f>();
+std::shared_ptr<std::vector<sf::Vector2f>> Fonction::getPoints(const sf::Sprite& sprite) {
+	auto ptr = std::make_shared<std::vector<sf::Vector2f>>();
 
-	sf::FloatRect rect = sprite->getGlobalBounds();
-	points->push_back(Fonction::topLeftCorner(rect));
-	points->push_back(Fonction::topRightCorner(rect));
-	points->push_back(Fonction::bottomLeftCorner(rect));
-	points->push_back(Fonction::bottomRightCorner(rect));
-	points->push_back(Fonction::centerCorner(rect));
+	sf::FloatRect rect = sprite.getGlobalBounds();
+	ptr->push_back(Fonction::topLeftCorner(rect));
+	ptr->push_back(Fonction::topRightCorner(rect));
+	ptr->push_back(Fonction::bottomLeftCorner(rect));
+	ptr->push_back(Fonction::bottomRightCorner(rect));
+	ptr->push_back(Fonction::centerCorner(rect));
 
-	points->push_back(sf::Vector2f(rect.left + rect.width / 2.f, rect.top));
-	points->push_back(sf::Vector2f(rect.left + rect.width / 2.f, rect.top + rect.height));
-	points->push_back(sf::Vector2f(rect.left, rect.top + rect.height / 2.f));
-	points->push_back(sf::Vector2f(rect.left + rect.width, rect.top + rect.height / 2.f));
+	ptr->push_back(sf::Vector2f(rect.left + rect.width / 2.f, rect.top));
+	ptr->push_back(sf::Vector2f(rect.left + rect.width / 2.f, rect.top + rect.height));
+	ptr->push_back(sf::Vector2f(rect.left, rect.top + rect.height / 2.f));
+	ptr->push_back(sf::Vector2f(rect.left + rect.width, rect.top + rect.height / 2.f));
 
-	return points;
+	return ptr;
 }
 
-bool Fonction::checkCadre(sf::IntRect* cadre, sf::IntRect cadre_in) {
-	if (cadre->left < cadre_in.left) {
-		cadre->width += cadre->left;
-		if (cadre->width <= 0)
+bool Fonction::checkCadre(sf::IntRect& cadre, const sf::IntRect& cadre_in) {
+	if (cadre.left < cadre_in.left) {
+		cadre.width += cadre.left;
+		if (cadre.width <= 0)
 			return true;
-		cadre->left = cadre_in.left;
+		cadre.left = cadre_in.left;
 	}
-	if (cadre->top < cadre_in.top) {
-		cadre->height += cadre->top;
-		if (cadre->height <= 0)
+	if (cadre.top < cadre_in.top) {
+		cadre.height += cadre.top;
+		if (cadre.height <= 0)
 			return true;
-		cadre->top = cadre_in.top;
+		cadre.top = cadre_in.top;
 	}
-	if (cadre->left + cadre->width >= cadre_in.left + cadre_in.width) {
-		cadre->width = cadre_in.left + cadre_in.width - cadre->left;
-		if (cadre->width <= 0)
+	if (cadre.left + cadre.width >= cadre_in.left + cadre_in.width) {
+		cadre.width = cadre_in.left + cadre_in.width - cadre.left;
+		if (cadre.width <= 0)
 			return true;
 	}
-	if (cadre->top + cadre->height >= cadre_in.top + cadre_in.height) {
-		cadre->height = cadre_in.top + cadre_in.height - cadre->top;
-		if (cadre->height <= 0)
+	if (cadre.top + cadre.height >= cadre_in.top + cadre_in.height) {
+		cadre.height = cadre_in.top + cadre_in.height - cadre.top;
+		if (cadre.height <= 0)
 			return true;
 	}
 	return false;
 }
 
-void Fonction::fuseTexture(sf::RenderTexture& render_texture, const sf::Texture& texture_src, sf::Vector2f pos_src) {
+void Fonction::fuseTexture(sf::RenderTexture& render_texture, const sf::Texture& texture_src, const sf::Vector2f& pos_src) {
 	sf::Texture texture_dst = render_texture.getTexture();
 	sf::Sprite spr;
 	spr.setPosition(pos_src);

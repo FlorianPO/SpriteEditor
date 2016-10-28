@@ -6,8 +6,7 @@
 #include "Source Files/Widget/Various/Label/ClickLabel.h"
 #include "Source Files/Widget/Various/TabSFML/TabSFML.h"
 
-BrushPanel::BrushPanel(QWidget* parent, const QPoint& position) : QWidget(parent) {
-	move(position);
+BrushPanel::BrushPanel(QWidget* parent) : QWidget(parent) {
 	ui.setupUi(this);
 	hide();
 
@@ -39,18 +38,19 @@ BrushPanel::BrushPanel(QWidget* parent, const QPoint& position) : QWidget(parent
 	QWidget* qw = new QWidget(ui.DefaultFrame);
 	qw->resize(ui.DefaultFrame->size());
 	qw->show();
-	SFMLTab = new TabSFML(qw, ui.DefaultFrame->geometry().size());
+	SFMLTab = new TabSFML(qw, ui.DefaultFrame->size());
+	SFMLTab->setGeometry(ui.DefaultFrame->geometry());
 	SFMLTab->show();
 
 	// THIS
-	QObject::connect(BRUSH_CONTROLLER, SIGNAL(brushCreated(Brush*)), this, SLOT(brushCreated(Brush*)));
+	QObject::connect(BRUSH_CONTROLLER, SIGNAL(brushCreated(Brush&)), this, SLOT(brushCreated(Brush&)));
 	QObject::connect(SizeX, SIGNAL(focusIn()), BRUSH_CONTROLLER, SLOT(displayCenter()));
 	QObject::connect(SizeY, SIGNAL(focusIn()), BRUSH_CONTROLLER, SLOT(displayCenter()));
 }
 
-void BrushPanel::brushCreated(Brush* brush) {
-	BrushWidget* tool_widget = new BrushWidget(*brush, sf::Sprite(brush->getPreviewTexture()));
+void BrushPanel::brushCreated(Brush& brush) {
+	BrushWidget* tool_widget = new BrushWidget(brush, brush.getPreviewTexture());
 	QObject::connect(BRUSH_CONTROLLER, SIGNAL(sizeXChanged(int)), tool_widget, SLOT(sizeXChanged(int)), Qt::DirectConnection);
 	QObject::connect(BRUSH_CONTROLLER, SIGNAL(sizeYChanged(int)), tool_widget, SLOT(sizeYChanged(int)), Qt::DirectConnection);
-	SFMLTab->add(tool_widget);
+	SFMLTab->add(*tool_widget);
 }

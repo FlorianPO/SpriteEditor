@@ -1,12 +1,11 @@
 #pragma once
 
 #include "stdenum.h"
-#include "Source Files/QtApp/Menu/Menu.h"
 
 #define QTAPP_CREATE QtApp::createInstance
+#define QTAPP_INIT QtApp::getInstance()->init();
 #define QTAPP QtApp::getInstance()
 #define QTWINDOW QtApp::getInstance()->getMainWindow()
-#define QTMENU QtApp::getInstance()->getMenu()
 
 class QtApp : public QApplication
 {
@@ -19,19 +18,18 @@ public:		inline static void createInstance(int& argc, char* argv[], const QStrin
 // CONSTRUCTOR
 public:
 	QtApp(int& argc ,char* argv[], const QString& name);
-	~QtApp() {}
+	~QtApp();
 
 // METHODS
 public:
-	inline QMainWindow* getMainWindow() { return main_frame; }
-	inline Menu* getMenu() { return menu; }
+	void init();
+	inline QMainWindow* getMainWindow() const { return main_frame; }
 private:
 	bool notify(QObject* object, QEvent* event) override;
 
 // MEMBERS
 private:
 	QMainWindow* main_frame;
-	Menu* menu;
 
 	QString name;
 	QSize size;

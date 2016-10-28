@@ -38,9 +38,9 @@ private:
 
 // SIGNALS SLOTS
 	signals:
-		void posPixelXChanged(int);
-		void posPixelYChanged(int);
-		void combinaisonPressed(nInt::key_combinaison*);
+		void posPixelXChanged(int) const;
+		void posPixelYChanged(int) const;
+		void combinaisonPressed(const nInt::key_combinaison&) const;
 
 // METHODS
 public:
@@ -52,46 +52,46 @@ public:
 	bool gerer();
 
 private:
-	inline bool _pressed(const Key_struct& key)		{ return FUNC_PRESSED(key); }
-	inline bool _released(const Key_struct& key)	{ return FUNC_RELEASED(key); }
-	inline bool _log(const Key_struct& key)			{ return FUNC_LOG(key); }
-	inline bool _again(const Key_struct& key)		{ return FUNC_AGAIN(key); }
-	inline bool _double_tap(const Key_struct& key)	{ return FUNC_DOUBLE(key); }
-	inline bool _long_tap(const Key_struct& key)	{ return FUNC_LONG(key); }
+	inline bool _pressed(const Key_struct& key) const		{ return FUNC_PRESSED(key); }
+	inline bool _released(const Key_struct& key) const		{ return FUNC_RELEASED(key); }
+	inline bool _log(const Key_struct& key) const			{ return FUNC_LOG(key); }
+	inline bool _again(const Key_struct& key) const			{ return FUNC_AGAIN(key); }
+	inline bool _double_tap(const Key_struct& key) const	{ return FUNC_DOUBLE(key); }
+	inline bool _long_tap(const Key_struct& key) const		{ return FUNC_LONG(key); }
 public:
-	inline bool pressed(nInt::qkey code)		{ return _pressed(hash[code]); }
-	inline bool released(nInt::qkey code)		{ return _released(hash[code]); }
-	inline bool log(nInt::qkey code)			{ return _log(hash[code]); }
-	inline bool again(nInt::qkey code)			{ return _again(hash[code]); }
-	inline bool double_tap(nInt::qkey code)		{ return _double_tap(hash[code]); }
-	inline bool long_tap(nInt::qkey code)		{ return _long_tap(hash[code]); }
-	bool isPressMode(nInt::qkey code, nInt::PressMode press_mode);
+	inline bool pressed(nInt::qkey code) const		{ return _pressed(hash[code]); }
+	inline bool released(nInt::qkey code) const		{ return _released(hash[code]); }
+	inline bool log(nInt::qkey code) const			{ return _log(hash[code]); }
+	inline bool again(nInt::qkey code) const		{ return _again(hash[code]); }
+	inline bool double_tap(nInt::qkey code) const	{ return _double_tap(hash[code]); }
+	inline bool long_tap(nInt::qkey code) const		{ return _long_tap(hash[code]); }
+	bool isPressMode(nInt::qkey code, nInt::PressMode press_mode) const;
 
-	bool isSpecial();
-	bool isZQSD();
+	bool isSpecial() const;
+	bool isZQSD() const;
 
-	nInt::press_code getPressCode(nInt::qkey code);
+	nInt::press_code getPressCode(nInt::qkey code) const;
 
-	void setMousePosition(sf::Vector2i screened, bool dump_ex=false, bool set_pointer=true);
+	void setMousePosition(const sf::Vector2i& screened, bool dump_ex=false, bool set_pointer=true);
 
-	inline const std::vector<sf::Vector2f>& getSmoothList() { return pos_smoothed; }
-	inline sf::Vector2f getPosition() { return pos; }
-	inline sf::Vector2f getExPosition() { return ex_pos; }
-	inline sf::Vector2i getDeltaPos() { return delta_pixel; }
-	inline sf::Vector2f getPositionClick() { return pos_click; }
+	inline const std::vector<sf::Vector2f>& getSmoothList() const { return pos_smoothed; }
+	inline sf::Vector2f getPosition() const { return pos; }
+	inline sf::Vector2f getExPosition() const { return ex_pos; }
+	inline sf::Vector2i getDeltaPos() const { return delta_pixel; }
+	inline sf::Vector2f getPositionClick() const { return pos_click; }
 
-	inline sf::Vector2i getPixel() { return pixel; }
-	inline sf::Vector2i getExPixel() { return ex_pixel; }
-	inline sf::Vector2i getDeltaPixel() { return delta_pixel; }
-	inline sf::Vector2i getPixelClick() { return pixel_click; }
+	inline sf::Vector2i getPixel() const { return pixel; }
+	inline sf::Vector2i getExPixel() const { return ex_pixel; }
+	inline sf::Vector2i getDeltaPixel() const { return delta_pixel; }
+	inline sf::Vector2i getPixelClick() const { return pixel_click; }
 
-	inline sf::Vector2i getScreenPosition() { return screen; }
-	inline sf::Vector2i getExScreenPosition() { return ex_screen; }
-	inline sf::Vector2i getDeltaScreen() { return delta_screen; }
-	inline sf::Vector2i getScreenClick() { return screen_click; }
+	inline sf::Vector2i getScreenPosition() const { return screen; }
+	inline sf::Vector2i getExScreenPosition() const { return ex_screen; }
+	inline sf::Vector2i getDeltaScreen() const { return delta_screen; }
+	inline sf::Vector2i getScreenClick() const { return screen_click; }
 
-	sf::Vector2f screenToPos(sf::Vector2i screen_position);
-	sf::Vector2i posToScreen(sf::Vector2f position);
+	sf::Vector2f screenToPos(const sf::Vector2i& screen_position) const;
+	sf::Vector2i posToScreen(sf::Vector2f position) const;
 
 private:
 	void bindZQSD();

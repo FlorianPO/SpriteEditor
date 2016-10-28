@@ -5,13 +5,13 @@
 #include "Source Files/Application/Color/ColorController.h"
 #include "Source Files/Application/Brush/BrushController.h"
 #include "Source Files/Application/Brush/Brush.h"
-#include "Source Files/QtApp/SQT/SFMLView.h"
+#include "Source Files/Widget/SQT/SFMLView.h"
 #include "Source Files/Fonction/Fonction.h"
 #include "Source Files/Application/UndoStack/UndoStack.h"
 
 Aero::Aero() {
 	numero_outil = nTol::AERO;
-	RES->getShader(nRer::usual).setParameter("mode", 2);
+	RES->getShader(nRer::usual).setParameter("mode", 2.f);
 }
 
 void Aero::display() {

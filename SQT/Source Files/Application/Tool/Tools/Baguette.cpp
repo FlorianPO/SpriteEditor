@@ -16,7 +16,7 @@ void Baguette::algorithmNoSelec() {
 	if (!Fonction::onCalque(INPUT->getPixel() - VECTOR2I(LAYER->getPosition()), LAYER->getTexture()))
 		return;
 
-	image = LAYER->getImage();
+	image = &LAYER->getImage();
 
 	bit_image.create(image->getSize().x, image->getSize().y, SELEC->ident_color);
 
@@ -98,7 +98,7 @@ void Baguette::linearFillNoSelec(int x, int y) {
 /////////////////////////////////
 
 void Baguette::algorithmWithSelec() {
-	if (!Fonction::onCalque(INPUT->getPixel() - VECTOR2I(LAYER->getPosition()), LAYER->getTexture()) || !SELEC->onSelec(INPUT->getPixel().x, INPUT->getPixel().y))
+	if (!Fonction::onCalque(INPUT->getPixel() - VECTOR2I(LAYER->getPosition()), LAYER->getTexture()) || !SELEC->onSelec(INPUT->getPixel()))
 		return;
 
 	bit_image.create(image->getSize().x, image->getSize().y, SELEC->ident_color);
@@ -112,7 +112,7 @@ void Baguette::algorithmWithSelec() {
 		for (int i = range.debutX; i <= range.finX; i++) {
 			if (range.Y > 0) {
 				if (bit_image.getPixel(i, range.Y - 1).a != 0) {
-					if (SELEC->onSelec(i + VECTOR2I(LAYER->getPosition()).x, range.Y - 1 + VECTOR2I(LAYER->getPosition()).y) && pixelCheck(image->getPixel(i, range.Y - 1)))
+					if (SELEC->onSelec(sf::Vector2i(i + LAYER->getPosition().x, range.Y - 1 + LAYER->getPosition().y)) && pixelCheck(image->getPixel(i, range.Y - 1)))
 						linearFillWithSelec(i, range.Y - 1);
 					else {
 						line[0].position = sf::Vector2f(i, range.Y);
@@ -129,7 +129,7 @@ void Baguette::algorithmWithSelec() {
 
 			if (range.Y < image->getSize().y - 1) {
 				if (bit_image.getPixel(i, range.Y + 1).a != 0) {
-					if (SELEC->onSelec(i + VECTOR2I(LAYER->getPosition()).x, range.Y + 1 + VECTOR2I(LAYER->getPosition()).y) && pixelCheck(image->getPixel(i, range.Y + 1)))
+					if (SELEC->onSelec(sf::Vector2i(i + LAYER->getPosition().x, range.Y + 1 + LAYER->getPosition().y)) && pixelCheck(image->getPixel(i, range.Y + 1)))
 						linearFillWithSelec(i, range.Y + 1);
 					else {
 						line[0].position = sf::Vector2f(i, range.Y + 1);
@@ -155,7 +155,7 @@ void Baguette::linearFillWithSelec(int x, int y) {
 		bit_image.setPixel(i_left, y, SELEC->blend_color);
 		i_left--;
 
-	} while (i_left >= 0 && bit_image.getPixel(i_left, y).a != 0 && SELEC->onSelec(i_left + VECTOR2I(LAYER->getPosition()).x, y + VECTOR2I(LAYER->getPosition()).y) && pixelCheck(image->getPixel(i_left, y)));
+	} while (i_left >= 0 && bit_image.getPixel(i_left, y).a != 0 && SELEC->onSelec(sf::Vector2i(i_left + LAYER->getPosition().x, y + LAYER->getPosition().y)) && pixelCheck(image->getPixel(i_left, y)));
 	i_left++;
 
 	line[0].position = sf::Vector2f(i_left, y);
@@ -167,7 +167,7 @@ void Baguette::linearFillWithSelec(int x, int y) {
 		bit_image.setPixel(i_right, y, SELEC->blend_color);
 		i_right++;
 
-	} while (i_right <= bit_image.getSize().x - 1 && bit_image.getPixel(i_right, y).a != 0 && SELEC->onSelec(i_right + VECTOR2I(LAYER->getPosition()).x, y + VECTOR2I(LAYER->getPosition()).y) && pixelCheck(image->getPixel(i_right, y)));
+	} while (i_right <= bit_image.getSize().x - 1 && bit_image.getPixel(i_right, y).a != 0 && SELEC->onSelec(sf::Vector2i(i_right + LAYER->getPosition().x, y + LAYER->getPosition().y)) && pixelCheck(image->getPixel(i_right, y)));
 	i_right--;
 
 	line[0].position = sf::Vector2f(i_right + 1, y);

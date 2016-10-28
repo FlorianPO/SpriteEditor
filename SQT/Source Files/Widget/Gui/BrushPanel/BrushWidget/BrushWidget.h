@@ -9,18 +9,18 @@ class BrushWidget : public TabObject
 	Q_OBJECT
 // CONSTRUCTORS
 public:
-	BrushWidget(Brush& brush, const sf::Sprite& sprite);
+	BrushWidget(Brush& brush, const sf::Texture& texture);
 	~BrushWidget() {}
 
 // METHODS
 public:
-	void draw(sf::RenderWindow* fenetre) override;
-	sf::FloatRect getBounds() override;
-	void setPosition(sf::Vector2f pos) override;
+	void draw(sf::RenderWindow& fenetre) override;
+	sf::FloatRect getBounds() const override;
+	void setPosition(const sf::Vector2f& pos) override;
 
 // SIGNALS SLOTS
 	private slots:
-		void sizeChanged(sf::Vector2i);
+		void sizeChanged(const sf::Vector2i&);
 	public slots:
 		void sizeXChanged(int);
 		void sizeYChanged(int);

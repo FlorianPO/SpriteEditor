@@ -9,7 +9,7 @@
 ////////////
 // CREATE //
 ////////////
-void SelectionController::createSelection(sf::IntRect rect, const std::vector<nSet::o_line>& conf_l) {
+void SelectionController::createSelection(const sf::IntRect& rect, const std::vector<nSet::o_line>& conf_l) {
 	createSelection(rect, NULL);
 	setInverted(false);
 
@@ -18,11 +18,11 @@ void SelectionController::createSelection(sf::IntRect rect, const std::vector<nS
 	pos_lines->pos = getPosition();
 	updateCadre();
 
-	UNDO->push(new SelecUpdated(this, image_selec, pos_lines->pos, pos_lines, inverted));
+	UNDO->push(*new SelecUpdated(this, *image_selec, pos_lines->pos, *pos_lines, inverted));
 	emit selectionCreated();
 }
 
-void SelectionController::createSelection(sf::IntRect rect, const sf::Image& image, const std::vector<nSet::o_line>& conf_l) {
+void SelectionController::createSelection(const sf::IntRect& rect, const sf::Image& image, const std::vector<nSet::o_line>& conf_l) {
 	createSelection(rect, &image);
 	setInverted(false);
 
@@ -31,11 +31,11 @@ void SelectionController::createSelection(sf::IntRect rect, const sf::Image& ima
 	pos_lines->pos = getPosition();
 	updateCadre();
 
-	UNDO->push(new SelecUpdated(this, image_selec, pos_lines->pos, pos_lines, inverted));
+	UNDO->push(*new SelecUpdated(this, *image_selec, pos_lines->pos, *pos_lines, inverted));
 	emit selectionCreated();
 }
 
-void SelectionController::createSelection(sf::IntRect rect, const sf::Image* image) {
+void SelectionController::createSelection(const sf::IntRect& rect, const sf::Image* image) {
 	renderTexture_selec.create(rect.width + 2, rect.height + 2);
 	renderTexture_selec.clear(ident_color);
 	sprite_selec.setPosition(rect.left - 1, rect.top - 1);
@@ -66,14 +66,14 @@ void SelectionController::deleteSelection(bool force) {
 	if (force || isSelected()) {
 		del();
 
-		UNDO->push(new SelecDeleted(this));
+		UNDO->push(*new SelecDeleted(this));
 	}
 }
 
 /////////
 // ADD //
 /////////
-void SelectionController::addSelection(sf::IntRect rect, const std::vector<nSet::o_line>& conf_l) {
+void SelectionController::addSelection(const sf::IntRect& rect, const std::vector<nSet::o_line>& conf_l) {
 	if (isSelected()) {
 		sumSelection(rect, NULL, true);
 
@@ -82,7 +82,7 @@ void SelectionController::addSelection(sf::IntRect rect, const std::vector<nSet:
 		pos_lines->pos = getPosition();
 	
 		if (!reline()) {
-			UNDO->push(new SelecUpdated(this, image_selec, pos_lines->pos, pos_lines, inverted));
+			UNDO->push(*new SelecUpdated(this, *image_selec, pos_lines->pos, *pos_lines, inverted));
 			emit selectionUpdated(1);
 		}	
 	}
@@ -90,7 +90,7 @@ void SelectionController::addSelection(sf::IntRect rect, const std::vector<nSet:
 		createSelection(rect, conf_l);
 }
 
-void SelectionController::addSelection(sf::IntRect rect, const sf::Image& image, const std::vector<nSet::o_line>& conf_l) {
+void SelectionController::addSelection(const sf::IntRect& rect, const sf::Image& image, const std::vector<nSet::o_line>& conf_l) {
 	if (isSelected()) {
 		sumSelection(rect, &image, true);
 
@@ -99,7 +99,7 @@ void SelectionController::addSelection(sf::IntRect rect, const sf::Image& image,
 		pos_lines->pos = getPosition();
 
 		if (!reline()) {
-			UNDO->push(new SelecUpdated(this, image_selec, pos_lines->pos, pos_lines, inverted));
+			UNDO->push(*new SelecUpdated(this, *image_selec, pos_lines->pos, *pos_lines, inverted));
 			emit selectionUpdated(1);
 		}
 	}
@@ -110,7 +110,7 @@ void SelectionController::addSelection(sf::IntRect rect, const sf::Image& image,
 /////////
 // SUB //
 /////////
-void SelectionController::subSelection(sf::IntRect rect, const std::vector<nSet::o_line>& conf_l) {
+void SelectionController::subSelection(const sf::IntRect& rect, const std::vector<nSet::o_line>& conf_l) {
 	if (isSelected()) {
 		sumSelection(rect, NULL, false);
 
@@ -119,13 +119,13 @@ void SelectionController::subSelection(sf::IntRect rect, const std::vector<nSet:
 		pos_lines->pos = getPosition();
 
 		if (!reline()) {
-			UNDO->push(new SelecUpdated(this, image_selec, pos_lines->pos, pos_lines, inverted));
+			UNDO->push(*new SelecUpdated(this, *image_selec, pos_lines->pos, *pos_lines, inverted));
 			emit selectionUpdated(2);
 		}
 	}
 }
 
-void SelectionController::subSelection(sf::IntRect rect, const sf::Image& image, const std::vector<nSet::o_line>& conf_l) {
+void SelectionController::subSelection(const sf::IntRect& rect, const sf::Image& image, const std::vector<nSet::o_line>& conf_l) {
 	if (isSelected()) {
 		sumSelection(rect, &image, false);
 
@@ -134,13 +134,13 @@ void SelectionController::subSelection(sf::IntRect rect, const sf::Image& image,
 		pos_lines->pos = getPosition();
 
 		if (!reline()) {
-			UNDO->push(new SelecUpdated(this, image_selec, pos_lines->pos, pos_lines, inverted));
+			UNDO->push(*new SelecUpdated(this, *image_selec, pos_lines->pos, *pos_lines, inverted));
 			emit selectionUpdated(2);
 		}
 	}
 }
 
-void SelectionController::sumSelection(sf::IntRect rect, const sf::Image* image, bool add) {
+void SelectionController::sumSelection(const sf::IntRect& rect, const sf::Image* image, bool add) {
 	float min_x = std::min(rect.left, cadre.left);
 	float min_y = std::min(rect.top, cadre.top);
 
@@ -174,9 +174,9 @@ void SelectionController::sumSelection(sf::IntRect rect, const sf::Image* image,
 	}
 	else {
 		if (add)
-			RES->getShader(nRer::update).setParameter("mode", 1); //Add
+			RES->getShader(nRer::update).setParameter("mode", 1.f); //Add
 		else
-			RES->getShader(nRer::update).setParameter("mode", 2); //Sub
+			RES->getShader(nRer::update).setParameter("mode", 2.f); //Sub
 		RES->getShader(nRer::update).setParameter("offset", sprite_selec.getPosition());
 		RES->getShader(nRer::update).setParameter("texture", renderTexture_selec.getTexture());
 
@@ -199,7 +199,7 @@ void SelectionController::sumSelection(sf::IntRect rect, const sf::Image* image,
 ///////////////
 // INTERSECT //
 ///////////////
-void SelectionController::intersectSelection(sf::IntRect rect, const std::vector<nSet::o_line>& conf_l) {
+void SelectionController::intersectSelection(const sf::IntRect& rect, const std::vector<nSet::o_line>& conf_l) {
 	if (isSelected()) {
 		intersectSelection(rect, static_cast<sf::Image*>(NULL));
 		setInverted(false);
@@ -212,7 +212,7 @@ void SelectionController::intersectSelection(sf::IntRect rect, const std::vector
 		pos_lines->pos = getPosition();
 	
 		if (!reline()) {
-			UNDO->push(new SelecUpdated(this, image_selec, pos_lines->pos, pos_lines, inverted));
+			UNDO->push(*new SelecUpdated(this, *image_selec, pos_lines->pos, *pos_lines, inverted));
 			emit selectionUpdated(3);
 		}
 	}
@@ -220,7 +220,7 @@ void SelectionController::intersectSelection(sf::IntRect rect, const std::vector
 		createSelection(rect, conf_l);
 }
 
-void SelectionController::intersectSelection(sf::IntRect rect, const sf::Image& image, const std::vector<nSet::o_line>& conf_l) {
+void SelectionController::intersectSelection(const sf::IntRect& rect, const sf::Image& image, const std::vector<nSet::o_line>& conf_l) {
 	if (isSelected()) {
 		intersectSelection(rect, &image);
 		setInverted(false);
@@ -233,7 +233,7 @@ void SelectionController::intersectSelection(sf::IntRect rect, const sf::Image& 
 		pos_lines->pos = getPosition();
 	
 		if (!reline()) {
-			UNDO->push(new SelecUpdated(this, image_selec, pos_lines->pos, pos_lines, inverted));
+			UNDO->push(*new SelecUpdated(this, *image_selec, pos_lines->pos, *pos_lines, inverted));
 			emit selectionUpdated(3);
 		}
 	}
@@ -241,7 +241,7 @@ void SelectionController::intersectSelection(sf::IntRect rect, const sf::Image& 
 		createSelection(rect, image, conf_l);
 }
 
-void SelectionController::intersectSelection(sf::IntRect rect, const sf::Image* image) {
+void SelectionController::intersectSelection(const sf::IntRect& rect, const sf::Image* image) {
 	sf::Texture texture = *sprite_selec.getTexture();
 	sf::Sprite spr(texture, sf::IntRect(rect.left - cadre.left + 1, rect.top - cadre.top + 1, rect.width, rect.height));
 
@@ -257,7 +257,7 @@ void SelectionController::intersectSelection(sf::IntRect rect, const sf::Image* 
 		spr.setPosition(1, 1);
 		renderTexture_selec.draw(spr, sf::BlendNone);
 
-		RES->getShader(nRer::update).setParameter("mode", 3);
+		RES->getShader(nRer::update).setParameter("mode", 3.f);
 		RES->getShader(nRer::update).setParameter("offset", sprite_selec.getPosition());
 		RES->getShader(nRer::update).setParameter("texture", renderTexture_selec.getTexture());
 
@@ -287,7 +287,7 @@ void SelectionController::invertSelection() {
 			setInverted(true);
 			invert();
 
-			UNDO->push(new SelecInverted(this, image_selec, inverted));
+			UNDO->push(*new SelecInverted(this, *image_selec, inverted));
 			emit selectionInverted();
 		}
 }
@@ -298,7 +298,7 @@ void SelectionController::uninvertSelection() {
 			setInverted(false);
 			invert();
 
-			UNDO->push(new SelecInverted(this, image_selec, inverted));
+			UNDO->push(*new SelecInverted(this, *image_selec, inverted));
 			emit selectionUninverted();
 		}
 }

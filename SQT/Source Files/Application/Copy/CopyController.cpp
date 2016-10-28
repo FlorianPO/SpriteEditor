@@ -24,11 +24,11 @@ CopyController::CopyController() {
 //////////
 void CopyController::freeWork() {
 	if (current_copy != NULL) {
-		_dropCopy(current_copy);
+		_dropCopy(*current_copy);
 		current_copy = NULL;
 	}
 	FOR_I (copy_list.size()) {
-		emit copyDeleted(copy_list[i]);
+		emit copyDeleted(*copy_list[i]);
 		delete copy_list[i];
 	}
 	copy_list.clear();
@@ -43,7 +43,7 @@ void CopyController::copy() {
 
 		cadre.left -= LAYER->getPosition().x;
 		cadre.top -= LAYER->getPosition().y;
-		if (Fonction::checkCadre(&cadre, sf::IntRect(sf::Vector2i(), VECTOR2I(LAYER->getSize()))))
+		if (Fonction::checkCadre(cadre, sf::IntRect(sf::Vector2i(), VECTOR2I(LAYER->getSize()))))
 			return;
 
 		copy_position = POS_RECT(cadre) + LAYER->getPosition();
@@ -65,7 +65,8 @@ void CopyController::copy() {
 		renderTexture.draw(spr, RES->getRender(nRer::cut));
 		renderTexture.display();
 
-		Fonction::copy_to_clipboard(&renderTexture.getTexture().copyToImage());
+		sf::Image image = renderTexture.getTexture().copyToImage();
+		Fonction::copy_to_clipboard(image);
 	}
 	else if (COPY != NULL)
 		copy_position = COPY->getPosition();
@@ -85,61 +86,58 @@ void CopyController::cut() {
 void CopyController::paste() {
 	UNDO->beginMacro();
 	if (COPY != NULL)
-		applyCopy();
+		applyCopy(*COPY);
 	else if (SELEC->isSelected())
 		SELEC->deleteSelection();
 
-	sf::Image* image = Fonction::get_clipboard();
+	auto image = Fonction::get_clipboard();
 	if (image == NULL)
 		return;
 
 	createCopy(*image, copy_position);
 	UNDO->endMacro();
-
-	delete image;
 }
 
 ////////////
 // CREATE //
 ////////////
-void CopyController::createCopy(const sf::Image& image, sf::Vector2f position) {
+Copy& CopyController::createCopy(const sf::Image& image, const sf::Vector2f& position) {
 	Copy* copy = new Copy(image, position);
 	copy_list.push_back(copy);
 
-	UNDO->push(new CopyCreated(copy, position));
+	UNDO->push(*new CopyCreated(copy, position));
 
-	_createCopy(copy);
+	_createCopy(*copy);
+	return *copy;
 }
 
-void CopyController::_createCopy(Copy* copy) {
+void CopyController::_createCopy(Copy& copy) {
 	emit copyCreated(copy);
-	copy->emitStatus();
+	copy.emitStatus();
 
 	using namespace nInt;
 	space_shortcut_id = SHORTCUT_CONTROLLER->createShortcut(QKeySequence(Qt::Key_Space), this, SLOT(applyCopy()));
-	shift_core_shortcut_id = SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::Key_Shift, DOUBLE_TAP), [this](){dropCopy(current_copy);});
+	shift_core_shortcut_id = SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::Key_Shift, DOUBLE_TAP), [this](){dropCopy(*current_copy);});
 
-	zqsd_core_shortcut_id[0] = SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_Z, LOG), [this](){current_copy->keyMove(0, -1);});
-	zqsd_core_shortcut_id[1] = SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_S, LOG), [this](){current_copy->keyMove(0, 1);});
-	zqsd_core_shortcut_id[2] = SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_Q, LOG), [this](){current_copy->keyMove(-1, 0);});
-	zqsd_core_shortcut_id[3] = SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_D, LOG), [this](){current_copy->keyMove(1, 0);});
+	zqsd_core_shortcut_id[0] = SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_Z, LOG), [this](){current_copy->keyMove(sf::Vector2f(0, -1));});
+	zqsd_core_shortcut_id[1] = SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_S, LOG), [this](){current_copy->keyMove(sf::Vector2f(0, 1));});
+	zqsd_core_shortcut_id[2] = SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_Q, LOG), [this](){current_copy->keyMove(sf::Vector2f(-1, 0));});
+	zqsd_core_shortcut_id[3] = SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_D, LOG), [this](){current_copy->keyMove(sf::Vector2f(1, 0));});
 
-	current_copy = copy;
+	current_copy = &copy;
 }
 
 ////////////
 // DELETE //
 ////////////
-void CopyController::deleteCopy(Copy* copy) {
-	if (copy != NULL) {
-		emit copyDeleted(copy);
+void CopyController::deleteCopy(Copy& copy) {
+	emit copyDeleted(copy);
 
-		copy_list.erase(std::find(copy_list.begin(), copy_list.end(), copy));
-		delete copy;
-	}
+	copy_list.erase(std::find(copy_list.begin(), copy_list.end(), &copy));
+	delete &copy;
 }
 
-void CopyController::applyCopy(Copy* copy) {
+void CopyController::applyCopy(Copy& copy) {
 	sf::Texture tex = COPY->getTexture();
 	sf::Sprite spr = COPY->getSprite();
 	spr.setTexture(tex, true);
@@ -163,17 +161,15 @@ void CopyController::applyCopy(Copy* copy) {
 //////////
 // DROP //
 //////////
-void CopyController::dropCopy(Copy* copy) {
-	if (copy != NULL) {
-		UNDO->push(new CopyDropped(copy));
-		_dropCopy(copy);
-	}
+void CopyController::dropCopy(Copy& copy) {	
+	UNDO->push(*new CopyDropped(&copy));
+	_dropCopy(copy);
 }
 
-void CopyController::_dropCopy(Copy* copy) {
+void CopyController::_dropCopy(Copy& copy) {
 	emit copyDropped(copy);
 
-	if (current_copy == copy)
+	if (current_copy == &copy)
 		current_copy = NULL;
 
 	SHORTCUT_CONTROLLER->removeShortcut(space_shortcut_id);

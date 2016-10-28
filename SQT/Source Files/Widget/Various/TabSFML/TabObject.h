@@ -12,12 +12,12 @@ public:
 
 // METHODS
 public:
-	virtual void draw(sf::RenderWindow* fenetre) = 0;
-	virtual sf::FloatRect getBounds() = 0;
+	virtual void draw(sf::RenderWindow& fenetre) = 0;
+	virtual sf::FloatRect getBounds() const = 0;
 
-	virtual void setPosition(sf::Vector2f pos) = 0;
+	virtual void setPosition(const sf::Vector2f& pos) = 0;
 	void setPosition(float x, float y) { setPosition(sf::Vector2f(x, y)); }
-	void setPosition(sf::Vector2i pos) { setPosition(sf::Vector2f(ARG_VECTOR(pos))); }
+	void setPosition(const sf::Vector2i& pos) { setPosition(sf::Vector2f(ARG_VECTOR(pos))); }
 
 // SIGNALS SLOTS
 	public slots:

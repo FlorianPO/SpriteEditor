@@ -10,7 +10,7 @@ class ColorPanel : public QWidget
 	Q_OBJECT
 // CONSTRUCTOR
 public:
-	ColorPanel(QWidget *parent, const QPoint& position=QPoint());
+	ColorPanel(QWidget *parent);
 	~ColorPanel() {}
 
 // SIGNALS SLOTS
@@ -25,7 +25,7 @@ private:
 	ClickLabel *r1, *g1, *b1, *a1;
 	ClickLabel *r2, *g2, *b2, *a2;
 
-	SignalColor* C1;
-	SignalColor* C2;
+	const SignalColor* C1;
+	const SignalColor* C2;
 };
 

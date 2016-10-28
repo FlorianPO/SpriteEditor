@@ -8,18 +8,18 @@ using namespace nUnk;
 //////////
 // BASE //
 //////////
-sf::Image* SelecUndo::getImage()					{ return static_cast<SelecUndo*>(UNDO->getPrevious(instance))->getImage(); }
-sf::Vector2f SelecUndo::getPosition()				{ return static_cast<SelecUndo*>(UNDO->getPrevious(instance))->getPosition(); }
-nSet::positionned_olines* SelecUndo::getLines()		{ return static_cast<SelecUndo*>(UNDO->getPrevious(instance))->getLines(); }
-bool SelecUndo::isInverted()						{ return static_cast<SelecUndo*>(UNDO->getPrevious(instance))->isInverted(); }
+sf::Image* SelecUndo::getImage() const					{ return static_cast<SelecUndo*>(&UNDO->getPrevious(instance))->getImage(); }
+sf::Vector2f SelecUndo::getPosition() const				{ return static_cast<SelecUndo*>(&UNDO->getPrevious(instance))->getPosition(); }
+nSet::positionned_olines* SelecUndo::getLines() const	{ return static_cast<SelecUndo*>(&UNDO->getPrevious(instance))->getLines(); }
+bool SelecUndo::isInverted() const						{ return static_cast<SelecUndo*>(&UNDO->getPrevious(instance))->isInverted(); }
 
 /////////////
 // UPDATED //
 /////////////
-SelecUpdated::SelecUpdated(void* instance, sf::Image* image, sf::Vector2f position, nSet::positionned_olines* plines, bool inverted) : SelecUndo(instance) {
-	this->image = image;
+SelecUpdated::SelecUpdated(void* instance, sf::Image& image, sf::Vector2f position, nSet::positionned_olines& plines, bool inverted) : SelecUndo(instance) {
+	this->image = &image;
 	this->position = position;
-	this->plines = plines;
+	this->plines = &plines;
 	this->inverted = inverted;
 }
 
@@ -30,10 +30,10 @@ SelecUpdated::~SelecUpdated() {
 
 void SelecUpdated::undo() {
 	UNDO->beginSearching();
-	auto image = static_cast<SelecUndo*>(UNDO->getPrevious(instance, true))->getImage();
-	auto position = static_cast<SelecUndo*>(UNDO->getPrevious(instance, true))->getPosition();
-	auto plines = static_cast<SelecUndo*>(UNDO->getPrevious(instance, true))->getLines();
-	auto inverted = static_cast<SelecUndo*>(UNDO->getPrevious(instance, true))->isInverted();
+	auto image = static_cast<SelecUndo*>(&UNDO->getPrevious(instance, true))->getImage();
+	auto position = static_cast<SelecUndo*>(&UNDO->getPrevious(instance, true))->getPosition();
+	auto plines = static_cast<SelecUndo*>(&UNDO->getPrevious(instance, true))->getLines();
+	auto inverted = static_cast<SelecUndo*>(&UNDO->getPrevious(instance, true))->isInverted();
 	UNDO->endSearching();
 
 	SELEC->setSelection(image, position, plines, inverted);
@@ -46,12 +46,12 @@ void SelecUpdated::redo() {
 ///////////
 // MOVED //
 ///////////
-SelecMoved::SelecMoved(void* instance, sf::Vector2f position) : SelecUndo(instance) {
+SelecMoved::SelecMoved(void* instance, const sf::Vector2f& position) : SelecUndo(instance) {
 	this->position = position;
 }
 
 void SelecMoved::undo() {
-	auto position = static_cast<SelecUndo*>(UNDO->getPrevious(instance, true))->getPosition();
+	auto position = static_cast<SelecUndo*>(&UNDO->getPrevious(instance, true))->getPosition();
 	SELEC->setPosition(position);
 }
 
@@ -66,10 +66,10 @@ SelecDeleted::SelecDeleted(void* instance) : SelecUndo(instance) {}
 
 void SelecDeleted::undo() {
 	UNDO->beginSearching();
-	auto image = static_cast<SelecUndo*>(UNDO->getPrevious(instance, true))->getImage();
-	auto position = static_cast<SelecUndo*>(UNDO->getPrevious(instance, true))->getPosition();
-	auto lines = static_cast<SelecUndo*>(UNDO->getPrevious(instance, true))->getLines();
-	auto inverted = static_cast<SelecUndo*>(UNDO->getPrevious(instance, true))->isInverted();
+	auto image = static_cast<SelecUndo*>(&UNDO->getPrevious(instance, true))->getImage();
+	auto position = static_cast<SelecUndo*>(&UNDO->getPrevious(instance, true))->getPosition();
+	auto lines = static_cast<SelecUndo*>(&UNDO->getPrevious(instance, true))->getLines();
+	auto inverted = static_cast<SelecUndo*>(&UNDO->getPrevious(instance, true))->isInverted();
 	UNDO->endSearching();
 
 	SELEC->setSelection(image, position, lines, inverted);
@@ -82,8 +82,8 @@ void SelecDeleted::redo() {
 //////////////
 // INVERTED //
 //////////////
-SelecInverted::SelecInverted(void* instance, sf::Image* image, bool inverted) : SelecUndo(instance) {
-	this->image = image;
+SelecInverted::SelecInverted(void* instance, sf::Image& image, bool inverted) : SelecUndo(instance) {
+	this->image = &image;
 	this->inverted = inverted;
 }
 
@@ -93,8 +93,8 @@ SelecInverted::~SelecInverted() {
 
 void SelecInverted::undo() {
 	UNDO->beginSearching();
-	auto image = static_cast<SelecUndo*>(UNDO->getPrevious(instance, true))->getImage();
-	auto inverted = static_cast<SelecUndo*>(UNDO->getPrevious(instance, true))->isInverted();
+	auto image = static_cast<SelecUndo*>(&UNDO->getPrevious(instance, true))->getImage();
+	auto inverted = static_cast<SelecUndo*>(&UNDO->getPrevious(instance, true))->isInverted();
 	UNDO->endSearching();
 
 	SELEC->setImage(image);

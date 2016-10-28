@@ -113,7 +113,7 @@ void SignalColor::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         case 2: _t->GChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 3: _t->BChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 4: _t->AChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 5: _t->setColor((*reinterpret_cast< sf::Color(*)>(_a[1]))); break;
+        case 5: _t->setColor((*reinterpret_cast< const sf::Color(*)>(_a[1]))); break;
         case 6: _t->setColor((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< int(*)>(_a[4]))); break;
         case 7: _t->setR((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 8: _t->setG((*reinterpret_cast< int(*)>(_a[1]))); break;
@@ -125,31 +125,31 @@ void SignalColor::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (SignalColor::*_t)();
+            typedef void (SignalColor::*_t)() const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&SignalColor::colorChanged)) {
                 *result = 0;
             }
         }
         {
-            typedef void (SignalColor::*_t)(int );
+            typedef void (SignalColor::*_t)(int ) const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&SignalColor::RChanged)) {
                 *result = 1;
             }
         }
         {
-            typedef void (SignalColor::*_t)(int );
+            typedef void (SignalColor::*_t)(int ) const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&SignalColor::GChanged)) {
                 *result = 2;
             }
         }
         {
-            typedef void (SignalColor::*_t)(int );
+            typedef void (SignalColor::*_t)(int ) const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&SignalColor::BChanged)) {
                 *result = 3;
             }
         }
         {
-            typedef void (SignalColor::*_t)(int );
+            typedef void (SignalColor::*_t)(int ) const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&SignalColor::AChanged)) {
                 *result = 4;
             }
@@ -194,36 +194,36 @@ int SignalColor::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void SignalColor::colorChanged()
+void SignalColor::colorChanged()const
 {
-    QMetaObject::activate(this, &staticMetaObject, 0, Q_NULLPTR);
+    QMetaObject::activate(const_cast< SignalColor *>(this), &staticMetaObject, 0, Q_NULLPTR);
 }
 
 // SIGNAL 1
-void SignalColor::RChanged(int _t1)
+void SignalColor::RChanged(int _t1)const
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 1, _a);
+    QMetaObject::activate(const_cast< SignalColor *>(this), &staticMetaObject, 1, _a);
 }
 
 // SIGNAL 2
-void SignalColor::GChanged(int _t1)
+void SignalColor::GChanged(int _t1)const
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 2, _a);
+    QMetaObject::activate(const_cast< SignalColor *>(this), &staticMetaObject, 2, _a);
 }
 
 // SIGNAL 3
-void SignalColor::BChanged(int _t1)
+void SignalColor::BChanged(int _t1)const
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 3, _a);
+    QMetaObject::activate(const_cast< SignalColor *>(this), &staticMetaObject, 3, _a);
 }
 
 // SIGNAL 4
-void SignalColor::AChanged(int _t1)
+void SignalColor::AChanged(int _t1)const
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 4, _a);
+    QMetaObject::activate(const_cast< SignalColor *>(this), &staticMetaObject, 4, _a);
 }
 QT_END_MOC_NAMESPACE

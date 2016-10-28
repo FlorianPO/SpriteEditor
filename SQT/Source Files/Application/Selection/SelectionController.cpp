@@ -21,10 +21,10 @@ SelectionController::SelectionController() {
 	RES->getShader(nRer::pot).setParameter("texture", renderTexture_selec.getTexture());
 
 	using namespace nInt;
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_Z, LOG), [this](){keyMove(0, -1);});
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_S, LOG), [this](){keyMove(0, 1);});
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_Q, LOG), [this](){keyMove(-1, 0);});
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_D, LOG), [this](){keyMove(1, 0);});
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_Z, LOG), [this](){keyMove(sf::Vector2f(0, -1));});
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_S, LOG), [this](){keyMove(sf::Vector2f(0, 1));});
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_Q, LOG), [this](){keyMove(sf::Vector2f(-1, 0));});
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + Qt::Key_D, LOG), [this](){keyMove(sf::Vector2f(1, 0));});
 
 	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::Key_Shift, DOUBLE_TAP), [this](){deleteSelection();});
 	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::Key_Delete, AGAIN), [this](){deleteLayer();});
@@ -89,24 +89,6 @@ void SelectionController::del() {
 	emit selectionDeleted();
 }
 
-bool SelectionController::onSelec(int x, int y) {
-	if (isSelected())
-		if (inverted)
-			return x - sprite_selec.getPosition().x >= 0 &&
-			x - sprite_selec.getPosition().x < image_selec->getSize().x &&
-			y - sprite_selec.getPosition().y >= 0 &&
-			y - sprite_selec.getPosition().y < image_selec->getSize().y &&
-			image_selec->getPixel(x - sprite_selec.getPosition().x, y - sprite_selec.getPosition().y).a == 0;
-		else
-			if (x - sprite_selec.getPosition().x >= 0
-				&& x - sprite_selec.getPosition().x < image_selec->getSize().x
-				&& y - sprite_selec.getPosition().y >= 0
-				&& y - sprite_selec.getPosition().y < image_selec->getSize().y)
-				return image_selec->getPixel(x - sprite_selec.getPosition().x, y - sprite_selec.getPosition().y).a == 0;
-
-	return true;
-}
-
 void SelectionController::updateCadre() {
 	cadre = sf::IntRect(sprite_selec.getPosition().x + 1, sprite_selec.getPosition().y + 1, sprite_selec.getTextureRect().width - 2, sprite_selec.getTextureRect().height - 2);
 
@@ -128,6 +110,7 @@ void SelectionController::deleteLayer() {
 		RES->getShader(nRer::pot).setParameter("offset", getPosition() - LAYER->getPosition());
 		RES->getShader(nRer::pot).setParameter("background", LAYER->getTexture());
 		RES->getShader(nRer::pot).setParameter("couleur", sf::Color::Transparent);
+		RES->getShader(nRer::pot).setParameter("mode", 1.f);
 
 		sf::Texture texture = LAYER->getTexture();
 		sf::Sprite sprite = sf::Sprite(texture);
@@ -181,6 +164,7 @@ void SelectionController::setImage(sf::Image* image) {
 			renderTexture_selec.display();
 			sprite_selec.setTexture(renderTexture_selec.getTexture(), true);
 		}
+		image_selec = image;
 	}
 }
 
@@ -204,23 +188,23 @@ void SelectionController::setInverted(bool inverted) {
 	}
 }
 
-void SelectionController::translate(sf::Vector2f translation) {
+void SelectionController::translate(const sf::Vector2f& translation) {
 	sprite_selec.move(translation);
 	updateCadre();
 	QUEUE->beforeDisplay(this, "updateLines");
 }
 
-void SelectionController::setPosition(sf::Vector2f pos) {
+void SelectionController::setPosition(const sf::Vector2f& pos) {
 	sprite_selec.setPosition(pos);
 	updateCadre();
 	QUEUE->beforeDisplay(this, "updateLines");
 }
 
-void SelectionController::setRealPosition(sf::Vector2f real_pos) {
+void SelectionController::setRealPosition(const sf::Vector2f& real_pos) {
 	setPosition(sf::Vector2f(real_pos.x-1, real_pos.y-1));
 }
 
-sf::Vector2f SelectionController::getRealPosition() {
+sf::Vector2f SelectionController::getRealPosition() const {
 	sf::Vector2f pos = sprite_selec.getPosition();
 	return sf::Vector2f(pos.x+1, pos.y+1);
 }

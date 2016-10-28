@@ -12,9 +12,9 @@ public:
 
 // METHODS
 protected:
-	virtual void carre(float rx, float ry, sf::Image& image);
-	int alpha_carre(sf::Vector2f pos, sf::Vector2f center);
+	virtual void carre(sf::Image& image);
+	int alpha_carre(const sf::Vector2f& pos, const sf::Vector2f& center);
 
-	void create(sf::Vector2i square_size) override;
+	void create(const sf::Vector2i& square_size) override;
 };
 

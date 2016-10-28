@@ -90,11 +90,11 @@ COptionColor::COptionColor(void* param) //VERIFIED//
 	}
 
 	//Keeping parameter
-	parametre = static_cast<sf::Color*>(param);
+	parameters = static_cast<sf::Color*>(param);
 
-	spr_ancien.setColor(*parametre);
-	spr2.setColor(*parametre);
-	ex_parametre = *parametre;
+	spr_ancien.setColor(*parameters);
+	spr2.setColor(*parameters);
+	ex_parametre = *parameters;
 
 	CHud::addMe(this);
 }
@@ -144,7 +144,7 @@ void COptionColor::gerer() //VERIFIED//
 				setColor(i);
 
 		if (Fonction::mouseOnSprite(&spr1))
-			spr2.setColor(*parametre);
+			spr2.setColor(*parameters);
 	}
 
 	static bool spr1_active = false;
@@ -192,12 +192,12 @@ void COptionColor::gerer() //VERIFIED//
 
 	if (INPUT->pressed(Qt::Key_Control) && (spr1_active || spr2_active))
 		arrondi();
-	if (spr1_active) spr2.setColor(*parametre);
+	if (spr1_active) spr2.setColor(*parameters);
 
-	if (ex_parametre != *parametre)
+	if (ex_parametre != *parameters)
 	{
-		ex_parametre = *parametre;
-		spr2.setColor(*parametre);
+		ex_parametre = *parameters;
+		spr2.setColor(*parameters);
 	}
 }
 
@@ -228,8 +228,8 @@ void COptionColor::gererColor(sf::Sprite *sprite) //VERIFIED//
 		if (center_image.y+vecteur.y==image_selec.getSize().y) vecteur.y--;
 	}
 
-	*parametre = Fonction::getColor(sf::Vector2i(center_image.x+vecteur.x, center_image.y+vecteur.y), &image_selec);
-	ex_parametre = *parametre;
+	*parameters = Fonction::getColor(sf::Vector2i(center_image.x+vecteur.x, center_image.y+vecteur.y), &image_selec);
+	ex_parametre = *parameters;
 }
 
 void COptionColor::arrondi() //VERIFIED//
@@ -241,32 +241,32 @@ void COptionColor::arrondi() //VERIFIED//
 	int distance[nbr+1];
 	int j;
 
-	for (int i = 0; i<nbr+1; i++) distance[i] = std::abs(points[i]-parametre->r);
+	for (int i = 0; i<nbr+1; i++) distance[i] = std::abs(points[i]-parameters->r);
 	j = 0; for (int i = 1; i<nbr+1; i++) if (distance[i]<distance[j]) j = i;
-	parametre->r = points[j];
+	parameters->r = points[j];
 
-	for (int i = 0; i<nbr+1; i++) distance[i] = std::abs(points[i]-parametre->g);
+	for (int i = 0; i<nbr+1; i++) distance[i] = std::abs(points[i]-parameters->g);
 	j = 0; for (int i = 1; i<nbr+1; i++) if (distance[i]<distance[j]) j = i;
-	parametre->g = points[j];
+	parameters->g = points[j];
 
-	for (int i = 0; i<nbr+1; i++) distance[i] = std::abs(points[i]-parametre->b);
+	for (int i = 0; i<nbr+1; i++) distance[i] = std::abs(points[i]-parameters->b);
 	j = 0; for (int i = 1; i<nbr+1; i++) if (distance[i]<distance[j]) j = i;
-	parametre->b = points[j];
+	parameters->b = points[j];
 
-	ex_parametre = *parametre;
+	ex_parametre = *parameters;
 }
 
 void COptionColor::getColor(int i) //VERIFIED//
 {
-	*parametre = color_list[i];
-	ex_parametre = *parametre;
-	spr2.setColor(*parametre);
+	*parameters = color_list[i];
+	ex_parametre = *parameters;
+	spr2.setColor(*parameters);
 }
 
 void COptionColor::setColor(int i) //VERIFIED//
 {
-	color_list[i] = *parametre;
-	sprite_list[i].setColor(*parametre);
+	color_list[i] = *parameters;
+	sprite_list[i].setColor(*parameters);
 }
 
 void COptionColor::iniColor(bool display) //VERIFIED//
@@ -294,7 +294,7 @@ void COptionColor::iniColor(bool display) //VERIFIED//
 
 void COptionColor::display() //VERIFIED//
 {
-	spr_nouveau.setColor(*parametre);
+	spr_nouveau.setColor(*parameters);
 
 	APP->getWindow().draw(spr3);
 	APP->getWindow().draw(spr1);

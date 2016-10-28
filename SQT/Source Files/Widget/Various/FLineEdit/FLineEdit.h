@@ -7,13 +7,13 @@ class FLineEdit : public QLineEdit
   Q_OBJECT
 // CONSTRUCTOR
 public:
-	FLineEdit(QWidget* parent=NULL) : QLineEdit(parent) {}
+	FLineEdit(QWidget* parent);
 	~FLineEdit() {}
 
 // SIGNALS SLOTS
 signals:
-	void focussed();
-	void unFocussed();
+	void focussed() const;
+	void unFocussed() const;
 
 // METHODS
 protected:

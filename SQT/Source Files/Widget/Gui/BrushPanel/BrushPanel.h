@@ -12,12 +12,12 @@ class BrushPanel : public QWidget
 	Q_OBJECT
 // CONSTRUCTOR
 public:
-	BrushPanel(QWidget* parent, const QPoint& position=QPoint());
+	BrushPanel(QWidget* parent);
 	~BrushPanel() {}
 
 // SIGNALS SLOTS
 	public slots:
-		void brushCreated(Brush* brush);
+		void brushCreated(Brush& brush);
 
 // MEMBERS
 private:

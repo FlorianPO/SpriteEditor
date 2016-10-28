@@ -12,8 +12,8 @@ Snap::Snap() {
 	numero_outil = nTol::SNAP;
 }
 
-void Snap::snap(sf::Vector2i pos_ini, sf::Vector2i pos) {
-	bit_image.create(LAYER->getImage()->getSize().x, LAYER->getImage()->getSize().y, SELEC->ident_color);
+void Snap::snap(const sf::Vector2i& pos_ini, const sf::Vector2i& pos) {
+	bit_image.create(LAYER->getImage().getSize().x, LAYER->getImage().getSize().y, SELEC->ident_color);
 
 	sf::VertexArray l(sf::LinesStrip, 2);
 	oriented_lines.clear();
@@ -41,16 +41,16 @@ void Snap::snap(sf::Vector2i pos_ini, sf::Vector2i pos) {
 	}
 }
 
-void Snap::snapping(sf::IntRect rect, sf::Vector2i pos_click) {
+void Snap::snapping(sf::IntRect rect, const sf::Vector2i& pos_click) {
 	sf::VertexArray l(sf::LinesStrip, 2);
 	oriented_lines.clear();
 
-	rect.left -= VECTOR2I(LAYER->getPosition()).x;
-	rect.top -= VECTOR2I(LAYER->getPosition()).y;
-	if (Fonction::checkCadre(&rect, sf::IntRect(0, 0, LAYER->getTexture().getSize().x, LAYER->getTexture().getSize().y)))
+	rect.left -= int(LAYER->getPosition().x);
+	rect.top -= int(LAYER->getPosition().y);
+	if (Fonction::checkCadre(rect, sf::IntRect(0, 0, LAYER->getTexture().getSize().x, LAYER->getTexture().getSize().y)))
 		return;
 
-	test_image = LAYER->getImage();
+	test_image = &LAYER->getImage();
 	setBaseColor(Fonction::getColor(pos_click, *test_image));
 
 	for (int i = rect.left; i <= rect.left + rect.width - 1; i++) {

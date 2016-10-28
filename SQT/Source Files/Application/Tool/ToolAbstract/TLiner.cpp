@@ -11,7 +11,7 @@
 #include "Source Files/Application/Input/InputController.h"
 #include "Source Files/Application/UndoStack/UndoStack.h"
 
-bool TLiner::hasSmoothLine() {
+bool TLiner::hasSmoothLine() const {
 	return INPUT->getSmoothList().size() > 0;
 }
 
@@ -53,13 +53,13 @@ void TLiner::calculateLine() {
 	line[1].position = pos;
 }
 
-void TLiner::drawLine(sf::Vector2f pos_from, sf::Vector2f pos_to) {
+void TLiner::drawLine(const sf::Vector2f& pos_from, const sf::Vector2f& pos_to) {
 	_drawLine(pos_from, pos_to);
 
 	setLayerChanged();
 }
 
-void TLiner::_drawLine(sf::Vector2f pos_from, sf::Vector2f pos_to) {
+void TLiner::_drawLine(const sf::Vector2f& pos_from, const sf::Vector2f& pos_to) {
 	using namespace nRer;
 	RES->getShader(usual).setParameter("offset", SELEC->getPosition() - LAYER->getPosition());
 	RES->getShader(usual).setParameter("background", LAYER->getTexture());

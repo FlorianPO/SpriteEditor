@@ -32,11 +32,11 @@ static const qt_meta_stringdata_ToolPanel_t qt_meta_stringdata_ToolPanel = {
 QT_MOC_LITERAL(0, 0, 9), // "ToolPanel"
 QT_MOC_LITERAL(1, 10, 12), // "toolSelected"
 QT_MOC_LITERAL(2, 23, 0), // ""
-QT_MOC_LITERAL(3, 24, 5), // "Tool*"
+QT_MOC_LITERAL(3, 24, 5), // "Tool&"
 QT_MOC_LITERAL(4, 30, 4) // "tool"
 
     },
-    "ToolPanel\0toolSelected\0\0Tool*\0tool"
+    "ToolPanel\0toolSelected\0\0Tool&\0tool"
 };
 #undef QT_MOC_LITERAL
 
@@ -68,7 +68,7 @@ void ToolPanel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         ToolPanel *_t = static_cast<ToolPanel *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->toolSelected((*reinterpret_cast< Tool*(*)>(_a[1]))); break;
+        case 0: _t->toolSelected((*reinterpret_cast< Tool(*)>(_a[1]))); break;
         default: ;
         }
     }

@@ -26,14 +26,14 @@ void Layer::move() {
 	}
 	else if (INPUT->released(Qt::RightButton))
 		if (getPosition() != posf)
-			UNDO->push(new LayerMoved(this, getPosition()));
+			UNDO->push(*new LayerMoved(this, getPosition()));
 }
 
 void Layer::grand() {
-	CURSEUR->gerer(&sprite);
+	CURSEUR->gerer(sprite);
 
 	if (INPUT->again(Qt::LeftButton)) {
-		CURSEUR->init(&sprite);
+		CURSEUR->init(sprite);
 		posf = VECTOR2F(INPUT->getPixel());
 	}
 
@@ -64,7 +64,7 @@ void Layer::grand() {
 		
 		UNDO->beginMacro();
 		update();
-		UNDO->push(new LayerMoved(this, sf::Vector2f(0, 0)));
+		UNDO->push(*new LayerMoved(this, sf::Vector2f(0, 0)));
 		UNDO->endMacro();
 
 		sprite.setOrigin(0, 0);
@@ -78,10 +78,10 @@ void Layer::grand() {
 }
 
 void Layer::rotation() {
-	CURSEUR->gerer(&sprite);
+	CURSEUR->gerer(sprite);
 
 	if (INPUT->again(Qt::LeftButton)) {
-		CURSEUR->init(&sprite);
+		CURSEUR->init(sprite);
 		angle_ini = atan2(INPUT->getPosition().y - sprite.getPosition().y, INPUT->getPosition().x - sprite.getPosition().x);
 	}
 
@@ -114,7 +114,7 @@ void Layer::rotation() {
 
 		UNDO->beginMacro();
 		update();
-		UNDO->push(new LayerMoved(this, sf::Vector2f(0, 0)));
+		UNDO->push(*new LayerMoved(this, sf::Vector2f(0, 0)));
 		UNDO->endMacro();
 
 		sprite.setOrigin(0, 0);

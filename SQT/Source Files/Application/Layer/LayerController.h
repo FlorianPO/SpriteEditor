@@ -1,11 +1,12 @@
 #pragma once
 
 #include "stdenum.h"
-class Layer; // Forward declaration
+#include "Source Files/SignalType/SignalList.h"
+#include "Layer.h" //class Layer; // Qt
 
 #define INIT_LAYER_CONTROLLER LayerController::createInstance();
 #define LAYER_CONTROLLER LayerController::getInstance()
-#define LAYER_LIST LayerController::getInstance()->getLayerList()
+#define LAYER_LIST LayerController::getInstance()->getList()
 #define LAYER LayerController::getInstance()->getCurrentLayer()
 
 class LayerController : public QObject
@@ -24,46 +25,37 @@ public:
 
 // METHODS
 public:
-	inline Layer* getCurrentLayer() { return current_layer; }
-	inline const std::vector<Layer*>& getLayerList() { return layer_list; }
+	inline Layer* getCurrentLayer() const { return current_layer; }
+	inline SignalList& getList() { return layer_list; }
 
-	int countLayer(bool count_dead = false);
-	int positionList(Layer* layer);
-	Layer* firstLayer();
+	int countLayer(bool count_dead = false) const;
+	int positionList(const Layer& layer) const;
+	const Layer& firstLayer() const;
 
 // SIGNALS SLOTS
 	public slots:
-		void createLayer(sf::Image* image=NULL); // Create a new LAYER based on a texture
-		void deleteLayer(Layer* layer=LAYER); // Hard delete a LAYER (forever)
-		void dropLayer(Layer* layer=LAYER); // Delete a LAYER
-		void fuseLayer(Layer* layer_src, Layer* layer_dst); // Fuse a layer on another, dst is dropped
+		Layer& createLayer(sf::Image& image); // Create a new LAYER based on a texture
+		Layer& createLayer(); // Create a new LAYER
+		void dropLayer(Layer& layer); inline void dropLayer() { dropLayer(*current_layer); }
+		void fuseLayer(Layer& layer_src, Layer& layer_dst); // Fuse a layer on another, dst is drop
 		void fuseLayer(); // Fuse selected layer with the one under it
-		void selectLayer(Layer* layer=NULL); // NULL if selection must be recalculated
-		void orderLayer(int src, int dst); // Doesn't emit layerOrdered(...)
+		void selectLayer(Layer& layer);
+		void selectLayer(); // Selection must be recalculated
 	signals:
-		void layerCreated(Layer*);
-		void layerDeleted(Layer*);
-		void layerSelected(Layer*);
-		void layerUnselected(Layer*);
-		void layerOrdered(int src, int dst);
-		void firstLayerSelected(Layer*);
-		void firstLayerUnselected(Layer*);
-		void onlyOneLayer();
-		void moreThanOneLayer();
+		void layerSelected(Layer&) const;
+		void layerUnselected(Layer&) const;
 
 // MEMBERS
 private:
 	Layer* current_layer = NULL;
-	std::vector<Layer*> layer_list;
+	SignalList layer_list;
 
 // UNDO
 public:
 	friend class LayerCreated;
 	friend class LayerDropped;
-	friend class LayerOrdered;
 
 	private: // Core context
-		void _createLayer(Layer* layer);
-		void _dropLayer(Layer* layer);
-		void _orderLayer(int src, int dst);
+		void _createLayer(Layer& layer);
+		void _dropLayer(Layer& layer);
 };

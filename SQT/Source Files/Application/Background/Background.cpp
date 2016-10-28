@@ -19,8 +19,8 @@ Background::Background() {
 	cache_fond[3] = sf::VertexArray(sf::Quads, 4);
 
 	QUEUE->atStart([this]() {
-		QObject::connect(LAYER_CONTROLLER, SIGNAL(layerSelected(Layer*)), this, SLOT(bindLayer(Layer*)));
-		QObject::connect(LAYER_CONTROLLER, SIGNAL(layerUnselected(Layer*)), this, SLOT(unbindLayer(Layer*)));
+		QObject::connect(LAYER_CONTROLLER, SIGNAL(layerSelected(Layer&)), this, SLOT(bindLayer(Layer&)));
+		QObject::connect(LAYER_CONTROLLER, SIGNAL(layerUnselected(Layer&)), this, SLOT(unbindLayer(Layer&)));
 		QObject::connect(CAMERA, SIGNAL(zoomed(float)), this, SLOT(cameraZoomed(float)));
 		QObject::connect(CAMERA, SIGNAL(moved(sf::Vector2f)), this, SLOT(layerTransformed()));
 	});
@@ -36,14 +36,14 @@ void Background::cameraZoomed(float zoom_factor) {
 	sprite_transparency.setScale(10 / zoom_factor, 10 / zoom_factor);
 }
 
-void Background::bindLayer(Layer* layer) {
-	QObject::connect(layer, SIGNAL(layerMoved(sf::Vector2f)), this, SLOT(layerTransformed()));
-	QObject::connect(layer, SIGNAL(layerScaled(sf::Vector2f)), this, SLOT(layerTransformed()));
+void Background::bindLayer(Layer& layer) {
+	QObject::connect(&layer, SIGNAL(layerMoved(sf::Vector2f)), this, SLOT(layerTransformed()));
+	QObject::connect(&layer, SIGNAL(layerScaled(sf::Vector2f)), this, SLOT(layerTransformed()));
 }
 
-void Background::unbindLayer(Layer* layer) {
-	QObject::disconnect(layer, SIGNAL(layerMoved(sf::Vector2f)), this, SLOT(layerTransformed()));
-	QObject::disconnect(layer, SIGNAL(layerScaled(sf::Vector2f)), this, SLOT(layerTransformed()));
+void Background::unbindLayer(Layer& layer) {
+	QObject::disconnect(&layer, SIGNAL(layerMoved(sf::Vector2f)), this, SLOT(layerTransformed()));
+	QObject::disconnect(&layer, SIGNAL(layerScaled(sf::Vector2f)), this, SLOT(layerTransformed()));
 }
 
 //////////////

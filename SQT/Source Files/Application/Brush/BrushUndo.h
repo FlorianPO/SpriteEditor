@@ -2,16 +2,15 @@
 
 #include "stdenum.h"
 
-// LAYER_CONTROLLER
 class BrushUndo : public nUnk::UndoCommand
 {
 public:
-	BrushUndo(sf::Vector2f position);
+	BrushUndo(const sf::Vector2f& position);
 	~BrushUndo() {}
 	void undo() override;
 	void redo() override;
 
-	sf::Vector2f getPosition();
+	const sf::Vector2f& getPosition() const { return position; }
 
 private:
 	sf::Vector2f position;

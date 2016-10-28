@@ -8,20 +8,20 @@ public:
 	LayerUndo(void* instance) { this->instance = instance; }
 	~LayerUndo() {}
 
-	virtual sf::Image* getImage();
-	virtual sf::Vector2f getPosition();
+	virtual sf::Image* getImage() const;
+	virtual sf::Vector2f getPosition() const;
 };
 
 class LayerCreated : public LayerUndo
 {
 public:
-	LayerCreated(void* layer, sf::Image* image);
+	LayerCreated(void* layer, sf::Image& image);
 	~LayerCreated();
 	void undo() override;
 	void redo() override;
 
-	sf::Image* getImage() override { return image; }
-	sf::Vector2f getPosition() override { return sf::Vector2f(); }
+	sf::Image* getImage() const override { return image; }
+	sf::Vector2f getPosition() const override { return sf::Vector2f(); }
 private:
 	sf::Image* image;
 };
@@ -29,12 +29,12 @@ private:
 class LayerDrawn : public LayerUndo
 {
 public:
-	LayerDrawn(void* layer, sf::Image* image);
+	LayerDrawn(void* layer, sf::Image& image);
 	~LayerDrawn();
 	void undo() override;
 	void redo() override;
 
-	sf::Image* getImage() override { return image; }
+	sf::Image* getImage() const override { return image; }
 private:
 	sf::Image* image;
 };
@@ -42,12 +42,12 @@ private:
 class LayerMoved : public LayerUndo
 {
 public:
-	LayerMoved(void* layer, sf::Vector2f position);
+	LayerMoved(void* layer, const sf::Vector2f& position);
 	~LayerMoved() {}
 	void undo() override;
 	void redo() override;
 
-	sf::Vector2f getPosition() override { return position; }
+	sf::Vector2f getPosition() const override { return position; }
 private:
 	sf::Vector2f position;
 };
@@ -59,18 +59,4 @@ public:
 	~LayerDropped() {}
 	void undo() override;
 	void redo() override;
-};
-
-// LAYER_CONTROLLER
-class LayerOrdered : public nUnk::UndoCommand
-{
-public:
-	LayerOrdered(int src, int dst);
-	~LayerOrdered() {}
-	void undo() override;
-	void redo() override;
-
-private:
-	int source;
-	int destination;
 };

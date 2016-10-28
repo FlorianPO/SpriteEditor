@@ -15,13 +15,13 @@ public:
 public:
 	void use() override;
 private:
-	void snap(sf::Vector2i pos_ini, sf::Vector2i pos);
-	void snapping(sf::IntRect rect, sf::Vector2i pos_click);
+	void snap(const sf::Vector2i& pos_ini, const sf::Vector2i& pos);
+	void snapping(sf::IntRect rect, const sf::Vector2i& pos_click);
 
 // MEMBERS
 private:
 	sf::Image bit_image;
-	sf::Image* test_image;
+	const sf::Image* test_image;
 	sf::IntRect rect;
 	sf::Vector2i pos_click;
 };

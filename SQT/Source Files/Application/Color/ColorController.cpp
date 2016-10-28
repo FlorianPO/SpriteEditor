@@ -14,18 +14,18 @@ ColorController::~ColorController() {
 	delete color2;
 }
 
-sf::Color ColorController::getColor1() {
+sf::Color ColorController::getColor1() const {
 	return color1->getColor();
 }
 	
-sf::Color ColorController::getColor2() {
+sf::Color ColorController::getColor2() const {
 	return color2->getColor();
 }
 
-void ColorController::setColor1(sf::Color c1) {
+void ColorController::setColor1(const sf::Color& c1) {
 	color1->setColor(c1);
 }
 
-void ColorController::setColor2(sf::Color c2) {
+void ColorController::setColor2(const sf::Color& c2) {
 	color2->setColor(c2);
 }

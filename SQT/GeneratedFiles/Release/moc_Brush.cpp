@@ -90,13 +90,13 @@ void Brush::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void 
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (Brush::*_t)();
+            typedef void (Brush::*_t)() const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Brush::selected)) {
                 *result = 0;
             }
         }
         {
-            typedef void (Brush::*_t)();
+            typedef void (Brush::*_t)() const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Brush::unselected)) {
                 *result = 1;
             }
@@ -142,14 +142,14 @@ int Brush::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void Brush::selected()
+void Brush::selected()const
 {
-    QMetaObject::activate(this, &staticMetaObject, 0, Q_NULLPTR);
+    QMetaObject::activate(const_cast< Brush *>(this), &staticMetaObject, 0, Q_NULLPTR);
 }
 
 // SIGNAL 1
-void Brush::unselected()
+void Brush::unselected()const
 {
-    QMetaObject::activate(this, &staticMetaObject, 1, Q_NULLPTR);
+    QMetaObject::activate(const_cast< Brush *>(this), &staticMetaObject, 1, Q_NULLPTR);
 }
 QT_END_MOC_NAMESPACE

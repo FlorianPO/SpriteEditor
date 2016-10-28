@@ -9,7 +9,7 @@ void Brush::select() {
 	emit selected();
 }
 
-void Brush::checkSize(sf::Vector2i size_to_check) {
+void Brush::checkSize(const sf::Vector2i& size_to_check) {
 	if (default_brush)
 		if (size != size_to_check) {
 			create(size_to_check);
@@ -21,15 +21,15 @@ void Brush::unselect() {
 	emit unselected();
 }
 
-sf::Vector2f Brush::getPointedPosition() {
+sf::Vector2f Brush::getPointedPosition() const {
 	return truePosition(INPUT->getPosition());
 }
 
-sf::Vector2f Brush::getExPosition() {
+sf::Vector2f Brush::getExPosition() const {
 	return truePosition(BRUSH_CONTROLLER->getExPosition());
 }
 
-void Brush::setColor(sf::Color color) {
+void Brush::setColor(const sf::Color& color) {
 	sprite.setColor(color);
 }
 
@@ -108,7 +108,7 @@ void Brush::setDisplayPosition(sf::Vector2f center) {
 	}
 }
 
-void Brush::display(sf::Vector2f center) {
+void Brush::display(const sf::Vector2f& center) {
 	setDisplayPosition(center);
 	display();
 }
@@ -125,24 +125,24 @@ void Brush::display() {
 	}
 }
 
-void Brush::setPosition(sf::Vector2f position) {
+void Brush::setPosition(const sf::Vector2f& position) {
 	sprite.setPosition(position - hsize);
 	RES->getShader(nRer::usual).setParameter("pos_brosse", position - hsize);
 }
 
-void Brush::move(sf::Vector2f delta_move) {
+void Brush::move(const sf::Vector2f& delta_move) {
 	sprite.move(delta_move);
 	RES->getShader(nRer::usual).setParameter("pos_brosse", sprite.getPosition() - hsize);
 }
 
-void Brush::setSize(sf::Vector2i size_to_set) {
+void Brush::setSize(const sf::Vector2i& size_to_set) {
 	size = size_to_set;
 	hsize = Fonction::centerCorner(size_to_set);
 	parity.x = size.x % 2;
 	parity.y = size.y % 2;
 }
 
-sf::Vector2f Brush::truePosition(sf::Vector2f position) {
+sf::Vector2f Brush::truePosition(sf::Vector2f position) const {
 	if (parity.x == 0) //Taille x paire
 		position.x = floor(position.x) + (std::abs(position.x - int(position.x)) >= 0.5f);
 	else

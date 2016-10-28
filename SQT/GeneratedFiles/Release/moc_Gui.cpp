@@ -81,7 +81,7 @@ void Gui::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (Gui::*_t)();
+            typedef void (Gui::*_t)() const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Gui::globallyChanged)) {
                 *result = 0;
             }
@@ -127,8 +127,8 @@ int Gui::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void Gui::globallyChanged()
+void Gui::globallyChanged()const
 {
-    QMetaObject::activate(this, &staticMetaObject, 0, Q_NULLPTR);
+    QMetaObject::activate(const_cast< Gui *>(this), &staticMetaObject, 0, Q_NULLPTR);
 }
 QT_END_MOC_NAMESPACE

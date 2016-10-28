@@ -5,13 +5,13 @@
 #include "Source Files/Application/Color/ColorController.h"
 #include "Source Files/Application/Brush/BrushController.h"
 #include "Source Files/Application/Brush/Brush.h"
-#include "Source Files/QtApp/SQT/SFMLView.h"
+#include "Source Files/Widget/SQT/SFMLView.h"
 #include "Source Files/Fonction/Fonction.h"
 #include "Source Files/Application/UndoStack/UndoStack.h"
 
 Crayon::Crayon() {
 	numero_outil = nTol::CRAYON;
-	RES->getShader(nRer::usual).setParameter("mode", 1);
+	RES->getShader(nRer::usual).setParameter("mode", 1.f);
 }
 
 void Crayon::display() {

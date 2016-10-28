@@ -4,8 +4,7 @@
 #include "Source Files/Widget/Various/Label/ViewLabel.h"
 #include "Source Files/Widget/Various/Label/ClickLabel.h"
 
-InfoPanel_selection::InfoPanel_selection(QWidget *parent, const QPoint& position) : QWidget(parent) {
-	move(position);
+InfoPanel_selection::InfoPanel_selection(QWidget *parent) : QWidget(parent) {
 	ui_selec.setupUi(this);
 	hide();
 

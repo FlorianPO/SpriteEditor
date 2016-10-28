@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_InputController_t {
     QByteArrayData data[6];
-    char stringdata0[93];
+    char stringdata0[92];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,12 +34,12 @@ QT_MOC_LITERAL(1, 16, 16), // "posPixelXChanged"
 QT_MOC_LITERAL(2, 33, 0), // ""
 QT_MOC_LITERAL(3, 34, 16), // "posPixelYChanged"
 QT_MOC_LITERAL(4, 51, 18), // "combinaisonPressed"
-QT_MOC_LITERAL(5, 70, 22) // "nInt::key_combinaison*"
+QT_MOC_LITERAL(5, 70, 21) // "nInt::key_combinaison"
 
     },
     "InputController\0posPixelXChanged\0\0"
     "posPixelYChanged\0combinaisonPressed\0"
-    "nInt::key_combinaison*"
+    "nInt::key_combinaison"
 };
 #undef QT_MOC_LITERAL
 
@@ -77,26 +77,26 @@ void InputController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         switch (_id) {
         case 0: _t->posPixelXChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 1: _t->posPixelYChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 2: _t->combinaisonPressed((*reinterpret_cast< nInt::key_combinaison*(*)>(_a[1]))); break;
+        case 2: _t->combinaisonPressed((*reinterpret_cast< const nInt::key_combinaison(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (InputController::*_t)(int );
+            typedef void (InputController::*_t)(int ) const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&InputController::posPixelXChanged)) {
                 *result = 0;
             }
         }
         {
-            typedef void (InputController::*_t)(int );
+            typedef void (InputController::*_t)(int ) const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&InputController::posPixelYChanged)) {
                 *result = 1;
             }
         }
         {
-            typedef void (InputController::*_t)(nInt::key_combinaison * );
+            typedef void (InputController::*_t)(const nInt::key_combinaison & ) const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&InputController::combinaisonPressed)) {
                 *result = 2;
             }
@@ -141,23 +141,23 @@ int InputController::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void InputController::posPixelXChanged(int _t1)
+void InputController::posPixelXChanged(int _t1)const
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+    QMetaObject::activate(const_cast< InputController *>(this), &staticMetaObject, 0, _a);
 }
 
 // SIGNAL 1
-void InputController::posPixelYChanged(int _t1)
+void InputController::posPixelYChanged(int _t1)const
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 1, _a);
+    QMetaObject::activate(const_cast< InputController *>(this), &staticMetaObject, 1, _a);
 }
 
 // SIGNAL 2
-void InputController::combinaisonPressed(nInt::key_combinaison * _t1)
+void InputController::combinaisonPressed(const nInt::key_combinaison & _t1)const
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 2, _a);
+    QMetaObject::activate(const_cast< InputController *>(this), &staticMetaObject, 2, _a);
 }
 QT_END_MOC_NAMESPACE

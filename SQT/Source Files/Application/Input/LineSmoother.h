@@ -15,7 +15,7 @@ public:
 // METHODS
 public:
 	template<typename T>
-	void addPoint(sf::Vector2<T> point);
+	void addPoint(const sf::Vector2<T>& point);
 	void endPoint() { endSmooth(); }
 	std::vector<sf::Vector2f> getAvailable();
 private:
@@ -24,7 +24,8 @@ private:
 	void endSmooth();
 	void getReady(int from, int to);
 
-	std::vector<Vector2d> smooth_laplacian(Vector2d begin, Vector2d middle, Vector2d end);
+	std::vector<Vector2d> smooth_laplacian(const Vector2d& begin, const Vector2d& middle, const Vector2d& end);
+	std::vector<Vector2d> _smooth_laplacian(const Vector2d& begin, const Vector2d& middle, const Vector2d& end);
 
 // MEMBERS
 private:
@@ -36,7 +37,7 @@ private:
 };
 
 template <typename T>
-void LineSmoother::addPoint(sf::Vector2<T> point) {
+void LineSmoother::addPoint(const sf::Vector2<T>& point) {
 	if (array.size() > 0 && fabs(Fonction::norme(BRUSH->truePosition(VECTOR2F(point)) - BRUSH->truePosition(VECTOR2F(LAST(array))))) < 1) {
 		if (!b_once) {
 			endSmooth();

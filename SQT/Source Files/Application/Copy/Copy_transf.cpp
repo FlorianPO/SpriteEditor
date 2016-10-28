@@ -27,21 +27,21 @@ void Copy::move() {
 	}
 	else if (INPUT->released(Qt::RightButton))
 		if (getPosition() != posf)
-			UNDO->push(new CopyMoved(this, POS_RECT(sprite_copy.getGlobalBounds())));
+			UNDO->push(*new CopyMoved(this, POS_RECT(sprite_copy.getGlobalBounds())));
 }
 
-void Copy::keyMove(int x, int y) {
-	translate(sf::Vector2f(x, y));
+void Copy::keyMove(const sf::Vector2f& delta) {
+	translate(delta);
 	SHORTCUT_CONTROLLER->createCoreShortcutOnce(nInt::keyCombinaison(Qt::Key_Shift, nInt::RELEASED), [](){
-		UNDO->push(new CopyMoved(COPY, POS_RECT(COPY->sprite_copy.getGlobalBounds())));
+		UNDO->push(*new CopyMoved(COPY, POS_RECT(COPY->sprite_copy.getGlobalBounds())));
 	});
 }
 
 void Copy::grand() {
-	CURSEUR->gerer(&sprite_copy);
+	CURSEUR->gerer(sprite_copy);
 
 	if (INPUT->again(Qt::LeftButton)) {
-		CURSEUR->init(&sprite_copy);
+		CURSEUR->init(sprite_copy);
 		posf2 = sprite_copy.getScale();
 		posf = INPUT->getPosition();
 	}
@@ -86,14 +86,14 @@ void Copy::grand() {
 							  static_cast<double>(temp.y) / static_cast<double>(dist_ini.y) * static_cast<double>(posf2.y)));
 	}
 	else if (INPUT->released(Qt::LeftButton)) 
-		UNDO->push(new CopyScaled(this, POS_RECT(sprite_copy.getGlobalBounds()), sprite_copy.getScale(), sprite_copy.getOrigin()));
+		UNDO->push(*new CopyScaled(this, POS_RECT(sprite_copy.getGlobalBounds()), sprite_copy.getScale(), sprite_copy.getOrigin()));
 }
 
 void Copy::rotation() {
-	CURSEUR->gerer(&sprite_copy);
+	CURSEUR->gerer(sprite_copy);
 
 	if (INPUT->again(Qt::LeftButton)) {
-		CURSEUR->init(&sprite_copy);
+		CURSEUR->init(sprite_copy);
 		angle_ini = -Fonction::degToRad(sprite_copy.getRotation()) + atan2(INPUT->getPosition().y - sprite_copy.getPosition().y, 
 																		   INPUT->getPosition().x - sprite_copy.getPosition().x);
 	}
@@ -113,7 +113,7 @@ void Copy::rotation() {
 		}
 	}
 	else if (INPUT->released(Qt::LeftButton)) 
-		UNDO->push(new CopyRotated(this, POS_RECT(sprite_copy.getGlobalBounds()), sprite_copy.getRotation(), sprite_copy.getOrigin()));
+		UNDO->push(*new CopyRotated(this, POS_RECT(sprite_copy.getGlobalBounds()), sprite_copy.getRotation(), sprite_copy.getOrigin()));
 }
 
 void Copy::flip() {
@@ -123,6 +123,6 @@ void Copy::flip() {
 		else
 			Fonction::flipVertically(sprite_copy);
 
-		UNDO->push(new CopyFlipped(this, POS_RECT(sprite_copy.getGlobalBounds()), sprite_copy.getScale()));
+		UNDO->push(*new CopyFlipped(this, POS_RECT(sprite_copy.getGlobalBounds()), sprite_copy.getScale()));
 	}
 }

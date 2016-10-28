@@ -1,11 +1,11 @@
 #pragma once
 
-//SFMLView
+// SFMLView
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 
-//Librairies Windows
+// Standard library
 #include <queue>
 #include <cstdlib>
 #include <iostream>
@@ -20,26 +20,29 @@
 #include <thread>
 #include <unordered_map>
 #include <climits>
+#include <memory>
 
-//Presse papier
+// Presse papier
 #include <windows.h>
 #include <typeinfo>
 
-//Qt
+// Qt
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QLabel>
-#include <QUndoStack.h>
+#include <QtWidgets/QComboBox>
+#include <QUndoStack>
 #include <QPushButton>
 #include <QMouseEvent>
 #include <QKeyEvent>
 #include <QTimer>
 #include <QLineEdit>
-#include <QtCore/QSignalMapper.h>
-#include <QShortcut.h>
-#include <QMenuBar.h>
-#include <QMenu.h>
-#include <QFileDialog.h>
+#include <QtCore/QSignalMapper>
+#include <QShortcut>
+#include <QMenuBar>
+#include <QMenu>
+#include <QFileDialog>
+#include <QCheckBox>
 
 #define PI 3.14159265358979323846
 #define PIH PI / 8.0
@@ -62,6 +65,11 @@
 #define CALL_VECTOR2I(v, f)		sf::Vector2i(f(v.x), f(v.y))
 #define OPER_VECTOR2F(v, op)	sf::Vector2f(v.x op, v.y op)
 #define OPER_VECTOR2I(v, op)	sf::Vector2f(v.x op, v.y op)
+
+#define NEW(my_name, my_class, arg, arg_init)	my_class * my_name = new my_class arg; my_name->init arg_init;
+#define _NEW(my_name, my_class, arg, arg_init)	my_name = new my_class arg; my_name->init arg_init;
+#define RNEW(my_name, my_class, arg, arg_init)	my_class & my_name = *new my_class arg; my_name.init arg_init;
+#define _RNEW(my_name, my_class, arg, arg_init)	my_name = *new my_class arg; my_name.init arg_init;
 
 #define H_VECTOR2F(v)	sf::Vector2f(v.x / 2.f, v.y / 2.f)
 #define H_VECTOR2I(v)	sf::Vector2i(v.x / 2.f, v.y / 2.f)

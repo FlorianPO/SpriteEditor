@@ -3,8 +3,7 @@
 #include "Source Files/Application/Input/InputController.h"
 #include "Source Files/Widget/Various/Label/ViewLabel.h"
 
-InfoPanel_position::InfoPanel_position(QWidget *parent, const QPoint& position) : QWidget(parent) {
-	move(position);
+InfoPanel_position::InfoPanel_position(QWidget *parent) : QWidget(parent) {
 	ui_pos.setupUi(this);
 	hide();
 

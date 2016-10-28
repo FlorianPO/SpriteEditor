@@ -9,31 +9,31 @@ namespace Fonction
 		int orientation;
 	};
 
-	bool mouseOnSprite(const sf::Sprite* sprite); //Test if mouse is on a given sprite
+	bool mouseOnSprite(const sf::Sprite& sprite); //Test if mouse is on a given sprite
 	bool mouseOnSprite(const sf::Sprite& sprite, const sf::RenderWindow& fenetre); //Test if mouse is on a given sprite on a window
-	bool mouseOnRect(sf::FloatRect rect);
-	bool mouseOnRect(sf::FloatRect rect, const sf::RenderWindow& fenetre);
+	bool mouseOnRect(const sf::FloatRect& rect);
+	bool mouseOnRect(const sf::FloatRect& rect, const sf::RenderWindow& fenetre);
 
-	sl_PR selecPointRect(sf::Vector2f pos_ini, sf::Vector2f pos, int only = -1, double angle = 0, float seuil = 0);
-	sf::Vector2f* selecPoint(sf::Sprite* sprite, sf::Vector2f pos, float seuil);
+	sl_PR selecPointRect(const sf::Vector2f& pos_ini, const sf::Vector2f& pos, int only = -1, double angle = 0, float seuil = 0);
+	std::shared_ptr<sf::Vector2f> selecPoint(const sf::Sprite& sprite, const sf::Vector2f& pos, float seuil);
 
-	bool onCalque(sf::Vector2i vect, const sf::Image& image_courant);
-	bool onCalque(sf::Vector2i vect, const sf::Texture& texture_courant);
-	sf::Color getColor(sf::Vector2i vect, const sf::Image& image_courant);
+	bool onCalque(const sf::Vector2i& pos, const sf::Image& image_courant);
+	bool onCalque(const sf::Vector2i& pos, const sf::Texture& texture_courant);
+	sf::Color getColor(const sf::Vector2i& vect, const sf::Image& image_courant);
 	sf::Color getPointedColor();
 
-	bool checkCadre(sf::IntRect* cadre, sf::IntRect cadre_in);
-	std::vector<sf::Vector2f>* getPoints(sf::Sprite* sprite);
+	bool checkCadre(sf::IntRect& cadre, const sf::IntRect& cadre_in);
+	std::shared_ptr<std::vector<sf::Vector2f>> getPoints(const sf::Sprite& sprite);
 
-	void fuseTexture(sf::RenderTexture& render_texture, const sf::Texture& texture_src, sf::Vector2f pos_src);
+	void fuseTexture(sf::RenderTexture& render_texture, const sf::Texture& texture_src, const sf::Vector2f& pos_src);
 
 	/////////////
 	// SPECIAL //
 	/////////////
-	int copy_to_clipboard(sf::Image *image);
-	int copy_to_clipboard(std::string string);
+	int copy_to_clipboard(sf::Image& image);
+	int copy_to_clipboard(const std::string& string);
 	sf::String get_macro();
-	sf::Image* get_clipboard();
+	std::shared_ptr<sf::Image> get_clipboard();
 
 	//////////
 	// MATH //
@@ -50,10 +50,10 @@ namespace Fonction
 
 	// Geometry
 	template<typename T>
-	double norme(sf::Vector2<T> direction) { return std::sqrt(std::pow(direction.x, 2) + std::pow(direction.y, 2)); }
+	double norme(const sf::Vector2<T>& direction) { return std::sqrt(std::pow(direction.x, 2) + std::pow(direction.y, 2)); }
 	double hypothenus(double cote1, double cote2);
 	template<typename T>
-	sf::Vector2<T> rotationGlobal(sf::Vector2<T> toRot, sf::Vector2<T> center, double angle, nStd::Angle angle_type=nStd::DEG) {
+	sf::Vector2<T> rotationGlobal(const sf::Vector2<T>& toRot, const sf::Vector2<T>& center, double angle, nStd::Angle angle_type=nStd::DEG) {
 		if (angle_type == nStd::DEG)
 			angle = degToRad(angle);
 	
@@ -72,9 +72,9 @@ namespace Fonction
 		return sf::Vector2<T>(x, y);
 	}
 	template<typename T>
-	sf::Vector2<T> rotationLocal(sf::Vector2<T> toRot, double angle, nStd::Angle angle_type=nStd::DEG) {
+	sf::Vector2<T> rotationLocal(const sf::Vector2<T>& toRot, double angle, nStd::Angle angle_type=nStd::DEG) {
 		if (angle_type == nStd::DEG)
-		angle = degToRad(angle);
+			angle = degToRad(angle);
 
 		double x = toRot.x;
 		double y = toRot.y;
@@ -87,14 +87,14 @@ namespace Fonction
 	}
 
 	// Sprite transformations
-	void moveLocaly(sf::Sprite& sprite, sf::Vector2f translation);
-	void setGlobalPosition(sf::Sprite& sprite, sf::Vector2f position);
-	void setOriginLocally(sf::Sprite& sprite, sf::Vector2f origin);
-	void setOriginGlobally(sf::Sprite& sprite, sf::Vector2f origin);
+	void moveLocaly(sf::Sprite& sprite, const sf::Vector2f& translation);
+	void setGlobalPosition(sf::Sprite& sprite, const sf::Vector2f& position);
+	void setOriginLocally(sf::Sprite& sprite, const sf::Vector2f& origin);
+	void setOriginGlobally(sf::Sprite& sprite, const sf::Vector2f& origin);
 	void flipVertically(sf::Sprite& sprite);
 	void flipHorizontally(sf::Sprite& sprite);
 	template<typename T>
-	sf::Rect<T> unionRect(sf::Rect<T> r1, sf::Rect<T> r2) {
+	sf::Rect<T> unionRect(const sf::Rect<T>& r1, const sf::Rect<T>& r2) {
 		T left = std::min(r1.left, r2.left);
 		T top = std::min(r1.top, r2.top);
 		T width = std::max(r1.left + r1.width, r2.left + r2.width) - left;
@@ -120,7 +120,7 @@ namespace Fonction
 		vector() {}
 
 		template<typename T>
-		vector(sf::Vector2<T> p1, sf::Vector2<T> p2) {
+		vector(const sf::Vector2<T>& p1, const sf::Vector2<T>& p2) {
 			this->p1 = VECTOR2D(p1);
 			this->p2 = VECTOR2D(p2);
 			this->size = this->p2 - this->p1;
@@ -154,13 +154,13 @@ namespace Fonction
 			size = p2 - p1;
 		}
 		template<typename T>
-		void setAtP1(sf::Vector2<T> position) { 
+		void setAtP1(const sf::Vector2<T>& position) { 
 			Vector2d delta = VECTOR2D(position) - p1;
 			p1 += delta;
 			p2 += delta;
 		}
 		template<typename T>
-		void setAtP2(sf::Vector2<T> position) { 
+		void setAtP2(const sf::Vector2<T>& position) { 
 			Vector2d delta = VECTOR2D(position) - p2;
 			p1 += delta;
 			p2 += delta;
@@ -174,46 +174,46 @@ namespace Fonction
 	sf::Vector2f centerCorner(const sf::Sprite& sprite);
 	sf::Vector2f centerCorner(const sf::Texture& texture);
 	sf::Vector2f centerCorner(const sf::Image& image);
-	sf::Vector2f centerCorner(sf::Vector2i size);
-	sf::Vector2f centerCorner(sf::Vector2u size);
-	sf::Vector2f centerCorner(sf::Vector2f size);
-	sf::Vector2f centerCorner(sf::FloatRect rect);
-	sf::Vector2f centerCorner(sf::IntRect rect);
+	sf::Vector2f centerCorner(const sf::Vector2i& size);
+	sf::Vector2f centerCorner(const sf::Vector2u& size);
+	sf::Vector2f centerCorner(const sf::Vector2f& size);
+	sf::Vector2f centerCorner(const sf::FloatRect& rect);
+	sf::Vector2f centerCorner(const sf::IntRect& rect);
 	// TOP LEFT
 	sf::Vector2f topLeftCorner(const sf::Sprite& sprite);
 	sf::Vector2f topLeftCorner(const sf::Texture& texture);
 	sf::Vector2f topLeftCorner(const sf::Image& image);
-	sf::Vector2f topLeftCorner(sf::Vector2i size);
-	sf::Vector2f topLeftCorner(sf::Vector2u size);
-	sf::Vector2f topLeftCorner(sf::Vector2f size);
-	sf::Vector2f topLeftCorner(sf::FloatRect rect);
-	sf::Vector2f topLeftCorner(sf::IntRect rect);
+	sf::Vector2f topLeftCorner(const sf::Vector2i& size);
+	sf::Vector2f topLeftCorner(const sf::Vector2u& size);
+	sf::Vector2f topLeftCorner(const sf::Vector2f& size);
+	sf::Vector2f topLeftCorner(const sf::FloatRect& rect);
+	sf::Vector2f topLeftCorner(const sf::IntRect& rect);
 	// TOP RIGHT
 	sf::Vector2f topRightCorner(const sf::Sprite& sprite);
 	sf::Vector2f topRightCorner(const sf::Texture& texture);
 	sf::Vector2f topRightCorner(const sf::Image& image);
-	sf::Vector2f topRightCorner(sf::Vector2i size);
-	sf::Vector2f topRightCorner(sf::Vector2u size);
-	sf::Vector2f topRightCorner(sf::Vector2f size);
-	sf::Vector2f topRightCorner(sf::FloatRect rect);
-	sf::Vector2f topRightCorner(sf::IntRect rect);
+	sf::Vector2f topRightCorner(const sf::Vector2i& size);
+	sf::Vector2f topRightCorner(const sf::Vector2u& size);
+	sf::Vector2f topRightCorner(const sf::Vector2f& size);
+	sf::Vector2f topRightCorner(const sf::FloatRect& rect);
+	sf::Vector2f topRightCorner(const sf::IntRect& rect);
 	// BOTTOM RIGHT
 	sf::Vector2f bottomRightCorner(const sf::Sprite& sprite);
 	sf::Vector2f bottomRightCorner(const sf::Texture& texture);
 	sf::Vector2f bottomRightCorner(const sf::Image& image);
-	sf::Vector2f bottomRightCorner(sf::Vector2i size);
-	sf::Vector2f bottomRightCorner(sf::Vector2u size);
-	sf::Vector2f bottomRightCorner(sf::Vector2f size);
-	sf::Vector2f bottomRightCorner(sf::FloatRect rect);
-	sf::Vector2f bottomRightCorner(sf::IntRect rect);
+	sf::Vector2f bottomRightCorner(const sf::Vector2i& size);
+	sf::Vector2f bottomRightCorner(const sf::Vector2u& size);
+	sf::Vector2f bottomRightCorner(const sf::Vector2f& size);
+	sf::Vector2f bottomRightCorner(const sf::FloatRect& rect);
+	sf::Vector2f bottomRightCorner(const sf::IntRect& rect);
 	// BOTTOM LEFT
 	sf::Vector2f bottomLeftCorner(const sf::Sprite& sprite);
 	sf::Vector2f bottomLeftCorner(const sf::Texture& texture);
 	sf::Vector2f bottomLeftCorner(const sf::Image& image);
-	sf::Vector2f bottomLeftCorner(sf::Vector2i size);
-	sf::Vector2f bottomLeftCorner(sf::Vector2u size);
-	sf::Vector2f bottomLeftCorner(sf::Vector2f size);
-	sf::Vector2f bottomLeftCorner(sf::FloatRect rect);
-	sf::Vector2f bottomLeftCorner(sf::IntRect rect);
+	sf::Vector2f bottomLeftCorner(const sf::Vector2i& size);
+	sf::Vector2f bottomLeftCorner(const sf::Vector2u& size);
+	sf::Vector2f bottomLeftCorner(const sf::Vector2f& size);
+	sf::Vector2f bottomLeftCorner(const sf::FloatRect& rect);
+	sf::Vector2f bottomLeftCorner(const sf::IntRect& rect);
 };
 

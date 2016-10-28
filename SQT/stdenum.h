@@ -79,10 +79,10 @@ namespace nUnk {
 			virtual void undo() = 0;
 			virtual void redo() = 0;
 
-			void* getInstance() { return instance; }
+			void* getInstance() const { return instance; }
 
 			void setFirst() { first = true; }
-			bool isFirst() { return first; }
+			bool isFirst() const { return first; }
 	};
 }
 
@@ -157,7 +157,7 @@ namespace nSet {
 		int x;
 		int y;
 	};
-	inline o_line oLine(sf::VertexArray line, Orientation orient, int x, int y) {
+	inline o_line oLine(const sf::VertexArray& line, Orientation orient, int x, int y) {
 		o_line lc = {line, orient, x, y};
 		return lc;
 	}
@@ -188,7 +188,7 @@ namespace nSet {
 			
 			inline void push_back(const o_line& l) { lines.push_back(l); }
 			inline void clear() { lines.clear(); refresh_bounds = true; }
-			inline unsigned int size() { return lines.size(); }
+			inline unsigned int size() const { return lines.size(); }
 			inline std::vector<o_line>& getLines() { return lines; }
 			inline sf::IntRect getBounds() { 
 				if (refresh_bounds)
@@ -196,7 +196,7 @@ namespace nSet {
 				return bounds; 
 			}
 
-			void moveLines(sf::Vector2i move) {
+			void moveLines(const sf::Vector2i& move) {
 				refresh_bounds = true; 
 				FOR_I (lines.size()) {
 					lines[i].x += move.x;

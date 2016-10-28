@@ -32,7 +32,7 @@ static const qt_meta_stringdata_Background_t qt_meta_stringdata_Background = {
 QT_MOC_LITERAL(0, 0, 10), // "Background"
 QT_MOC_LITERAL(1, 11, 9), // "bindLayer"
 QT_MOC_LITERAL(2, 21, 0), // ""
-QT_MOC_LITERAL(3, 22, 6), // "Layer*"
+QT_MOC_LITERAL(3, 22, 6), // "Layer&"
 QT_MOC_LITERAL(4, 29, 5), // "layer"
 QT_MOC_LITERAL(5, 35, 11), // "unbindLayer"
 QT_MOC_LITERAL(6, 47, 16), // "layerTransformed"
@@ -42,7 +42,7 @@ QT_MOC_LITERAL(9, 89, 10), // "updateFond"
 QT_MOC_LITERAL(10, 100, 11) // "updateLines"
 
     },
-    "Background\0bindLayer\0\0Layer*\0layer\0"
+    "Background\0bindLayer\0\0Layer&\0layer\0"
     "unbindLayer\0layerTransformed\0cameraZoomed\0"
     "zoom_factor\0updateFond\0updateLines"
 };
@@ -90,8 +90,8 @@ void Background::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         Background *_t = static_cast<Background *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->bindLayer((*reinterpret_cast< Layer*(*)>(_a[1]))); break;
-        case 1: _t->unbindLayer((*reinterpret_cast< Layer*(*)>(_a[1]))); break;
+        case 0: _t->bindLayer((*reinterpret_cast< Layer(*)>(_a[1]))); break;
+        case 1: _t->unbindLayer((*reinterpret_cast< Layer(*)>(_a[1]))); break;
         case 2: _t->layerTransformed(); break;
         case 3: _t->cameraZoomed((*reinterpret_cast< float(*)>(_a[1]))); break;
         case 4: _t->updateFond(); break;

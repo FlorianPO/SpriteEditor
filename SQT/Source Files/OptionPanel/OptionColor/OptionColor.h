@@ -30,7 +30,7 @@ private:
 	//void createCircle();
 
 private:
-	sf::Color* parametre;
+	sf::Color* parameters;
 	sf::Color ex_parametre;
 	sf::Image image_selec;
 

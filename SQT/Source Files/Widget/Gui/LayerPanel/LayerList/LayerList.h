@@ -2,37 +2,24 @@
 
 #include "stdenum.h"
 #include "GeneratedFiles/ui_LayerList.h"
+#include "Source Files/Widget/Various/Layout/ListObject.h"
 class Layer; // Forward declaration
 class SpriteView; // Forward declaration
 class State2Button; // Forward declaration
 class FLineEdit; // Forward declaration
 
-class LayerList : public QWidget
+class LayerList : public ListObject
 {
 	Q_OBJECT
 // CONSTRUCTOR
 public:
-	LayerList(QWidget* parent, Layer& layer, const QPoint& position=QPoint());
-	~LayerList() {}
-	
-// SIGNALS SLOTS
-	private slots:
-		void layerUpdated();
-		void layerSelected();
-		void layerUnselected();
-		void dropped();
-		void undropped();
+	LayerList(QWidget* parent, SignalListObject* binded_object=NULL, QMainWindow* window=NULL);
+	~LayerList();
 
 // METHODS
 public:
-	static LayerList* getFromLayer(Layer* layer);
-	FLineEdit* getLineEdit() { return line_edit; }
-
-
-private:
-	bool eventFilter(QObject *object, QEvent *event) override;
-	void mousePressEvent(QMouseEvent* Qm) override;
-	void moveEvent(QMoveEvent *Qm) override;
+	static LayerList& getFromLayer(Layer& layer);
+	FLineEdit& getLineEdit() const { return *line_edit; }
 
 // MEMBERS
 private:

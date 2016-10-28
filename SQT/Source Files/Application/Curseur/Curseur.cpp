@@ -38,7 +38,7 @@ void Curseur::display() {
 	}
 }
 
-void Curseur::setPosition(sf::Vector2f pos) {
+void Curseur::setPosition(const sf::Vector2f& pos) {
 	FOR_I (lines.size()) {
 		lines[i][0].position -= position - pos;
 		lines[i][1].position -= position - pos;
@@ -46,7 +46,7 @@ void Curseur::setPosition(sf::Vector2f pos) {
 	position = pos;
 }
 
-void Curseur::gerer(sf::Sprite* sprite) {
+void Curseur::gerer(const sf::Sprite& sprite) {
 	if (!INPUT->pressed(Qt::Key_Shift)) {
 		if (INPUT->again(Qt::RightButton))
 			start_pos = position;	
@@ -54,20 +54,19 @@ void Curseur::gerer(sf::Sprite* sprite) {
 		if (INPUT->pressed(Qt::RightButton))
 			setPosition(INPUT->getPosition());
 		else if (INPUT->released(Qt::RightButton))
-			UNDO->push(new CurseurUndo(position, start_pos));
+			UNDO->push(*new CurseurUndo(position, start_pos));
 	}
 	else
 		if (INPUT->again(Qt::RightButton)) {
-			sf::Vector2f* tmp = Fonction::selecPoint(sprite, INPUT->getPosition(), static_cast<unsigned int>(-1));
+			auto tmp = Fonction::selecPoint(sprite, INPUT->getPosition(), static_cast<unsigned int>(-1));
 			if (tmp != NULL) {
 				start_pos = position;
 				setPosition(*tmp);
-				UNDO->push(new CurseurUndo(position, start_pos));
-				delete tmp;
+				UNDO->push(*new CurseurUndo(position, start_pos));
 			}
 		}
 }
 
-void Curseur::init(sf::Sprite* sprite) {
-	Fonction::setOriginGlobally(*sprite, position);
+void Curseur::init(sf::Sprite& sprite) {
+	Fonction::setOriginGlobally(sprite, position);
 }

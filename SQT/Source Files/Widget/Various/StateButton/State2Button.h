@@ -17,8 +17,8 @@ public:
 		void enable();
 		void disable();
 	signals:
-		void enabled();
-		void disabled();
+		void enabled() const;
+		void disabled() const;
 
 // MEMBERS
 private:

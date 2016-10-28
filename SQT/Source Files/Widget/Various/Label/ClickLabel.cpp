@@ -3,7 +3,7 @@
 #include "Source Files/Fonction/Fonction.h"
 #include "Source Files/Application/Input/InputController.h"
 
-ClickLabel::ClickLabel(QWidget* parent, sf::Vector2i range, enum_size e_size, bool auto_emit) : ViewLabel(parent, e_size) {
+ClickLabel::ClickLabel(QWidget* parent, const sf::Vector2i& range, enum_size e_size, bool auto_emit) : ViewLabel(parent, e_size) {
 	this->range = range;
 	this->auto_emit = auto_emit;
 
@@ -80,18 +80,18 @@ void ClickLabel::wheelEvent(QWheelEvent* Qw) {
 	Qw->accept();
 }
 
-int ClickLabel::checkRange(int* value) {
+int ClickLabel::checkRange(int& value) {
 	int return_value = DEFAULT;
-	if (*value > range.y) {
-		*value = range.y;
+	if (value > range.y) {
+		value = range.y;
 		return_value += UP_LIMIT_REACHED + LIMIT_REACHED;
 	}
-	else if (*value < range.x) {
-		*value = range.x;
+	else if (value < range.x) {
+		value = range.x;
 		return_value += DOWN_LIMIT_REACHED + LIMIT_REACHED;
 	}
 
-	int num_digits = Fonction::numDigits(*value);
+	int num_digits = Fonction::numDigits(value);
 	if (num_digits == 1)
 		return_value += ONE_DIGIT;
 	else if (num_digits == Fonction::numDigits(range.y))
@@ -121,13 +121,13 @@ void ClickLabel::keyPressEvent(QKeyEvent* Qk) {
 		if (!write_back) {
 			write_back = true;
 			int new_value = key - 0x30;
-			if (checkRange(&new_value) & UP_LIMIT_REACHED)
+			if (checkRange(new_value) & UP_LIMIT_REACHED)
 				write_back = false;
 			setValue(new_value);
 		}
 		else {
 			int new_value = value*10 + key - 0x30;
-			if (checkRange(&new_value) & UP_LIMIT_REACHED)
+			if (checkRange(new_value) & UP_LIMIT_REACHED)
 				write_back = false;
 			setValue(new_value);
 		}
@@ -139,7 +139,7 @@ void ClickLabel::keyPressEvent(QKeyEvent* Qk) {
 		}
 
 		int new_value = value / 10;
-		if (checkRange(&new_value) & DOWN_LIMIT_REACHED)
+		if (checkRange(new_value) & DOWN_LIMIT_REACHED)
 			write_back = false;
 		else
 			write_back = true;
@@ -184,7 +184,7 @@ void ClickLabel::run() {
 			incr_value = incr_value * 5;
 
 		int new_value = value + incr_value;
-		checkRange(&new_value);
+		checkRange(new_value);
 		setValue(new_value);
 	}
 	frame_cpt++;

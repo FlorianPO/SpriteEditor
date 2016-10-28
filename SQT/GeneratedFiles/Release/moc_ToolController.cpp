@@ -32,14 +32,14 @@ static const qt_meta_stringdata_ToolController_t qt_meta_stringdata_ToolControll
 QT_MOC_LITERAL(0, 0, 14), // "ToolController"
 QT_MOC_LITERAL(1, 15, 12), // "toolSelected"
 QT_MOC_LITERAL(2, 28, 0), // ""
-QT_MOC_LITERAL(3, 29, 5), // "Tool*"
+QT_MOC_LITERAL(3, 29, 5), // "Tool&"
 QT_MOC_LITERAL(4, 35, 10), // "selectTool"
 QT_MOC_LITERAL(5, 46, 7), // "tool_id"
 QT_MOC_LITERAL(6, 54, 15), // "nTol::tool_enum"
 QT_MOC_LITERAL(7, 70, 4) // "tool"
 
     },
-    "ToolController\0toolSelected\0\0Tool*\0"
+    "ToolController\0toolSelected\0\0Tool&\0"
     "selectTool\0tool_id\0nTol::tool_enum\0"
     "tool"
 };
@@ -81,7 +81,7 @@ void ToolController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         ToolController *_t = static_cast<ToolController *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->toolSelected((*reinterpret_cast< Tool*(*)>(_a[1]))); break;
+        case 0: _t->toolSelected((*reinterpret_cast< Tool(*)>(_a[1]))); break;
         case 1: _t->selectTool((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 2: _t->selectTool((*reinterpret_cast< nTol::tool_enum(*)>(_a[1]))); break;
         default: ;
@@ -90,7 +90,7 @@ void ToolController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (ToolController::*_t)(Tool * );
+            typedef void (ToolController::*_t)(Tool & ) const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ToolController::toolSelected)) {
                 *result = 0;
             }
@@ -135,9 +135,9 @@ int ToolController::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void ToolController::toolSelected(Tool * _t1)
+void ToolController::toolSelected(Tool & _t1)const
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+    QMetaObject::activate(const_cast< ToolController *>(this), &staticMetaObject, 0, _a);
 }
 QT_END_MOC_NAMESPACE

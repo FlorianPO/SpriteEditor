@@ -28,7 +28,7 @@ private:
 	public slots:
 		void findSpace();
 	signals:
-		void globallyChanged();
+		void globallyChanged() const;
 
 // MEMBERS
 private:

@@ -13,6 +13,9 @@
 #include "Copy/Copy.h"
 #include "UndoStack/UndoStack.h"
 #include "Background/Background.h"
+#include "Action/Action.h"
+#include "Animation/AnimationController.h"
+#include "Animation/Animation.h"
 
 App* App::_t;
 
@@ -25,7 +28,7 @@ void App::load(std::string source) {
 	if (!image->loadFromFile(source))
 		std::cout << "Unable to load file at " + path.toAnsiString() + filename.toAnsiString() << std::endl;
 
-	initWork(image);
+	initWork(*image);
 }
 
 void App::loadAsLayer(std::string source) {
@@ -37,12 +40,15 @@ void App::loadAsLayer(std::string source) {
 	if (!image->loadFromFile(source))
 		std::cout << "Unable to load file at " + path.toAnsiString() + filename.toAnsiString() << std::endl;
 
-	LAYER_CONTROLLER->createLayer(image);
-	CAMERA->centerOnLayer();
+	LAYER_CONTROLLER->createLayer(*image);
+	CAMERA->centerOnLayer(*LAYER);
 }
 
-void App::initWork(sf::Image* image) {
+void App::initWork(sf::Image& image) {
 	freeWork();
+
+	frame = 0;
+	action = NULL;
 
 	BRUSH_CONTROLLER->selectBrush(nBrh::CIRCLE);
 	TOOL_CONTROLLER->selectTool(nTol::AERO);
@@ -55,7 +61,7 @@ void App::initWork(sf::Image* image) {
 	LAYER_CONTROLLER->createLayer(image);
 	UNDO->endFirst();
 
-	CAMERA->centerOnLayer();
+	CAMERA->centerOnLayer(*LAYER);
 }
 
 void App::freeWork() {
@@ -66,11 +72,15 @@ void App::freeWork() {
 }
 
 void App::run() {
-	//Utiliser l'outil
-	if (COPY == NULL || nTol::isTransform(TOOL->getEnum()))
-		TOOL->use();
+	if (action == NULL) {
+		//Utiliser l'outil
+		if (COPY == NULL || nTol::isTransform(TOOL->getEnum()))
+			TOOL->use();
+		else
+			COPY->move();	
+	}
 	else
-		COPY->move();
+		action->use();
 }
 
 void App::display() {
@@ -84,8 +94,8 @@ void App::display() {
 
 	//Afficher les calques / la sélection
 	FOR_I (LAYER_LIST.size()) {
-		LAYER_LIST[i]->display();
-		if (COPY != NULL && LAYER == LAYER_LIST[i])
+		LAYER_LIST.at<Layer*>(i)->display();
+		if (COPY != NULL && LAYER == LAYER_LIST.at<Layer*>(i))
 			COPY->display();
 	}
 
@@ -101,6 +111,8 @@ void App::display() {
 	if (TOOL != NULL)
 		TOOL->display();
 
+	ANIM->display();
+
 	//static sf::Clock h;
 	//float fps = 1.f/(h.restart().asSeconds());
 	//std::cout << fps << std::endl;
@@ -108,4 +120,9 @@ void App::display() {
 	test();
 
 	frame++;
+}
+
+void App::setAction(Action* action) {
+	this->action = action;
+	QObject::connect(action, &Action::ended, [this](){ this->action = NULL; });
 }

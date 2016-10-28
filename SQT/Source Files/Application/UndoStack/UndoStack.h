@@ -11,24 +11,24 @@ class UndoStack : public QObject
 	Q_OBJECT
 // INSTANCE
 private:	static UndoStack* _t; 
-public:		inline static void createInstance() { _t = new UndoStack(); }
+public:		inline static void createInstance() { _t = new UndoStack(true); }
 			inline static UndoStack* getInstance() { return _t; }
 
 // CONSTRUCTOR
 public:
-	UndoStack();
+	UndoStack(bool is_main_stack=false);
 	~UndoStack() {}
 	void freeWork();
 
 // METHODS
 public:
-	void _printStack(); // DEBUG
+	void _printStack() const; // DEBUG
 
-	void push(nUnk::UndoCommand* command);
+	void push(nUnk::UndoCommand& command);
 
 	// Get previous command of a given object (index is stored when instance is the same beetween 
 	// two consecutive calls for rescursive functionnality. Clearable with clear_tmp == true
-	nUnk::UndoCommand* getPrevious(void* instance, bool clear_tmp=false);
+	nUnk::UndoCommand& getPrevious(void* instance, bool clear_tmp=false);
 
 	void beginSearching();
 	void endSearching();
@@ -46,9 +46,13 @@ private:
 	private slots:
 		void undo();
 		void redo();
+	public slots:
+		void startShortcut();
+		void stopShortcut();
 
 // MEMBERS
 public:
+	int sh_ctrlz, sh_ctrly;
 	std::vector<std::vector<nUnk::UndoCommand*>> stack;
 	int index;
 

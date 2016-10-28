@@ -4,9 +4,13 @@ uniform sampler2D background;
 uniform vec2 offset;
 uniform vec4 couleur;
 
+uniform float opacity;
+uniform float mode;
+
 void main()
 { 	
 	vec4 color = couleur;
+	color.a = color.a * (opacity/255);
 	vec2 background_size = textureSize(background, 0);
 	
 	vec2 texture_size = textureSize(texture, 0);
@@ -19,8 +23,16 @@ void main()
 	
 	vec4 pixel_back = texture2D(background, pos_back);
 	
-	if (texture2D(texture, pos).a > 0)
-	{gl_FragColor = pixel_back;}
-	else
-	{gl_FragColor = color;}
+	if (texture2D(texture, pos).a > 0) {
+		gl_FragColor = pixel_back;
+	}
+	else {
+		if (mode == 0) { //Additive
+			gl_FragColor.a = color.a + pixel_back.a*(1-color.a);
+			gl_FragColor.rgb = (color.rgb*color.a + pixel_back.rgb*pixel_back.a*(1-color.a))/gl_FragColor.a;
+		}
+		else {
+		    gl_FragColor = color;
+		}
+	}
 }

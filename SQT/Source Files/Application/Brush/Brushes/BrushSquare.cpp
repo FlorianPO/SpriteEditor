@@ -4,7 +4,7 @@ BrushSquare::BrushSquare() : Brush() {
 	numero_brush = nBrh::SQUARE;
 }
 
-void BrushSquare::carre(float rx, float ry, sf::Image& image) {
+void BrushSquare::carre(sf::Image& image) {
 	sf::Vector2f center = sf::Vector2f(image.getSize().x / 2, image.getSize().y / 2);
 	sf::Vector2f delta = sf::Vector2f((image.getSize().x % 2 == 0)*0.5f, (image.getSize().y % 2 == 0)*0.5f);
 	sf::Vector2f pos;
@@ -24,16 +24,16 @@ void BrushSquare::carre(float rx, float ry, sf::Image& image) {
 	}
 }
 
-int BrushSquare::alpha_carre(sf::Vector2f pos, sf::Vector2f center) {
+int BrushSquare::alpha_carre(const sf::Vector2f& pos, const sf::Vector2f& center) {
 	float ax = std::abs((pos.x - center.x) / (center.x + 1));
 	float ay = std::abs((pos.y - center.y) / (center.y + 1));
 	return 255 - std::max(ax, ay) * 254;
 }
 
-void BrushSquare::create(sf::Vector2i square_size) {
+void BrushSquare::create(const sf::Vector2i& square_size) {
 	sf::Image image;
 	image.create(square_size.x, square_size.y, sf::Color::Transparent);
-	carre(square_size.x / 2, square_size.y / 2, image);
+	carre(image);
 
 	Brush::setSize(square_size);
 

@@ -94,13 +94,13 @@ void State2Button::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (State2Button::*_t)();
+            typedef void (State2Button::*_t)() const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&State2Button::enabled)) {
                 *result = 0;
             }
         }
         {
-            typedef void (State2Button::*_t)();
+            typedef void (State2Button::*_t)() const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&State2Button::disabled)) {
                 *result = 1;
             }
@@ -146,14 +146,14 @@ int State2Button::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void State2Button::enabled()
+void State2Button::enabled()const
 {
-    QMetaObject::activate(this, &staticMetaObject, 0, Q_NULLPTR);
+    QMetaObject::activate(const_cast< State2Button *>(this), &staticMetaObject, 0, Q_NULLPTR);
 }
 
 // SIGNAL 1
-void State2Button::disabled()
+void State2Button::disabled()const
 {
-    QMetaObject::activate(this, &staticMetaObject, 1, Q_NULLPTR);
+    QMetaObject::activate(const_cast< State2Button *>(this), &staticMetaObject, 1, Q_NULLPTR);
 }
 QT_END_MOC_NAMESPACE

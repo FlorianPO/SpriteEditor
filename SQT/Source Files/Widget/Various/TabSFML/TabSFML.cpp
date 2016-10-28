@@ -3,9 +3,9 @@
 #include "Source Files/Fonction/Fonction.h"
 #include "TabObject.h"
 
-TabSFML::TabSFML(QWidget* Parent, const QSize& Size) : SQT(Parent, Size) {
-	camera.setSize(Size.width(), Size.height());
-	camera.setCenter(Size.width() / 2.f, Size.height() / 2.f);
+TabSFML::TabSFML(QWidget* Parent, const QSize& size) : SQT(Parent) {
+	camera.setSize(size.width(), size.height());
+	camera.setCenter(size.width() / 2.f, size.height() / 2.f);
 
 	setMouseTracking(true);
 }
@@ -14,7 +14,7 @@ void TabSFML::OnUpdate() {
 	setView(camera);
 	clear(sf::Color::White);
 	FOR_I (element_list.size())
-		element_list[i]->draw(this);
+		element_list[i]->draw(*this);
 }
 
 void TabSFML::mouseMoveEvent(QMouseEvent* Qm) {
@@ -48,19 +48,19 @@ void TabSFML::wheelEvent(QWheelEvent* Qw) {
 	Qw->accept();
 }
 
-void TabSFML::add(TabObject* tab_object) {
-	element_list.push_back(tab_object);
+void TabSFML::add(TabObject& tab_object) {
+	element_list.push_back(&tab_object);
 	reOrder();
 }
 
-void TabSFML::add(TabObject* tab_object, int index) {
-	element_list.insert(element_list.begin() + index, tab_object);
+void TabSFML::add(TabObject& tab_object, int index) {
+	element_list.insert(element_list.begin() + index, &tab_object);
 	reOrder();
 }
 
-void TabSFML::remove(TabObject* tab_object) {
+void TabSFML::remove(TabObject& tab_object) {
 	FOR_I (element_list.size())
-		if (element_list[i] == tab_object) {
+		if (element_list[i] == &tab_object) {
 			element_list.erase(element_list.begin() + i);
 			break;
 		}

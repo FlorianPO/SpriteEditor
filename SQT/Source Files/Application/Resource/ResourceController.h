@@ -20,11 +20,11 @@ public:
 
 // METHODS
 public:
-	inline sf::Texture& getTexture(nRer::TEXTURE t) { return texture[t]; }
-	inline sf::Sprite& getSprite(nRer::SPRITE s) { return sprite[s]; }
+	inline const sf::Texture& getTexture(nRer::TEXTURE t) { return texture[t]; }
+	inline const sf::Sprite& getSprite(nRer::SPRITE s) { return sprite[s]; }
 	inline sf::Shader& getShader(nRer::SHADER s) { return shader[s]; }
-	inline sf::RenderStates& getRender(nRer::SHADER s) { return render[s]; }
-	inline sf::Font& getFont(nRer::FONT f) { return font[f]; }
+	inline const sf::RenderStates& getRender(nRer::SHADER s) { return render[s]; }
+	inline const sf::Font& getFont(nRer::FONT f) { return font[f]; }
 
 	sf::String directory = "Resources/";
 	QString directory_qt = QString("Resources/");

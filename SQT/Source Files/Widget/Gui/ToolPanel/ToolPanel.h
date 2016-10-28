@@ -9,12 +9,12 @@ class ToolPanel :  public QWidget
 	Q_OBJECT
 // CONSTRUCTOR
 public:
-	ToolPanel(QWidget *parent, const QPoint& position=QPoint(0, 0));
+	ToolPanel(QWidget *parent);
 	~ToolPanel() {};
 
 // SIGNALS SLOTS
 	public slots:
-		void toolSelected(Tool* tool);
+		void toolSelected(Tool& tool);
 
 // MEMBERS
 private:

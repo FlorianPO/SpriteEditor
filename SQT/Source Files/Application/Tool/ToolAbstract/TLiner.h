@@ -12,15 +12,15 @@ public:
 
 // METHODS
 protected:
-	bool hasSmoothLine();
+	bool hasSmoothLine() const;
 
 	void calculateLine();
-	void drawLine(sf::Vector2f pos_from, sf::Vector2f pos_to);
+	void drawLine(const sf::Vector2f& pos_from, const sf::Vector2f& pos_to);
 	void drawSmoothLine();
 	void displayLine();
 
 private:
-	void _drawLine(sf::Vector2f pos_from, sf::Vector2f pos_to);
+	void _drawLine(const sf::Vector2f& pos_from, const sf::Vector2f& pos_to);
 
 // MEMBERS
 protected:

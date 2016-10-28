@@ -8,39 +8,39 @@ class Brush : public QObject
 // CONSTRUCTOR
 public:
 	Brush() {}
-	virtual ~Brush() {}
+	~Brush() {}
 
 // METHODS
 public:
-	virtual void create(sf::Vector2i) = 0;
+	virtual void create(const sf::Vector2i&) = 0;
 
 	void createLines();
 	void createPreview();
 
-	void checkSize(sf::Vector2i size_to_check);
-	void display(sf::Vector2f center);
+	void checkSize(const sf::Vector2i& size_to_check);
+	void display(const sf::Vector2f& center);
 	void display(); //Display brush lines
 	
-	void setPosition(sf::Vector2f position); //Set brush's position
-	void move(sf::Vector2f delta_move);
+	void setPosition(const sf::Vector2f& position); //Set brush's position
+	void move(const sf::Vector2f& delta_move);
 
-	inline sf::Vector2f getPosition() { return sprite.getPosition(); }
-	sf::Vector2f getPointedPosition();
-	sf::Vector2f getExPosition();
-	sf::Vector2f truePosition(sf::Vector2f position);
+	inline const sf::Vector2f& getPosition() const { return sprite.getPosition(); }
+	sf::Vector2f getPointedPosition() const;
+	sf::Vector2f getExPosition() const;
+	sf::Vector2f truePosition(sf::Vector2f position) const;
 
-	void setColor(sf::Color color);
+	void setColor(const sf::Color& color);
 
-	inline sf::Vector2i	getSize() { return size; }
-	inline QSize getQSize() { return QSize(size.x, size.y); }
-	inline const sf::Sprite& getSprite() { return sprite; }
-	inline const sf::Texture& getPreviewTexture() { return preview_texture; }
+	inline const sf::Vector2i& getSize() const { return size; }
+	inline QSize getQSize() const { return QSize(ARG_VECTOR(size)); }
+	inline const sf::Sprite& getSprite() const { return sprite; }
+	inline const sf::Texture& getPreviewTexture() const { return preview_texture; }
 
-	inline nBrh::brush_enum getEnum() { return numero_brush; }
-	inline int getId() { return static_cast<int>(numero_brush); }
+	inline nBrh::brush_enum getEnum() const { return numero_brush; }
+	inline int getId() const { return static_cast<int>(numero_brush); }
 
 protected:
-	void setSize(sf::Vector2i size_to_set);
+	void setSize(const sf::Vector2i& size_to_set);
 	void setDisplayPosition(sf::Vector2f center);
 
 // SIGNALS SLOTS
@@ -48,8 +48,8 @@ protected:
 		void select();
 		void unselect();
 	signals:
-		void selected();
-		void unselected();
+		void selected() const;
+		void unselected() const;
 
 // MEMBERS
 protected:

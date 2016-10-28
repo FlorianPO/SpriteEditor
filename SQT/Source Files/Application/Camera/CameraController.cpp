@@ -4,8 +4,12 @@
 #include "Source Files/Application/App.h"
 #include "Source Files/Application/Input/InputController.h"
 #include "Source Files/Application/Input/ShortcutController.h"
-#include "Source Files/QtApp/SQT/SFMLView.h"
+#include "Source Files/Widget/SQT/SFMLView.h"
 #include "Source Files/Fonction/Fonction.h"
+
+#define MAX_ZOOM 64.f
+#define MIN_ZOOM 0.125f
+#define MOVE_FACTOR 10.f
 
 CameraController* CameraController::_t;
 
@@ -22,11 +26,16 @@ CameraController::CameraController() {
 	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::SHIFT + WHEEL_DOWN,	 AGAIN), [this](){moveX(40*(1.f/getZoom()));});
 	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::MiddleButton, PRESSED), [this](){moveCamera(sf::Vector2f(-INPUT->getDeltaScreen().x/getZoom(), 
 																														-INPUT->getDeltaScreen().y/getZoom()));});
+	// test
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::ALT + WHEEL_UP, AGAIN), [this](){rotate(-5);});
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::ALT + WHEEL_DOWN, AGAIN), [this](){rotate(+5);});
 
 	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::CTRL + WHEEL_UP,		AGAIN),	[this](){zoomCamera(0.5f);});
 	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::CTRL + WHEEL_DOWN,	AGAIN),	[this](){zoomCamera(2);});
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::Key_Plus,	AGAIN),	[this](){zoomCamera(0.5f);});
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::Key_Minus,	AGAIN),	[this](){zoomCamera(2);});
 
-	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::Key_Alt,			DOUBLE_TAP), [this](){centerOnLayer();});
+	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::Key_Alt,			DOUBLE_TAP), [this](){centerOnLayer(*LAYER);});
 	SHORTCUT_CONTROLLER->createCoreShortcut(keyCombinaison(Qt::MiddleButton,	DOUBLE_TAP), [this](){follow(INPUT->getPosition());});
 }
 
@@ -35,8 +44,8 @@ void CameraController::updateView() {
 	emit moved(getCenter());
 }
 
-void CameraController::centerOnLayer(Layer* layer) {
-	setCenter(sf::Vector2f(layer->getSize().x / 2.f, layer->getSize().y / 2.f));
+void CameraController::centerOnLayer(const Layer& layer) {
+	setCenter(sf::Vector2f(layer.getSize().x / 2.f, layer.getSize().y / 2.f));
 	setSize(sf::Vector2f(SFML->width(), SFML->height()));
 	zoom_factor = 1.f;
 
@@ -86,7 +95,7 @@ void CameraController::follow(const sf::Vector2f& pos) {
 	emit moved(getCenter());
 }
 
-sf::Vector2f CameraController::getPosition(nStd::Corner corner) {
+sf::Vector2f CameraController::getPosition(nStd::Corner corner) const {
 	using namespace nStd;
 	switch (corner) {
 		case CENTER:		return getCenter();
@@ -102,7 +111,7 @@ sf::Vector2f CameraController::getPosition(nStd::Corner corner) {
 	return getCenter();
 }
 
-void CameraController::moveCamera(sf::Vector2f delta_move) {
+void CameraController::moveCamera(const sf::Vector2f& delta_move) {
 	CAMERA->sf::View::move(delta_move.x, delta_move.y);
 	emit moved(getCenter());
 }

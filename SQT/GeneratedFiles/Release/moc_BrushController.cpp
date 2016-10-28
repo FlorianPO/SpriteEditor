@@ -32,7 +32,7 @@ static const qt_meta_stringdata_BrushController_t qt_meta_stringdata_BrushContro
 QT_MOC_LITERAL(0, 0, 15), // "BrushController"
 QT_MOC_LITERAL(1, 16, 12), // "brushCreated"
 QT_MOC_LITERAL(2, 29, 0), // ""
-QT_MOC_LITERAL(3, 30, 6), // "Brush*"
+QT_MOC_LITERAL(3, 30, 6), // "Brush&"
 QT_MOC_LITERAL(4, 37, 12), // "sizeXChanged"
 QT_MOC_LITERAL(5, 50, 12), // "sizeYChanged"
 QT_MOC_LITERAL(6, 63, 14), // "opacityChanged"
@@ -53,7 +53,7 @@ QT_MOC_LITERAL(20, 227, 13), // "displayCenter"
 QT_MOC_LITERAL(21, 241, 5) // "force"
 
     },
-    "BrushController\0brushCreated\0\0Brush*\0"
+    "BrushController\0brushCreated\0\0Brush&\0"
     "sizeXChanged\0sizeYChanged\0opacityChanged\0"
     "seuilChanged\0createBrush\0brush_id\0"
     "nBrh::brush_enum\0brush\0selectBrush\0"
@@ -127,17 +127,17 @@ void BrushController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         BrushController *_t = static_cast<BrushController *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->brushCreated((*reinterpret_cast< Brush*(*)>(_a[1]))); break;
+        case 0: _t->brushCreated((*reinterpret_cast< Brush(*)>(_a[1]))); break;
         case 1: _t->sizeXChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 2: _t->sizeYChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 3: _t->opacityChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 4: _t->seuilChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 5: _t->createBrush((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 6: _t->createBrush((*reinterpret_cast< nBrh::brush_enum(*)>(_a[1]))); break;
-        case 7: _t->selectBrush((*reinterpret_cast< Brush*(*)>(_a[1]))); break;
+        case 7: _t->selectBrush((*reinterpret_cast< Brush(*)>(_a[1]))); break;
         case 8: _t->selectBrush((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 9: _t->selectBrush((*reinterpret_cast< nBrh::brush_enum(*)>(_a[1]))); break;
-        case 10: _t->changeSize((*reinterpret_cast< sf::Vector2i(*)>(_a[1]))); break;
+        case 10: _t->changeSize((*reinterpret_cast< const sf::Vector2i(*)>(_a[1]))); break;
         case 11: _t->changeSizeX((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 12: _t->changeSizeY((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 13: _t->changeOpacity((*reinterpret_cast< int(*)>(_a[1]))); break;
@@ -150,31 +150,31 @@ void BrushController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (BrushController::*_t)(Brush * );
+            typedef void (BrushController::*_t)(Brush & ) const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&BrushController::brushCreated)) {
                 *result = 0;
             }
         }
         {
-            typedef void (BrushController::*_t)(int );
+            typedef void (BrushController::*_t)(int ) const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&BrushController::sizeXChanged)) {
                 *result = 1;
             }
         }
         {
-            typedef void (BrushController::*_t)(int );
+            typedef void (BrushController::*_t)(int ) const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&BrushController::sizeYChanged)) {
                 *result = 2;
             }
         }
         {
-            typedef void (BrushController::*_t)(int );
+            typedef void (BrushController::*_t)(int ) const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&BrushController::opacityChanged)) {
                 *result = 3;
             }
         }
         {
-            typedef void (BrushController::*_t)(int );
+            typedef void (BrushController::*_t)(int ) const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&BrushController::seuilChanged)) {
                 *result = 4;
             }
@@ -219,37 +219,37 @@ int BrushController::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void BrushController::brushCreated(Brush * _t1)
+void BrushController::brushCreated(Brush & _t1)const
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+    QMetaObject::activate(const_cast< BrushController *>(this), &staticMetaObject, 0, _a);
 }
 
 // SIGNAL 1
-void BrushController::sizeXChanged(int _t1)
+void BrushController::sizeXChanged(int _t1)const
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 1, _a);
+    QMetaObject::activate(const_cast< BrushController *>(this), &staticMetaObject, 1, _a);
 }
 
 // SIGNAL 2
-void BrushController::sizeYChanged(int _t1)
+void BrushController::sizeYChanged(int _t1)const
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 2, _a);
+    QMetaObject::activate(const_cast< BrushController *>(this), &staticMetaObject, 2, _a);
 }
 
 // SIGNAL 3
-void BrushController::opacityChanged(int _t1)
+void BrushController::opacityChanged(int _t1)const
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 3, _a);
+    QMetaObject::activate(const_cast< BrushController *>(this), &staticMetaObject, 3, _a);
 }
 
 // SIGNAL 4
-void BrushController::seuilChanged(int _t1)
+void BrushController::seuilChanged(int _t1)const
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 4, _a);
+    QMetaObject::activate(const_cast< BrushController *>(this), &staticMetaObject, 4, _a);
 }
 QT_END_MOC_NAMESPACE

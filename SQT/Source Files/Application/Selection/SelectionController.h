@@ -22,45 +22,46 @@ public:
 
 // SIGNALS / SLOTS
 	public slots:
-		void createSelection(sf::IntRect rect, const std::vector<nSet::o_line>& conf_l);
-		void createSelection(sf::IntRect rect, const sf::Image& image, const std::vector<nSet::o_line>& conf_l);
+		void createSelection(const sf::IntRect& rect, const std::vector<nSet::o_line>& conf_l);
+		void createSelection(const sf::IntRect& rect, const sf::Image& image, const std::vector<nSet::o_line>& conf_l);
 		void deleteSelection(bool force=false);
-		void addSelection(sf::IntRect rect,	const std::vector<nSet::o_line>& conf_l);
-		void addSelection(sf::IntRect rect, const sf::Image& image, const std::vector<nSet::o_line>& conf_l);
-		void subSelection(sf::IntRect rect, const std::vector<nSet::o_line>& conf_l);
-		void subSelection(sf::IntRect rect, const sf::Image& image, const std::vector<nSet::o_line>& conf_l);
-		void intersectSelection(sf::IntRect rect, const std::vector<nSet::o_line>& conf_l);
-		void intersectSelection(sf::IntRect rect, const sf::Image& image, const std::vector<nSet::o_line>& conf_l);
+		void addSelection(const sf::IntRect& rect,	const std::vector<nSet::o_line>& conf_l);
+		void addSelection(const sf::IntRect& rect, const sf::Image& image, const std::vector<nSet::o_line>& conf_l);
+		void subSelection(const sf::IntRect& rect, const std::vector<nSet::o_line>& conf_l);
+		void subSelection(const sf::IntRect& rect, const sf::Image& image, const std::vector<nSet::o_line>& conf_l);
+		void intersectSelection(const sf::IntRect& rect, const std::vector<nSet::o_line>& conf_l);
+		void intersectSelection(const sf::IntRect& rect, const sf::Image& image, const std::vector<nSet::o_line>& conf_l);
 		void invertSelection();
 		void uninvertSelection();
 		void deleteLayer();
 	private slots:
-		void createSelection(sf::IntRect rect, const sf::Image* image);
-		void sumSelection(sf::IntRect rect, const sf::Image* image, bool add); // add == false -> sub
-		void intersectSelection(sf::IntRect rect, const sf::Image* image);
+		void createSelection(const sf::IntRect& rect, const sf::Image* image);
+		void sumSelection(const sf::IntRect& rect, const sf::Image* image, bool add); // add == false -> sub
+		void intersectSelection(const sf::IntRect& rect, const sf::Image* image);
 	signals:
-		void selectionUpdated(int mode=0); // Always emitted when selection changes : 1 add, 2 sub, 3 intersect
-		void selectionCreated();
-		void selectionDeleted();
-		void selectionInverted();
-		void selectionUninverted();
-		void selectionMoved(sf::Vector2f);
-		void selectionScaled(sf::Vector2f);
+		void selectionUpdated(int mode=0) const; // Always emitted when selection changes : 1 add, 2 sub, 3 intersect
+		void selectionCreated() const;
+		void selectionDeleted() const;
+		void selectionInverted() const;
+		void selectionUninverted() const;
+		void selectionMoved(sf::Vector2f) const;
+		void selectionScaled(sf::Vector2f) const;
 		
 // METHODS
 public:
 	void displayLines();
 	void move(); // Direct mouse manipulation
-	void translate(sf::Vector2f translation);
-	void setPosition(sf::Vector2f pos);
-	void setRealPosition(sf::Vector2f real_pos);
+	void translate(const sf::Vector2f& translation);
+	void setPosition(const sf::Vector2f& pos);
+	void setRealPosition(const sf::Vector2f& real_pos);
 
-	bool onSelec(int x, int y);
-	inline bool isSelected() { return pos_lines != NULL; }
-	inline bool isInverted() { return inverted; }
-	inline sf::Vector2f getPosition() { return sprite_selec.getPosition(); }
-	sf::Vector2f getRealPosition();
-	inline sf::IntRect getCadre() { return cadre; }
+	template <typename T>
+	bool onSelec(const sf::Vector2<T>& pos) const;
+	inline bool isSelected() const { return pos_lines != NULL; }
+	inline bool isInverted() const { return inverted; }
+	inline const sf::Vector2f& getPosition() const { return sprite_selec.getPosition(); }
+	sf::Vector2f getRealPosition() const;
+	inline const sf::IntRect& getCadre() const { return cadre; }
 
 private:
 	void invert();
@@ -68,7 +69,7 @@ private:
 	void del();
 	bool reline(); // return true if no selection
 	Q_INVOKABLE void updateLines();
-	void keyMove(int x, int y);
+	void keyMove(const sf::Vector2f& pos);
 
 // MEMBERS
 public:
@@ -102,3 +103,21 @@ public:
 		void setInverted(bool inverted);
 };
 
+template <typename T>
+bool SelectionController::onSelec(const sf::Vector2<T>& pos) const {
+	if (isSelected())
+		if (inverted)
+			return pos.x - sprite_selec.getPosition().x >= 0 &&
+			pos.x - sprite_selec.getPosition().x < image_selec->getSize().x &&
+			pos.y - sprite_selec.getPosition().y >= 0 &&
+			pos.y - sprite_selec.getPosition().y < image_selec->getSize().y &&
+			image_selec->getPixel(pos.x - sprite_selec.getPosition().x, pos.y - sprite_selec.getPosition().y).a == 0;
+		else
+			if (pos.x - sprite_selec.getPosition().x >= 0
+				&& pos.x - sprite_selec.getPosition().x < image_selec->getSize().x
+				&& pos.y - sprite_selec.getPosition().y >= 0
+				&& pos.y - sprite_selec.getPosition().y < image_selec->getSize().y)
+				return image_selec->getPixel(pos.x - sprite_selec.getPosition().x, pos.y - sprite_selec.getPosition().y).a == 0;
+
+	return true;
+}

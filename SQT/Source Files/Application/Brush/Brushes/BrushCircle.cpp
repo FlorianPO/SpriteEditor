@@ -64,7 +64,7 @@ void BrushCircle::cercle(float rx, float ry, sf::Image& image) {
 	}
 }
 
-int BrushCircle::alpha_cercle(sf::Vector2f pos, sf::Vector2f center) {
+int BrushCircle::alpha_cercle(const sf::Vector2f& pos, const sf::Vector2f& center) {
 	return 255 -
 		std::sqrt(
 			std::pow((pos.x - center.x) / (center.x + 1), 2)
@@ -73,7 +73,7 @@ int BrushCircle::alpha_cercle(sf::Vector2f pos, sf::Vector2f center) {
 		) * 255;
 }
 
-void BrushCircle::create(sf::Vector2i circle_size) {
+void BrushCircle::create(const sf::Vector2i& circle_size) {
 	sf::Image image;
 	image.create(ARG_VECTOR(circle_size), sf::Color::Transparent);
 	cercle(circle_size.x / 2, circle_size.y / 2, image);

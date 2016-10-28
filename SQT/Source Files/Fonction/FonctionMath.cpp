@@ -35,18 +35,17 @@ double Fonction::hypothenus(double cote1, double cote2) {
 	return std::sqrt(hyp);
 }
 
-void Fonction::moveLocaly(sf::Sprite& sprite, sf::Vector2f translation) {
-	translation = Fonction::rotationLocal(translation, sprite.getRotation());
-	sprite.move(translation);
+void Fonction::moveLocaly(sf::Sprite& sprite, const sf::Vector2f& translation) {
+	sprite.move(Fonction::rotationLocal(translation, sprite.getRotation()));
 }
 
-void Fonction::setGlobalPosition(sf::Sprite& sprite, sf::Vector2f position) {
+void Fonction::setGlobalPosition(sf::Sprite& sprite, const sf::Vector2f& position) {
 	sf::Vector2f pos_sprite = topLeftCorner(sprite.getGlobalBounds());
 
 	sprite.move(position - pos_sprite);
 }
 
-void Fonction::setOriginLocally(sf::Sprite& sprite, sf::Vector2f origin) {
+void Fonction::setOriginLocally(sf::Sprite& sprite, const sf::Vector2f& origin) {
 	sf::Vector2f delta = origin - sprite.getOrigin();
 	delta.x *= sprite.getScale().x;
 	delta.y *= sprite.getScale().y;
@@ -55,7 +54,7 @@ void Fonction::setOriginLocally(sf::Sprite& sprite, sf::Vector2f origin) {
 	moveLocaly(sprite, delta);
 }
 
-void Fonction::setOriginGlobally(sf::Sprite& sprite, sf::Vector2f origin) {
+void Fonction::setOriginGlobally(sf::Sprite& sprite, const sf::Vector2f& origin) {
 	sf::Vector2f pos_center = centerCorner(sprite.getGlobalBounds());
 
 	pos_center = rotationLocal(pos_center - origin, -sprite.getRotation());

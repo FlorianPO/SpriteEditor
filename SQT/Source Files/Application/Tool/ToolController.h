@@ -22,14 +22,14 @@ public:
 
 // METHODS
 public:
-	Tool* getCurrentTool() { return current_tool; }
+	inline Tool* getCurrentTool() const { return current_tool; }
 
 // SIGNALS SLOTS
 	public slots:
 		void selectTool(int tool_id);
 		void selectTool(nTol::tool_enum tool);
 	signals:
-		void toolSelected(Tool*);
+		void toolSelected(Tool&) const;
 
 // MEMBERS
 private:

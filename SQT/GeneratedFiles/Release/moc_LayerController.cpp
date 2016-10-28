@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_LayerController_t {
-    QByteArrayData data[25];
-    char stringdata0[281];
+    QByteArrayData data[14];
+    char stringdata0[141];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,40 +30,25 @@ struct qt_meta_stringdata_LayerController_t {
 static const qt_meta_stringdata_LayerController_t qt_meta_stringdata_LayerController = {
     {
 QT_MOC_LITERAL(0, 0, 15), // "LayerController"
-QT_MOC_LITERAL(1, 16, 12), // "layerCreated"
-QT_MOC_LITERAL(2, 29, 0), // ""
-QT_MOC_LITERAL(3, 30, 6), // "Layer*"
-QT_MOC_LITERAL(4, 37, 12), // "layerDeleted"
-QT_MOC_LITERAL(5, 50, 13), // "layerSelected"
-QT_MOC_LITERAL(6, 64, 15), // "layerUnselected"
-QT_MOC_LITERAL(7, 80, 12), // "layerOrdered"
-QT_MOC_LITERAL(8, 93, 3), // "src"
-QT_MOC_LITERAL(9, 97, 3), // "dst"
-QT_MOC_LITERAL(10, 101, 18), // "firstLayerSelected"
-QT_MOC_LITERAL(11, 120, 20), // "firstLayerUnselected"
-QT_MOC_LITERAL(12, 141, 12), // "onlyOneLayer"
-QT_MOC_LITERAL(13, 154, 16), // "moreThanOneLayer"
-QT_MOC_LITERAL(14, 171, 11), // "createLayer"
-QT_MOC_LITERAL(15, 183, 10), // "sf::Image*"
-QT_MOC_LITERAL(16, 194, 5), // "image"
-QT_MOC_LITERAL(17, 200, 11), // "deleteLayer"
-QT_MOC_LITERAL(18, 212, 5), // "layer"
-QT_MOC_LITERAL(19, 218, 9), // "dropLayer"
-QT_MOC_LITERAL(20, 228, 9), // "fuseLayer"
-QT_MOC_LITERAL(21, 238, 9), // "layer_src"
-QT_MOC_LITERAL(22, 248, 9), // "layer_dst"
-QT_MOC_LITERAL(23, 258, 11), // "selectLayer"
-QT_MOC_LITERAL(24, 270, 10) // "orderLayer"
+QT_MOC_LITERAL(1, 16, 13), // "layerSelected"
+QT_MOC_LITERAL(2, 30, 0), // ""
+QT_MOC_LITERAL(3, 31, 6), // "Layer&"
+QT_MOC_LITERAL(4, 38, 15), // "layerUnselected"
+QT_MOC_LITERAL(5, 54, 11), // "createLayer"
+QT_MOC_LITERAL(6, 66, 10), // "sf::Image&"
+QT_MOC_LITERAL(7, 77, 5), // "image"
+QT_MOC_LITERAL(8, 83, 9), // "dropLayer"
+QT_MOC_LITERAL(9, 93, 5), // "layer"
+QT_MOC_LITERAL(10, 99, 9), // "fuseLayer"
+QT_MOC_LITERAL(11, 109, 9), // "layer_src"
+QT_MOC_LITERAL(12, 119, 9), // "layer_dst"
+QT_MOC_LITERAL(13, 129, 11) // "selectLayer"
 
     },
-    "LayerController\0layerCreated\0\0Layer*\0"
-    "layerDeleted\0layerSelected\0layerUnselected\0"
-    "layerOrdered\0src\0dst\0firstLayerSelected\0"
-    "firstLayerUnselected\0onlyOneLayer\0"
-    "moreThanOneLayer\0createLayer\0sf::Image*\0"
-    "image\0deleteLayer\0layer\0dropLayer\0"
-    "fuseLayer\0layer_src\0layer_dst\0selectLayer\0"
-    "orderLayer"
+    "LayerController\0layerSelected\0\0Layer&\0"
+    "layerUnselected\0createLayer\0sf::Image&\0"
+    "image\0dropLayer\0layer\0fuseLayer\0"
+    "layer_src\0layer_dst\0selectLayer"
 };
 #undef QT_MOC_LITERAL
 
@@ -73,60 +58,40 @@ static const uint qt_meta_data_LayerController[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      20,   14, // methods
+      10,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       9,       // signalCount
+       2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  114,    2, 0x06 /* Public */,
-       4,    1,  117,    2, 0x06 /* Public */,
-       5,    1,  120,    2, 0x06 /* Public */,
-       6,    1,  123,    2, 0x06 /* Public */,
-       7,    2,  126,    2, 0x06 /* Public */,
-      10,    1,  131,    2, 0x06 /* Public */,
-      11,    1,  134,    2, 0x06 /* Public */,
-      12,    0,  137,    2, 0x06 /* Public */,
-      13,    0,  138,    2, 0x06 /* Public */,
+       1,    1,   64,    2, 0x06 /* Public */,
+       4,    1,   67,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      14,    1,  139,    2, 0x0a /* Public */,
-      14,    0,  142,    2, 0x2a /* Public | MethodCloned */,
-      17,    1,  143,    2, 0x0a /* Public */,
-      17,    0,  146,    2, 0x2a /* Public | MethodCloned */,
-      19,    1,  147,    2, 0x0a /* Public */,
-      19,    0,  150,    2, 0x2a /* Public | MethodCloned */,
-      20,    2,  151,    2, 0x0a /* Public */,
-      20,    0,  156,    2, 0x0a /* Public */,
-      23,    1,  157,    2, 0x0a /* Public */,
-      23,    0,  160,    2, 0x2a /* Public | MethodCloned */,
-      24,    2,  161,    2, 0x0a /* Public */,
+       5,    1,   70,    2, 0x0a /* Public */,
+       5,    0,   73,    2, 0x0a /* Public */,
+       8,    1,   74,    2, 0x0a /* Public */,
+       8,    0,   77,    2, 0x0a /* Public */,
+      10,    2,   78,    2, 0x0a /* Public */,
+      10,    0,   83,    2, 0x0a /* Public */,
+      13,    1,   84,    2, 0x0a /* Public */,
+      13,    0,   87,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    2,
     QMetaType::Void, 0x80000000 | 3,    2,
-    QMetaType::Void, 0x80000000 | 3,    2,
-    QMetaType::Void, 0x80000000 | 3,    2,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int,    8,    9,
-    QMetaType::Void, 0x80000000 | 3,    2,
-    QMetaType::Void, 0x80000000 | 3,    2,
-    QMetaType::Void,
-    QMetaType::Void,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 15,   16,
+    QMetaType::Void, 0x80000000 | 6,    7,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 3,   18,
+    QMetaType::Void, 0x80000000 | 3,    9,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 3,   18,
+    QMetaType::Void, 0x80000000 | 3, 0x80000000 | 3,   11,   12,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 3, 0x80000000 | 3,   21,   22,
+    QMetaType::Void, 0x80000000 | 3,    9,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 3,   18,
-    QMetaType::Void,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int,    8,    9,
 
        0        // eod
 };
@@ -137,83 +102,31 @@ void LayerController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         LayerController *_t = static_cast<LayerController *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->layerCreated((*reinterpret_cast< Layer*(*)>(_a[1]))); break;
-        case 1: _t->layerDeleted((*reinterpret_cast< Layer*(*)>(_a[1]))); break;
-        case 2: _t->layerSelected((*reinterpret_cast< Layer*(*)>(_a[1]))); break;
-        case 3: _t->layerUnselected((*reinterpret_cast< Layer*(*)>(_a[1]))); break;
-        case 4: _t->layerOrdered((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 5: _t->firstLayerSelected((*reinterpret_cast< Layer*(*)>(_a[1]))); break;
-        case 6: _t->firstLayerUnselected((*reinterpret_cast< Layer*(*)>(_a[1]))); break;
-        case 7: _t->onlyOneLayer(); break;
-        case 8: _t->moreThanOneLayer(); break;
-        case 9: _t->createLayer((*reinterpret_cast< sf::Image*(*)>(_a[1]))); break;
-        case 10: _t->createLayer(); break;
-        case 11: _t->deleteLayer((*reinterpret_cast< Layer*(*)>(_a[1]))); break;
-        case 12: _t->deleteLayer(); break;
-        case 13: _t->dropLayer((*reinterpret_cast< Layer*(*)>(_a[1]))); break;
-        case 14: _t->dropLayer(); break;
-        case 15: _t->fuseLayer((*reinterpret_cast< Layer*(*)>(_a[1])),(*reinterpret_cast< Layer*(*)>(_a[2]))); break;
-        case 16: _t->fuseLayer(); break;
-        case 17: _t->selectLayer((*reinterpret_cast< Layer*(*)>(_a[1]))); break;
-        case 18: _t->selectLayer(); break;
-        case 19: _t->orderLayer((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 0: _t->layerSelected((*reinterpret_cast< Layer(*)>(_a[1]))); break;
+        case 1: _t->layerUnselected((*reinterpret_cast< Layer(*)>(_a[1]))); break;
+        case 2: _t->createLayer((*reinterpret_cast< sf::Image(*)>(_a[1]))); break;
+        case 3: _t->createLayer(); break;
+        case 4: _t->dropLayer((*reinterpret_cast< Layer(*)>(_a[1]))); break;
+        case 5: _t->dropLayer(); break;
+        case 6: _t->fuseLayer((*reinterpret_cast< Layer(*)>(_a[1])),(*reinterpret_cast< Layer(*)>(_a[2]))); break;
+        case 7: _t->fuseLayer(); break;
+        case 8: _t->selectLayer((*reinterpret_cast< Layer(*)>(_a[1]))); break;
+        case 9: _t->selectLayer(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (LayerController::*_t)(Layer * );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&LayerController::layerCreated)) {
+            typedef void (LayerController::*_t)(Layer & ) const;
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&LayerController::layerSelected)) {
                 *result = 0;
             }
         }
         {
-            typedef void (LayerController::*_t)(Layer * );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&LayerController::layerDeleted)) {
-                *result = 1;
-            }
-        }
-        {
-            typedef void (LayerController::*_t)(Layer * );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&LayerController::layerSelected)) {
-                *result = 2;
-            }
-        }
-        {
-            typedef void (LayerController::*_t)(Layer * );
+            typedef void (LayerController::*_t)(Layer & ) const;
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&LayerController::layerUnselected)) {
-                *result = 3;
-            }
-        }
-        {
-            typedef void (LayerController::*_t)(int , int );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&LayerController::layerOrdered)) {
-                *result = 4;
-            }
-        }
-        {
-            typedef void (LayerController::*_t)(Layer * );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&LayerController::firstLayerSelected)) {
-                *result = 5;
-            }
-        }
-        {
-            typedef void (LayerController::*_t)(Layer * );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&LayerController::firstLayerUnselected)) {
-                *result = 6;
-            }
-        }
-        {
-            typedef void (LayerController::*_t)();
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&LayerController::onlyOneLayer)) {
-                *result = 7;
-            }
-        }
-        {
-            typedef void (LayerController::*_t)();
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&LayerController::moreThanOneLayer)) {
-                *result = 8;
+                *result = 1;
             }
         }
     }
@@ -244,75 +157,28 @@ int LayerController::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 20)
+        if (_id < 10)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 20;
+        _id -= 10;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 20)
+        if (_id < 10)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 20;
+        _id -= 10;
     }
     return _id;
 }
 
 // SIGNAL 0
-void LayerController::layerCreated(Layer * _t1)
+void LayerController::layerSelected(Layer & _t1)const
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+    QMetaObject::activate(const_cast< LayerController *>(this), &staticMetaObject, 0, _a);
 }
 
 // SIGNAL 1
-void LayerController::layerDeleted(Layer * _t1)
+void LayerController::layerUnselected(Layer & _t1)const
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 1, _a);
-}
-
-// SIGNAL 2
-void LayerController::layerSelected(Layer * _t1)
-{
-    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 2, _a);
-}
-
-// SIGNAL 3
-void LayerController::layerUnselected(Layer * _t1)
-{
-    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 3, _a);
-}
-
-// SIGNAL 4
-void LayerController::layerOrdered(int _t1, int _t2)
-{
-    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
-    QMetaObject::activate(this, &staticMetaObject, 4, _a);
-}
-
-// SIGNAL 5
-void LayerController::firstLayerSelected(Layer * _t1)
-{
-    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 5, _a);
-}
-
-// SIGNAL 6
-void LayerController::firstLayerUnselected(Layer * _t1)
-{
-    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 6, _a);
-}
-
-// SIGNAL 7
-void LayerController::onlyOneLayer()
-{
-    QMetaObject::activate(this, &staticMetaObject, 7, Q_NULLPTR);
-}
-
-// SIGNAL 8
-void LayerController::moreThanOneLayer()
-{
-    QMetaObject::activate(this, &staticMetaObject, 8, Q_NULLPTR);
+    QMetaObject::activate(const_cast< LayerController *>(this), &staticMetaObject, 1, _a);
 }
 QT_END_MOC_NAMESPACE

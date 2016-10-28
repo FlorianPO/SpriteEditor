@@ -1,8 +1,7 @@
 #pragma once
 
 #include "stdenum.h"
-
-class Layer; // Forward declaration
+class Layer;
 
 #define INIT_BACKGROUND Background::createInstance();
 #define BACKGROUND Background::getInstance()
@@ -22,8 +21,8 @@ public:
 
 // SIGNALS SLOTS
 	private slots:
-		void bindLayer(Layer* layer);
-		void unbindLayer(Layer* layer);
+		void bindLayer(Layer& layer);
+		void unbindLayer(Layer& layer);
 		void layerTransformed();
 		void cameraZoomed(float zoom_factor);
 

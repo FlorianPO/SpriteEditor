@@ -49,12 +49,12 @@ void BrushController::createBrush(nBrh::brush_enum brush) {
 	brush_created->checkSize(default_size);
 
 	default_brushes.push_back(brush_created);
-	emit brushCreated(brush_created);
+	emit brushCreated(*brush_created);
 }
 
-void BrushController::setExPosition(sf::Vector2f position) {
+void BrushController::setExPosition(const sf::Vector2f& position) {
 	_setExPosition(position);
-	UNDO->push(new BrushUndo(position));
+	UNDO->push(*new BrushUndo(position));
 }
 
 void BrushController::createBrush(int brush_id) {
@@ -64,21 +64,21 @@ void BrushController::createBrush(int brush_id) {
 ////////////
 // SELECT //
 ////////////
-void BrushController::selectBrush(Brush* brush) {
-	if (current_brush != brush) {
+void BrushController::selectBrush(Brush& brush) {
+	if (current_brush != &brush) {
 		if (current_brush != NULL)
 			current_brush->unselect();
-		brush->select();
-		brush->checkSize(default_size);
+		brush.select();
+		brush.checkSize(default_size);
 		
-		current_brush = brush;	
+		current_brush = &brush;	
 		displayCenter(true);
 	}
 }
 void BrushController::selectBrush(nBrh::brush_enum brush) {
 	FOR_I (default_brushes.size())
 		if (default_brushes[i]->getEnum() == brush)
-			selectBrush(default_brushes[i]);
+			selectBrush(*default_brushes[i]);
 }
 void BrushController::selectBrush(int brush_id) {
 	selectBrush(static_cast<nBrh::brush_enum>(brush_id));
@@ -87,7 +87,7 @@ void BrushController::selectBrush(int brush_id) {
 //////////
 // SIZE //
 //////////
-void BrushController::changeSize(sf::Vector2i value) {
+void BrushController::changeSize(const sf::Vector2i& value) {
 	changeSizeX(value.x);
 	changeSizeY(value.y);
 }
@@ -117,6 +117,7 @@ void BrushController::changeOpacity(int value) {
 	if (opacity != value) {
 		opacity = value;
 		RES->getShader(nRer::usual).setParameter("opacity", value);
+		RES->getShader(nRer::pot).setParameter("opacity", value);
 		emit opacityChanged(value);
 	}
 }

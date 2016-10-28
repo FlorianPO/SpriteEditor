@@ -27,12 +27,12 @@ void SelectionController::move() {
 	}
 	else if (INPUT->released(Qt::RightButton))
 		if (getPosition() != pos_selec)
-			UNDO->push(new SelecMoved(this, getPosition()));
+			UNDO->push(*new SelecMoved(this, getPosition()));
 }
 
-void SelectionController::keyMove(int x, int y) {
+void SelectionController::keyMove(const sf::Vector2f& pos) {
 	if (isSelected()) {
-		translate(sf::Vector2f(x, y));
-		SHORTCUT_CONTROLLER->createCoreShortcutOnce(nInt::keyCombinaison(Qt::Key_Shift, nInt::RELEASED), [this](){UNDO->push(new SelecMoved(this, getPosition()));});
+		translate(pos);
+		SHORTCUT_CONTROLLER->createCoreShortcutOnce(nInt::keyCombinaison(Qt::Key_Shift, nInt::RELEASED), [this](){UNDO->push(*new SelecMoved(this, getPosition()));});
 	}
 }

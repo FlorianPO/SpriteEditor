@@ -1,7 +1,7 @@
 #pragma once
 
 #include "stdenum.h"
-class SignalColor; // Forward declaration
+class SignalColor;
 
 #define INIT_COLOR_CONTROLLER ColorController::createInstance();
 #define COLOR_CONTROLLER ColorController::getInstance()
@@ -21,13 +21,13 @@ public:
 
 // METHODS
 public:
-	inline SignalColor* getSColor1() { return color1; }
-	inline SignalColor* getSColor2() { return color2; }
-	sf::Color getColor1();
-	sf::Color getColor2();
+	inline const SignalColor& getSColor1() const { return *color1; }
+	inline const SignalColor& getSColor2() const { return *color2; }
+	sf::Color getColor1() const;
+	sf::Color getColor2() const;
 
-	void setColor1(sf::Color c1);
-	void setColor2(sf::Color c2);
+	void setColor1(const sf::Color& c1);
+	void setColor2(const sf::Color& c2);
 
 // MEMBERS
 private:

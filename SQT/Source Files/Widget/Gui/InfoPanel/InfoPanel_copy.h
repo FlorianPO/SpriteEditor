@@ -12,11 +12,11 @@ class InfoPanel_copy : public QWidget
 	Q_OBJECT
 // CONSTRUCTOR
 public:
-	InfoPanel_copy(QWidget *parent, const QPoint& position=QPoint());
+	InfoPanel_copy(QWidget *parent);
 	~InfoPanel_copy() {}
 
 	private slots:
-		void bind(Copy* copy);
+		void bind(Copy& copy);
 		void unbind();
 
 // MEMBERS

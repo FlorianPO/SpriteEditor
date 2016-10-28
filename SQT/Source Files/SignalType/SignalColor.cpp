@@ -30,7 +30,7 @@ void SignalColor::setColor(int r, int g, int b, int a) {
 	emit AChanged(this->a);
 }
 
-void SignalColor::setColor(sf::Color color) {
+void SignalColor::setColor(const sf::Color& color) {
 	setColor(color.r, color.g, color.b, color.a);
 }
 

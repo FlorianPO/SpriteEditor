@@ -22,17 +22,17 @@ public:
 
 // METHODS
 public:
-	inline Brush* getCurrentBrush() { return current_brush; }
-	inline sf::Vector2i getDefaultSize() { return default_size; }
-	inline int getSeuil() { return seuil; }
-	inline int getOpacity() { return opacity; }
-	void setExPosition(sf::Vector2f position);
-	sf::Vector2f getExPosition() { return ex_position; }
-	void setDisplayPosition(sf::Vector2f position) { display_position = position; }
-	sf::Vector2f getDisplayPosition() { return display_position; }
+	inline Brush* getCurrentBrush() const { return current_brush; }
+	inline const sf::Vector2i& getDefaultSize() const { return default_size; }
+	inline int getSeuil() const { return seuil; }
+	inline int getOpacity() const { return opacity; }
+	void setExPosition(const sf::Vector2f& position);
+	const sf::Vector2f& getExPosition() const { return ex_position; }
+	void setDisplayPosition(const sf::Vector2f& position) { display_position = position; }
+	const sf::Vector2f& getDisplayPosition() const { return display_position; }
 private:
 	friend class BrushUndo;
-	void _setExPosition(sf::Vector2f position) { ex_position = position; }
+	void _setExPosition(const sf::Vector2f& position) { ex_position = position; }
 
 // SIGNALS SLOTS
 	// CREATE
@@ -40,27 +40,27 @@ private:
 		void createBrush(int brush_id);				// create default brush
 		void createBrush(nBrh::brush_enum brush);	// create default brush
 	signals:
-		void brushCreated(Brush*);
+		void brushCreated(Brush&) const;
 	// SELECT
 	public slots:
-		void selectBrush(Brush* brush);
+		void selectBrush(Brush& brush);
 		void selectBrush(int brush_id);				// select default brush
 		void selectBrush(nBrh::brush_enum brush);	// select default brush
 	// SIZE
 	public slots:
-		void changeSize(sf::Vector2i value);
+		void changeSize(const sf::Vector2i& value);
 		void changeSizeX(int value);
 		void changeSizeY(int value);
 	signals:
-		void sizeXChanged(int);
-		void sizeYChanged(int);
+		void sizeXChanged(int) const;
+		void sizeYChanged(int) const;
 	// OPACITY SEUIL
 	public slots:
 		void changeOpacity(int value);
 		void changeSeuil(int value);
 	signals:
-		void opacityChanged(int);
-		void seuilChanged(int);
+		void opacityChanged(int) const;
+		void seuilChanged(int) const;
 	// OTHER
 	public slots:
 		void displayCenter(bool force=false);

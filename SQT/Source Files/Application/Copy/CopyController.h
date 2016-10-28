@@ -1,7 +1,7 @@
 #pragma once
 
 #include "stdenum.h"
-class Copy; //Forward declaration
+#include "Copy.h" //class Copy; // Qt
 
 #define INIT_COPY_CONTROLLER CopyController::createInstance();
 #define COPY_CONTROLLER CopyController::getInstance()
@@ -24,22 +24,22 @@ public:
 
 // METHODS
 public:
-	inline Copy* getCurrentCopy() { return current_copy; }
-	inline const std::vector<Copy*>& getCopyList() { return copy_list; }
+	inline Copy* getCurrentCopy() const { return current_copy; }
+	inline const std::vector<Copy*>& getCopyList() const { return copy_list; }
 
 // SIGNALS SLOTS
 	public slots:
 		void copy();
 		void cut();
 		void paste();
-		void createCopy(const sf::Image& image, sf::Vector2f position);
-		void deleteCopy(Copy* copy=COPY);
-		void applyCopy(Copy* copy=COPY);
-		void dropCopy(Copy* copy=COPY);
+		Copy& createCopy(const sf::Image& image, const sf::Vector2f& position);
+		void deleteCopy(Copy& copy); inline void deleteCopy() { deleteCopy(*current_copy); }
+		void applyCopy(Copy& copy);	inline void applyCopy() { applyCopy(*current_copy); }
+		void dropCopy(Copy& copy); inline void dropCopy() { dropCopy(*current_copy); }
 	signals:
-		void copyCreated(Copy*);
-		void copyDeleted(Copy*);
-		void copyDropped(Copy*);
+		void copyCreated(Copy&) const;
+		void copyDropped(Copy&) const;
+		void copyDeleted(Copy&) const;
 
 // MEMBERS
 private:
@@ -58,7 +58,6 @@ public:
 	friend class CopyDropped;
 	
 	private: // Core context
-		void _createCopy(Copy* copy);
-		void _dropCopy(Copy* copy);
+		void _createCopy(Copy& copy);
+		void _dropCopy(Copy& copy);
 };
-

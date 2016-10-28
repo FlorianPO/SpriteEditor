@@ -13,8 +13,8 @@ public:
 // METHODS
 protected:
 	virtual void cercle(float rx, float ry, sf::Image& image);
-	int alpha_cercle(sf::Vector2f pos, sf::Vector2f center);
+	int alpha_cercle(const sf::Vector2f& pos, const sf::Vector2f& center);
 
-	void create(sf::Vector2i circle_size) override;
+	void create(const sf::Vector2i& circle_size) override;
 };
 

@@ -22,10 +22,10 @@ public:
 // METHODS
 public:
 	void beforeDisplay(QObject* receiver, const char* function_name, const char* overrides=NULL);
-	void beforeDisplay(std::function<void(void)> lambda);
+	void beforeDisplay(const std::function<void(void)>& lambda);
 
 	void atStart(QObject* receiver, const char* function_name, const char* overrides=NULL);
-	void atStart(std::function<void(void)> lambda);
+	void atStart(const std::function<void(void)>& lambda);
 
 	void updateBeforeDisplay();
 	void updateAtStart();

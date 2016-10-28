@@ -11,8 +11,8 @@ public:
 
 // METHODS
 public:
-	inline nTol::tool_enum getEnum() { return numero_outil; }
-	inline int getId() { return static_cast<int>(numero_outil); }
+	inline nTol::tool_enum getEnum() const { return numero_outil; }
+	inline int getId() const { return static_cast<int>(numero_outil); }
 
 	virtual void display() {}
 	virtual void use() {}

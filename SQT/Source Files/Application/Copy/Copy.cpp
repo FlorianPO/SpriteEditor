@@ -4,7 +4,7 @@
 #include "Source Files/Fonction/Fonction.h"
 #include "Source Files/Application/Queue/QueueController.h"
 
-Copy::Copy(const sf::Image& image, sf::Vector2f position) {
+Copy::Copy(const sf::Image& image, const sf::Vector2f& position) {
 	texture_copy.loadFromImage(image);
 	sprite_copy.setTexture(texture_copy);
 
@@ -14,7 +14,7 @@ Copy::Copy(const sf::Image& image, sf::Vector2f position) {
 	QUEUE->beforeDisplay(this, "updateLines");
 }
 
-void Copy::emitStatus() {
+void Copy::emitStatus() const {
 	emit copyMoved(POS_RECT(sprite_copy.getGlobalBounds())); 
 	emit copyScaled(SIZE_RECT(sprite_copy.getGlobalBounds()));
 	emit copyRotated(sprite_copy.getRotation());
@@ -38,21 +38,21 @@ void Copy::updateLines() {
 	lines[4].position = lines[0].position;
 }
 
-void Copy::setPosition(sf::Vector2f pos) {
+void Copy::setPosition(const sf::Vector2f& pos) {
 	sprite_copy.setPosition(pos);
 	emit copyMoved(POS_RECT(sprite_copy.getGlobalBounds()));
 
 	QUEUE->beforeDisplay(this, "updateLines");
 }
 
-void Copy::setGlobalPosition(sf::Vector2f pos) {
+void Copy::setGlobalPosition(const sf::Vector2f& pos) {
 	Fonction::setGlobalPosition(sprite_copy, pos);
 	emit copyMoved(POS_RECT(sprite_copy.getGlobalBounds()));
 
 	QUEUE->beforeDisplay(this, "updateLines");
 }
 
-void Copy::setScale(sf::Vector2f scale) {
+void Copy::setScale(const sf::Vector2f& scale) {
 	sprite_copy.setScale(scale);
 	emit copyMoved(POS_RECT(sprite_copy.getGlobalBounds()));
 	emit copyScaled(SIZE_RECT(sprite_copy.getGlobalBounds()));
@@ -69,13 +69,13 @@ void Copy::setRotation(float rotation) {
 	QUEUE->beforeDisplay(this, "updateLines");
 }
 
-void Copy::setOrigin(sf::Vector2f origin) {
+void Copy::setOrigin(const sf::Vector2f& origin) {
 	Fonction::setOriginLocally(sprite_copy, origin);
 	
 	QUEUE->beforeDisplay(this, "updateLines");
 }
 
-void Copy::translate(sf::Vector2f translation) {
+void Copy::translate(const sf::Vector2f& translation) {
 	setPosition(getPosition() + translation);
 	emit copyMoved(POS_RECT(sprite_copy.getGlobalBounds()));
 	

@@ -20,7 +20,7 @@ void QueueController::beforeDisplay(QObject* receiver, const char* function_name
 		bd_slots.push_back(recv_s);
 }
 
-void QueueController::beforeDisplay(std::function<void()> lambda) {
+void QueueController::beforeDisplay(const std::function<void()>& lambda) {
 	bd_lambdas.push_back(lambda);
 }
 
@@ -52,7 +52,7 @@ void QueueController::atStart(QObject* receiver, const char* function_name, cons
 		as_slots.push_back(recv_s);
 }
 
-void QueueController::atStart(std::function<void()> lambda) {
+void QueueController::atStart(const std::function<void()>& lambda) {
 	as_lambdas.push_back(lambda);
 }
 

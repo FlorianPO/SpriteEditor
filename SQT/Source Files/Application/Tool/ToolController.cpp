@@ -58,10 +58,10 @@ void ToolController::selectTool(nTol::tool_enum tool) {
 		case ROTATION:		current_tool = new Rotation();		break;
 		case FLIP:			current_tool = new Flip();			break;
 		//case ALIGN:		current_tool = new CAlign();		break;
-		default:													break;
+		default:												break;
 	}
 
-	emit toolSelected(current_tool);
+	emit toolSelected(*current_tool);
 }
 
 void ToolController::selectTool(int tool_id) {
